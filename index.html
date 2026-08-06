@@ -1,287 +1,140 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-font-family:Arial,Helvetica,sans-serif;
-line-height:1.6;
-color:#17324d;
-background:#f5fbfd
-}
-header{
-background:linear-gradient(135deg,#087f8c,#0aa6a6);
-color:white;
-padding:22px 7%;
-position:sticky;
-top:0;
-z-index:10
-}
-.nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px
-}
-.logo{
-font-size:20px;
-font-weight:bold
-}
-nav a{
-color:white;
-text-decoration:none;
-margin-left:18px;
-font-size:14px
-}
-.hero{
-padding:90px 7%;
-background:linear-gradient(135deg,#e8faff,#ffffff);
-display:flex;
-align-items:center;
-min-height:500px
-}
-.hero-content{max-width:800px}
-.badge{
-display:inline-block;
-background:#d8f5f3;
-color:#087f8c;
-padding:7px 14px;
-border-radius:30px;
-font-weight:bold;
-font-size:13px;
-margin-bottom:18px
-}
-h1{
-font-size:46px;
-line-height:1.15;
-margin-bottom:20px;
-color:#064c63
-}
-.hero p{
-font-size:18px;
-color:#496474;
-max-width:700px;
-margin-bottom:28px
-}
-.btn{
-display:inline-block;
-background:#087f8c;
-color:white;
-padding:12px 22px;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
-margin-right:8px
-}
-.btn.secondary{
-background:white;
-color:#087f8c;
-border:2px solid #087f8c
-}
-section{padding:70px 7%}
-.section-title{
-text-align:center;
-font-size:32px;
-color:#064c63;
-margin-bottom:40px
-}
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:20px
-}
-.card{
-background:white;
-padding:25px;
-border-radius:14px;
-box-shadow:0 5px 20px rgba(0,0,0,.06);
-border:1px solid #e4f0f3
-}
-.card h3{
-color:#087f8c;
-margin-bottom:10px
-}
-.about{
-background:white
-}
-.about-box{
-max-width:900px;
-margin:auto;
-text-align:center;
-font-size:17px;
-color:#526875
-}
-.info{
-background:#eaf8fa
-}
-.contact{
-background:#064c63;
-color:white
-}
-.contact .section-title{color:white}
-.contact-box{
-max-width:850px;
-margin:auto;
-text-align:center
-}
-footer{
-background:#043746;
-color:#cfe6eb;
-text-align:center;
-padding:25px
-}
-@media(max-width:700px){
-nav{display:none}
-h1{font-size:34px}
-.hero{padding:65px 7%}
-section{padding:55px 7%}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        header { background: #00897b; color: #fff; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.2rem; font-weight: bold; }
+        nav a { color: #fff; text-decoration: none; margin-left: 15px; font-size: 0.95rem; }
+        nav a:hover { text-decoration: underline; }
+        .hero { background: linear-gradient(rgba(0, 137, 123, 0.85), rgba(0, 77, 64, 0.85)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80') center/cover; color: #fff; padding: 80px 5% 60px; text-align: center; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.1rem; max-width: 700px; margin: auto; }
+        .btn-group { margin-top: 25px; }
+        .btn { display: inline-block; padding: 10px 22px; background: #fff; color: #00897b; border-radius: 5px; text-decoration: none; font-weight: bold; margin: 5px; }
+        .btn-alt { background: transparent; color: #fff; border: 2px solid #fff; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        h2 { text-align: center; color: #00796b; margin-bottom: 30px; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 3px; background: #00897b; margin: 10px auto 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #00897b; }
+        .card h3 { color: #00796b; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; }
+        th, td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; font-size: 0.95rem; }
+        th { background-color: #e0f2f1; color: #004d40; }
+        footer { background: #004d40; color: #fff; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.9rem; }
+    </style>
 </head>
-
 <body>
 
-<header>
-<div class="nav">
-<div class="logo">🏥 PUSKESMAS TANJUNG PINANG</div>
-<nav>
-<a href="#beranda">Beranda</a>
-<a href="#profil">Profil</a>
-<a href="#layanan">Pelayanan</a>
-<a href="#program">Program</a>
-<a href="#kontak">Kontak</a>
-</nav>
-</div>
-</header>
+    <header>
+        <div class="nav-container">
+            <div class="logo">🏥 PUSKESMAS TANJUNG PINANG</div>
+            <nav>
+                <a href="#beranda">Beranda</a>
+                <a href="#profil">Profil</a>
+                <a href="#pelayanan">Pelayanan</a>
+                <a href="#jadwal">Jadwal</a>
+                <a href="#pengaduan">Pengaduan</a>
+            </nav>
+        </div>
+    </header>
 
-<main>
+    <section id="beranda" class="hero">
+        <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 10px;">UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
+        <h1>Melayani dengan Ramah, Profesional, dan Berorientasi pada Masyarakat</h1>
+        <p>Pusat informasi dan pelayanan kesehatan masyarakat terpadu menuju kehidupan yang lebih sehat, mandiri, dan berkualitas.</p>
+        <div class="btn-group">
+            <a href="#pelayanan" class="btn">Lihat Pelayanan</a>
+            <a href="#jadwal" class="btn btn-alt">Jadwal Operasional</a>
+        </div>
+    </section>
 
-<section class="hero" id="beranda">
-<div class="hero-content">
-<span class="badge">UPTD PUSKESMAS TANJUNG PINANG KOTA JAMBI</span>
+    <div class="container" id="profil">
+        <h2>Tentang Puskesmas</h2>
+        <div class="card">
+            <p>UPTD Puskesmas Tanjung Pinang Kota Jambi merupakan fasilitas pelayanan kesehatan tingkat pertama yang berkomitmen memberikan pelayanan kesehatan yang mudah diakses, bermutu, ramah, dan profesional melalui upaya pencegahan, edukasi, serta pemberdayaan masyarakat.</p>
+        </div>
+    </div>
 
-<h1>Melayani dengan Ramah, Profesional dan Berorientasi pada Masyarakat</h1>
+    <div class="container" id="pelayanan">
+        <h2>Pelayanan Kesehatan</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🩺 Pelayanan Umum</h3>
+                <p>Pemeriksaan, pengobatan, dan konsultasi kesehatan dasar bagi masyarakat umum.</p>
+            </div>
+            <div class="card">
+                <h3>👩‍🍼 KIA & KB</h3>
+                <p>Pemeriksaan kehamilan, pelayanan ibu dan anak, serta konsultasi Keluarga Berencana.</p>
+            </div>
+            <div class="card">
+                <h3>💉 Imunisasi</h3>
+                <p>Pelayanan imunisasi rutin balita, calon pengantin, dan perlindungan kesehatan.</p>
+            </div>
+            <div class="card">
+                <h3>🦷 Kesehatan Gigi</h3>
+                <p>Pemeriksaan, pembersihan, dan perawatan kesehatan gigi serta mulut.</p>
+            </div>
+            <div class="card">
+                <h3>🧪 Laboratorium</h3>
+                <p>Pemeriksaan darah rutin, gula darah, kolesterol, dan penunjang medis dasar.</p>
+            </div>
+            <div class="card">
+                <h3>❤️ Pengendalian PTM</h3>
+                <p>Deteksi dini dan pemantauan penyakit tidak menular seperti hipertensi dan diabetes.</p>
+            </div>
+        </div>
+    </div>
 
-<p>
-Pusat informasi dan pelayanan kesehatan masyarakat
-yang hadir untuk mendukung masyarakat Tanjung Pinang
-menuju kehidupan yang lebih sehat, mandiri dan berkualitas.
-</p>
+    <div class="container" id="jadwal">
+        <h2>Jadwal Operasional Pelayanan</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hari</th>
+                    <th>Jam Pelayanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Senin - Kamis</strong></td>
+                    <td>07.15 - 13.45 WIB</td>
+                </tr>
+                <tr>
+                    <td><strong>Jumat</strong></td>
+                    <td>07.15 - 10.30 WIB</td>
+                </tr>
+                <tr>
+                    <td><strong>Sabtu</strong></td>
+                    <td>07.15 - 13.30 WIB</td>
+                </tr>
+                <tr>
+                    <td><strong>Minggu & Hari Libur Nasional</strong></td>
+                    <td><span style="color: #d32f2f; font-weight: bold;">Tutup</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<a class="btn" href="#layanan">Lihat Pelayanan</a>
-<a class="btn secondary" href="#kontak">Hubungi Kami</a>
-</div>
-</section>
+    <div class="container" id="pengaduan">
+        <h2>Pengaduan & Kontak</h2>
+        <div class="card" style="text-align: center;">
+            <p>Punya pertanyaan, kritik, atau saran terkait pelayanan kami?</p>
+            <p style="margin-top: 10px;"><strong>Lokasi:</strong> Tanjung Pinang, Kec. Jambi Timur, Kota Jambi</p>
+            <a href="https://maps.google.com" target="_blank" class="btn" style="background:#00897b; color:#fff; margin-top:15px;">📍 Buka Google Maps</a>
+        </div>
+    </div>
 
-<section class="about" id="profil">
-<h2 class="section-title">Tentang Puskesmas</h2>
-
-<div class="about-box">
-<p>
-UPTD Puskesmas Tanjung Pinang Kota Jambi merupakan fasilitas
-pelayanan kesehatan tingkat pertama yang berkomitmen memberikan
-pelayanan kesehatan yang mudah diakses, bermutu, ramah, dan
-profesional. Kami hadir bersama masyarakat dalam meningkatkan
-kesehatan melalui pelayanan, pencegahan penyakit, edukasi,
-pemberdayaan, dan inovasi.
-</p>
-</div>
-</section>
-
-<section id="layanan">
-<h2 class="section-title">Pelayanan Kesehatan</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>🩺 Pelayanan Umum</h3>
-<p>Pemeriksaan dan pelayanan kesehatan dasar bagi masyarakat.</p>
-</div>
-
-<div class="card">
-<h3>👩‍🍼 KIA & KB</h3>
-<p>Pelayanan kesehatan ibu, anak, kehamilan dan keluarga berencana.</p>
-</div>
-
-<div class="card">
-<h3>💉 Imunisasi</h3>
-<p>Pelayanan imunisasi dan upaya perlindungan kesehatan masyarakat.</p>
-</div>
-
-<div class="card">
-<h3>🦷 Kesehatan Gigi</h3>
-<p>Pemeriksaan dan pelayanan kesehatan gigi dan mulut.</p>
-</div>
-
-<div class="card">
-<h3>🧪 Laboratorium</h3>
-<p>Pemeriksaan laboratorium sesuai kebutuhan pelayanan kesehatan.</p>
-</div>
-
-<div class="card">
-<h3>❤️ Penyakit Tidak Menular</h3>
-<p>Deteksi dini dan pengendalian hipertensi, diabetes serta faktor risiko PTM.</p>
-</div>
-
-</div>
-</section>
-
-<section class="info" id="program">
-<h2 class="section-title">Program Kesehatan Masyarakat</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>📢 Promosi Kesehatan</h3>
-<p>Mendorong masyarakat menerapkan perilaku hidup bersih dan sehat.</p>
-</div>
-
-<div class="card">
-<h3>👶 Kesehatan Ibu & Anak</h3>
-<p>Mendukung tumbuh kembang anak serta kesehatan ibu dan keluarga.</p>
-</div>
-
-<div class="card">
-<h3>👴 Kesehatan Lansia</h3>
-<p>Mendukung lansia agar tetap sehat, aktif dan produktif.</p>
-</div>
-
-<div class="card">
-<h3>🏘️ Pemberdayaan Masyarakat</h3>
-<p>Membangun kolaborasi bersama kader dan masyarakat untuk meningkatkan kesehatan.</p>
-</div>
-
-</div>
-</section>
-
-<section class="contact" id="kontak">
-<h2 class="section-title">Hubungi Puskesmas Tanjung Pinang</h2>
-
-<div class="contact-box">
-<p>
-Informasi mengenai pelayanan, program kesehatan,
-kegiatan dan informasi masyarakat akan dikembangkan
-secara bertahap melalui website ini.
-</p>
-
-<br>
-
-<a class="btn" href="https://www.google.com/maps" target="_blank">
-📍 Lihat Lokasi
-</a>
-</div>
-</section>
-
-</main>
-
-<footer>
-<p>© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
-<p>Sehat Bersama • Melayani dengan Hati • Berinovasi untuk Negeri</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
+        <p><small>Sehat Bersama • Melayani dengan Hati • Berinovasi untuk Negeri</small></p>
+    </footer>
 
 </body>
 </html>
