@@ -27,6 +27,22 @@
         table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; }
         th, td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; font-size: 0.95rem; }
         th { background-color: #e0f2f1; color: #004d40; }
+        
+        /* Style Tambahan untuk Google Maps Embed */
+        .map-container {
+            width: 100%;
+            height: 380px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         footer { background: #004d40; color: #fff; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.9rem; }
     </style>
 </head>
@@ -123,11 +139,22 @@
     </div>
 
     <div class="container" id="pengaduan">
-        <h2>Pengaduan & Kontak</h2>
+        <h2>Pengaduan & Lokasi</h2>
         <div class="card" style="text-align: center;">
-            <p>Punya pertanyaan, kritik, atau saran terkait pelayanan kami?</p>
-            <p style="margin-top: 10px;"><strong>Lokasi:</strong> Tanjung Pinang, Kec. Jambi Timur, Kota Jambi</p>
-            <a href="https://maps.google.com" target="_blank" class="btn" style="background:#00897b; color:#fff; margin-top:15px;">📍 Buka Google Maps</a>
+            <p><strong>Alamat:</strong> Jl. Taruma Negara No.RT.12, Tj. Pinang, Kec. Jambi Timur, Kota Jambi, Jambi 36264</p>
+            <p style="margin-top: 5px;"><strong>Telepon:</strong> (0741) 7555394</p>
+            
+            <!-- Peta Google Maps Terpasang -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.483161099684!2d103.62956867570414!3d-1.590713298394467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e25892a73c211fd%3A0x7076dd45c330aeaa!2sUPTD%20Puskesmas%20Tanjung%20Pinang!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <a href="https://www.google.com/maps/place/UPTD+Puskesmas+Tanjung+Pinang/@-1.5906971,103.6218438,15z/data=!3m1!4b1!4m6!3m5!1s0x2e25892a73c211fd:0x7076dd45c330aeaa!8m2!3d-1.5907186!4d103.6321436!16s%2Fg%2F11g8wln0rt" target="_blank" class="btn" style="background:#00897b; color:#fff; margin-top:20px;">📍 Buka Petunjuk Arah di Google Maps</a>
         </div>
     </div>
 
