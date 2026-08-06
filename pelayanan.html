@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelayanan - UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        header { background: #00897b; color: #fff; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #fff; }
+        nav a { color: #fff; text-decoration: none; margin-left: 15px; font-size: 0.95rem; }
+        nav a:hover, nav a.active { text-decoration: underline; font-weight: bold; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        h2 { text-align: center; color: #00796b; margin-bottom: 30px; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 3px; background: #00897b; margin: 10px auto 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #00897b; }
+        .card h3 { color: #00796b; margin-bottom: 10px; }
+        footer { background: #004d40; color: #fff; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🏥 PUSKESMAS TANJUNG PINANG</a>
+            <nav>
+                <a href="index.html">Beranda</a>
+                <a href="profil.html">Profil</a>
+                <a href="pelayanan.html" class="active">Pelayanan</a>
+                <a href="jadwal.html">Jadwal</a>
+                <a href="kontak.html">Pengaduan & Lokasi</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Pelayanan Kesehatan</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🩺 Pelayanan Umum</h3>
+                <p>Pemeriksaan, pengobatan, dan konsultasi kesehatan dasar bagi masyarakat umum.</p>
+            </div>
+            <div class="card">
+                <h3>👩‍🍼 KIA & KB</h3>
+                <p>Pemeriksaan kehamilan, pelayanan ibu dan anak, serta konsultasi Keluarga Berencana.</p>
+            </div>
+            <div class="card">
+                <h3>💉 Imunisasi</h3>
+                <p>Pelayanan imunisasi rutin balita, calon pengantin, dan perlindungan kesehatan.</p>
+            </div>
+            <div class="card">
+                <h3>🦷 Kesehatan Gigi</h3>
+                <p>Pemeriksaan, pembersihan, dan perawatan kesehatan gigi serta mulut.</p>
+            </div>
+            <div class="card">
+                <h3>🧪 Laboratorium</h3>
+                <p>Pemeriksaan darah rutin, gula darah, kolesterol, dan penunjang medis dasar.</p>
+            </div>
+            <div class="card">
+                <h3>❤️ Pengendalian PTM</h3>
+                <p>Deteksi dini dan pemantauan penyakit tidak menular seperti hipertensi dan diabetes.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
+    </footer>
+</body>
+</html>

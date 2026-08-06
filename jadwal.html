@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal - UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
+        header { background: #00897b; color: #fff; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #fff; }
+        nav a { color: #fff; text-decoration: none; margin-left: 15px; font-size: 0.95rem; }
+        nav a:hover, nav a.active { text-decoration: underline; font-weight: bold; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        h2 { text-align: center; color: #00796b; margin-bottom: 30px; position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 3px; background: #00897b; margin: 10px auto 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; }
+        th, td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; font-size: 0.95rem; }
+        th { background-color: #e0f2f1; color: #004d40; }
+        footer { background: #004d40; color: #fff; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🏥 PUSKESMAS TANJUNG PINANG</a>
+            <nav>
+                <a href="index.html">Beranda</a>
+                <a href="profil.html">Profil</a>
+                <a href="pelayanan.html">Pelayanan</a>
+                <a href="jadwal.html" class="active">Jadwal</a>
+                <a href="kontak.html">Pengaduan & Lokasi</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Jadwal Operasional Pelayanan</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hari</th>
+                    <th>Jam Pelayanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Senin - Kamis</strong></td>
+                    <td>07.15 - 13.45 WIB</td>
+                </tr>
+                <tr>
+                    <td><strong>Jumat</strong></td>
+                    <td>07.15 - 10.30 WIB</td>
+                </tr>
+                <tr>
+                    <td><strong>Sabtu</strong></td>
+                    <td>07.15 - 13.30 WIB</td>
+                </tr>
+                <tr>
+                    <td><strong>Minggu & Hari Libur Nasional</strong></td>
+                    <td><span style="color: #d32f2f; font-weight: bold;">Tutup</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
+    </footer>
+</body>
+</html>
