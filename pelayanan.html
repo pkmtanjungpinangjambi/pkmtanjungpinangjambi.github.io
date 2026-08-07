@@ -5,62 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pelayanan - UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
-        header { background: #00897b; color: #fff; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
-        .logo { font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #fff; }
-        nav a { color: #fff; text-decoration: none; margin-left: 15px; font-size: 0.95rem; }
-        nav a:hover, nav a.active { text-decoration: underline; font-weight: bold; }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        h2 { text-align: center; color: #00796b; margin-bottom: 30px; position: relative; }
-        h2::after { content: ''; display: block; width: 60px; height: 3px; background: #00897b; margin: 10px auto 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #00897b; }
-        .card h3 { color: #00796b; margin-bottom: 10px; }
-        footer { background: #004d40; color: #fff; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.9rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f4f7f6; }
+
+        .top-bar { background: #00563f; color: #fff; padding: 8px 8%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .top-bar div { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        header { background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-title h1 { font-size: 1.1rem; color: #00563f; font-weight: 700; line-height: 1.2; }
+        .logo-title p { font-size: 0.8rem; color: #666; }
+        nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        nav a { text-decoration: none; color: #444; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        nav a:hover, nav a.active { color: #00a86b; }
+
+        .page-hero { background: linear-gradient(120deg, rgba(0,86,63,0.92), rgba(0,168,107,0.85)); color: #fff; padding: 50px 8% 60px; text-align: center; }
+        .page-hero h2 { font-size: 2rem; margin-bottom: 10px; }
+        .page-hero p { opacity: 0.95; max-width: 600px; margin: 0 auto; }
+
+        .container { max-width: 1200px; margin: -30px auto 60px; padding: 0 20px; }
+
+        .category-tabs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 30px 0; }
+        .category-tabs button { background: #fff; border: 1px solid #cfe4dc; color: #00563f; padding: 9px 18px; border-radius: 20px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: 0.25s; }
+        .category-tabs button:hover { background: #eaf7f1; }
+        .category-tabs button.is-active { background: #00563f; border-color: #00563f; color: #fff; }
+
+        .category-block { margin-bottom: 45px; }
+        .category-block h3 { color: #00563f; font-size: 1.3rem; margin-bottom: 18px; border-left: 4px solid #00a86b; padding-left: 12px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #00a86b; transition: 0.3s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,0.08); }
+        .card .icon { font-size: 1.9rem; margin-bottom: 10px; display: inline-block; }
+        .card h4 { color: #00563f; margin-bottom: 8px; }
+        .card p { font-size: 0.92rem; color: #555; flex: 1; }
+        .klaster-tag { display: inline-flex; align-items: center; gap: 5px; margin-top: 14px; align-self: flex-start; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; color: #00563f; background: #eaf7f1; border: 1px solid #cfe4dc; padding: 4px 11px; border-radius: 12px; }
+
+        .wilayah-section { margin-top: 55px; }
+        .wilayah-section h3 { color: #00563f; font-size: 1.3rem; margin-bottom: 8px; }
+        .wilayah-section p.desc { color: #666; font-size: 0.92rem; margin-bottom: 18px; }
+        .wilayah-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+        .wilayah-chip { background: #fff; border: 1px solid #cfe4dc; border-radius: 8px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; color: #00563f; font-weight: 600; font-size: 0.92rem; }
+        .wilayah-chip .dot { width: 10px; height: 10px; border-radius: 50%; background: #00a86b; flex-shrink: 0; }
+
+        footer { background: #003325; color: #d1d5db; text-align: center; padding: 25px 20px; margin-top: 40px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <div>📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kota Jambi</div>
+        <div>📞 (0741) 7555394 | ✉️ pkm.tanjungpinang@jambikota.go.id</div>
+    </div>
+
     <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo">🏥 PUSKESMAS TANJUNG PINANG</a>
-            <nav>
-                <a href="index.html">Beranda</a>
-                <a href="profil.html">Profil</a>
-                <a href="pelayanan.html" class="active">Pelayanan</a>
-                <a href="jadwal.html">Jadwal</a>
-                <a href="kontak.html">Pengaduan & Lokasi</a>
-            </nav>
+        <div class="logo-container">
+            <div style="font-size: 2rem;">🏥</div>
+            <div class="logo-title">
+                <h1>UPTD PUSKESMAS TANJUNG PINANG</h1>
+                <p>Dinas Kesehatan Kota Jambi</p>
+            </div>
         </div>
+        <nav>
+            <a href="index.html">Beranda</a>
+            <a href="profil.html">Profil</a>
+            <a href="pelayanan.html" class="active">Pelayanan</a>
+            <a href="jadwal.html">Jadwal</a>
+            <a href="kontak.html">Kontak & Lokasi</a>
+        </nav>
     </header>
 
-    <div class="container">
+    <section class="page-hero">
         <h2>Pelayanan Kesehatan</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>🩺 Pelayanan Umum</h3>
-                <p>Pemeriksaan, pengobatan, dan konsultasi kesehatan dasar bagi masyarakat umum.</p>
+        <p>Daftar lengkap unit pelayanan Puskesmas Tanjung Pinang, dikelompokkan per kategori — setiap layanan juga ditandai klaster ILP-nya.</p>
+    </section>
+
+    <div class="container">
+        <div class="category-tabs" id="categoryTabs">
+            <button class="is-active" data-category="semua">Semua</button>
+            <button data-category="dasar">Pelayanan Dasar</button>
+            <button data-category="kia">KIA, KB & Gizi</button>
+            <button data-category="penunjang">Penunjang Medis</button>
+            <button data-category="prioritas">Program Prioritas</button>
+        </div>
+
+        <div class="category-block" data-block="dasar">
+            <h3>Pelayanan Dasar</h3>
+            <div class="grid">
+                <div class="card">
+                    <span class="icon">🩺</span><h4>Pemeriksaan Umum</h4>
+                    <p>Pemeriksaan, pengobatan, dan konsultasi kesehatan dasar bagi masyarakat umum.</p>
+                    <span class="klaster-tag">⚙️ Klaster 3 (Dewasa 18-&lt;60 tahun)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🦷</span><h4>Kesehatan Gigi & Mulut</h4>
+                    <p>Pemeriksaan, pembersihan, dan perawatan kesehatan gigi serta mulut.</p>
+                    <span class="klaster-tag">⚙️ Klaster 5 (Gigi & Mulut)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🧓</span><h4>Pelayanan Lansia</h4>
+                    <p>Pemeriksaan berkala dan pemantauan kesehatan bagi warga usia lanjut.</p>
+                    <span class="klaster-tag">⚙️ Klaster 3 (Lansia ≥60 tahun)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🚨</span><h4>Unit Gawat Darurat (UGD)</h4>
+                    <p>Penanganan pertama kondisi kegawatdaruratan medis, tersedia sesuai jam pelayanan.</p>
+                    <span class="klaster-tag">⚙️ Klaster 5 (UGD)</span>
+                </div>
             </div>
-            <div class="card">
-                <h3>👩‍🍼 KIA & KB</h3>
-                <p>Pemeriksaan kehamilan, pelayanan ibu dan anak, serta konsultasi Keluarga Berencana.</p>
+        </div>
+
+        <div class="category-block" data-block="kia">
+            <h3>KIA, KB & Gizi</h3>
+            <div class="grid">
+                <div class="card">
+                    <span class="icon">👩‍🍼</span><h4>Kesehatan Ibu & Anak (KIA)</h4>
+                    <p>Pemeriksaan kehamilan, persalinan, nifas, dan pemantauan kesehatan anak.</p>
+                    <span class="klaster-tag">⚙️ Klaster 2 (Ibu & Anak)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">👪</span><h4>Keluarga Berencana (KB)</h4>
+                    <p>Konsultasi dan pelayanan kontrasepsi bagi pasangan usia subur.</p>
+                    <span class="klaster-tag">⚙️ Klaster 3 (KB)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🍎</span><h4>Konsultasi Gizi</h4>
+                    <p>Pemantauan tumbuh kembang balita, konsultasi gizi ibu hamil, dan pencegahan stunting.</p>
+                    <span class="klaster-tag">⚙️ Klaster 2 (Ibu & Anak)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">💉</span><h4>Imunisasi</h4>
+                    <p>Pelayanan imunisasi rutin balita, calon pengantin, dan perlindungan kesehatan.</p>
+                    <span class="klaster-tag">⚙️ Klaster 2 (Ibu & Anak)</span>
+                </div>
             </div>
-            <div class="card">
-                <h3>💉 Imunisasi</h3>
-                <p>Pelayanan imunisasi rutin balita, calon pengantin, dan perlindungan kesehatan.</p>
+        </div>
+
+        <div class="category-block" data-block="penunjang">
+            <h3>Penunjang Medis</h3>
+            <div class="grid">
+                <div class="card">
+                    <span class="icon">🧪</span><h4>Laboratorium</h4>
+                    <p>Pemeriksaan darah rutin, gula darah, kolesterol, dan penunjang medis dasar.</p>
+                    <span class="klaster-tag">⚙️ Klaster 5 (Lintas Klaster)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">💊</span><h4>Farmasi / Apotek</h4>
+                    <p>Penyediaan dan penyerahan obat sesuai resep dokter dengan pengawasan apoteker.</p>
+                    <span class="klaster-tag">⚙️ Klaster 5 (Lintas Klaster)</span>
+                </div>
             </div>
-            <div class="card">
-                <h3>🦷 Kesehatan Gigi</h3>
-                <p>Pemeriksaan, pembersihan, dan perawatan kesehatan gigi serta mulut.</p>
+        </div>
+
+        <div class="category-block" data-block="prioritas">
+            <h3>Program Prioritas</h3>
+            <div class="grid">
+                <div class="card">
+                    <span class="icon">❤️</span><h4>Pengendalian PTM</h4>
+                    <p>Deteksi dini dan pemantauan penyakit tidak menular seperti hipertensi dan diabetes.</p>
+                    <span class="klaster-tag">⚙️ Klaster 3 (Dewasa 18-&lt;60 tahun)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🚭</span><h4>Layanan Berhenti Merokok</h4>
+                    <p>Konsultasi dan pendampingan bagi masyarakat yang ingin berhenti merokok.</p>
+                    <span class="klaster-tag">⚙️ Klaster 3 (Dewasa 18-&lt;60 tahun)</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🌿</span><h4>Kesehatan Lingkungan</h4>
+                    <p>Edukasi dan pemantauan sanitasi serta kesehatan lingkungan sekitar wilayah kerja.</p>
+                    <span class="klaster-tag">⚙️ Klaster 4 (Penanggulangan Penularan Penyakit)</span>
+                </div>
             </div>
-            <div class="card">
-                <h3>🧪 Laboratorium</h3>
-                <p>Pemeriksaan darah rutin, gula darah, kolesterol, dan penunjang medis dasar.</p>
-            </div>
-            <div class="card">
-                <h3>❤️ Pengendalian PTM</h3>
-                <p>Deteksi dini dan pemantauan penyakit tidak menular seperti hipertensi dan diabetes.</p>
+        </div>
+
+        <div class="wilayah-section">
+            <h3>Wilayah Kerja</h3>
+            <p class="desc">Puskesmas Tanjung Pinang melayani masyarakat di kelurahan berikut:</p>
+            <div class="wilayah-grid">
+                <div class="wilayah-chip"><span class="dot"></span>Kasang Jaya</div>
+                <div class="wilayah-chip"><span class="dot"></span>Sijenjang I</div>
+                <div class="wilayah-chip"><span class="dot"></span>Sijenjang II</div>
             </div>
         </div>
     </div>
@@ -68,5 +191,22 @@
     <footer>
         <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
     </footer>
+
+    <script>
+        (function () {
+            const tabs = document.querySelectorAll('#categoryTabs button');
+            const blocks = document.querySelectorAll('.category-block');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('is-active'));
+                    tab.classList.add('is-active');
+                    const cat = tab.dataset.category;
+                    blocks.forEach(block => {
+                        block.style.display = (cat === 'semua' || block.dataset.block === cat) ? '' : 'none';
+                    });
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
