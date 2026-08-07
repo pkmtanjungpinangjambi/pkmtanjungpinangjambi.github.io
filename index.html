@@ -91,8 +91,17 @@
         /* Map & Footer */
         .map-container { height: 350px; border-radius: 8px; overflow: hidden; margin-top: 20px; }
         .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+        /* Maklumat Pelayanan */
+        .maklumat-wrap { background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 16px; }
+        .maklumat-wrap img { width: 100%; border-radius: 6px; }
+        .maklumat-caption { text-align: center; font-size: 0.85rem; color: #666; margin-top: 14px; }
+
         footer { background: #003325; color: #d1d5db; padding: 40px 8% 20px; margin-top: 80px; }
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px; font-size: 0.85rem; }
+        .social-links { display: flex; gap: 12px; margin-top: 16px; }
+        .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); color: #fff; text-decoration: none; font-size: 1.1rem; transition: 0.25s; }
+        .social-links a:hover { background: #00a86b; }
 
         @media (prefers-reduced-motion: reduce) {
             .hero-slide { transition: none; }
@@ -241,6 +250,18 @@
         </div>
     </div>
 
+    <!-- Maklumat Pelayanan -->
+    <div class="section">
+        <div class="section-title">
+            <h2>Maklumat Pelayanan</h2>
+            <p>Komitmen resmi UPTD Puskesmas Tanjung Pinang dalam memberikan pelayanan sesuai standar</p>
+        </div>
+        <div class="maklumat-wrap">
+            <img src="maklumat.jpeg" alt="Maklumat Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi">
+            <p class="maklumat-caption">Ditandatangani oleh dr. Tini, Kepala UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
+        </div>
+    </div>
+
     <!-- Berita & Kegiatan -->
     <div class="section" id="berita">
         <div class="section-title">
@@ -316,6 +337,11 @@
                 <h3 style="color: #fff; margin-bottom: 15px;">Kontak Resmi</h3>
                 <p>📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kec. Jambi Tim., Kota Jambi</p>
                 <p>📞 (0741) 7555394</p>
+                <div class="social-links">
+                    <a href="https://wa.me/6282180622274" target="_blank" rel="noopener" aria-label="WhatsApp Puskesmas">💬</a>
+                    <a href="https://instagram.com/pkm.tanjungpinang.jambi" target="_blank" rel="noopener" aria-label="Instagram Puskesmas">📷</a>
+                    <a href="https://www.facebook.com/search/top?q=Puskesmas%20Tanjung%20Pinang%20Jambi" target="_blank" rel="noopener" aria-label="Facebook Puskesmas">📘</a>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
