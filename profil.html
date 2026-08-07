@@ -5,55 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { line-height: 1.6; color: #333; background-color: #f8f9fa; }
-        header { background: #00897b; color: #fff; padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
-        .logo { font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #fff; }
-        nav a { color: #fff; text-decoration: none; margin-left: 15px; font-size: 0.95rem; }
-        nav a:hover, nav a.active { text-decoration: underline; font-weight: bold; }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        h2 { text-align: center; color: #00796b; margin-bottom: 30px; position: relative; }
-        h2::after { content: ''; display: block; width: 60px; height: 3px; background: #00897b; margin: 10px auto 0; }
-        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #00897b; margin-bottom: 20px; }
-        footer { background: #004d40; color: #fff; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.9rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #f4f7f6; }
+        img { max-width: 100%; display: block; }
+
+        .top-bar { background: #00563f; color: #fff; padding: 8px 8%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .top-bar div { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        header { background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-title h1 { font-size: 1.1rem; color: #00563f; font-weight: 700; line-height: 1.2; }
+        .logo-title p { font-size: 0.8rem; color: #666; }
+        nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        nav a { text-decoration: none; color: #444; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        nav a:hover, nav a.active { color: #00a86b; }
+
+        .page-hero { background: linear-gradient(120deg, rgba(0,86,63,0.92), rgba(0,168,107,0.85)); color: #fff; padding: 50px 8% 60px; text-align: center; }
+        .page-hero h2 { font-size: 2rem; margin-bottom: 10px; }
+        .page-hero p { opacity: 0.95; max-width: 600px; margin: 0 auto; }
+
+        .layout { max-width: 1200px; margin: -30px auto 60px; padding: 0 20px; display: grid; grid-template-columns: 260px 1fr; gap: 30px; align-items: start; }
+        @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+
+        /* Sidebar */
+        .sidebar { background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 10px; position: sticky; top: 90px; }
+        .sidebar button { display: block; width: 100%; text-align: left; background: none; border: none; padding: 13px 16px; font-size: 0.92rem; font-weight: 600; color: #444; border-radius: 6px; cursor: pointer; margin-bottom: 3px; transition: 0.2s; }
+        .sidebar button:hover { background: #eaf7f1; color: #00563f; }
+        .sidebar button.is-active { background: #00563f; color: #fff; }
+
+        /* Content */
+        .profile-panel { background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 35px; display: none; }
+        .profile-panel.is-active { display: block; }
+        .profile-panel h3 { color: #00563f; font-size: 1.5rem; margin-bottom: 18px; border-left: 4px solid #00a86b; padding-left: 14px; }
+        .profile-panel p { margin-bottom: 14px; color: #444; }
+        .placeholder-note { display: inline-block; background: #fff4e5; color: #a86400; border: 1px solid #f0d9a8; font-size: 0.78rem; font-weight: 600; padding: 5px 12px; border-radius: 12px; margin-bottom: 16px; }
+
+        .misi-list { list-style: none; margin: 10px 0 20px; }
+        .misi-list li { padding: 12px 16px; background: #f4f9f6; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #00a86b; }
+
+        .org-card { display: flex; align-items: center; gap: 18px; background: #f4f9f6; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
+        .org-photo { width: 70px; height: 70px; border-radius: 50%; background: #cfe4dc; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; flex-shrink: 0; }
+        .org-card h4 { color: #00563f; margin-bottom: 3px; }
+        .org-card span { font-size: 0.85rem; color: #666; }
+
+        .pustu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 10px; }
+        .pustu-chip { background: #f4f9f6; border: 1px solid #cfe4dc; border-radius: 8px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; color: #00563f; font-weight: 600; font-size: 0.92rem; }
+        .pustu-chip .dot { width: 10px; height: 10px; border-radius: 50%; background: #00a86b; flex-shrink: 0; }
+
+        .tata-nilai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 10px; }
+        .tata-nilai-card { text-align: center; background: #f4f9f6; padding: 20px 14px; border-radius: 8px; }
+        .tata-nilai-card .letter { font-size: 1.6rem; font-weight: 800; color: #00a86b; margin-bottom: 6px; }
+        .tata-nilai-card h5 { color: #00563f; font-size: 0.95rem; margin-bottom: 4px; }
+        .tata-nilai-card p { font-size: 0.8rem; color: #666; margin: 0; }
+
+        .prestasi-empty { text-align: center; padding: 30px; color: #888; }
+
+        footer { background: #003325; color: #d1d5db; text-align: center; padding: 25px 20px; margin-top: 40px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <div>📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kota Jambi</div>
+        <div>📞 (0741) 7555394 | ✉️ pkm.tanjungpinang@jambikota.go.id</div>
+    </div>
+
     <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo">🏥 PUSKESMAS TANJUNG PINANG</a>
-            <nav>
-                <a href="index.html">Beranda</a>
-                <a href="profil.html" class="active">Profil</a>
-                <a href="pelayanan.html">Pelayanan</a>
-                <a href="jadwal.html">Jadwal</a>
-                <a href="kontak.html">Pengaduan & Lokasi</a>
-            </nav>
+        <div class="logo-container">
+            <div style="font-size: 2rem;">🏥</div>
+            <div class="logo-title">
+                <h1>UPTD PUSKESMAS TANJUNG PINANG</h1>
+                <p>Dinas Kesehatan Kota Jambi</p>
+            </div>
         </div>
+        <nav>
+            <a href="index.html">Beranda</a>
+            <a href="profil.html" class="active">Profil</a>
+            <a href="pelayanan.html">Pelayanan</a>
+            <a href="jadwal.html">Jadwal</a>
+            <a href="kontak.html">Kontak & Lokasi</a>
+        </nav>
     </header>
 
-    <div class="container">
+    <section class="page-hero">
         <h2>Profil Puskesmas</h2>
-        <div class="card">
-            <h3>Tentang Kami</h3>
-            <p>UPTD Puskesmas Tanjung Pinang Kota Jambi merupakan fasilitas pelayanan kesehatan tingkat pertama yang berkomitmen memberikan pelayanan kesehatan yang mudah diakses, bermutu, ramah, dan profesional melalui upaya pencegahan, edukasi, serta pemberdayaan masyarakat.</p>
+        <p>Mengenal lebih dekat UPTD Puskesmas Tanjung Pinang Kota Jambi — sejarah, visi misi, struktur organisasi, hingga wilayah kerja kami.</p>
+    </section>
+
+    <div class="layout">
+        <div class="sidebar" id="profileSidebar">
+            <button class="is-active" data-panel="sejarah">Sejarah Puskesmas</button>
+            <button data-panel="visimisi">Visi & Misi</button>
+            <button data-panel="tatanilai">Motto & Tata Nilai</button>
+            <button data-panel="struktur">Struktur Organisasi</button>
+            <button data-panel="wilayah">Wilayah Kerja & Pustu</button>
+            <button data-panel="prestasi">Prestasi & Penghargaan</button>
         </div>
-        <div class="card">
-            <h3>Visi</h3>
-            <p>Terwujudnya Masyarakat Wilayah Kerja Puskesmas Tanjung Pinang yang Sehat, Mandiri, dan Berkualitas.</p>
-            <br>
-            <h3>Misi</h3>
-            <ul>
-                <li>Memberikan pelayanan kesehatan yang bermutu, merata, dan terjangkau.</li>
-                <li>Mendorong kemandirian hidup sehat bagi keluarga dan masyarakat.</li>
-                <li>Memelihara dan meningkatkan kesehatan individu, keluarga, dan masyarakat beserta lingkungannya.</li>
-            </ul>
+
+        <div>
+            <div class="profile-panel is-active" data-panel="sejarah">
+                <h3>Sejarah Puskesmas</h3>
+                <span class="placeholder-note">Konten placeholder — mohon dilengkapi</span>
+                <p>UPTD Puskesmas Tanjung Pinang merupakan Fasilitas Pelayanan Kesehatan Tingkat Pertama (FKTP) di bawah Dinas Kesehatan Kota Jambi yang melayani masyarakat di wilayah Tanjung Pinang dan sekitarnya.</p>
+                <p>Bagian ini masih berisi teks sementara. Kirimkan cerita singkat berdirinya puskesmas — misalnya tahun berdiri, perkembangan gedung/fasilitas, dan pencapaian penting — untuk melengkapi bagian ini.</p>
+            </div>
+
+            <div class="profile-panel" data-panel="visimisi">
+                <h3>Visi & Misi</h3>
+                <span class="placeholder-note">Konten placeholder — mohon dilengkapi</span>
+                <p><strong>Visi</strong></p>
+                <p>"Terwujudnya masyarakat Tanjung Pinang yang sehat, mandiri, dan berkeadilan." <em>(contoh — sesuaikan dengan visi resmi puskesmas)</em></p>
+                <p><strong>Misi</strong></p>
+                <ul class="misi-list">
+                    <li>Memberikan pelayanan kesehatan yang bermutu, merata, dan terjangkau bagi seluruh masyarakat.</li>
+                    <li>Meningkatkan upaya promotif dan preventif untuk mencegah penyakit sejak dini.</li>
+                    <li>Membangun kemitraan lintas sektor dalam mendukung derajat kesehatan masyarakat.</li>
+                    <li>Mengembangkan sumber daya manusia kesehatan yang profesional dan berintegritas.</li>
+                </ul>
+                <p style="font-size:0.85rem; color:#999;">Kirimkan visi dan misi resmi untuk mengganti contoh di atas.</p>
+            </div>
+
+            <div class="profile-panel" data-panel="tatanilai">
+                <h3>Motto & Tata Nilai</h3>
+                <span class="placeholder-note">Konten placeholder — mohon dilengkapi</span>
+                <p><strong>Motto:</strong> "Kesehatan Anda, Prioritas Kami" <em>(contoh — sesuaikan dengan motto resmi)</em></p>
+                <div class="tata-nilai-grid">
+                    <div class="tata-nilai-card"><div class="letter">B</div><h5>BerAKHLAK</h5><p>Berorientasi Pelayanan</p></div>
+                    <div class="tata-nilai-card"><div class="letter">A</div><h5>Akuntabel</h5><p>Bertanggung jawab</p></div>
+                    <div class="tata-nilai-card"><div class="letter">K</div><h5>Kompeten</h5><p>Terus belajar & berkembang</p></div>
+                    <div class="tata-nilai-card"><div class="letter">H</div><h5>Harmonis</h5><p>Saling peduli & menghargai</p></div>
+                    <div class="tata-nilai-card"><div class="letter">L</div><h5>Loyal</h5><p>Berdedikasi & mengutamakan kepentingan bangsa</p></div>
+                    <div class="tata-nilai-card"><div class="letter">A</div><h5>Adaptif</h5><p>Terus berinovasi & antusias</p></div>
+                    <div class="tata-nilai-card"><div class="letter">K</div><h5>Kolaboratif</h5><p>Membangun kerja sama</p></div>
+                </div>
+            </div>
+
+            <div class="profile-panel" data-panel="struktur">
+                <h3>Struktur Organisasi</h3>
+                <span class="placeholder-note">Sebagian data terkonfirmasi, sebagian placeholder</span>
+                <div class="org-card">
+                    <div class="org-photo">👩‍⚕️</div>
+                    <div>
+                        <h4>dr. Tini</h4>
+                        <span>Kepala UPTD Puskesmas Tanjung Pinang · Pembina Tk.I / IV b · NIP. 19771208 200604 2 018</span>
+                    </div>
+                </div>
+                <div class="org-card">
+                    <div class="org-photo">📋</div>
+                    <div>
+                        <h4>Kepala Sub Bagian Tata Usaha</h4>
+                        <span>Nama pejabat menyusul</span>
+                    </div>
+                </div>
+                <p style="font-size:0.85rem; color:#999; margin-top:10px;">Struktur lengkap (penanggung jawab tiap klaster/program) dapat ditambahkan setelah data diberikan.</p>
+            </div>
+
+            <div class="profile-panel" data-panel="wilayah">
+                <h3>Wilayah Kerja & Pustu</h3>
+                <p>UPTD Puskesmas Tanjung Pinang membawahi Puskesmas Pembantu (Pustu) berikut untuk memperluas jangkauan pelayanan kesehatan:</p>
+                <div class="pustu-grid">
+                    <div class="pustu-chip"><span class="dot"></span>Pustu Kasang Jaya</div>
+                    <div class="pustu-chip"><span class="dot"></span>Pustu Sijenjang I</div>
+                    <div class="pustu-chip"><span class="dot"></span>Pustu Sijenjang II</div>
+                </div>
+            </div>
+
+            <div class="profile-panel" data-panel="prestasi">
+                <h3>Prestasi & Penghargaan</h3>
+                <div class="prestasi-empty">
+                    <p>Belum ada data prestasi/penghargaan yang ditambahkan.</p>
+                    <p style="font-size:0.85rem;">Kirimkan daftar penghargaan (nama, tahun, pemberi) untuk ditampilkan di sini.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
     </footer>
+
+    <script>
+        (function () {
+            const buttons = document.querySelectorAll('#profileSidebar button');
+            const panels = document.querySelectorAll('.profile-panel');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('is-active'));
+                    panels.forEach(p => p.classList.remove('is-active'));
+                    btn.classList.add('is-active');
+                    document.querySelector('.profile-panel[data-panel="' + btn.dataset.panel + '"]').classList.add('is-active');
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
