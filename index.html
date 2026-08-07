@@ -7,26 +7,45 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
         body { color: #333; background-color: #f4f7f6; line-height: 1.6; }
-        
+        img { max-width: 100%; display: block; }
+
         /* Top Navigation Bar */
-        .top-bar { background: #00563f; color: #fff; padding: 8px 8%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
-        .top-bar div { display: flex; gap: 15px; }
+        .top-bar { background: #00563f; color: #fff; padding: 8px 8%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .top-bar div { display: flex; gap: 15px; flex-wrap: wrap; }
 
         /* Main Header & Navbar */
-        header { background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); sticky: top; position: sticky; top: 0; z-index: 1000; }
+        header { background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
         .logo-container { display: flex; align-items: center; gap: 12px; }
         .logo-title h1 { font-size: 1.1rem; color: #00563f; font-weight: 700; line-height: 1.2; }
         .logo-title p { font-size: 0.8rem; color: #666; }
-        nav { display: flex; gap: 20px; }
+        nav { display: flex; gap: 20px; flex-wrap: wrap; }
         nav a { text-decoration: none; color: #444; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
         nav a:hover, nav a.active { color: #00a86b; }
 
-        /* Hero Banner */
-        .hero { background: linear-gradient(135deg, rgba(0, 86, 63, 0.9), rgba(0, 168, 107, 0.85)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80') center/cover; color: #fff; padding: 90px 8%; text-align: left; display: flex; flex-direction: column; align-items: flex-start; }
-        .hero h2 { font-size: 2.5rem; max-width: 650px; margin-bottom: 15px; font-weight: 700; }
-        .hero p { font-size: 1.1rem; max-width: 600px; margin-bottom: 25px; opacity: 0.95; }
-        .btn-primary { background: #00a86b; color: #fff; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.3s; }
+        /* Hero Carousel */
+        .hero-carousel { position: relative; height: 480px; overflow: hidden; color: #fff; }
+        .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s ease-in-out; background-size: cover; background-position: center; display: flex; align-items: center; }
+        .hero-slide.is-active { opacity: 1; z-index: 2; }
+        .hero-slide::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(0,86,63,0.88), rgba(0,86,63,0.35)); }
+        .hero-slide-content { position: relative; z-index: 3; padding: 0 8%; max-width: 680px; }
+        .hero-slide-content span.eyebrow { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; letter-spacing: 0.04em; margin-bottom: 16px; text-transform: uppercase; }
+        .hero-slide-content h2 { font-size: 2.4rem; margin-bottom: 14px; font-weight: 700; }
+        .hero-slide-content p { font-size: 1.05rem; margin-bottom: 24px; opacity: 0.95; max-width: 560px; }
+        .btn-primary { background: #00a86b; color: #fff; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
         .btn-primary:hover { background: #008f5a; }
+
+        .hero-dots { position: absolute; bottom: 20px; left: 0; right: 0; z-index: 4; display: flex; justify-content: center; gap: 10px; }
+        .hero-dots button { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #fff; background: transparent; cursor: pointer; padding: 0; opacity: 0.7; }
+        .hero-dots button.is-active { background: #fff; opacity: 1; }
+        .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 4; background: rgba(0,0,0,0.25); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+        .hero-arrow:hover { background: rgba(0,0,0,0.45); }
+        .hero-arrow.prev { left: 20px; }
+        .hero-arrow.next { right: 20px; }
+        @media (max-width: 700px) {
+            .hero-carousel { height: 420px; }
+            .hero-slide-content h2 { font-size: 1.7rem; }
+            .hero-arrow { display: none; }
+        }
 
         /* Quick Info Cards */
         .info-cards { max-width: 1200px; margin: -40px auto 40px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; position: relative; z-index: 10; }
@@ -39,23 +58,42 @@
         .section-title h2 { color: #00563f; font-size: 2rem; }
         .section-title p { color: #666; font-size: 0.95rem; }
 
-        /* Services Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .service-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.3s; border: 1px solid #eee; }
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #00a86b; }
-        .service-card .icon { font-size: 2.2rem; margin-bottom: 15px; display: inline-block; }
-        .service-card h3 { color: #00563f; margin-bottom: 10px; }
+        /* Category tabs for services */
+        .category-tabs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+        .category-tabs button { background: #fff; border: 1px solid #cfe4dc; color: #00563f; padding: 9px 18px; border-radius: 20px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: 0.25s; }
+        .category-tabs button:hover { background: #eaf7f1; }
+        .category-tabs button.is-active { background: #00563f; border-color: #00563f; color: #fff; }
 
-        /* Table Styling */
-        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background: #00563f; color: #fff; font-weight: 600; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .service-card { background: #fff; padding: 28px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.3s; border: 1px solid #eee; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #00a86b; }
+        .service-card .icon { font-size: 2.1rem; margin-bottom: 14px; display: inline-block; }
+        .service-card h3 { color: #00563f; margin-bottom: 8px; font-size: 1.05rem; }
+        .service-card .tag { display: inline-block; margin-top: 12px; font-size: 0.72rem; color: #00a86b; background: #eaf7f1; padding: 3px 10px; border-radius: 10px; font-weight: 600; letter-spacing: 0.03em; }
+        .services-empty { text-align: center; color: #888; padding: 30px; grid-column: 1 / -1; }
+
+        /* Berita */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .news-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #eee; display: flex; flex-direction: column; transition: 0.3s; }
+        .news-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); transform: translateY(-5px); }
+        .news-card .thumb { height: 170px; background: #d9ece4 center/cover; display: flex; align-items: center; justify-content: center; color: #00563f; font-size: 2rem; }
+        .news-card .body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .news-card .date { font-size: 0.78rem; color: #00a86b; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 8px; }
+        .news-card h3 { color: #00563f; font-size: 1.05rem; margin-bottom: 10px; line-height: 1.35; }
+        .news-card p { font-size: 0.9rem; color: #666; margin-bottom: 14px; flex: 1; }
+        .news-card a.read-more { font-size: 0.85rem; font-weight: 700; color: #00563f; text-decoration: none; }
+        .news-card a.read-more:hover { text-decoration: underline; }
+        .news-note { text-align: center; margin-top: 24px; font-size: 0.85rem; color: #999; }
 
         /* Map & Footer */
         .map-container { height: 350px; border-radius: 8px; overflow: hidden; margin-top: 20px; }
         .map-container iframe { width: 100%; height: 100%; border: 0; }
         footer { background: #003325; color: #d1d5db; padding: 40px 8% 20px; margin-top: 80px; }
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px; font-size: 0.85rem; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-slide { transition: none; }
+        }
     </style>
 </head>
 <body>
@@ -84,11 +122,35 @@
         </nav>
     </header>
 
-    <!-- Hero Banner -->
-    <section class="hero">
-        <h2>Pelayanan Kesehatan Primary yang Bermutu & Terintegrasi</h2>
-        <p>Memberikan pelayanan kesehatan terpadu, profesional, dan responsif bagi seluruh masyarakat Tanjung Pinang Kota Jambi.</p>
-        <a href="pelayanan.html" class="btn-primary">Jelajahi Layanan Kami</a>
+    <!-- Hero Carousel -->
+    <section class="hero-carousel" id="heroCarousel">
+        <div class="hero-slide is-active" style="background-image:linear-gradient(120deg, rgba(0,86,63,0.85), rgba(0,86,63,0.4)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=80');">
+            <div class="hero-slide-content">
+                <span class="eyebrow">Selamat Datang</span>
+                <h2>Pelayanan Kesehatan Primer yang Bermutu & Terintegrasi</h2>
+                <p>Memberikan pelayanan kesehatan terpadu, profesional, dan responsif bagi seluruh masyarakat Tanjung Pinang Kota Jambi.</p>
+                <a href="pelayanan.html" class="btn-primary">Jelajahi Layanan Kami</a>
+            </div>
+        </div>
+        <div class="hero-slide" style="background-image:linear-gradient(120deg, rgba(0,86,63,0.85), rgba(0,86,63,0.4)), url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1400&q=80');">
+            <div class="hero-slide-content">
+                <span class="eyebrow">Program Prioritas</span>
+                <h2>Cegah Stunting Sejak 1000 Hari Pertama Kehidupan</h2>
+                <p>Layanan gizi, imunisasi, dan pemantauan tumbuh kembang balita tersedia setiap hari kerja di Puskesmas Tanjung Pinang.</p>
+                <a href="pelayanan.html" class="btn-primary">Lihat Program Gizi</a>
+            </div>
+        </div>
+        <div class="hero-slide" style="background-image:linear-gradient(120deg, rgba(0,86,63,0.85), rgba(0,86,63,0.4)), url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1400&q=80');">
+            <div class="hero-slide-content">
+                <span class="eyebrow">Kegiatan Terbaru</span>
+                <h2>Ikuti Kegiatan & Penyuluhan Kesehatan Kami</h2>
+                <p>Pantau jadwal posyandu, penyuluhan, dan kegiatan lapangan Puskesmas Tanjung Pinang di sekitar wilayah kerja Anda.</p>
+                <a href="#berita" class="btn-primary">Lihat Berita Terbaru</a>
+            </div>
+        </div>
+        <button class="hero-arrow prev" id="heroPrev" aria-label="Sebelumnya">&#10094;</button>
+        <button class="hero-arrow next" id="heroNext" aria-label="Berikutnya">&#10095;</button>
+        <div class="hero-dots" id="heroDots"></div>
     </section>
 
     <!-- Info Cards Ringkas -->
@@ -109,44 +171,109 @@
         </div>
     </div>
 
-    <!-- Layanan Utama -->
+    <!-- Layanan Utama per Kategori -->
     <div class="section">
         <div class="section-title">
             <h2>Layanan Unggulan Puskesmas</h2>
-            <p>Berbagai poliklinik dan layanan medis untuk mendukung kesehatan keluarga Anda</p>
+            <p>Berbagai poliklinik dan layanan medis, dikelompokkan menurut jenis kebutuhan kesehatan Anda</p>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
+
+        <div class="category-tabs" id="categoryTabs">
+            <button class="is-active" data-category="semua">Semua</button>
+            <button data-category="dasar">Pelayanan Dasar</button>
+            <button data-category="kia">KIA, KB & Gizi</button>
+            <button data-category="penunjang">Penunjang Medis</button>
+            <button data-category="prioritas">Program Prioritas</button>
+        </div>
+
+        <div class="services-grid" id="servicesGrid">
+            <div class="service-card" data-category="dasar">
                 <span class="icon">🩺</span>
                 <h3>Pemeriksaan Umum</h3>
                 <p>Pemeriksaan dan pengobatan penyakit umum serta pelayanan promotif dan preventif.</p>
+                <span class="tag">Pelayanan Dasar</span>
             </div>
-            <div class="service-card">
-                <span class="icon">👩‍🍼</span>
-                <h3>KIA & Keluarga Berencana</h3>
-                <p>Pemeriksaan kehamilan, pelayanan ibu dan anak, serta konsultasi program KB.</p>
-            </div>
-            <div class="service-card">
+            <div class="service-card" data-category="dasar">
                 <span class="icon">🦷</span>
                 <h3>Kesehatan Gigi & Mulut</h3>
                 <p>Perawatan, pembersihan, dan tindakan medis dasar untuk kesehatan gigi masyarakat.</p>
+                <span class="tag">Pelayanan Dasar</span>
             </div>
-            <div class="service-card">
-                <span class="icon">💉</span>
-                <h3>Pelayanan Imunisasi</h3>
-                <p>Pemberian imunisasi rutin bagi bayi, balita, calon pengantin, serta vaksinasi program.</p>
+            <div class="service-card" data-category="kia">
+                <span class="icon">👩‍🍼</span>
+                <h3>KIA & Keluarga Berencana</h3>
+                <p>Pemeriksaan kehamilan, pelayanan ibu dan anak, serta konsultasi program KB.</p>
+                <span class="tag">KIA, KB & Gizi</span>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-category="kia">
+                <span class="icon">🍎</span>
+                <h3>Konsultasi Gizi</h3>
+                <p>Pemantauan tumbuh kembang balita, konsultasi gizi ibu hamil, dan pencegahan stunting.</p>
+                <span class="tag">KIA, KB & Gizi</span>
+            </div>
+            <div class="service-card" data-category="penunjang">
                 <span class="icon">🧪</span>
                 <h3>Laboratorium Medis</h3>
                 <p>Pemeriksaan sampel spesimen medis dasar guna mendukung penegakan diagnosis dokter.</p>
+                <span class="tag">Penunjang Medis</span>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-category="penunjang">
+                <span class="icon">💊</span>
+                <h3>Farmasi / Apotek</h3>
+                <p>Penyediaan dan penyerahan obat sesuai resep dokter dengan pengawasan apoteker.</p>
+                <span class="tag">Penunjang Medis</span>
+            </div>
+            <div class="service-card" data-category="prioritas">
+                <span class="icon">💉</span>
+                <h3>Pelayanan Imunisasi</h3>
+                <p>Pemberian imunisasi rutin bagi bayi, balita, calon pengantin, serta vaksinasi program.</p>
+                <span class="tag">Program Prioritas</span>
+            </div>
+            <div class="service-card" data-category="prioritas">
                 <span class="icon">❤️</span>
                 <h3>Pencegahan PTM</h3>
                 <p>Skrining awal penyakit tidak menular seperti hipertensi, diabetes melitus, dan jantung.</p>
+                <span class="tag">Program Prioritas</span>
             </div>
         </div>
+    </div>
+
+    <!-- Berita & Kegiatan -->
+    <div class="section" id="berita">
+        <div class="section-title">
+            <h2>Berita & Kegiatan Terbaru</h2>
+            <p>Kabar seputar kegiatan dan program Puskesmas Tanjung Pinang <em>(konten placeholder, akan diperbarui)</em></p>
+        </div>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="thumb">📰</div>
+                <div class="body">
+                    <div class="date">Placeholder · Segera Diisi</div>
+                    <h3>Judul Berita atau Kegiatan #1</h3>
+                    <p>Ringkasan singkat kegiatan atau berita akan ditampilkan di sini. Ganti dengan konten asli kapan saja.</p>
+                    <a href="#" class="read-more">Selengkapnya →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="thumb">📰</div>
+                <div class="body">
+                    <div class="date">Placeholder · Segera Diisi</div>
+                    <h3>Judul Berita atau Kegiatan #2</h3>
+                    <p>Ringkasan singkat kegiatan atau berita akan ditampilkan di sini. Ganti dengan konten asli kapan saja.</p>
+                    <a href="#" class="read-more">Selengkapnya →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="thumb">📰</div>
+                <div class="body">
+                    <div class="date">Placeholder · Segera Diisi</div>
+                    <h3>Judul Berita atau Kegiatan #3</h3>
+                    <p>Ringkasan singkat kegiatan atau berita akan ditampilkan di sini. Ganti dengan konten asli kapan saja.</p>
+                    <a href="#" class="read-more">Selengkapnya →</a>
+                </div>
+            </div>
+        </div>
+        <p class="news-note">Foto dan teks di atas masih placeholder — kirim konten asli kapan pun untuk diganti.</p>
     </div>
 
     <!-- Peta Lokasi -->
@@ -156,9 +283,9 @@
             <p>Kunjungi UPTD Puskesmas Tanjung Pinang di alamat berikut</p>
         </div>
         <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8048227091216!2d103.6321436!3d-1.5907186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e25892a73c211fd%3A0x7076dd45c330aeaa!2sUPTD%20Puskesmas%20Tanjung%20Pinang!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-                allowfullscreen="" 
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8048227091216!2d103.6321436!3d-1.5907186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e25892a73c211fd%3A0x7076dd45c330aeaa!2sUPTD%20Puskesmas%20Tanjung%20Pinang!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                allowfullscreen=""
                 loading="lazy">
             </iframe>
         </div>
@@ -187,6 +314,59 @@
             <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Hero carousel
+        (function () {
+            const slides = document.querySelectorAll('#heroCarousel .hero-slide');
+            const dotsWrap = document.getElementById('heroDots');
+            let current = 0;
+            let timer;
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                if (i === 0) dot.classList.add('is-active');
+                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+                dot.addEventListener('click', () => goTo(i));
+                dotsWrap.appendChild(dot);
+            });
+            const dots = dotsWrap.querySelectorAll('button');
+
+            function goTo(index) {
+                slides[current].classList.remove('is-active');
+                dots[current].classList.remove('is-active');
+                current = (index + slides.length) % slides.length;
+                slides[current].classList.add('is-active');
+                dots[current].classList.add('is-active');
+                resetTimer();
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                timer = setInterval(() => goTo(current + 1), 6000);
+            }
+
+            document.getElementById('heroPrev').addEventListener('click', () => goTo(current - 1));
+            document.getElementById('heroNext').addEventListener('click', () => goTo(current + 1));
+            resetTimer();
+        })();
+
+        // Service category filter
+        (function () {
+            const tabs = document.querySelectorAll('#categoryTabs button');
+            const cards = document.querySelectorAll('#servicesGrid .service-card');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('is-active'));
+                    tab.classList.add('is-active');
+                    const cat = tab.dataset.category;
+                    cards.forEach(card => {
+                        card.style.display = (cat === 'semua' || card.dataset.category === cat) ? '' : 'none';
+                    });
+                });
+            });
+        })();
+    </script>
 
 </body>
 </html>
