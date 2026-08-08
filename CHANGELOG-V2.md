@@ -54,3 +54,9 @@ SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pela
 - Foto Kepala UPTD Puskesmas ditampilkan di Beranda sebagai bagian identitas pimpinan.
 - Foto menggunakan gambar yang diberikan pengguna dan ditampilkan dalam format portrait responsif.
 - Ditambahkan pengantar visi serta identitas nilai SEHATI dan 5S.
+
+
+## V2.6 — Pembaruan Prestasi & Periode Pimpinan
+- Menambahkan periode Kepala UPTD Puskesmas Tanjung Pinang: 12 Maret 2026 – sekarang.
+- Menambahkan 10 item prestasi/penghargaan berdasarkan daftar yang diberikan.
+- Foto kepala puskesmas tetap menggunakan aset `kepala-puskesmas.jpg` yang sudah ada pada V2.5.

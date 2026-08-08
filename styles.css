@@ -85,3 +85,6 @@
   .leader-values{justify-content:center}
   .leader-copy .btn{width:100%}
 }
+
+.leader-period{margin:.2rem 0 1rem;color:var(--green-900);font-size:.98rem}
+.achievement-list{display:grid;gap:12px;margin:20px 0}.achievement-item{display:flex;gap:14px;align-items:flex-start;padding:15px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}.achievement-item>span{font-size:1.45rem;line-height:1}.achievement-item strong{display:block;line-height:1.45}.achievement-item small{display:block;margin-top:4px;color:#667085}
