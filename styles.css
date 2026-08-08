@@ -86,5 +86,9 @@
   .leader-copy .btn{width:100%}
 }
 
-.leader-period{margin:.2rem 0 1rem;color:var(--green-900);font-size:.98rem}
-.achievement-list{display:grid;gap:12px;margin:20px 0}.achievement-item{display:flex;gap:14px;align-items:flex-start;padding:15px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}.achievement-item>span{font-size:1.45rem;line-height:1}.achievement-item strong{display:block;line-height:1.45}.achievement-item small{display:block;margin-top:4px;color:#667085}
+/* V2.7 — prestasi & periode pimpinan */
+.leader-period{margin:.35rem 0 1rem;font-size:1rem;color:#0b5d49}.leader-period strong{font-weight:800}
+.achievement-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.achievement-card{background:#f5fbf8;border:1px solid #d6eee6;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(0,80,60,.06)}
+.achievement-card h3{margin:8px 0 8px;color:#075b48;font-size:1.08rem;line-height:1.35}.achievement-card p{margin:0;color:#52635e;line-height:1.55}.achievement-year{display:inline-flex;padding:5px 10px;border-radius:999px;background:#dff4ec;color:#075b48;font-weight:800;font-size:.82rem}
+@media(max-width:700px){.achievement-grid{grid-template-columns:1fr}}
