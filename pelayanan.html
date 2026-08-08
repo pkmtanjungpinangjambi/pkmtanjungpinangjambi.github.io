@@ -1,212 +1,29 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pelayanan - UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
-        body { line-height: 1.6; color: #333; background-color: #f4f7f6; }
-
-        .top-bar { background: #00563f; color: #fff; padding: 8px 8%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
-        .top-bar div { display: flex; gap: 15px; flex-wrap: wrap; }
-
-        header { background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 10px; }
-        .logo-container { display: flex; align-items: center; gap: 12px; }
-        .logo-title h1 { font-size: 1.1rem; color: #00563f; font-weight: 700; line-height: 1.2; }
-        .logo-title p { font-size: 0.8rem; color: #666; }
-        nav { display: flex; gap: 20px; flex-wrap: wrap; }
-        nav a { text-decoration: none; color: #444; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-        nav a:hover, nav a.active { color: #00a86b; }
-
-        .page-hero { background: linear-gradient(120deg, rgba(0,86,63,0.92), rgba(0,168,107,0.85)); color: #fff; padding: 50px 8% 60px; text-align: center; }
-        .page-hero h2 { font-size: 2rem; margin-bottom: 10px; }
-        .page-hero p { opacity: 0.95; max-width: 600px; margin: 0 auto; }
-
-        .container { max-width: 1200px; margin: -30px auto 60px; padding: 0 20px; }
-
-        .category-tabs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 30px 0; }
-        .category-tabs button { background: #fff; border: 1px solid #cfe4dc; color: #00563f; padding: 9px 18px; border-radius: 20px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: 0.25s; }
-        .category-tabs button:hover { background: #eaf7f1; }
-        .category-tabs button.is-active { background: #00563f; border-color: #00563f; color: #fff; }
-
-        .category-block { margin-bottom: 45px; }
-        .category-block h3 { color: #00563f; font-size: 1.3rem; margin-bottom: 18px; border-left: 4px solid #00a86b; padding-left: 12px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #00a86b; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,0.08); }
-        .card .icon { font-size: 1.9rem; margin-bottom: 10px; display: inline-block; }
-        .card h4 { color: #00563f; margin-bottom: 8px; }
-        .card p { font-size: 0.92rem; color: #555; flex: 1; }
-        .klaster-tag { display: inline-flex; align-items: center; gap: 5px; margin-top: 14px; align-self: flex-start; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; color: #00563f; background: #eaf7f1; border: 1px solid #cfe4dc; padding: 4px 11px; border-radius: 12px; }
-
-        .pustu-section { margin-top: 55px; }
-        .pustu-section h3 { color: #00563f; font-size: 1.3rem; margin-bottom: 8px; }
-        .pustu-section p.desc { color: #666; font-size: 0.92rem; margin-bottom: 18px; }
-        .pustu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
-        .pustu-chip { background: #fff; border: 1px solid #cfe4dc; border-radius: 8px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; color: #00563f; font-weight: 600; font-size: 0.92rem; }
-        .pustu-chip .dot { width: 10px; height: 10px; border-radius: 50%; background: #00a86b; flex-shrink: 0; }
-
-        footer { background: #003325; color: #d1d5db; text-align: center; padding: 25px 20px; margin-top: 40px; font-size: 0.9rem; }
-    </style>
-</head>
-<body>
-    <div class="top-bar">
-        <div>📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kota Jambi</div>
-        <div>📞 (0741) 7555394 | ✉️ pkm.tanjungpinang@jambikota.go.id</div>
-    </div>
-
-    <header>
-        <div class="logo-container">
-            <div style="font-size: 2rem;">🏥</div>
-            <div class="logo-title">
-                <h1>UPTD PUSKESMAS TANJUNG PINANG</h1>
-                <p>Dinas Kesehatan Kota Jambi</p>
-            </div>
-        </div>
-        <nav>
-            <a href="index.html">Beranda</a>
-            <a href="profil.html">Profil</a>
-            <a href="pelayanan.html" class="active">Pelayanan</a>
-            <a href="jadwal.html">Jadwal</a>
-            <a href="kontak.html">Kontak & Lokasi</a>
-        </nav>
-    </header>
-
-    <section class="page-hero">
-        <h2>Pelayanan Kesehatan</h2>
-        <p>Daftar lengkap unit pelayanan Puskesmas Tanjung Pinang, dikelompokkan per kategori — setiap layanan juga ditandai klaster ILP-nya.</p>
-    </section>
-
-    <div class="container">
-        <div class="category-tabs" id="categoryTabs">
-            <button class="is-active" data-category="semua">Semua</button>
-            <button data-category="dasar">Pelayanan Dasar</button>
-            <button data-category="kia">KIA, KB & Gizi</button>
-            <button data-category="penunjang">Penunjang Medis</button>
-            <button data-category="prioritas">Program Prioritas</button>
-        </div>
-
-        <div class="category-block" data-block="dasar">
-            <h3>Pelayanan Dasar</h3>
-            <div class="grid">
-                <div class="card">
-                    <span class="icon">🩺</span><h4>Pemeriksaan Umum</h4>
-                    <p>Pemeriksaan, pengobatan, dan konsultasi kesehatan dasar bagi masyarakat umum.</p>
-                    <span class="klaster-tag">⚙️ Klaster 3 (Dewasa 18-&lt;60 tahun)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">🦷</span><h4>Kesehatan Gigi & Mulut</h4>
-                    <p>Pemeriksaan, pembersihan, dan perawatan kesehatan gigi serta mulut.</p>
-                    <span class="klaster-tag">⚙️ Klaster 5 (Gigi & Mulut)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">🧓</span><h4>Pelayanan Lansia</h4>
-                    <p>Pemeriksaan berkala dan pemantauan kesehatan bagi warga usia lanjut.</p>
-                    <span class="klaster-tag">⚙️ Klaster 3 (Lansia ≥60 tahun)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">🚨</span><h4>Unit Gawat Darurat (UGD)</h4>
-                    <p>Penanganan pertama kondisi kegawatdaruratan medis, tersedia sesuai jam pelayanan.</p>
-                    <span class="klaster-tag">⚙️ Klaster 5 (UGD)</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="category-block" data-block="kia">
-            <h3>KIA, KB & Gizi</h3>
-            <div class="grid">
-                <div class="card">
-                    <span class="icon">👩‍🍼</span><h4>Kesehatan Ibu & Anak (KIA)</h4>
-                    <p>Pemeriksaan kehamilan, persalinan, nifas, dan pemantauan kesehatan anak.</p>
-                    <span class="klaster-tag">⚙️ Klaster 2 (Ibu & Anak)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">👪</span><h4>Keluarga Berencana (KB)</h4>
-                    <p>Konsultasi dan pelayanan kontrasepsi bagi pasangan usia subur.</p>
-                    <span class="klaster-tag">⚙️ Klaster 3 (KB)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">🍎</span><h4>Konsultasi Gizi</h4>
-                    <p>Pemantauan tumbuh kembang balita, konsultasi gizi ibu hamil, dan pencegahan stunting.</p>
-                    <span class="klaster-tag">⚙️ Klaster 2 (Ibu & Anak)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">💉</span><h4>Imunisasi</h4>
-                    <p>Pelayanan imunisasi rutin balita, calon pengantin, dan perlindungan kesehatan.</p>
-                    <span class="klaster-tag">⚙️ Klaster 2 (Ibu & Anak)</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="category-block" data-block="penunjang">
-            <h3>Penunjang Medis</h3>
-            <div class="grid">
-                <div class="card">
-                    <span class="icon">🧪</span><h4>Laboratorium</h4>
-                    <p>Pemeriksaan darah rutin, gula darah, kolesterol, dan penunjang medis dasar.</p>
-                    <span class="klaster-tag">⚙️ Klaster 5 (Lintas Klaster)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">💊</span><h4>Farmasi / Apotek</h4>
-                    <p>Penyediaan dan penyerahan obat sesuai resep dokter dengan pengawasan apoteker.</p>
-                    <span class="klaster-tag">⚙️ Klaster 5 (Lintas Klaster)</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="category-block" data-block="prioritas">
-            <h3>Program Prioritas</h3>
-            <div class="grid">
-                <div class="card">
-                    <span class="icon">❤️</span><h4>Pengendalian PTM</h4>
-                    <p>Deteksi dini dan pemantauan penyakit tidak menular seperti hipertensi dan diabetes.</p>
-                    <span class="klaster-tag">⚙️ Klaster 3 (Dewasa 18-&lt;60 tahun)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">🚭</span><h4>Layanan Berhenti Merokok</h4>
-                    <p>Konsultasi dan pendampingan bagi masyarakat yang ingin berhenti merokok.</p>
-                    <span class="klaster-tag">⚙️ Klaster 3 (Dewasa 18-&lt;60 tahun)</span>
-                </div>
-                <div class="card">
-                    <span class="icon">🌿</span><h4>Kesehatan Lingkungan</h4>
-                    <p>Edukasi dan pemantauan sanitasi serta kesehatan lingkungan sekitar wilayah kerja.</p>
-                    <span class="klaster-tag">⚙️ Klaster 4 (Penanggulangan Penularan Penyakit)</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="pustu-section">
-            <h3>Pustu (Puskesmas Pembantu)</h3>
-            <p class="desc">Puskesmas Tanjung Pinang membawahi Puskesmas Pembantu berikut untuk memperluas jangkauan pelayanan:</p>
-            <div class="pustu-grid">
-                <div class="pustu-chip"><span class="dot"></span>Pustu Kasang Jaya</div>
-                <div class="pustu-chip"><span class="dot"></span>Pustu Sijenjang I</div>
-                <div class="pustu-chip"><span class="dot"></span>Pustu Sijenjang II</div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
-    </footer>
-
-    <script>
-        (function () {
-            const tabs = document.querySelectorAll('#categoryTabs button');
-            const blocks = document.querySelectorAll('.category-block');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('is-active'));
-                    tab.classList.add('is-active');
-                    const cat = tab.dataset.category;
-                    blocks.forEach(block => {
-                        block.style.display = (cat === 'semua' || block.dataset.block === cat) ? '' : 'none';
-                    });
-                });
-            });
-        })();
-    </script>
-</body>
-</html>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pelayanan | UPTD Puskesmas Tanjung Pinang Kota Jambi</title><meta name="description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang berdasarkan Standar Pelayanan Publik Tahun 2026."><link rel="stylesheet" href="styles.css"></head><body>
+<div class="topbar"><div class="container topbar-inner"><span>📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kota Jambi</span><span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email resmi</a></span></div></div>
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><span class="brand-mark">🏥</span><span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a><button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a class="active" href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a></nav></div></header>
+<section class="page-hero"><div class="container"><span class="eyebrow">Standar Pelayanan Publik 2026</span><h1>Pelayanan Kesehatan</h1><p>Informasi dibuat ringkas untuk masyarakat, dengan dasar ruang lingkup klaster dan komponen standar pelayanan dalam SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026.</p></div></section>
+<main class="page-content"><div class="container">
+<div class="notice" id="pendaftaran" style="margin-bottom:24px"><div class="section-head" style="margin-bottom:12px"><div><span class="kicker">Layanan manajemen</span><h2 style="font-size:1.5rem">Pendaftaran & Rekam Medik</h2></div><span class="pill">Klaster 1</span></div><div class="two-col"><div><p><strong>Persyaratan:</strong> KTP/KK, kartu jaminan kesehatan (BPJS/KIS), dan buku UKS/buku berobat sesuai kebutuhan.</p><p><strong>Alur:</strong> pasien datang → menyerahkan kartu → proses pendaftaran → menunggu panggilan sesuai ruangan/klaster.</p></div><div><p><strong>Batas pendaftaran:</strong> Mobile JKN 12.30 WIB; langsung di Puskesmas 13.30 WIB.</p><p><strong>Waktu:</strong> pasien baru sekitar 5 menit; pasien lama 1–3 menit. <strong>Biaya:</strong> umum Rp5.000; BPJS/UKS gratis.</p></div></div></div>
+<div class="filter" data-filter-group="services"><button class="active" data-filter="all">Semua</button><button data-filter="kia">Ibu & Anak</button><button data-filter="dewasa">Dewasa & Lansia</button><button data-filter="menular">Penyakit Menular</button><button data-filter="lintas">Lintas Klaster</button></div>
+<div class="cards">
+<article class="card service-card" data-filter-target="services" data-category="kia"><div class="card-icon">🤰</div><h3>Ibu Hamil, Bersalin & Nifas</h3><p>Pelayanan KIA termasuk pemeriksaan antenatal dan tindak lanjut sesuai kondisi.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> Buku KIA, KTP/KK, BPJS/KIS bila tersedia.</div><div class="detail"><strong>Waktu:</strong> 30–60 menit per pasien.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000; laboratorium sesuai ketentuan tarif.</div></div><div class="service-meta"><span class="pill">Klaster 2</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="kia"><div class="card-icon">👶</div><h3>Pelayanan Anak</h3><p>Pemeriksaan anak, kajian awal, pemeriksaan dokter, terapi, dan rujukan bila diperlukan.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> KTP/KK, kartu BPJS/KIS, buku UKS/buku berobat.</div><div class="detail"><strong>Waktu:</strong> sekitar 5–10 menit, dapat bertambah sesuai pemeriksaan.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000.</div></div><div class="service-meta"><span class="pill">Klaster 2</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="kia"><div class="card-icon">💉</div><h3>Imunisasi</h3><p>Pelayanan imunisasi melalui alur pendaftaran, pemeriksaan, imunisasi, dan tindak lanjut.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> pasien sudah mendaftar di loket pendaftaran.</div><div class="detail"><strong>Waktu:</strong> 15–30 menit.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000.</div></div><div class="service-meta"><span class="pill">Klaster 2</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="kia"><div class="card-icon">📏</div><h3>Tumbuh Kembang Anak</h3><p>Pemantauan pertumbuhan, perkembangan, edukasi, dan rujukan bila ditemukan gangguan.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> Buku KIA, identitas orang tua/KK, BPJS/KIS bila menggunakan.</div><div class="detail"><strong>Waktu:</strong> rutin 30–45 menit; kasus khusus 45–60 menit.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000.</div></div><div class="service-meta"><span class="pill">Klaster 2</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="kia"><div class="card-icon">👪</div><h3>Keluarga Berencana (KB)</h3><p>Konsultasi dan tindakan kontrasepsi termasuk suntikan, IUD, dan implan sesuai indikasi.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> KTP/KK, BPJS bila tersedia, kartu KB untuk kunjungan berulang.</div><div class="detail"><strong>Waktu:</strong> suntikan 10–15 menit; pemasangan/pelepasan IUD/implan 20–30 menit.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000.</div></div><div class="service-meta"><span class="pill">Klaster 3</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="kia"><div class="card-icon">💍</div><h3>Calon Pengantin (Caten)</h3><p>Pemeriksaan kesehatan reproduksi, laboratorium, imunisasi tetanus, dan konseling pranikah.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> KTP/KK dan BPJS bila tersedia.</div><div class="detail"><strong>Waktu:</strong> sekitar 1–2 jam, tergantung antrean laboratorium.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000; laboratorium sesuai ketentuan tarif.</div></div><div class="service-meta"><span class="pill">Klaster 3</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="dewasa"><div class="card-icon">🩺</div><h3>Pelayanan Dewasa</h3><p>Pemeriksaan kesehatan dewasa dengan dukungan konseling gizi, UBM, sanitasi, laboratorium, dan farmasi sesuai kebutuhan.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> KTP/KK, BPJS aktif bila tersedia, buku PRB bila tersedia.</div><div class="detail"><strong>Waktu:</strong> 5–15 menit, dapat lebih lama bila ada pemeriksaan laboratorium.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000.</div></div><div class="service-meta"><span class="pill">Klaster 3</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="dewasa"><div class="card-icon">🧓</div><h3>Pelayanan Lansia</h3><p>Pemeriksaan dan pemantauan kesehatan lansia dengan memperhatikan kondisi dan risiko pasien.</p><div class="details"><div class="detail"><strong>Persyaratan:</strong> KTP/KK, BPJS aktif bila tersedia, buku PRB bila tersedia.</div><div class="detail"><strong>Waktu:</strong> 5–15 menit, dapat lebih lama bila ada pemeriksaan laboratorium.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum Rp5.000.</div></div><div class="service-meta"><span class="pill">Klaster 3</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="dewasa"><div class="card-icon">🚭</div><h3>Upaya Berhenti Merokok (UBM)</h3><p>Konseling dan pendampingan untuk membantu masyarakat mengurangi dan berhenti menggunakan produk tembakau/rokok elektronik.</p><div class="details"><div class="detail"><strong>Pendekatan:</strong> pelayanan profesional, ramah, tidak menghakimi, menjaga kerahasiaan, dan berbasis bukti.</div></div><div class="service-meta"><span class="pill">Klaster 3</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="menular"><div class="card-icon">🫁</div><h3>Pelayanan Tuberkulosis</h3><p>Pelayanan TB melalui pemeriksaan klinis, TCM/dahak sesuai indikasi, pengobatan, edukasi, dan rujukan bila diperlukan.</p><div class="details"><div class="detail"><strong>Waktu:</strong> pemeriksaan klinis 15–30 menit; TCM biasanya 1–2 hari kerja; obat 10–15 menit.</div><div class="detail"><strong>Biaya:</strong> BPJS gratis; umum gratis untuk layanan TB sebagaimana standar yang ditetapkan.</div></div><div class="service-meta"><span class="pill">Klaster 4</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="menular"><div class="card-icon">🐕</div><h3>Gigitan Hewan Pembawa Rabies (GHPR)</h3><p>Penanganan gigitan/cakaran/jilatan hewan penular rabies melalui triase, perawatan luka, penilaian pajanan, vaksinasi sesuai indikasi, dan rujukan bila diperlukan.</p><div class="details"><div class="detail"><strong>Segera datang:</strong> terutama setelah gigitan, cakaran, atau jilatan pada kulit yang terluka.</div></div><div class="service-meta"><span class="pill">Klaster 4</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="lintas"><div class="card-icon">🦷</div><h3>Kesehatan Gigi & Mulut</h3><p>Pemeriksaan dan tindakan kesehatan gigi dan mulut dengan penerapan pencegahan infeksi dan perlindungan pasien.</p><div class="service-meta"><span class="pill">Lintas Klaster</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="lintas"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium sebagai layanan penunjang pelayanan kesehatan sesuai permintaan klinis.</p><div class="service-meta"><span class="pill">Lintas Klaster</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="lintas"><div class="card-icon">💊</div><h3>Resep Obat</h3><p>Pelayanan resep obat berdasarkan resep dokter/tenaga medis dengan proses penyiapan dan penyerahan obat.</p><div class="service-meta"><span class="pill">Lintas Klaster</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="lintas"><div class="card-icon">🚨</div><h3>Gawat Darurat</h3><p>Penanganan kegawatdaruratan, stabilisasi, dan rujukan sesuai kondisi pasien.</p><div class="service-meta"><span class="pill">Lintas Klaster</span></div></article>
+<article class="card service-card" data-filter-target="services" data-category="lintas"><div class="card-icon">🩺</div><h3>Cek Kesehatan Gratis (CKG)</h3><p>Pendaftaran, verifikasi identitas, skrining awal, pemeriksaan sesuai kelompok usia, edukasi, dan tindak lanjut bila diperlukan.</p><div class="details"><div class="detail"><strong>Waktu:</strong> sekitar 15–60 menit tergantung jenis pemeriksaan dan jumlah peserta.</div><div class="detail"><strong>Biaya:</strong> gratis.</div></div><div class="service-meta"><span class="pill">Program CKG</span></div></article>
+</div>
+<section class="section" style="padding-bottom:10px"><div class="section-head"><div><span class="kicker">Panduan</span><h2>14 komponen Standar Pelayanan</h2><p>SK 39 Tahun 2026 menetapkan 14 komponen sebagai acuan penyelenggaraan dan penilaian pelayanan publik.</p></div></div><div class="accordion"><details><summary>1–4 · Dasar, persyaratan, mekanisme, waktu</summary><div>Dasar hukum · Persyaratan pelayanan · Sistem/mekanisme/prosedur · Jangka waktu pelayanan.</div></details><details><summary>5–8 · Biaya, produk, fasilitas, kompetensi</summary><div>Biaya/tarif · Produk pelayanan · Sarana/prasarana/fasilitas · Kompetensi pelaksana.</div></details><details><summary>9–14 · Pengawasan, pengaduan, pelaksana, jaminan, evaluasi</summary><div>Pengawasan internal · Penanganan pengaduan/saran/masukan · Jumlah pelaksana · Jaminan pelayanan · Jaminan keamanan dan keselamatan · Evaluasi kinerja pelaksana.</div></details></div></section>
+<p class="source-note">Catatan: ringkasan di atas disusun dari SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026. Untuk tarif laboratorium dan detail teknis tertentu, ikuti ketentuan resmi yang berlaku di Puskesmas.</p>
+</div></main>
+<footer class="footer"><div class="container footer-grid"><div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Portal informasi pelayanan kesehatan masyarakat.</p></div><div><h3>Tautan</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak</a></div></div><div><h3>Kontak</h3><p>📞 0741 7555394<br>💬 +62 821-8062-2274</p></div></div><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer><a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener">💬 WhatsApp</a><script src="script.js" defer></script></body></html>

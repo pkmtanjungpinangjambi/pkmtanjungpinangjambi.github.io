@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pkmtanjungpinangjambi.vercel.app/sitemap.xml
