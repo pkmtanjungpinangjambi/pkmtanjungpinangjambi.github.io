@@ -17,3 +17,40 @@
 
 ## Dasar konten
 SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik, ditetapkan 15 Maret 2026, menjadi dasar informasi pelayanan yang dimasukkan.
+
+
+## V2.1 — Media, Social & Maps
+- Menampilkan video TB secara lebih jelas di homepage dengan poster dan kontrol HTML5.
+- Menampilkan Maklumat Pelayanan sebagai bagian dari homepage.
+- Menambahkan hub interaksi Instagram, Facebook, WhatsApp.
+- Menambahkan tombol Google Maps + petunjuk arah langsung.
+- Memperkuat halaman Kontak & Lokasi agar kanal interaksi dapat diklik.
+- Menambahkan `referrerpolicy` pada iframe Google Maps.
+
+
+## V2.2 — Email Resmi
+- Email publikasi diperbarui menjadi `pkmtanjungpinang18jambi@gmail.com`.
+- Email dibuat dapat diklik melalui `mailto:` pada halaman kontak.
+
+
+## V2.3 — Profil Resmi
+- Menambahkan sejarah berdiri tahun 1974 / Puskesmas Inpres 5/74.
+- Memasukkan Visi 2029 dan 4 Misi resmi.
+- Memasukkan Tata Nilai SEHATI: Sopan, Empati, Handal, Adil, Terampil, Inovatif.
+- Memasukkan motto 5S: Senyum, Sapa, Salam, Sopan, Santun.
+- Menambahkan karakteristik dan kekuatan berbasis data resmi: 5 kelurahan, 3 Pustu, 42 Posyandu aktif, dan 5 klaster ILP.
+- Mempertahankan item Prestasi & Penghargaan tanpa membuat data penghargaan yang belum terverifikasi.
+
+
+## V2.4 — Profil Lebih Terlihat
+- Visi & Misi sekarang tampil langsung di halaman Profil, tidak tersembunyi di balik tab.
+- Motto & Tata Nilai juga tampil langsung.
+- Item Profil tetap dipertahankan.
+- Ditambahkan akses cepat ke Visi & Misi serta Motto & Tata Nilai.
+
+
+## V2.5 — Identitas Puskesmas
+- Lambang Kota Jambi ditampilkan di samping nama UPTD Puskesmas Tanjung Pinang.
+- Foto Kepala UPTD Puskesmas ditampilkan di Beranda sebagai bagian identitas pimpinan.
+- Foto menggunakan gambar yang diberikan pengguna dan ditampilkan dalam format portrait responsif.
+- Ditambahkan pengantar visi serta identitas nilai SEHATI dan 5S.
