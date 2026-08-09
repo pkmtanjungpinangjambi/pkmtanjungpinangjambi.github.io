@@ -1,8 +1,21 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pelayanan | UPTD Puskesmas Tanjung Pinang Kota Jambi</title><meta name="description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang berdasarkan Standar Pelayanan Publik Tahun 2026."><link rel="stylesheet" href="styles.css"></head><body>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pelayanan | UPTD Puskesmas Tanjung Pinang Kota Jambi</title><meta name="description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang berdasarkan Standar Pelayanan Publik Tahun 2026."><link rel="stylesheet" href="styles.css"><style>
+.sk-poster{margin:28px 0;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(0,59,45,.12);border:1px solid var(--line);cursor:zoom-in;position:relative}
+.sk-poster img{display:block;width:100%;height:auto}
+.sk-poster-hint{position:absolute;right:14px;bottom:14px;background:rgba(11,93,73,.88);color:#fff;font-size:.78rem;font-weight:800;padding:7px 12px;border-radius:999px}
+.photo-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:24px}
+.photo-lightbox.is-open{display:flex}
+.photo-lightbox img{max-width:min(94vw,1100px);max-height:90vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.photo-lightbox-close{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:#0b5d49;font-size:22px;font-weight:800;cursor:pointer;line-height:44px;text-align:center}
+</style></head><body>
 <div class="topbar"><div class="container topbar-inner"><span>📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kota Jambi</span><span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email resmi</a></span></div></div>
 <header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><span class="brand-mark">🏥</span><span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a><button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a class="active" href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a></nav></div></header>
 <section class="page-hero"><div class="container"><span class="eyebrow">Standar Pelayanan Publik 2026</span><h1>Pelayanan Kesehatan</h1><p>Informasi dibuat ringkas untuk masyarakat, dengan dasar ruang lingkup klaster dan komponen standar pelayanan dalam SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026.</p></div></section>
 <main class="page-content"><div class="container">
+<div class="sk-poster" onclick="openPhotoLightbox('standar-pelayanan.jpg')" role="button" tabindex="0" aria-label="Perbesar poster Standar Pelayanan" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox('standar-pelayanan.jpg');}">
+  <img src="standar-pelayanan.jpg" alt="Poster Standar Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan SK Nomor 39 Tahun 2026" loading="lazy">
+  <span class="sk-poster-hint">🔍 Klik untuk perbesar</span>
+</div>
+
 <div class="notice" id="pendaftaran" style="margin-bottom:24px"><div class="section-head" style="margin-bottom:12px"><div><span class="kicker">Layanan manajemen</span><h2 style="font-size:1.5rem">Pendaftaran & Rekam Medik</h2></div><span class="pill">Klaster 1</span></div><div class="two-col"><div><p><strong>Persyaratan:</strong> KTP/KK, kartu jaminan kesehatan (BPJS/KIS), dan buku UKS/buku berobat sesuai kebutuhan.</p><p><strong>Alur:</strong> pasien datang → menyerahkan kartu → proses pendaftaran → menunggu panggilan sesuai ruangan/klaster.</p></div><div><p><strong>Batas pendaftaran:</strong> Mobile JKN 12.30 WIB; langsung di Puskesmas 13.30 WIB.</p><p><strong>Waktu:</strong> pasien baru sekitar 5 menit; pasien lama 1–3 menit. <strong>Biaya:</strong> umum Rp5.000; BPJS/UKS gratis.</p></div></div></div>
 <div class="filter" data-filter-group="services"><button class="active" data-filter="all">Semua</button><button data-filter="kia">Ibu & Anak</button><button data-filter="dewasa">Dewasa & Lansia</button><button data-filter="menular">Penyakit Menular</button><button data-filter="lintas">Lintas Klaster</button></div>
 <div class="cards">
@@ -26,4 +39,24 @@
 <section class="section" style="padding-bottom:10px"><div class="section-head"><div><span class="kicker">Panduan</span><h2>14 komponen Standar Pelayanan</h2><p>SK 39 Tahun 2026 menetapkan 14 komponen sebagai acuan penyelenggaraan dan penilaian pelayanan publik.</p></div></div><div class="accordion"><details><summary>1–4 · Dasar, persyaratan, mekanisme, waktu</summary><div>Dasar hukum · Persyaratan pelayanan · Sistem/mekanisme/prosedur · Jangka waktu pelayanan.</div></details><details><summary>5–8 · Biaya, produk, fasilitas, kompetensi</summary><div>Biaya/tarif · Produk pelayanan · Sarana/prasarana/fasilitas · Kompetensi pelaksana.</div></details><details><summary>9–14 · Pengawasan, pengaduan, pelaksana, jaminan, evaluasi</summary><div>Pengawasan internal · Penanganan pengaduan/saran/masukan · Jumlah pelaksana · Jaminan pelayanan · Jaminan keamanan dan keselamatan · Evaluasi kinerja pelaksana.</div></details></div></section>
 <p class="source-note">Catatan: ringkasan di atas disusun dari SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026. Untuk tarif laboratorium dan detail teknis tertentu, ikuti ketentuan resmi yang berlaku di Puskesmas.</p>
 </div></main>
-<footer class="footer"><div class="container footer-grid"><div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Portal informasi pelayanan kesehatan masyarakat.</p></div><div><h3>Tautan</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak</a></div></div><div><h3>Kontak</h3><p>📞 0741 7555394<br>💬 +62 821-8062-2274</p></div></div><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer><a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener">💬 WhatsApp</a><script src="script.js" defer></script></body></html>
+<footer class="footer"><div class="container footer-grid"><div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Portal informasi pelayanan kesehatan masyarakat.</p></div><div><h3>Tautan</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak</a></div></div><div><h3>Kontak</h3><p>📞 0741 7555394<br>💬 +62 821-8062-2274</p></div></div><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer><a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<div class="photo-lightbox" id="photoLightbox" onclick="if(event.target===this){closePhotoLightbox();}">
+  <button class="photo-lightbox-close" type="button" aria-label="Tutup" onclick="closePhotoLightbox()">✕</button>
+  <img id="photoLightboxImg" src="" alt="Tampilan penuh">
+</div>
+
+<script>
+function openPhotoLightbox(src){
+  document.getElementById('photoLightboxImg').src = src;
+  document.getElementById('photoLightbox').classList.add('is-open');
+  document.body.style.overflow='hidden';
+}
+function closePhotoLightbox(){
+  document.getElementById('photoLightbox').classList.remove('is-open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePhotoLightbox();}});
+</script>
+
+<script src="script.js" defer></script></body></html>

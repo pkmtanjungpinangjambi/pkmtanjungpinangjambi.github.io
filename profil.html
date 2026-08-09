@@ -4,7 +4,15 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Profil | UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
 <meta name="description" content="Profil resmi UPTD Puskesmas Tanjung Pinang Kota Jambi: sejarah, visi misi, tata nilai SEHATI, motto 5S, wilayah kerja, Pustu, karakteristik dan komitmen pelayanan.">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css"><style>
+.sk-poster{margin:20px 0;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(0,59,45,.12);border:1px solid var(--line);cursor:zoom-in;position:relative;max-width:520px}
+.sk-poster img{display:block;width:100%;height:auto}
+.sk-poster-hint{position:absolute;right:14px;bottom:14px;background:rgba(11,93,73,.88);color:#fff;font-size:.78rem;font-weight:800;padding:7px 12px;border-radius:999px}
+.photo-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:24px}
+.photo-lightbox.is-open{display:flex}
+.photo-lightbox img{max-width:min(94vw,1100px);max-height:90vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.photo-lightbox-close{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:#0b5d49;font-size:22px;font-weight:800;cursor:pointer;line-height:44px;text-align:center}
+</style>
 </head>
 <body>
 <div class="topbar"><div class="container topbar-inner">
@@ -147,6 +155,14 @@
 <div class="org-item"><span class="org-icon">💬</span><div><strong>Pengaduan & Masukan</strong><br>Email, call center, WhatsApp, Instagram, Facebook, kotak saran, dan SPAN-LAPOR.</div></div>
 <div class="org-item"><span class="org-icon">📊</span><div><strong>Evaluasi</strong><br>Monitoring dan evaluasi dilakukan melalui mekanisme yang ditetapkan dalam standar pelayanan.</div></div>
 </div>
+
+<h3 class="subheading">Survei Kepuasan Masyarakat (IKM)</h3>
+<p>Hasil evaluasi rutin terhadap mutu dan kualitas pelayanan berdasarkan penilaian langsung dari masyarakat yang dilayani.</p>
+<div class="sk-poster" onclick="openPhotoLightbox('survei-kepuasan-masyarakat.jpg')" role="button" tabindex="0" aria-label="Perbesar poster Survei Kepuasan Masyarakat" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox('survei-kepuasan-masyarakat.jpg');}">
+  <img src="survei-kepuasan-masyarakat.jpg" alt="Poster Survei Kepuasan Masyarakat UPTD Puskesmas Tanjung Pinang Triwulan I 2026 - Nilai IKM 98,54 Sangat Baik" loading="lazy">
+  <span class="sk-poster-hint">🔍 Klik untuk perbesar</span>
+</div>
+
 <a class="btn btn-green" href="kontak.html">💬 Hubungi Puskesmas</a>
 <p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan SK Standar Pelayanan 2026.</p>
 </section>
@@ -171,5 +187,24 @@
 </div></div></div></main>
 <footer class="footer"><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer>
 <a class="floating-wa" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+
+<div class="photo-lightbox" id="photoLightbox" onclick="if(event.target===this){closePhotoLightbox();}">
+  <button class="photo-lightbox-close" type="button" aria-label="Tutup" onclick="closePhotoLightbox()">✕</button>
+  <img id="photoLightboxImg" src="" alt="Tampilan penuh">
+</div>
+
+<script>
+function openPhotoLightbox(src){
+  document.getElementById('photoLightboxImg').src = src;
+  document.getElementById('photoLightbox').classList.add('is-open');
+  document.body.style.overflow='hidden';
+}
+function closePhotoLightbox(){
+  document.getElementById('photoLightbox').classList.remove('is-open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePhotoLightbox();}});
+</script>
+
 <script src="script.js" defer></script>
 </body></html>
