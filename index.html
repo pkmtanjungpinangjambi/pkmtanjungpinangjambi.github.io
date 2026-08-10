@@ -102,6 +102,77 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-slide { transition: none; }
         }
+/* ================================
+   TAUTAN RESMI
+================================ */
+.official-links {
+  margin: 40px auto;
+  max-width: 1100px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.official-links h2 {
+  margin-bottom: 8px;
+}
+
+.official-links > p {
+  margin-bottom: 25px;
+  opacity: .75;
+}
+
+.official-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.official-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  padding: 20px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--card, #fff);
+  border: 1px solid rgba(0,0,0,.08);
+  transition: .2s ease;
+}
+
+.official-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.10);
+}
+
+.official-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.official-card strong {
+  font-size: 17px;
+  margin-bottom: 6px;
+}
+
+.official-card span {
+  font-size: 13px;
+  opacity: .7;
+}
+
+@media (max-width: 800px) {
+  .official-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .official-grid {
+    grid-template-columns: 1fr;
+  }
+}
     </style>
 </head>
 <body>
@@ -306,7 +377,65 @@
         </div>
         <p class="news-note">1 kartu lain masih placeholder — kirim konten asli kapan pun untuk diganti.</p>
     </div>
+<!-- ================================
+     TAUTAN RESMI
+================================= -->
+<section class="official-links">
 
+  <h2>🔗 Tautan Resmi</h2>
+
+  <p>
+    Akses cepat ke berbagai instansi dan layanan terkait
+  </p>
+
+  <div class="official-grid">
+
+    <a
+      class="official-card"
+      href="https://www.bkn.go.id/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="official-icon">🏛️</div>
+      <strong>BKN</strong>
+      <span>Badan Kepegawaian Negara</span>
+    </a>
+
+    <a
+      class="official-card"
+      href="https://renbut.kemkes.go.id/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="official-icon">👥</div>
+      <strong>RENBUT</strong>
+      <span>Perencanaan Kebutuhan SDM Kesehatan</span>
+    </a>
+
+    <a
+      class="official-card"
+      href="https://www.jambikota.go.id/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="official-icon">🏙️</div>
+      <strong>Pemerintah Kota Jambi</strong>
+      <span>Portal Resmi Pemerintah Kota Jambi</span>
+    </a>
+
+    <a
+      class="official-card"
+      href="https://www.bpjs-kesehatan.go.id/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="official-icon">💙</div>
+      <strong>BPJS Kesehatan</strong>
+      <span>Layanan JKN dan informasi peserta</span>
+    </a>
+
+  </div>
+</section>
     <!-- Footer -->
     <footer>
         <div style="max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
