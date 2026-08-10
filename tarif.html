@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tarif Pelayanan | UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
+
+<meta name="description" content="Informasi tarif pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan Peraturan Wali Kota Jambi Nomor 29 Tahun 2019">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f8fb;
+  color:#263238;
+  line-height:1.6;
+}
+
+header{
+  background:linear-gradient(135deg,#00796b,#009688);
+  color:white;
+  padding:38px 20px;
+  text-align:center;
+}
+
+header h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+header p{
+  font-size:16px;
+  opacity:.95;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:30px auto 50px;
+}
+
+.info-box{
+  background:white;
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:25px;
+  box-shadow:0 5px 18px rgba(0,0,0,.07);
+  border-left:5px solid #009688;
+}
+
+.info-box strong{
+  color:#00796b;
+}
+
+.tarif-card{
+  background:white;
+  border-radius:16px;
+  margin-bottom:16px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+
+.tarif-title{
+  width:100%;
+  border:none;
+  background:white;
+  padding:20px 22px;
+  text-align:left;
+  font-size:17px;
+  font-weight:bold;
+  color:#263238;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:.25s;
+}
+
+.tarif-title:hover{
+  background:#eef9f7;
+}
+
+.tarif-title span{
+  font-size:24px;
+  color:#009688;
+  transition:.25s;
+}
+
+.tarif-card.active .tarif-title{
+  background:#e8f5f3;
+  color:#00695c;
+}
+
+.tarif-card.active .tarif-title span{
+  transform:rotate(45deg);
+}
+
+.tarif-content{
+  display:none;
+  padding:0 20px 22px;
+  overflow-x:auto;
+}
+
+.tarif-card.active .tarif-content{
+  display:block;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:600px;
+}
+
+th{
+  background:#009688;
+  color:white;
+  padding:11px;
+  text-align:left;
+  font-size:14px;
+}
+
+td{
+  padding:10px 11px;
+  border-bottom:1px solid #e5e5e5;
+  font-size:14px;
+  vertical-align:top;
+}
+
+td:last-child{
+  white-space:nowrap;
+  font-weight:bold;
+  color:#00695c;
+}
+
+tr:hover td{
+  background:#f7fbfa;
+}
+
+.subheading{
+  background:#f0f7f6;
+  color:#00695c;
+  font-weight:bold;
+  padding:10px;
+  margin:15px 0 8px;
+  border-radius:8px;
+}
+
+.note{
+  background:#fff8e1;
+  border-left:4px solid #ffb300;
+  padding:14px;
+  border-radius:8px;
+  margin-top:25px;
+  font-size:14px;
+}
+
+.back{
+  display:inline-block;
+  margin-top:25px;
+  padding:11px 18px;
+  background:#00796b;
+  color:white;
+  text-decoration:none;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.back:hover{
+  background:#005f56;
+}
+
+footer{
+  background:#263238;
+  color:#fff;
+  text-align:center;
+  padding:25px 15px;
+  font-size:13px;
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:30px 15px;
+  }
+
+  header h1{
+    font-size:23px;
+  }
+
+  header p{
+    font-size:14px;
+  }
+
+  .container{
+    width:94%;
+    margin-top:20px;
+  }
+
+  .info-box{
+    padding:17px;
+    font-size:14px;
+  }
+
+  .tarif-title{
+    padding:17px;
+    font-size:15px;
+  }
+
+  .tarif-content{
+    padding:0 12px 18px;
+  }
+
+  th,td{
+    font-size:13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tarif Pelayanan</h1>
+  <p>UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
+</header>
+
+<main class="container">
+
+  <div class="info-box">
+    <strong>Informasi Tarif Pelayanan</strong>
+    <p>
+      Informasi tarif pelayanan kesehatan pada UPTD Puskesmas
+      Tanjung Pinang Kota Jambi berdasarkan
+      <strong>Peraturan Wali Kota Jambi Nomor 29 Tahun 2019</strong>.
+    </p>
+  </div>
+
+
+  <!-- 1 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🩺 1. Tarif Pelayanan Medik Dasar & Inap
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+        <tr><td>Rawat Jalan</td><td>Rp5.000 / Pasien</td></tr>
+        <tr><td>Rawat Inap</td><td>Rp200.000 / Pasien / Hari</td></tr>
+        <tr><td>Kamar Perawatan</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Makan Pasien</td><td>Rp80.000 / Pasien</td></tr>
+        <tr><td>Jasa Pelayanan Pasien</td><td>Rp40.000 / Pasien</td></tr>
+        <tr><td>Visit Dokter/Dokter Gigi</td><td>Rp30.000 / Pasien</td></tr>
+        <tr><td>Pelayanan UGD</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Perawatan Bayi</td><td>Rp30.000 / Hari</td></tr>
+        <tr><td>Penggunaan Inkubator</td><td>Rp90.000 / Hari</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 2 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🤰 2. Pertolongan Persalinan
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+
+      <div class="subheading">Persalinan Normal</div>
+
+      <table>
+        <tr><th>Tenaga Kesehatan</th><th>Tarif</th></tr>
+        <tr><td>Bidan</td><td>Rp700.000 / Persalinan</td></tr>
+        <tr><td>Dokter</td><td>Rp900.000 / Persalinan</td></tr>
+        <tr><td>Dokter Spesialis</td><td>Rp1.200.000 / Persalinan</td></tr>
+      </table>
+
+      <div class="subheading">Persalinan Dengan Penyulit</div>
+
+      <table>
+        <tr><th>Tenaga Kesehatan</th><th>Tarif</th></tr>
+        <tr><td>Bidan</td><td>Rp900.000 / Persalinan</td></tr>
+        <tr><td>Dokter</td><td>Rp1.200.000 / Persalinan</td></tr>
+        <tr><td>Dokter Spesialis</td><td>Rp1.500.000 / Persalinan</td></tr>
+      </table>
+
+    </div>
+  </section>
+
+
+  <!-- 3 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🩹 3. Tarif Tindakan & Perawatan Luka
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+        <tr><td>Jahitan Pertama</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Jahitan Kedua dan Seterusnya</td><td>Rp5.000 / Pasien</td></tr>
+        <tr><td>Perawatan Luka Kecil</td><td>Rp15.000 / Pasien</td></tr>
+        <tr><td>Perawatan Luka Sedang</td><td>Rp30.000 / Pasien</td></tr>
+        <tr><td>Perawatan Luka Besar</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Buka Jahitan</td><td>Rp15.000 / Pasien</td></tr>
+        <tr><td>Ganti Perban</td><td>Rp10.000 / Pasien</td></tr>
+        <tr><td>Sunat Anak Laki-laki</td><td>Rp250.000 / Pasien</td></tr>
+        <tr><td>Sunat Anak Perempuan</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Tindik Anak Perempuan</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Perawatan Luka Bakar Ringan</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Perawatan Luka Bakar Sedang</td><td>Rp40.000 / Pasien</td></tr>
+        <tr><td>Pemasangan Kateter</td><td>Rp85.000 / Pasien</td></tr>
+        <tr><td>Pembukaan Kateter</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Pemasangan Infus</td><td>Rp70.000 / Pasien</td></tr>
+        <tr><td>Nebulizer Anak</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Nebulizer Dewasa</td><td>Rp70.000 / Pasien</td></tr>
+        <tr><td>Jasa Tindakan Dokter Umum</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Injeksi ATS</td><td>Rp150.000 / Pasien</td></tr>
+        <tr><td>Injeksi Tetagam</td><td>Rp300.000 / Pasien</td></tr>
+        <tr><td>Ekstirpasi Benda Asing</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Ekstraksi Kuku</td><td>Rp50.000 / Kuku</td></tr>
+        <tr><td>Insisi Abses</td><td>Rp30.000 / Pasien</td></tr>
+        <tr><td>Eksisi (Lipoma, Ateroma)</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>Penggantian Pemakaian Oksigen (O2)</td><td>Rp25.000 / Jam</td></tr>
+        <tr><td>Ekstraksi Kotoran Telinga</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Irigasi Mata</td><td>Rp25.000 / Pasien</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 4 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🦷 4. Tarif Tindakan Medik Gigi
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+
+      <div class="subheading">Pencabutan Gigi</div>
+
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+        <tr><td>Gigi Susu dengan Topical Anastesi</td><td>Rp20.000 / Gigi</td></tr>
+        <tr><td>Gigi Susu dengan Anastesi Injeksi</td><td>Rp30.000 / Gigi</td></tr>
+        <tr><td>Gigi Tetap</td><td>Rp35.000 / Gigi</td></tr>
+        <tr><td>Gigi Tetap dengan Penyulit</td><td>Rp50.000 / Gigi</td></tr>
+        <tr><td>Penjahitan/Buka Jahitan Gigi</td><td>Rp30.000 / Gigi</td></tr>
+      </table>
+
+      <div class="subheading">Tumpatan / Penambalan Gigi</div>
+
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+        <tr><td>Sementara</td><td>Rp20.000 / Kavitas</td></tr>
+        <tr><td>Tetap, GIC, dan Silikat</td><td>Rp50.000 / Kavitas</td></tr>
+        <tr><td>Tambal Sinar</td><td>Rp150.000 / Kavitas</td></tr>
+        <tr><td>Pembersihan Karang Gigi (Scaling)</td><td>Rp100.000 / Rahang</td></tr>
+        <tr><td>Perawatan Abses dan Insisi</td><td>Rp40.000 / Gigi</td></tr>
+        <tr><td>Perawatan Saraf Gigi Sederhana</td><td>Rp30.000 / Gigi</td></tr>
+      </table>
+
+    </div>
+  </section>
+
+
+  <!-- 5 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🧪 5. Tarif Laboratorium & Pemeriksaan Penunjang
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+      <table>
+        <tr><th>Jenis Pemeriksaan</th><th>Tarif</th></tr>
+        <tr><td>Pemeriksaan Urin</td><td>Rp5.000 / Jenis</td></tr>
+        <tr><td>Urin Rutin (Patologi Klinik)</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Golongan Darah</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Golongan Darah + Rhesus</td><td>Rp15.000 / Pasien</td></tr>
+        <tr><td>Pemeriksaan Darah Rutin</td><td>Rp35.000 / Pasien</td></tr>
+        <tr><td>Sediaan Darah Malaria</td><td>Rp10.000 / Pasien</td></tr>
+        <tr><td>Test Kehamilan</td><td>Rp10.000 / Pasien</td></tr>
+        <tr><td>Pemeriksaan Tinja</td><td>Rp15.000 / Pasien</td></tr>
+        <tr><td>Feses Lengkap</td><td>Rp15.000 / Pasien</td></tr>
+        <tr><td>Glukosa Darah</td><td>Rp15.000 / Pasien</td></tr>
+        <tr><td>Asam Urat</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Kolesterol Total</td><td>Rp30.000 / Pasien</td></tr>
+        <tr><td>Profil Lipid (HDL, LDL, TG, Kolesterol Total)</td><td>Rp200.000 / Pasien</td></tr>
+        <tr><td>Kreatinin / Ureum</td><td>Rp30.000 / Pasien</td></tr>
+        <tr><td>SGOT / SGPT / Albumin / Alkali Fosfat / Bilirubin D/I</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Bilirubin Total / Kalsium / Protein Total</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Narkoba (5 Jenis Pemeriksaan)</td><td>Rp150.000 / Pasien</td></tr>
+        <tr><td>Hematologi (LED, Retikulosit, Clotting Time, Limposit Plasma Biru)</td><td>Rp10.000 / Pasien</td></tr>
+        <tr><td>Hematologi (Trombosit, Hematokrit, Bleeding Time)</td><td>Rp7.000 / Pasien</td></tr>
+        <tr><td>Hb Spektro</td><td>Rp15.000 / Pasien</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 6 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🔬 6. Tarif Imunologi & Mikroskopis
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+      <table>
+        <tr><th>Jenis Pemeriksaan</th><th>Tarif</th></tr>
+        <tr><td>Rheumatoid Factor (RF)</td><td>Rp30.000 / Pasien</td></tr>
+        <tr><td>ASTO / Sifilis / Sekret Uretra/Vagina</td><td>Rp35.000 / Pasien</td></tr>
+        <tr><td>Widal</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Tubex</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>HBs Ag</td><td>Rp32.000 / Pasien</td></tr>
+        <tr><td>Anti HBs</td><td>Rp40.000 / Pasien</td></tr>
+        <tr><td>HIV</td><td>Rp160.000 / Pasien</td></tr>
+        <tr><td>Pemeriksaan IMS</td><td>Rp70.000 / Pasien</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 7 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      📄 7. Tarif Pemeriksaan Khusus & Surat Keterangan
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+        <tr><td>Spirometri</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>USG</td><td>Rp60.000 / Pasien</td></tr>
+        <tr><td>EKG</td><td>Rp60.000 / Pasien</td></tr>
+        <tr><td>DC Shock</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>IVA Test</td><td>Rp35.000 / Pasien</td></tr>
+        <tr><td>Visum Luar</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Pemeriksaan Kesehatan (Kir / Keuring) - Umum</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Pemeriksaan Kesehatan - Anak Sekolah</td><td>Rp5.000 / Pasien</td></tr>
+        <tr><td>Kir Dengan Buta Warna</td><td>Rp35.000 / Pasien</td></tr>
+        <tr><td>Pemeriksaan Kesehatan Khusus</td><td>Rp50.000 / Pasien</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 8 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      👨‍👩‍👧 8. Tarif Pelayanan KB Mandiri & Konsultasi
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+        <tr><td>Pemasangan / Pelepasan IUD</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>Pemasangan Implant</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>Pelepasan Implant</td><td>Rp150.000 / Pasien</td></tr>
+        <tr><td>Suntikan KB 3 Bulan</td><td>Rp20.000 / Pasien</td></tr>
+        <tr><td>Suntikan KB 1 Bulan</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Konsultasi Dokter Umum</td><td>Rp25.000 / Pasien</td></tr>
+        <tr><td>Konsultasi (Gizi, Kesling, Kespro, dll)</td><td>Rp10.000 / Pasien</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- 9 -->
+  <section class="tarif-card">
+    <button class="tarif-title">
+      🏥 9. Pelayanan Spesialis, Komplementer & Non-Pelayanan
+      <span>+</span>
+    </button>
+
+    <div class="tarif-content">
+
+      <table>
+        <tr><th>Jenis Pelayanan</th><th>Tarif</th></tr>
+
+        <tr><td>Rawat Jalan Konsultasi Spesialis (On Call)</td><td>Rp35.000 / Pasien</td></tr>
+        <tr><td>Rawat Inap Pemeriksaan Dokter Spesialis</td><td>Rp40.000 / Pasien</td></tr>
+
+        <tr><td colspan="2" class="subheading">Spesialis Anak</td></tr>
+        <tr><td>Lumbal Pungsi</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>Vena Seksi</td><td>Rp150.000 / Pasien</td></tr>
+        <tr><td>Pemasangan ETT dan NGT</td><td>Rp100.000 / Pasien</td></tr>
+        <tr><td>Biopsi</td><td>Rp40.000 / Pasien</td></tr>
+
+        <tr><td colspan="2" class="subheading">Spesialis Kebidanan</td></tr>
+        <tr><td>Anestesi</td><td>Rp500.000 / Pasien</td></tr>
+        <tr><td>Kuretase</td><td>Rp1.000.000 / Pasien</td></tr>
+
+        <tr><td colspan="2" class="subheading">Kedokteran Komplementer</td></tr>
+        <tr><td>Akupunktur</td><td>Rp50.000 / Pasien</td></tr>
+        <tr><td>Akupresur</td><td>Rp30.000 / Pasien</td></tr>
+
+        <tr><td colspan="2" class="subheading">Non-Pelayanan</td></tr>
+        <tr><td>Kaji Banding</td><td>Rp100.000 / Orang / Hari</td></tr>
+        <tr><td>Praktek Lapangan (Magang) - Perguruan Tinggi (Profesi)</td><td>Rp15.000 / Orang / Hari</td></tr>
+        <tr><td>Praktek Lapangan (Magang) - Perguruan Tinggi (S1/DIV)</td><td>Rp10.000 / Orang / Hari</td></tr>
+        <tr><td>Praktek Lapangan (Magang) - Perguruan Tinggi (D1/DIII)</td><td>Rp5.000 / Orang / Hari</td></tr>
+        <tr><td>Praktek Lapangan (Magang) - SMA/Sederajat</td><td>Rp3.000 / Orang / Hari</td></tr>
+
+      </table>
+
+    </div>
+  </section>
+
+
+  <div class="note">
+    <strong>Catatan:</strong><br>
+    Informasi tarif pada halaman ini disajikan sebagai informasi
+    pelayanan kepada masyarakat. Untuk ketentuan resmi dan penerapan
+    tarif, silakan mengacu pada peraturan yang berlaku.
+  </div>
+
+  <a href="index.html" class="back">← Kembali ke Beranda</a>
+
+</main>
+
+
+<footer>
+  © 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi
+</footer>
+
+
+<script>
+document.querySelectorAll(".tarif-title").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const card = button.parentElement;
+
+    document.querySelectorAll(".tarif-card").forEach(item => {
+      if(item !== card){
+        item.classList.remove("active");
+      }
+    });
+
+    card.classList.toggle("active");
+
+  });
+
+});
+</script>
+
+</body>
+</html>
