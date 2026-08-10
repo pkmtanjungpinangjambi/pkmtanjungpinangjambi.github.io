@@ -1,257 +1,210 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Profil | UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
-<meta name="description" content="Profil, visi misi, motto, prestasi, kepala puskesmas dan struktur organisasi UPTD Puskesmas Tanjung Pinang Kota Jambi.">
-
-<style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#263238;background:#f7faf9;line-height:1.6}
-.top-bar{background:#00563f;color:#fff;padding:9px 6%;font-size:.85rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.header{background:#fff;padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,.06);position:sticky;top:0;z-index:20}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#00563f}
-.brand-icon{width:52px;height:52px;border:3px solid #008f6a;border-radius:50%;display:grid;place-items:center;font-size:27px;background:#effaf6}
-.brand h1{font-size:1.15rem;margin:0;line-height:1.2}
-.brand p{font-size:.78rem;color:#777;margin:3px 0 0}
-nav{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
-nav a{text-decoration:none;color:#37474f;font-weight:700;font-size:.92rem}
-nav a:hover,nav a.active{color:#00a86b}
-.hero{background:linear-gradient(120deg,#00563f,#008f6a);color:#fff;padding:68px 6%;text-align:center}
-.hero h2{font-size:2.45rem;margin:0 0 10px}
-.hero p{max-width:760px;margin:auto;opacity:.94}
-.container{max-width:1180px;margin:auto;padding:0 22px}
-.section{margin:55px auto}
-.section-title{text-align:center;margin-bottom:30px}
-.section-title h2{color:#00563f;font-size:2rem;margin:0 0 7px}
-.section-title p{color:#68747a;margin:0}
-.card{background:#fff;border:1px solid #e5ece9;border-radius:16px;box-shadow:0 5px 18px rgba(0,0,0,.06)}
-.about{padding:30px}
-.about p{margin-top:0}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.info-card{padding:28px}
-.info-card h3{color:#00563f;margin-top:0}
-.highlight{border-left:5px solid #00a86b;background:#effaf6;padding:18px 20px;border-radius:10px}
-.leader{display:grid;grid-template-columns:280px 1fr;gap:28px;padding:28px;align-items:center}
-.leader-photo{width:100%;height:330px;border-radius:14px;background:linear-gradient(135deg,#dff4ec,#f7fffc);display:grid;place-items:center;font-size:80px}
-.leader h3{font-size:1.55rem;color:#00563f;margin:0 0 6px}
-.badge{display:inline-block;background:#00563f;color:#fff;border-radius:20px;padding:5px 13px;font-size:.8rem;font-weight:700}
-.achievement{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.achievement .card{padding:25px}
-.achievement h3{color:#00563f;margin-top:0}
-.org-wrap{padding:18px}
-.org-wrap img{display:block;width:100%;max-width:1125px;height:auto;margin:auto;border-radius:12px;cursor:zoom-in}
-.org-note{text-align:center;color:#6b7478;font-size:.85rem;margin:14px 5px 2px}
-footer{background:#003325;color:#dce8e4;margin-top:75px;padding:38px 6% 20px}
-.footer-grid{max-width:1180px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
-footer h3{color:#fff;margin-top:0}
-footer a{color:#dce8e4;text-decoration:none}
-.footer-bottom{text-align:center;border-top:1px solid rgba(255,255,255,.15);margin-top:25px;padding-top:18px;font-size:.82rem}
-@media(max-width:800px){
- .header{padding:14px 5%}
- nav{gap:12px}
- .hero{padding:50px 5%}
- .hero h2{font-size:1.9rem}
- .grid2,.achievement,.footer-grid{grid-template-columns:1fr}
- .leader{grid-template-columns:1fr}
- .leader-photo{height:300px}
-}
-@media(max-width:520px){
- .top-bar{font-size:.76rem}
- .brand h1{font-size:1rem}
- nav a{font-size:.82rem}
- .section{margin:42px auto}
- .section-title h2{font-size:1.55rem}
- .about,.info-card,.leader{padding:20px}
-}
+<meta name="description" content="Profil resmi UPTD Puskesmas Tanjung Pinang Kota Jambi: sejarah, visi misi, tata nilai SEHATI, motto 5S, wilayah kerja, Pustu, karakteristik dan komitmen pelayanan.">
+<link rel="stylesheet" href="styles.css"><style>
+.sk-poster{margin:20px 0;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(0,59,45,.12);border:1px solid var(--line);cursor:zoom-in;position:relative;max-width:520px}
+.sk-poster img{display:block;width:100%;height:auto}
+.sk-poster-hint{position:absolute;right:14px;bottom:14px;background:rgba(11,93,73,.88);color:#fff;font-size:.78rem;font-weight:800;padding:7px 12px;border-radius:999px}
+.photo-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:24px}
+.photo-lightbox.is-open{display:flex}
+.photo-lightbox img{max-width:min(94vw,1100px);max-height:90vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.photo-lightbox-close{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:#0b5d49;font-size:22px;font-weight:800;cursor:pointer;line-height:44px;text-align:center}
 </style>
 </head>
-
 <body>
+<div class="topbar"><div class="container topbar-inner">
+  <span>📍 Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</span>
+  <span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email</a></span>
+</div></div>
+<header class="site-header"><div class="container nav-wrap">
+<a class="brand" href="index.html"><span class="brand-mark">🏥</span><span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a>
+<button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+<nav class="nav"><a href="index.html">Beranda</a><a class="active" href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
+</div></header>
 
-<div class="top-bar">
-  <div>📍  Jl. Taruma Negara No.RT.12, Kel. Tanjung Pinang, Kec. Jambi Timur, Kota Jambi</div>
-  <div>📞 (0741) 123456 &nbsp;|&nbsp; ✉️ pkmtanjungpinang18jambi@gmail.com</div>
+<section class="page-hero"><div class="container">
+<span class="eyebrow">Tentang kami</span>
+<h1>Profil Puskesmas</h1>
+<p>Mengenal lebih dekat UPTD Puskesmas Tanjung Pinang Kota Jambi — sejarah, visi, misi, tata nilai, motto, wilayah kerja, serta karakteristik pelayanan kami.</p>
+</div></section>
+
+<main class="page-content"><div class="container">
+<div class="profile-jump" aria-label="Akses cepat profil">
+<a href="#visi-misi">🎯 Visi & Misi</a>
+<a href="#motto-tata-nilai">💚 Motto & Tata Nilai</a>
 </div>
+<div class="profile-grid" data-tabs>
+<aside class="side-nav" aria-label="Navigasi profil">
+<button class="active" data-tab="sejarah">Sejarah</button>
+<button data-tab="visi">Visi & Misi</button>
+<button data-tab="nilai">Motto & Tata Nilai</button>
+<button data-tab="wilayah">Wilayah & Pustu</button>
+<button data-tab="karakter">Karakteristik & Kekuatan</button>
+<button data-tab="komitmen">Komitmen Pelayanan</button>
+<button data-tab="prestasi">Prestasi & Penghargaan</button>
+</aside>
 
-<header class="header">
-  <a class="brand" href="index.html">
-    <div class="brand-icon">🏥</div>
-    <div>
-      <h1>UPTD PUSKESMAS TANJUNG PINANG</h1>
-      <p>KOTA JAMBI · Dinas Kesehatan Kota Jambi</p>
-    </div>
-  </a>
-
-  <nav aria-label="Navigasi utama">
-    <a href="index.html">Beranda</a>
-    <a href="profil.html" class="active">Profil</a>
-    <a href="pelayanan.html">Pelayanan</a>
-    <a href="tarif.html">Tarif Pelayanan</a>
-    <a href="jadwal.html">Jadwal</a>
-    <a href="informasi.html">Informasi</a>
-    <a href="kontak.html">Kontak & Lokasi</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="container">
-    <h2>Profil UPTD Puskesmas Tanjung Pinang</h2>
-    <p>Mengenal lebih dekat Puskesmas Tanjung Pinang Kota Jambi, komitmen pelayanan, sumber daya manusia, prestasi, dan struktur organisasi.</p>
-  </div>
+<div>
+<section class="profile-panel active" data-panel="sejarah">
+<h2>Sejarah UPTD Puskesmas Tanjung Pinang</h2>
+<p><strong>Puskesmas Tanjung Pinang Kota Jambi berdiri pada tahun 1974</strong> dengan nama <strong>Puskesmas Inpres 5/74</strong>. Dalam perkembangannya, Puskesmas Tanjung Pinang menjadi salah satu fasilitas pelayanan kesehatan tingkat pertama di Kecamatan Jambi Timur dengan wilayah kerja yang luas dan jumlah penduduk yang besar.</p>
+<div class="values">
+<div class="value"><b>1974</b>Tahun berdiri sebagai Puskesmas Inpres 5/74.</div>
+<div class="value"><b>12,46 km²</b>Luas wilayah kerja.</div>
+<div class="value"><b>35.742</b>Jumlah penduduk wilayah kerja berdasarkan data Desember 2025.</div>
+</div>
+<p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
 </section>
 
-<main class="container">
+<section class="profile-panel" id="visi-misi" data-panel="visi">
+<h2>Visi & Misi</h2>
+<div class="vision-card">
+<span class="kicker">Visi Puskesmas Tanjung Pinang Kota Jambi</span>
+<h3>“Mewujudkan Pelayanan Kesehatan Primer yang Berkualitas, Inovatif, dan Merata Menuju Masyarakat yang Sehat dan Bahagia tahun 2029.”</h3>
+</div>
+<h3 class="subheading">Misi</h3>
+<div class="mission-list">
+<div class="mission-item"><b>01</b><span>Mewujudkan Pelayanan Kesehatan Primer yang Inovatif dan Terintegrasi.</span></div>
+<div class="mission-item"><b>02</b><span>Menciptakan Kualitas SDM Kesehatan yang Profesional dan Berkarakter.</span></div>
+<div class="mission-item"><b>03</b><span>Meningkatkan Tata Kelola Puskesmas yang Akuntabel dan Transparan.</span></div>
+<div class="mission-item"><b>04</b><span>Mendorong Partisipasi Masyarakat dan Pemberdayaan Kesehatan Lingkungan.</span></div>
+</div>
+<p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
+</section>
 
-  <section class="section">
-    <div class="section-title">
-      <h2>Tentang Kami</h2>
-      <p>Pusat pelayanan kesehatan primer untuk masyarakat</p>
-    </div>
-    <div class="card about">
-      <p><strong>UPTD Puskesmas Tanjung Pinang Kota Jambi</strong> merupakan fasilitas pelayanan kesehatan tingkat pertama yang hadir untuk memberikan pelayanan kesehatan yang mudah diakses, bermutu, ramah, profesional, dan berorientasi pada kebutuhan masyarakat.</p>
-      <div class="highlight">
-        <strong>Komitmen kami:</strong> memberikan pelayanan kesehatan yang terintegrasi, mengutamakan mutu dan keselamatan pasien, serta terus meningkatkan kualitas pelayanan bagi masyarakat.
-      </div>
-    </div>
-  </section>
+<section class="profile-panel" id="motto-tata-nilai" data-panel="nilai">
+<h2>Motto & Tata Nilai</h2>
+<div class="motto-banner"><span class="kicker">Motto pelayanan</span><strong>SENYUM · SAPA · SALAM · SOPAN · SANTUN</strong><p>Budaya pelayanan yang menempatkan keramahan, penghargaan, keterhubungan, etika, dan sikap menyenangkan sebagai bagian dari interaksi dengan masyarakat.</p></div>
 
-  <section class="section">
-    <div class="section-title">
-      <h2>Visi & Misi</h2>
-      <p>Arah dan komitmen dalam penyelenggaraan pelayanan kesehatan</p>
-    </div>
+<h3 class="subheading">Tata Nilai “SEHATI”</h3>
+<div class="values values-six">
+<div class="value"><b>S</b><strong>SOPAN</strong><span>Santun, ramah, menghormati orang lain, dan mengedepankan etika serta tata krama.</span></div>
+<div class="value"><b>E</b><strong>EMPATI</strong><span>Mampu memahami dan peduli terhadap situasi, perasaan, atau sudut pandang orang lain.</span></div>
+<div class="value"><b>H</b><strong>HANDAL</strong><span>Memiliki kompetensi yang dapat diandalkan, bertanggung jawab, dan konsisten memberikan kinerja terbaik.</span></div>
+<div class="value"><b>A</b><strong>ADIL</strong><span>Objektif, tidak diskriminatif, tidak memihak, dan memberikan hak sesuai prinsip serta aturan.</span></div>
+<div class="value"><b>T</b><strong>TERAMPIL</strong><span>Cakap, cekatan, menguasai teknis pekerjaan, efektif, efisien, dan sigap.</span></div>
+<div class="value"><b>I</b><strong>INOVATIF</strong><span>Kreatif, terbuka pada gagasan baru, adaptif terhadap perkembangan zaman, dan mencari pembaruan untuk peningkatan mutu.</span></div>
+</div>
 
-    <div class="grid2">
-      <div class="card info-card">
-        <h3>🎯 Visi</h3>
-        <p>Menjadi Puskesmas yang memberikan pelayanan kesehatan primer yang bermutu, ramah, profesional, dan berorientasi pada kebutuhan masyarakat.</p>
-      </div>
+<details class="motto-detail"><summary>Makna 5S menurut Profil Puskesmas</summary>
+<ul class="list">
+<li><strong>Senyum:</strong> menciptakan rasa tenang dan tenteram serta menularkan energi positif.</li>
+<li><strong>Sapa:</strong> bentuk penghargaan kepada orang lain dan mempererat hubungan.</li>
+<li><strong>Salam:</strong> perilaku positif untuk menjaga rasa saling terhubung.</li>
+<li><strong>Sopan:</strong> membudayakan perilaku menghormati dan menghargai orang lain.</li>
+<li><strong>Santun:</strong> menunjukkan pribadi yang menyenangkan.</li>
+</ul>
+</details>
+<p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
+</section>
 
-      <div class="card info-card">
-        <h3>🚀 Misi</h3>
-        <ul>
-          <li>Meningkatkan mutu dan akses pelayanan kesehatan.</li>
-          <li>Mengembangkan pelayanan promotif dan preventif.</li>
-          <li>Meningkatkan profesionalisme dan kompetensi sumber daya manusia.</li>
-          <li>Membangun pelayanan yang ramah, responsif, dan berorientasi pada keselamatan pasien.</li>
-          <li>Meningkatkan keterlibatan masyarakat dalam pembangunan kesehatan.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+<section class="profile-panel" data-panel="wilayah">
+<h2>Wilayah Kerja & Puskesmas Pembantu</h2>
+<p>Wilayah kerja UPTD Puskesmas Tanjung Pinang mencakup <strong>5 kelurahan</strong> di Kecamatan Jambi Timur:</p>
+<div class="values">
+<div class="value"><b>01</b>Kelurahan Tanjung Pinang</div>
+<div class="value"><b>02</b>Kelurahan Rajawali</div>
+<div class="value"><b>03</b>Kelurahan Kasang</div>
+<div class="value"><b>04</b>Kelurahan Kasang Jaya</div>
+<div class="value"><b>05</b>Kelurahan Sijenjang</div>
+</div>
+<h3 class="subheading">Jaringan Puskesmas Pembantu</h3>
+<div class="org">
+<div class="org-item"><span class="org-icon">🏥</span><div><strong>Pustu Kasang Jaya</strong><br>Bagian dari jaringan pelayanan UPTD Puskesmas Tanjung Pinang.</div></div>
+<div class="org-item"><span class="org-icon">🏥</span><div><strong>Pustu Sijenjang I</strong><br>Bagian dari jaringan pelayanan UPTD Puskesmas Tanjung Pinang.</div></div>
+<div class="org-item"><span class="org-icon">🏥</span><div><strong>Pustu Sijenjang II</strong><br>Bagian dari jaringan pelayanan UPTD Puskesmas Tanjung Pinang.</div></div>
+</div>
+<p class="source-note">Batas wilayah: Utara Sungai Batanghari; Selatan Kelurahan Talang Banjar; Barat Kelurahan Pasar Jambi; Timur Kelurahan Tanjung Sari. Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
+</section>
 
-  <section class="section">
-    <div class="section-title">
-      <h2>Motto Pelayanan</h2>
-    </div>
-    <div class="card about" style="text-align:center">
-      <h2 style="color:#00563f;margin:0;font-size:2rem">“Melayani dengan HATI, Sehat untuk NEGERI”</h2>
-      <p style="margin-bottom:0;color:#667">Pelayanan dengan ketulusan, kepedulian, dan komitmen untuk masyarakat.</p>
-    </div>
-  </section>
+<section class="profile-panel" data-panel="karakter">
+<h2>Karakteristik & Kekuatan Wilayah</h2>
+<p>Bagian ini menonjolkan <strong>ciri khas berdasarkan data profil resmi</strong>, bukan membuat klaim penghargaan baru.</p>
+<div class="values">
+<div class="value"><b>5</b>Kelurahan dalam wilayah kerja.</div>
+<div class="value"><b>3</b>Puskesmas Pembantu: Kasang Jaya, Sijenjang I & II.</div>
+<div class="value"><b>42</b>Posyandu aktif pada tahun 2025.</div>
+<div class="value"><b>5</b>Klaster layanan dalam penerapan Integrasi Layanan Primer (ILP).</div>
+</div>
+<div class="feature-highlight">
+<h3>🤝 Dekat dengan masyarakat</h3>
+<p>Pelayanan tidak hanya berlangsung di gedung Puskesmas. Profil 2025 mencatat dukungan UKBM melalui Posyandu dan jaringan Pustu, sehingga pelayanan dapat menjangkau masyarakat di wilayah kerja.</p>
+</div>
+<div class="feature-highlight">
+<h3>💡 Semangat inovasi</h3>
+<p>Semangat inovasi tercermin secara resmi dalam visi dan tata nilai <strong>SEHATI</strong>, khususnya nilai <strong>INOVATIF</strong>, serta arah pelayanan primer yang inovatif dan terintegrasi.</p>
+</div>
+<div class="feature-highlight">
+<h3>❤️ Identitas pelayanan: 5S</h3>
+<p><strong>Senyum, Sapa, Salam, Sopan, Santun</strong> menjadi budaya komunikasi pelayanan yang mudah dikenali dan dekat dengan masyarakat.</p>
+</div>
+<p class="source-note">Data karakteristik: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan SK Standar Pelayanan 2026.</p>
+</section>
 
-  <section class="section">
-    <div class="section-title">
-      <h2>Kepala UPTD Puskesmas</h2>
-      <p>Periode 12 Maret 2026 – Sekarang</p>
-    </div>
+<section class="profile-panel" data-panel="komitmen">
+<h2>Maklumat & Komitmen Pelayanan</h2>
+<div class="maklumat-card">
+<h3>Maklumat Pelayanan</h3>
+<blockquote>“Kami siap memberikan pelayanan sesuai dengan standar pelayanan, melakukan perbaikan secara terus menerus, dan apabila kami tidak memberikan pelayanan sesuai standar pelayanan yang telah ditetapkan, kami siap menerima sanksi atau memberikan kompensasi sesuai peraturan perundang-undangan yang berlaku.”</blockquote>
+</div>
+<div class="org">
+<div class="org-item"><span class="org-icon">📋</span><div><strong>Standar Pelayanan</strong><br>Pelayanan dipertanggungjawabkan sesuai Standar Pelayanan.</div></div>
+<div class="org-item"><span class="org-icon">💬</span><div><strong>Pengaduan & Masukan</strong><br>Email, call center, WhatsApp, Instagram, Facebook, kotak saran, dan SPAN-LAPOR.</div></div>
+<div class="org-item"><span class="org-icon">📊</span><div><strong>Evaluasi</strong><br>Monitoring dan evaluasi dilakukan melalui mekanisme yang ditetapkan dalam standar pelayanan.</div></div>
+</div>
 
-    <div class="card leader">
-      <div class="leader-photo" aria-label="Foto Kepala Puskesmas">👩‍⚕️</div>
-      <div>
-        <span class="badge">KEPALA UPTD PUSKESMAS</span>
-        <h3>dr. TINI </h3>
-        <p>Memimpin UPTD Puskesmas Tanjung Pinang dalam penyelenggaraan pelayanan kesehatan primer dan pengembangan mutu pelayanan.</p>
-        <p><strong>Periode:</strong> 12 Maret 2026 – Sekarang</p>
-      </div>
-    </div>
-  </section>
+<h3 class="subheading">Survei Kepuasan Masyarakat (IKM)</h3>
+<p>Hasil evaluasi rutin terhadap mutu dan kualitas pelayanan berdasarkan penilaian langsung dari masyarakat yang dilayani.</p>
+<div class="sk-poster" onclick="openPhotoLightbox('survei-kepuasan-masyarakat.jpg')" role="button" tabindex="0" aria-label="Perbesar poster Survei Kepuasan Masyarakat" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox('survei-kepuasan-masyarakat.jpg');}">
+  <img src="survei-kepuasan-masyarakat.jpg" alt="Poster Survei Kepuasan Masyarakat UPTD Puskesmas Tanjung Pinang Triwulan I 2026 - Nilai IKM 98,54 Sangat Baik" loading="lazy">
+  <span class="sk-poster-hint">🔍 Klik untuk perbesar</span>
+</div>
 
-  <section class="section">
-    <div class="section-title">
-      <h2>Prestasi & Penghargaan</h2>
-      <p>Pencapaian yang menjadi bagian dari perjalanan peningkatan mutu pelayanan</p>
-    </div>
+<a class="btn btn-green" href="kontak.html">💬 Hubungi Puskesmas</a>
+<p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan SK Standar Pelayanan 2026.</p>
+</section>
 
-    <div class="achievement">
-      <div class="card">
-        <h3>🏆 Puskesmas Rujukan Ramah Anak</h3>
-        <p><strong>Provinsi Jambi · Sejak Tahun 2024</strong></p>
-        <p>UPTD Puskesmas Tanjung Pinang tercatat sebagai Puskesmas Rujukan Ramah Anak di Provinsi Jambi sejak tahun 2024.</p>
-      </div>
+<section class="profile-panel" data-panel="prestasi">
+<h2>Prestasi & Penghargaan</h2>
+<p class="lead">Beberapa prestasi dan capaian yang telah diraih UPTD Puskesmas Tanjung Pinang.</p>
+<div class="achievement-grid">
+  <article class="achievement-card"><span class="achievement-year">2025</span><h3>Inovasi Pelayanan Publik Terbaik 5 Kota Jambi</h3><p>Penghargaan inovasi pelayanan publik tingkat Kota Jambi.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2025</span><h3>Pemenang Lomba Inovasi Daerah</h3><p><strong>Inovasi Genre_seh</strong> — Pemenang Lomba Inovasi Daerah Tahun 2025.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2024</span><h3>Puskesmas Rujukan Ramah Anak Provinsi Jambi</h3><p>Menjadi Puskesmas Rujukan Ramah Anak di Provinsi Jambi sejak Tahun 2024.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2024</span><h3>Puskesmas Ramah Anak Terstandar Nasional</h3><p>Pengakuan sebagai Puskesmas Ramah Anak Terstandar Nasional Tahun 2024.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2023</span><h3>Puskesmas Lokus KKS Kota Jambi Sehat</h3><p>Puskesmas Lokus KKS Kota Jambi Sehat Tahun 2023.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2023</span><h3>Akreditasi PARIPURNA</h3><p>Puskesmas Terakreditasi PARIPURNA ke II pada Tahun 2023.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2022</span><h3>Inovasi Promosi Kesehatan — “LAGU SADARI”</h3><p>Penghargaan inovatif promosi kesehatan pencegahan kanker payudara dan kanker leher rahim sebagai pencipta “LAGU SADARI”.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2020</span><h3>Dokter Teladan I Tingkat Provinsi Jambi</h3><p>Dokter Teladan I Tingkat Provinsi Jambi Tahun 2020.</p></article>
+  <article class="achievement-card"><span class="achievement-year">2019</span><h3>Akreditasi PARIPURNA I</h3><p>Puskesmas Terakreditasi PARIPURNA I pada Tahun 2019.</p></article>
+</div>
+<p class="source-note">Daftar capaian disusun berdasarkan informasi prestasi Puskesmas yang diberikan untuk pembaruan profil website.</p>
+</section>
 
-      <div class="card">
-        <h3>🥇 Pemenang Lomba Inovasi Daerah</h3>
-        <p><strong>Inovasi Genre_seh · Tahun 2025</strong></p>
-        <p>Meraih penghargaan dalam Lomba Inovasi Daerah melalui inovasi <strong>Genre_seh</strong> pada tahun 2025.</p>
-      </div>
-    </div>
-  </section>
+</div></div></div></main>
+<footer class="footer"><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer>
+<a class="floating-wa" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
 
-  <section class="section" id="struktur-organisasi">
-    <div class="section-title">
-      <h2>Struktur Organisasi</h2>
-      <p>Struktur Organisasi UPTD Puskesmas Tanjung Pinang Kota Jambi</p>
-    </div>
-
-    <div class="card org-wrap">
-      <img
-        src="struktur-organisasi-puskesmas-tanjung-pinang-2026(1).png"
-        alt="Struktur Organisasi UPTD Puskesmas Tanjung Pinang Kota Jambi"
-        loading="lazy"
-        title="Klik gambar untuk memperbesar"
-        onclick="openOrg(this.src)"
-      >
-      <p class="org-note">Klik gambar untuk melihat struktur organisasi dalam ukuran lebih besar.</p>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="footer-grid">
-    <div>
-      <h3>UPTD Puskesmas Tanjung Pinang</h3>
-      <p>Pelayanan kesehatan primer yang mudah diakses, bermutu, ramah, dan profesional bagi masyarakat Kota Jambi.</p>
-    </div>
-    <div>
-      <h3>Menu</h3>
-      <p><a href="index.html">Beranda</a></p>
-      <p><a href="pelayanan.html">Pelayanan</a></p>
-      <p><a href="tarif.html">Tarif Pelayanan</a></p>
-      <p><a href="jadwal.html">Jadwal</a></p>
-    </div>
-    <div>
-      <h3>Kontak</h3>
-      <p>📞 (0741) 123456</p>
-      <p>✉️ pkmtanjungpinang18jambi@gmail.com</p>
-      <p>📍 Kota Jambi</p>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div>
-</footer>
-
-<div id="orgModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;padding:25px;overflow:auto" onclick="closeOrg()">
-  <div style="min-height:100%;display:flex;align-items:center;justify-content:center">
-    <img id="orgLarge" src="" alt="Struktur Organisasi diperbesar" style="max-width:100%;height:auto;box-shadow:0 5px 30px rgba(0,0,0,.4)" onclick="event.stopPropagation()">
-  </div>
-  <button onclick="closeOrg()" aria-label="Tutup" style="position:fixed;right:20px;top:15px;border:0;background:#fff;color:#00563f;border-radius:50%;width:42px;height:42px;font-size:25px;cursor:pointer">×</button>
+<div class="photo-lightbox" id="photoLightbox" onclick="if(event.target===this){closePhotoLightbox();}">
+  <button class="photo-lightbox-close" type="button" aria-label="Tutup" onclick="closePhotoLightbox()">✕</button>
+  <img id="photoLightboxImg" src="" alt="Tampilan penuh">
 </div>
 
 <script>
-function openOrg(src){
-  document.getElementById('orgLarge').src=src;
-  document.getElementById('orgModal').style.display='block';
+function openPhotoLightbox(src){
+  document.getElementById('photoLightboxImg').src = src;
+  document.getElementById('photoLightbox').classList.add('is-open');
   document.body.style.overflow='hidden';
 }
-function closeOrg(){
-  document.getElementById('orgModal').style.display='none';
+function closePhotoLightbox(){
+  document.getElementById('photoLightbox').classList.remove('is-open');
   document.body.style.overflow='';
 }
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePhotoLightbox();}});
 </script>
 
-</body>
-</html>
+<script src="script.js" defer></script>
+</body></html>
