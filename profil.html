@@ -12,18 +12,6 @@
 .photo-lightbox.is-open{display:flex}
 .photo-lightbox img{max-width:min(94vw,1100px);max-height:90vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .photo-lightbox-close{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:#0b5d49;font-size:22px;font-weight:800;cursor:pointer;line-height:44px;text-align:center}
-.point-list{list-style:none;margin:10px 0 0;padding:0}
-.point-list li{padding:7px 0;border-top:1px solid var(--line,#e2e8f0);font-size:.88rem;line-height:1.45}
-.point-list li:first-child{border-top:none}
-.salam-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line,#e2e8f0);border-radius:16px;padding:18px;margin-top:8px}
-.salam-wrap img{width:180px;height:auto;border-radius:12px;flex:none}
-.salam-wrap ul{margin:0;padding-left:18px;font-size:.92rem;line-height:1.5}
-.salam-wrap ul li{margin-bottom:8px}
-.klaster-list{list-style:none;margin:10px 0 0;padding:0}
-.klaster-list li{padding:8px 0;border-top:1px solid var(--line)}
-.klaster-list li:first-child{border-top:none}
-.klaster-list b{display:block;font-size:.82rem}
-.klaster-list span{display:block;font-size:.86rem;color:#55706a;margin-top:2px}
 </style>
 </head>
 <body>
@@ -70,14 +58,6 @@
 <div class="value"><b>35.742</b>Jumlah penduduk wilayah kerja berdasarkan data Desember 2025.</div>
 </div>
 <p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
-
-<h3 class="subheading">Kepala Puskesmas dari Masa ke Masa</h3>
-<p>Jejak kepemimpinan UPTD Puskesmas Tanjung Pinang sejak awal berdiri hingga sekarang.</p>
-<div class="sk-poster" onclick="openPhotoLightbox('kepala-puskesmas-dari-masa-ke-masa.jpg')" role="button" tabindex="0" aria-label="Perbesar foto Kepala Puskesmas dari Masa ke Masa" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox('kepala-puskesmas-dari-masa-ke-masa.jpg');}">
-  <img src="kepala-puskesmas-dari-masa-ke-masa.jpg" alt="Kepala Puskesmas Tanjung Pinang dari Masa ke Masa: Dr. Nyoman Kadun (1974-1978), Dr. Hj. Deni Efrianti (2000-2004), Dr. Yulinda Fetri Tura (2004-2005), Dr. H. Emildan Pasai (2006-2016), Dr. Hj. Sri Rosianti (2016-2019), dr. Aulia Satria (2019-2026)" loading="lazy">
-  <span class="sk-poster-hint">🔍 Klik untuk perbesar</span>
-</div>
-<p class="source-note">Sumber: Dokumentasi UPTD Puskesmas Tanjung Pinang Kota Jambi.</p>
 </section>
 
 <section class="profile-panel" id="visi-misi" data-panel="visi">
@@ -102,6 +82,11 @@
 
 <h3 class="subheading">Tata Nilai “BerAKHLAK”</h3>
 <p>Tata nilai ASN BerAKHLAK diterapkan sesuai Surat Edaran Menteri PANRB Nomor 20 Tahun 2021 tentang Implementasi Core Values dan Employer Branding Aparatur Sipil Negara, dengan employer branding <strong>“Bangga Melayani Bangsa”</strong>.</p>
+<style>
+.point-list{list-style:none;margin:10px 0 0;padding:0}
+.point-list li{padding:7px 0;border-top:1px solid var(--line,#e2e8f0);font-size:.88rem;line-height:1.45}
+.point-list li:first-child{border-top:none}
+</style>
 <div class="achievement-grid">
 <article class="achievement-card"><span class="achievement-year">B</span><h3>Berorientasi Pelayanan</h3><ul class="point-list">
 <li>Memahami dan memenuhi kebutuhan masyarakat.</li>
@@ -151,6 +136,12 @@
 </details>
 
 <h3 class="subheading">Logo Salam Harmoni</h3>
+<style>
+.salam-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line,#e2e8f0);border-radius:16px;padding:18px;margin-top:8px}
+.salam-wrap img{width:180px;height:auto;border-radius:12px;flex:none}
+.salam-wrap ul{margin:0;padding-left:18px;font-size:.92rem;line-height:1.5}
+.salam-wrap ul li{margin-bottom:8px}
+</style>
 <div class="salam-wrap">
 <img src="logo-salam-harmoni.png" alt="Logo Salam Harmoni UPTD Puskesmas Tanjung Pinang">
 <ul>
@@ -176,6 +167,13 @@
 <h3>dr. Tini</h3>
 </div>
 
+<style>
+.klaster-list{list-style:none;margin:10px 0 0;padding:0}
+.klaster-list li{padding:8px 0;border-top:1px solid var(--line)}
+.klaster-list li:first-child{border-top:none}
+.klaster-list b{display:block;font-size:.82rem}
+.klaster-list span{display:block;font-size:.86rem;color:#55706a;margin-top:2px}
+</style>
 
 <div class="achievement-grid">
 
@@ -290,6 +288,17 @@
 <h3>Maklumat Pelayanan</h3>
 <blockquote>“Kami siap memberikan pelayanan sesuai dengan standar pelayanan, melakukan perbaikan secara terus menerus, dan apabila kami tidak memberikan pelayanan sesuai standar pelayanan yang telah ditetapkan, kami siap menerima sanksi atau memberikan kompensasi sesuai peraturan perundang-undangan yang berlaku.”</blockquote>
 </div>
+
+<div class="maklumat">
+<img src="maklumat.jpeg" alt="Maklumat Pelayanan UPTD Puskesmas Tanjung Pinang" loading="lazy">
+<div class="notice">
+<h3>Pelayanan publik yang dapat dipertanggungjawabkan</h3>
+<p>Standar Pelayanan Publik Tahun 2026 menetapkan 14 komponen pelayanan, termasuk persyaratan, prosedur, waktu, biaya/tarif, fasilitas, pengaduan, jaminan pelayanan, serta evaluasi kinerja.</p>
+<p class="source-note">Dasar konten layanan: SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik, ditetapkan 15 Maret 2026.</p>
+<a class="btn btn-green" href="pelayanan.html">Jelajahi Standar Layanan</a>
+</div>
+</div>
+
 <div class="org">
 <div class="org-item"><span class="org-icon">📋</span><div><strong>Standar Pelayanan</strong><br>Pelayanan dipertanggungjawabkan sesuai Standar Pelayanan.</div></div>
 <div class="org-item"><span class="org-icon">💬</span><div><strong>Pengaduan & Masukan</strong><br>Email, call center, WhatsApp, Instagram, Facebook, kotak saran, dan SPAN-LAPOR.</div></div>
@@ -344,22 +353,6 @@ function closePhotoLightbox(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePhotoLightbox();}});
-
-document.querySelectorAll('.profile-jump a[href^="#"]').forEach(function(link){
-  link.addEventListener('click', function(e){
-    var targetId = link.getAttribute('href').slice(1);
-    var targetEl = document.getElementById(targetId);
-    if(!targetEl) return;
-    var tabName = targetEl.dataset.panel;
-    var btn = document.querySelector('.side-nav [data-tab="'+tabName+'"]');
-    if(btn){
-      e.preventDefault();
-      btn.click();
-      btn.scrollIntoView({behavior:'smooth', block:'nearest'});
-      targetEl.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-  });
-});
 </script>
 
 <script src="script.js" defer></script>
