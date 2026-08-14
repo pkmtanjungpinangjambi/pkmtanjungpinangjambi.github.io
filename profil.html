@@ -34,7 +34,7 @@
 <header class="site-header"><div class="container nav-wrap">
 <a class="brand" href="index.html"><span class="brand-mark">🏥</span><span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a>
 <button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">☰</button>
-<nav class="nav"><a href="index.html">Beranda</a><a class="active" href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
+<nav class="nav"><a href="index.html">Beranda</a><div class="nav-item-dropdown"><a class="active" href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#struktur">Struktur Organisasi</a><a href="profil.html#wilayah">Wilayah &amp; Pustu</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a><a href="profil.html#komitmen">Komitmen Pelayanan</a><a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a></div></div><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
 </div></header>
 
 <section class="page-hero"><div class="container">
@@ -61,7 +61,7 @@
 </aside>
 
 <div>
-<section class="profile-panel active" data-panel="sejarah">
+<section class="profile-panel active" id="sejarah" data-panel="sejarah">
 <h2>Sejarah UPTD Puskesmas Tanjung Pinang</h2>
 <p><strong>Puskesmas Tanjung Pinang Kota Jambi berdiri pada tahun 1974</strong> dengan nama <strong>Puskesmas Inpres 5/74</strong>. Dalam perkembangannya, Puskesmas Tanjung Pinang menjadi salah satu fasilitas pelayanan kesehatan tingkat pertama di Kecamatan Jambi Timur dengan wilayah kerja yang luas dan jumlah penduduk yang besar.</p>
 <div class="values">
@@ -162,7 +162,7 @@
 <p class="source-note">Sumber: Materi Rapat Visi-Misi, Motto dan Tata Nilai UPTD Puskesmas Tanjung Pinang Tahun 2026.</p>
 </section>
 
-<section class="profile-panel" data-panel="struktur">
+<section class="profile-panel" id="struktur" data-panel="struktur">
 <h2>Struktur Organisasi</h2>
 <p>Struktur organisasi UPTD Puskesmas Tanjung Pinang disusun dalam sistem klaster sesuai Integrasi Layanan Primer (ILP), mengacu pada <strong>Peraturan Menteri Kesehatan Nomor 19 Tahun 2024</strong> tentang Penyelenggaraan Pusat Kesehatan Masyarakat.</p>
 
@@ -241,7 +241,7 @@
 <p class="source-note">*Berdasarkan Peraturan Menteri Kesehatan Nomor 19 Tahun 2024. Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
 </section>
 
-<section class="profile-panel" data-panel="wilayah">
+<section class="profile-panel" id="wilayah" data-panel="wilayah">
 <h2>Wilayah Kerja & Puskesmas Pembantu</h2>
 <p>Wilayah kerja UPTD Puskesmas Tanjung Pinang mencakup <strong>5 kelurahan</strong> di Kecamatan Jambi Timur:</p>
 <div class="values">
@@ -260,7 +260,7 @@
 <p class="source-note">Batas wilayah: Utara Sungai Batanghari; Selatan Kelurahan Talang Banjar; Barat Kelurahan Pasar Jambi; Timur Kelurahan Tanjung Sari. Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</p>
 </section>
 
-<section class="profile-panel" data-panel="karakter">
+<section class="profile-panel" id="karakter" data-panel="karakter">
 <h2>Karakteristik & Kekuatan Wilayah</h2>
 <p>Bagian ini menonjolkan <strong>ciri khas berdasarkan data profil resmi</strong>, bukan membuat klaim penghargaan baru.</p>
 <div class="values">
@@ -284,7 +284,7 @@
 <p class="source-note">Data karakteristik: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan SK Standar Pelayanan 2026.</p>
 </section>
 
-<section class="profile-panel" data-panel="komitmen">
+<section class="profile-panel" id="komitmen" data-panel="komitmen">
 <h2>Maklumat & Komitmen Pelayanan</h2>
 <p>Pernyataan resmi kesiapan UPTD Puskesmas Tanjung Pinang dalam memberikan pelayanan sesuai standar, termasuk kesiapan menerima sanksi atau memberikan kompensasi apabila pelayanan tidak sesuai standar yang ditetapkan.</p>
 <div class="sk-poster" onclick="openPhotoLightbox('maklumat.jpeg')" role="button" tabindex="0" aria-label="Perbesar Maklumat Pelayanan" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox('maklumat.jpeg');}">
@@ -309,7 +309,7 @@
 <p class="source-note">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan SK Standar Pelayanan 2026.</p>
 </section>
 
-<section class="profile-panel" data-panel="prestasi">
+<section class="profile-panel" id="prestasi" data-panel="prestasi">
 <h2>Prestasi & Penghargaan</h2>
 <p class="lead">Beberapa prestasi dan capaian yang telah diraih UPTD Puskesmas Tanjung Pinang.</p>
 <div class="achievement-grid">
@@ -346,22 +346,6 @@ function closePhotoLightbox(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePhotoLightbox();}});
-
-document.querySelectorAll('.profile-jump a[href^="#"]').forEach(function(link){
-  link.addEventListener('click', function(e){
-    var targetId = link.getAttribute('href').slice(1);
-    var targetEl = document.getElementById(targetId);
-    if(!targetEl) return;
-    var tabName = targetEl.dataset.panel;
-    var btn = document.querySelector('.side-nav [data-tab="'+tabName+'"]');
-    if(btn){
-      e.preventDefault();
-      btn.click();
-      btn.scrollIntoView({behavior:'smooth', block:'nearest'});
-      targetEl.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-  });
-});
 </script>
 
 <script src="script.js" defer></script>
