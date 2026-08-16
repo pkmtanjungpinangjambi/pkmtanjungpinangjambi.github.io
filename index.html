@@ -1,994 +1,2074 @@
 <!doctype html>
 <html lang="id">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
 
-  <title>UPTD Puskesmas Tanjung Pinang Kota Jambi | Portal Informasi Kesehatan</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
 
-  <meta
-    name="description"
-    content="Portal informasi resmi UPTD Puskesmas Tanjung Pinang Kota Jambi: pelayanan, jadwal, pendaftaran, kontak, lokasi, pengaduan, dan informasi kesehatan."
-  >
+<title>
+UPTD Puskesmas Tanjung Pinang | Kota Jambi
+</title>
 
-  <meta name="theme-color" content="#00563f">
+<meta
+  name="description"
+  content="Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi. Informasi pelayanan, jadwal, tarif, lokasi dan informasi kesehatan masyarakat."
+>
 
-  <link
-    rel="canonical"
-    href="https://pkmtanjungpinangjambi.vercel.app/"
-  >
+<meta
+  name="robots"
+  content="index,follow,max-image-preview:large"
+>
 
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Lightbox foto pimpinan */
-    .leader-photo{cursor:zoom-in}
-    .photo-lightbox{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.82);
-      z-index:9999;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-    .photo-lightbox.is-open{display:flex}
-    .photo-lightbox img{
-      max-width:min(92vw,520px);
-      max-height:88vh;
-      border-radius:16px;
-      box-shadow:0 20px 60px rgba(0,0,0,.5);
-    }
-    .photo-lightbox-close{
-      position:absolute;
-      top:18px;
-      right:22px;
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      border:none;
-      background:#fff;
-      color:#0b5d49;
-      font-size:22px;
-      font-weight:800;
-      cursor:pointer;
-      line-height:44px;
-      text-align:center;
-    }
-  </style>
+<link
+  rel="canonical"
+  href="https://pkmtanjungpinangjambi.vercel.app/"
+>
+
+<meta
+  name="theme-color"
+  content="#d71920"
+>
+
+<meta
+  property="og:type"
+  content="website"
+>
+
+<meta
+  property="og:title"
+  content="UPTD Puskesmas Tanjung Pinang Kota Jambi"
+>
+
+<meta
+  property="og:description"
+  content="Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi."
+>
+
+<meta
+  property="og:url"
+  content="https://pkmtanjungpinangjambi.vercel.app/"
+>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  color:#151515;
+  background:#fff;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+
+  --red:#d71920;
+  --red-dark:#a80e15;
+  --red-light:#ed1c24;
+
+  --white:#fff;
+
+  --black:#111;
+
+  --gray:#666;
+
+  --light:#f5f5f5;
+
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.container{
+
+  width:
+    min(1180px,92%);
+
+  margin:auto;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.site-header{
+
+  position:absolute;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:20;
+
+  color:#fff;
+
+}
+
+.header-inner{
+
+  height:82px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.3);
+
+}
+
+.brand{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.brand img{
+
+  width:48px;
+  height:48px;
+
+  object-fit:contain;
+
+}
+
+.brand strong{
+
+  display:block;
+
+  font-size:13px;
+
+  letter-spacing:.4px;
+
+}
+
+.brand span{
+
+  display:block;
+
+  margin-top:3px;
+
+  font-size:10px;
+
+  opacity:.75;
+
+}
+
+.navigation{
+
+  display:flex;
+
+  gap:5px;
+
+  align-items:center;
+
+}
+
+.navigation a{
+
+  color:#fff;
+
+  padding:
+    9px 11px;
+
+  font-size:11px;
+
+  font-weight:bold;
+
+}
+
+.navigation a:hover{
+
+  background:
+    rgba(255,255,255,.15);
+
+}
+
+.menu-button{
+
+  display:none;
+
+  border:0;
+
+  background:none;
+
+  color:#fff;
+
+  font-size:25px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+  position:relative;
+
+  min-height:900px;
+
+  overflow:hidden;
+
+  color:#fff;
+
+  background:
+
+    linear-gradient(
+      rgba(180,0,10,.72),
+      rgba(210,15,25,.95)
+    ),
+
+    url("gedung-puskesmas.jpg")
+    center/cover no-repeat;
+
+}
+
+
+/* white field */
+
+.hero::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:-5%;
+
+  bottom:-220px;
+
+  width:110%;
+
+  height:360px;
+
+  background:#fff;
+
+  transform:
+    rotate(-4deg);
+
+}
+
+
+/* decorative circle */
+
+.hero::before{
+
+  content:"";
+
+  position:absolute;
+
+  right:-180px;
+
+  top:180px;
+
+  width:500px;
+
+  height:500px;
+
+  border:
+    70px solid
+    rgba(255,255,255,.08);
+
+  border-radius:50%;
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content{
+
+  position:relative;
+
+  z-index:5;
+
+  padding-top:180px;
+
+  padding-bottom:250px;
+
+}
+
+.eyebrow{
+
+  display:inline-block;
+
+  padding:
+    8px 14px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.55);
+
+  font-size:10px;
+
+  letter-spacing:2px;
+
+  font-weight:bold;
+
+  text-transform:uppercase;
+
+}
+
+.hero h1{
+
+  margin:
+    25px 0 0;
+
+  max-width:1000px;
+
+  font-size:
+    clamp(55px,9vw,120px);
+
+  line-height:.87;
+
+  letter-spacing:-6px;
+
+  text-transform:uppercase;
+
+  font-weight:900;
+
+}
+
+.hero h1 span{
+
+  display:block;
+
+}
+
+.hero-subtitle{
+
+  max-width:650px;
+
+  margin-top:30px;
+
+  font-size:17px;
+
+  line-height:1.6;
+
+  color:
+    rgba(255,255,255,.88);
+
+}
+
+.hero-buttons{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  margin-top:30px;
+
+}
+
+.btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-height:48px;
+
+  padding:
+    0 23px;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
+
+  transition:.2s;
+
+}
+
+.btn:hover{
+
+  transform:translateY(-3px);
+
+}
+
+.btn-white{
+
+  background:#fff;
+
+  color:var(--red);
+
+}
+
+.btn-outline{
+
+  color:#fff;
+
+  border:
+    1px solid
+    rgba(255,255,255,.7);
+
+}
+
+
+/* =========================================================
+   HERO BOTTOM VISUAL
+========================================================= */
+
+.hero-visual{
+
+  position:absolute;
+
+  z-index:6;
+
+  right:7%;
+
+  bottom:70px;
+
+  width:330px;
+
+  height:330px;
+
+}
+
+.hero-visual img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  border:
+    12px solid #fff;
+
+  box-shadow:
+    0 25px 60px
+    rgba(0,0,0,.25);
+
+}
+
+
+/* =========================================================
+   QUICK MENU
+========================================================= */
+
+.quick{
+
+  position:relative;
+
+  z-index:10;
+
+  margin-top:-80px;
+
+}
+
+.quick-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  background:#fff;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.13);
+
+}
+
+.quick-item{
+
+  min-height:170px;
+
+  padding:27px;
+
+  border-right:
+    1px solid #eee;
+
+  transition:.2s;
+
+}
+
+.quick-item:last-child{
+
+  border-right:0;
+
+}
+
+.quick-item:hover{
+
+  background:
+    var(--red);
+
+  color:#fff;
+
+}
+
+.quick-number{
+
+  color:
+    var(--red);
+
+  font-size:10px;
+
+  font-weight:900;
+
+}
+
+.quick-item:hover
+.quick-number{
+
+  color:#fff;
+
+}
+
+.quick-item h2{
+
+  margin:
+    25px 0 5px;
+
+  font-size:19px;
+
+  text-transform:uppercase;
+
+}
+
+.quick-item p{
+
+  margin:0;
+
+  font-size:11px;
+
+  color:#777;
+
+}
+
+.quick-item:hover p{
+
+  color:
+    rgba(255,255,255,.8);
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section{
+
+  padding:
+    110px 0;
+
+}
+
+.section-gray{
+
+  background:#f5f5f5;
+
+}
+
+.section-title{
+
+  max-width:850px;
+
+  margin:0;
+
+  font-size:
+    clamp(40px,6vw,75px);
+
+  line-height:.95;
+
+  letter-spacing:-3px;
+
+  text-transform:uppercase;
+
+}
+
+.section-label{
+
+  display:block;
+
+  margin-bottom:16px;
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+
+}
+
+.section-description{
+
+  max-width:700px;
+
+  margin-top:25px;
+
+  color:#666;
+
+  font-size:15px;
+
+  line-height:1.7;
+
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.services{
+
+  margin-top:55px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:2px;
+
+  background:#ddd;
+
+}
+
+.service{
+
+  background:#fff;
+
+  min-height:250px;
+
+  padding:30px;
+
+  transition:.25s;
+
+}
+
+.service:hover{
+
+  background:var(--red);
+
+  color:#fff;
+
+}
+
+.service-number{
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:bold;
+
+}
+
+.service:hover
+.service-number{
+
+  color:#fff;
+
+}
+
+.service h3{
+
+  margin-top:45px;
+
+  font-size:23px;
+
+  line-height:1;
+
+  text-transform:uppercase;
+
+}
+
+.service p{
+
+  font-size:12px;
+
+  color:#777;
+
+}
+
+.service:hover p{
+
+  color:
+    rgba(255,255,255,.8);
+
+}
+
+
+/* =========================================================
+   FEATURE SECTION
+========================================================= */
+
+.feature{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  min-height:600px;
+
+}
+
+.feature-image{
+
+  background:
+    url("gedung-puskesmas.jpg")
+    center/cover no-repeat;
+
+}
+
+.feature-content{
+
+  padding:
+    80px;
+
+  background:var(--red);
+
+  color:#fff;
+
+}
+
+.feature-content
+.section-label{
+
+  color:#fff;
+
+  opacity:.75;
+
+}
+
+.feature-content
+.section-title{
+
+  font-size:
+    clamp(40px,5vw,70px);
+
+}
+
+.feature-content p{
+
+  max-width:520px;
+
+  color:
+    rgba(255,255,255,.8);
+
+}
+
+
+/* =========================================================
+   INFORMATION
+========================================================= */
+
+.information{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:15px;
+
+  margin-top:50px;
+
+}
+
+.info{
+
+  padding:35px;
+
+  border:
+    1px solid #ddd;
+
+  min-height:330px;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.info::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:170px;
+  height:170px;
+
+  right:-85px;
+  bottom:-85px;
+
+  border-radius:50%;
+
+  background:
+    var(--red);
+
+  opacity:.08;
+
+}
+
+.info small{
+
+  color:var(--red);
+
+  font-size:10px;
+
+  font-weight:bold;
+
+  letter-spacing:1px;
+
+}
+
+.info h3{
+
+  margin-top:35px;
+
+  font-size:28px;
+
+  text-transform:uppercase;
+
+}
+
+.info p{
+
+  font-size:13px;
+
+  color:#666;
+
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+
+  background:#111;
+
+  color:#fff;
+
+}
+
+.contact-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    1.2fr .8fr;
+
+  gap:60px;
+
+}
+
+.contact .section-label{
+
+  color:#fff;
+
+  opacity:.6;
+
+}
+
+.contact .section-description{
+
+  color:
+    rgba(255,255,255,.65);
+
+}
+
+.contact-box{
+
+  padding:25px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.18);
+
+  margin-bottom:10px;
+
+}
+
+.contact-box small{
+
+  display:block;
+
+  color:
+    rgba(255,255,255,.5);
+
+  font-size:9px;
+
+  letter-spacing:1px;
+
+}
+
+.contact-box strong{
+
+  display:block;
+
+  margin-top:5px;
+
+  font-size:14px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+  background:
+    var(--red-dark);
+
+  color:#fff;
+
+  padding:
+    50px 0 25px;
+
+}
+
+.footer-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    1.5fr 1fr 1fr;
+
+  gap:40px;
+
+}
+
+footer h3{
+
+  font-size:14px;
+
+  text-transform:uppercase;
+
+}
+
+footer p,
+footer li{
+
+  color:
+    rgba(255,255,255,.7);
+
+  font-size:11px;
+
+}
+
+footer ul{
+
+  padding:0;
+
+  margin:0;
+
+  list-style:none;
+
+}
+
+footer li{
+
+  margin:7px 0;
+
+}
+
+.copyright{
+
+  margin-top:40px;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.2);
+
+  text-align:center;
+
+  font-size:9px;
+
+  color:
+    rgba(255,255,255,.55);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+  .navigation{
+
+    display:none;
+
+    position:absolute;
+
+    left:4%;
+    right:4%;
+    top:75px;
+
+    padding:10px;
+
+    flex-direction:column;
+
+    background:
+      var(--red-dark);
+
+  }
+
+  .navigation.open{
+
+    display:flex;
+
+  }
+
+  .menu-button{
+
+    display:block;
+
+  }
+
+  .hero{
+
+    min-height:850px;
+
+  }
+
+  .hero-visual{
+
+    width:240px;
+    height:240px;
+
+    right:5%;
+    bottom:90px;
+
+  }
+
+  .quick-grid{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+  .services{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+  .information{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .feature{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .feature-image{
+
+    min-height:400px;
+
+  }
+
+  .contact-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .footer-grid{
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+}
+
+
+@media(max-width:600px){
+
+  .hero{
+
+    min-height:850px;
+
+  }
+
+  .hero h1{
+
+    font-size:54px;
+
+    letter-spacing:-3px;
+
+  }
+
+  .hero-subtitle{
+
+    font-size:14px;
+
+  }
+
+  .hero-visual{
+
+    width:190px;
+    height:190px;
+
+    bottom:70px;
+
+  }
+
+  .quick-grid{
+
+    grid-template-columns:1fr 1fr;
+
+  }
+
+  .quick-item{
+
+    padding:18px;
+
+    min-height:145px;
+
+  }
+
+  .quick-item h2{
+
+    font-size:15px;
+
+  }
+
+  .services{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .section{
+
+    padding:75px 0;
+
+  }
+
+  .section-title{
+
+    font-size:43px;
+
+  }
+
+  .feature-content{
+
+    padding:50px 25px;
+
+  }
+
+  .footer-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     GOOGLE STRUCTURED DATA
+========================================================= -->
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"UPTD Puskesmas Tanjung Pinang Kota Jambi",
+  "url":"https://pkmtanjungpinangjambi.vercel.app/",
+  "inLanguage":"id-ID"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"MedicalClinic",
+  "name":"UPTD Puskesmas Tanjung Pinang Kota Jambi",
+  "url":"https://pkmtanjungpinangjambi.vercel.app/",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"Jl. Taruma Negara No.RT.12",
+    "addressLocality":"Kota Jambi",
+    "addressRegion":"Jambi",
+    "addressCountry":"ID"
+  }
+}
+</script>
 
 </head>
 
+
 <body>
 
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="container topbar-inner">
 
-      <span>
-        📍 Jl. Taruma Negara No.RT.12, Tj. Pinang, Kota Jambi
-      </span>
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
-      <span>
-        <a href="tel:07417555394">
-          📞 (0741) 7555394
-        </a>
-        ·
-        <a href="mailto:pkmtanjungpinang18jambi@gmail.com">
-          ✉️ Email resmi
-        </a>
-      </span>
+<header class="site-header">
 
-    </div>
-  </div>
+<div class="container header-inner">
 
-
-  <!-- HEADER / NAVIGASI -->
-  <header class="site-header">
-
-    <div class="container nav-wrap">
-
-      <a class="brand" href="index.html">
-
-        <span class="brand-mark logo-brand">
-          <img
-            src="logo-kota-jambi.png"
-            alt="Lambang Kota Jambi"
-          >
-        </span>
-
-        <span>
-          <strong>UPTD PUSKESMAS TANJUNG PINANG</strong>
-          <small>Dinas Kesehatan Kota Jambi</small>
-        </span>
-
-      </a>
-
-
-      <button
-        class="nav-toggle"
-        aria-label="Buka menu"
-        aria-expanded="false"
-      >
-        ☰
-      </button>
-
-
-      <nav class="nav">
-
-        <a class="active" href="index.html">
-          Beranda
-        </a>
-
-        <div class="nav-item-dropdown">
-
-          <a href="profil.html">
-            Profil
-          </a>
-
-          <button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button>
-
-          <div class="dropdown-menu">
-            <a href="profil.html#sejarah">Sejarah</a>
-            <a href="profil.html#visi-misi">Visi &amp; Misi</a>
-            <a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a>
-            <a href="profil.html#struktur">Struktur Organisasi</a>
-            <a href="profil.html#wilayah">Wilayah &amp; Pustu</a>
-            <a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a>
-            <a href="profil.html#komitmen">Komitmen Pelayanan</a>
-            <a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a>
-          </div>
-
-        </div>
-
-        <a href="pelayanan.html">
-          Pelayanan
-        </a>
-
-        <a href="jadwal.html">
-          Jadwal
-        </a>
-
-        <a href="tarif.html">
-          Tarif Pelayanan
-        </a>
-
-        <a href="kontak.html">
-          Kontak &amp; Lokasi
-        </a>
-
-        <a
-          class="nav-cta"
-          href="https://wa.me/6282180622274"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          WhatsApp
-        </a>
-
-      </nav>
-
-    </div>
-
-  </header>
-
-
-  <main>
-
-
-    <!-- HERO -->
-    <section class="hero">
-
-      <div class="container hero-inner">
-
-        <div>
-
-          <span class="eyebrow">
-            Portal Informasi UPTD Puskesmas Tanjung Pinang
-          </span>
-
-          <h1>
-            Sehat lebih dekat, pelayanan lebih mudah.
-          </h1>
-
-          <p>
-            Temukan informasi pelayanan, persyaratan, jadwal,
-            pendaftaran, pengaduan, dan lokasi Puskesmas Tanjung Pinang
-            dalam satu tempat.
-          </p>
-
-          <div class="hero-actions">
-
-            <a
-              class="btn btn-primary"
-              href="pelayanan.html"
-            >
-              🩺 Lihat Pelayanan
-            </a>
-
-            <a
-              class="btn btn-outline"
-              href="jadwal.html"
-            >
-              🕐 Lihat Jadwal
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div class="hero-panel">
-
-          <h3>
-            Yang perlu diketahui sebelum datang
-          </h3>
-
-          <div class="mini">
-
-            <div class="mini-item">
-
-              <span class="mini-icon">
-                📋
-              </span>
-
-              <div>
-
-                <strong>
-                  Pendaftaran
-                </strong>
-
-                <span>
-                  Online Mobile JKN ditutup 12.30 WIB;
-                  langsung di Puskesmas 13.30 WIB.
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <div class="mini-item">
-
-              <span class="mini-icon">
-                💳
-              </span>
-
-              <div>
-
-                <strong>
-                  Biaya
-                </strong>
-
-                <span>
-                  Beberapa layanan menetapkan BPJS gratis
-                  dan umum Rp5.000 sesuai standar pelayanan.
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <div class="mini-item">
-
-              <span class="mini-icon">
-                💬
-              </span>
-
-              <div>
-
-                <strong>
-                  Butuh bantuan?
-                </strong>
-
-                <span>
-                  Hubungi Call Center atau WhatsApp resmi Puskesmas.
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PIMPINAN PUSKESMAS -->
-    <section class="section leader-section">
-
-      <div class="container">
-
-        <div class="leader-card">
-
-          <div class="leader-photo-wrap">
-
-            <img
-              class="leader-photo"
-              src="kepala-puskesmas.jpg"
-              alt="Kepala UPTD Puskesmas Tanjung Pinang"
-              loading="lazy"
-              onclick="openPhotoLightbox()"
-              role="button"
-              tabindex="0"
-              aria-label="Perbesar foto Kepala UPTD Puskesmas Tanjung Pinang"
-              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox();}"
-            >
-
-          </div>
-
-
-          <div class="leader-copy">
-
-            <span class="kicker">
-              Pimpinan Puskesmas
-            </span>
-
-            <h2>
-              Kepala UPTD Puskesmas Tanjung Pinang
-            </h2>
-
-            <p class="leader-period">
-              <strong>Periode:</strong>
-              12 Maret 2026 – sekarang
-            </p>
-
-            <p class="leader-quote">
-              “Mewujudkan Pelayanan Kesehatan Primer yang Berkualitas,
-              Inovatif, dan Merata Menuju Masyarakat yang Sehat dan
-              Bahagia tahun 2029.”
-            </p>
-
-            <div class="leader-values">
-
-              <span>💚 SEHATI</span>
-              <span>😊 5S</span>
-              <span>🏥 Pelayanan Primer</span>
-
-            </div>
-
-            <a
-              class="btn btn-green"
-              href="profil.html#visi-misi"
-            >
-              Kenali Profil Puskesmas
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- QUICK MENU -->
-    <section class="quick">
-
-      <div class="container quick-grid">
-
-        <a
-          class="quick-card"
-          href="pelayanan.html#pendaftaran"
-        >
-          <span class="icon">📋</span>
-          <strong>Pendaftaran</strong>
-          <span>Syarat &amp; alur pasien</span>
-        </a>
-
-
-        <a
-          class="quick-card"
-          href="pelayanan.html"
-        >
-          <span class="icon">🩺</span>
-          <strong>Pelayanan</strong>
-          <span>Cari layanan kesehatan</span>
-        </a>
-
-
-        <a
-          class="quick-card"
-          href="jadwal.html"
-        >
-          <span class="icon">🕐</span>
-          <strong>Jadwal</strong>
-          <span>Jam operasional</span>
-        </a>
-
-
-        <a
-          class="quick-card"
-          href="#media"
-        >
-          <span class="icon">📱</span>
-          <strong>Media &amp; Lokasi</strong>
-          <span>Video edukasi &amp; kegiatan</span>
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- PELAYANAN -->
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div>
-
-            <span class="kicker">
-              Pelayanan
-            </span>
-
-            <h2>
-              Apa yang Anda cari hari ini?
-            </h2>
-
-            <p>
-              Pelayanan disusun mengikuti ruang lingkup klaster
-              dalam Standar Pelayanan Publik UPTD Puskesmas
-              Tanjung Pinang Tahun 2026.
-            </p>
-
-          </div>
-
-          <a
-            class="btn btn-green"
-            href="pelayanan.html"
-          >
-            Lihat semua
-          </a>
-
-        </div>
-
-
-        <div class="cards">
-
-
-          <article class="card">
-
-            <div class="card-icon">
-              👩‍🍼
-            </div>
-
-            <h3>
-              Ibu &amp; Anak
-            </h3>
-
-            <p>
-              Pelayanan ibu hamil, anak, imunisasi,
-              tumbuh kembang, KB, dan calon pengantin.
-            </p>
-
-            <div class="service-meta">
-              <span class="pill">Klaster 2</span>
-              <span class="pill">Klaster 3</span>
-            </div>
-
-          </article>
-
-
-          <article class="card">
-
-            <div class="card-icon">
-              🧓
-            </div>
-
-            <h3>
-              Dewasa &amp; Lansia
-            </h3>
-
-            <p>
-              Pemeriksaan kesehatan dewasa dan lansia,
-              pengendalian PTM, serta layanan berhenti merokok.
-            </p>
-
-            <div class="service-meta">
-              <span class="pill">Klaster 3</span>
-            </div>
-
-          </article>
-
-
-          <article class="card">
-
-            <div class="card-icon">
-              🦠
-            </div>
-
-            <h3>
-              Penyakit Menular
-            </h3>
-
-            <p>
-              Pelayanan penanggulangan penyakit menular
-              dan kesehatan lingkungan, termasuk TB.
-            </p>
-
-            <div class="service-meta">
-              <span class="pill">Klaster 4</span>
-            </div>
-
-          </article>
-
-
-          <article class="card">
-
-            <div class="card-icon">
-              🦷
-            </div>
-
-            <h3>
-              Gigi &amp; Mulut
-            </h3>
-
-            <p>
-              Pelayanan kesehatan gigi dan mulut sebagai
-              bagian dari lintas klaster.
-            </p>
-
-            <div class="service-meta">
-              <span class="pill">Lintas Klaster</span>
-            </div>
-
-          </article>
-
-
-          <article class="card">
-
-            <div class="card-icon">
-              🧪
-            </div>
-
-            <h3>
-              Laboratorium
-            </h3>
-
-            <p>
-              Pemeriksaan laboratorium untuk mendukung pelayanan
-              dan penegakan diagnosis sesuai kebutuhan.
-            </p>
-
-            <div class="service-meta">
-              <span class="pill">Lintas Klaster</span>
-            </div>
-
-          </article>
-
-
-          <article class="card">
-
-            <div class="card-icon">
-              🚨
-            </div>
-
-            <h3>
-              Gawat Darurat
-            </h3>
-
-            <p>
-              Pelayanan kegawatdaruratan dan rujukan sesuai
-              kondisi pasien serta standar yang berlaku.
-            </p>
-
-            <div class="service-meta">
-              <span class="pill">Lintas Klaster</span>
-            </div>
-
-          </article>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PENDAFTARAN & PENGADUAN -->
-    <section class="section band">
-
-      <div class="container two-col">
-
-
-        <div class="notice">
-
-          <span class="kicker">
-            Pendaftaran
-          </span>
-
-          <h3>
-            Siapkan dokumen sebelum datang
-          </h3>
-
-          <ul class="list">
-
-            <li>
-              <strong>Identitas:</strong>
-              KTP/KK sesuai kebutuhan pelayanan.
-            </li>
-
-            <li>
-              <strong>Jaminan kesehatan:</strong>
-              BPJS/KIS bila tersedia.
-            </li>
-
-            <li>
-              <strong>Mobile JKN:</strong>
-              pendaftaran online ditutup 12.30 WIB.
-            </li>
-
-            <li>
-              <strong>Pendaftaran langsung:</strong>
-              ditutup 13.30 WIB.
-            </li>
-
-          </ul>
-
-          <a
-            class="card-link"
-            href="pelayanan.html#pendaftaran"
-          >
-            Baca alur pendaftaran →
-          </a>
-
-        </div>
-
-
-        <div class="notice">
-
-          <span class="kicker">
-            Pengaduan
-          </span>
-
-          <h3>
-            Suara masyarakat penting bagi kami
-          </h3>
-
-          <p>
-            Gunakan kanal resmi untuk menyampaikan saran,
-            keluhan, dan masukan.
-          </p>
-
-          <ul class="list">
-
-            <li>
-              📞 <strong>Call Center:</strong>
-              0741 7555394
-            </li>
-
-            <li>
-              💬 <strong>WhatsApp:</strong>
-              +62 821-8062-2274
-            </li>
-
-            <li>
-              ✉️ <strong>Email:</strong>
-              pkmtanjungpinang18jambi@gmail.com
-            </li>
-
-            <li>
-              📣 <strong>Instagram:</strong>
-              @pkm.tanjungpinang.jambi
-            </li>
-
-            <li>
-              🏛️ <strong>SPAN-LAPOR:</strong>
-              kanal pengaduan resmi pemerintah
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-
-    <!-- MEDIA & EDUKASI -->
-    <section class="section" id="media">
-
-      <div class="container">
-
-
-        <!-- VIDEO DIAH -->
-        <div class="section-head">
-
-          <div>
-
-            <span class="kicker">
-              Edukasi Kesehatan
-            </span>
-
-            <h2>
-              Video Edukasi
-            </h2>
-
-            <p>
-              Informasi kesehatan melalui media edukasi
-              UPTD Puskesmas Tanjung Pinang.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <article class="education-video-card">
-
-
-          <div class="education-video-media">
-
-            <video
-              controls
-              preload="metadata"
-              playsinline
-              poster="diah-poster.jpg"
-              aria-label="Video kegiatan CKG di Bazar"
-            >
-
-              <source
-                src="Diah.mp4"
-                type="video/mp4"
-              >
-
-              Browser Anda tidak mendukung pemutar video.
-              Silakan gunakan browser versi terbaru.
-
-            </video>
-
-          </div>
-
-
-          <div class="education-video-content">
-
-            <span class="education-video-badge">
-              Kegiatan Puskesmas
-            </span>
-
-            <h3>
-              Kegiatan CKG di Bazar Amal Vegetarian Kota Jambi
-            </h3>
-
-            <p>
-              Saksikan momen Cek Kesehatan Gratis (CKG) yang
-              digelar UPTD Puskesmas Tanjung Pinang di acara
-              Bazar Amal Vegetarian Kota Jambi sebagai bagian
-              dari promosi dan pelayanan kesehatan kepada
-              masyarakat.
-            </p>
-
-            <div class="education-video-footer">
-
-              <span>
-                🎥 Kegiatan Puskesmas
-              </span>
-
-              <span>
-                UPTD Puskesmas Tanjung Pinang
-              </span>
-
-            </div>
-
-          </div>
-
-
-        </article>
-
-
-        <!-- VIDEO TB -->
-        <article class="education-video-card">
-
-
-          <div class="education-video-media">
-
-            <video
-              controls
-              preload="metadata"
-              playsinline
-              poster="tb-poster.jpg"
-              aria-label="Video edukasi TB"
-            >
-
-              <source
-                src="TB.mp4"
-                type="video/mp4"
-              >
-
-              Browser Anda tidak mendukung pemutar video.
-              Silakan gunakan browser versi terbaru.
-
-            </video>
-
-          </div>
-
-
-          <div class="education-video-content">
-
-            <span class="education-video-badge">
-              Edukasi Kesehatan
-            </span>
-
-            <h3>
-              Video Edukasi TB
-            </h3>
-
-            <p>
-              Saksikan video edukasi Tuberkulosis (TB) sebagai
-              bagian dari informasi dan promosi kesehatan
-              UPTD Puskesmas Tanjung Pinang.
-            </p>
-
-            <div class="education-video-footer">
-
-              <span>
-                🎥 Video Edukasi
-              </span>
-
-              <span>
-                UPTD Puskesmas Tanjung Pinang
-              </span>
-
-            </div>
-
-          </div>
-
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer class="footer">
-
-    <div class="container footer-grid">
-
-
-      <div>
-
-        <h3>
-          UPTD Puskesmas Tanjung Pinang
-        </h3>
-
-        <p>
-          Fasilitas pelayanan kesehatan tingkat pertama
-          di bawah Dinas Kesehatan Kota Jambi.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <h3>
-          Tautan
-        </h3>
-
-        <div class="footer-links">
-
-          <a href="profil.html">
-            Profil
-          </a>
-
-          <a href="pelayanan.html">
-            Pelayanan
-          </a>
-
-          <a href="jadwal.html">
-            Jadwal
-          </a>
-
-          <a href="tarif.html">
-            Tarif Pelayanan
-          </a>
-
-          <a href="kontak.html">
-            Kontak &amp; Lokasi
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div>
-
-        <h3>
-          Kontak
-        </h3>
-
-        <p>
-          📞 0741 7555394<br>
-          💬 +62 821-8062-2274<br>
-          ✉️ pkmtanjungpinang18jambi@gmail.com
-        </p>
-
-      </div>
-
-
-    </div>
-
-
-    <div class="container footer-bottom">
-
-      © 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi
-      · Portal informasi publik
-
-    </div>
-
-  </footer>
-
-
-  <!-- FLOATING WHATSAPP -->
-  <a
-    class="floating-wa"
-    href="https://wa.me/6282180622274"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Hubungi UPTD Puskesmas Tanjung Pinang melalui WhatsApp"
-  >
-    💬 WhatsApp
-  </a>
-
-
-  <!-- JAVASCRIPT -->
-  <script src="script.js" defer></script>
-
-<!-- LIGHTBOX FOTO KEPALA PUSKESMAS -->
-<div
-  class="photo-lightbox"
-  id="photoLightbox"
-  onclick="if(event.target===this){closePhotoLightbox();}"
+<a
+  href="index.html"
+  class="brand"
 >
-  <button
-    class="photo-lightbox-close"
-    type="button"
-    aria-label="Tutup foto"
-    onclick="closePhotoLightbox()"
-  >✕</button>
 
-  <img
-    src="kepala-puskesmas.jpg"
-    alt="Kepala UPTD Puskesmas Tanjung Pinang - foto penuh"
-  >
+<img
+  src="logo-puskesmas.png"
+  alt="Logo UPTD Puskesmas Tanjung Pinang"
+  width="48"
+  height="48"
+>
+
+<div>
+
+<strong>
+UPTD PUSKESMAS TANJUNG PINANG
+</strong>
+
+<span>
+KOTA JAMBI
+</span>
+
 </div>
 
+</a>
+
+
+<button
+  class="menu-button"
+  aria-label="Menu"
+>
+☰
+</button>
+
+
+<nav
+  class="navigation"
+>
+
+<a href="index.html">
+Beranda
+</a>
+
+<a href="profil.html">
+Profil
+</a>
+
+<a href="pelayanan.html">
+Pelayanan
+</a>
+
+<a href="jadwal.html">
+Jadwal
+</a>
+
+<a href="tarif.html">
+Tarif
+</a>
+
+<a href="kontak.html">
+Lokasi
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+<div class="container hero-content">
+
+<span class="eyebrow">
+WEBSITE RESMI · KOTA JAMBI
+</span>
+
+
+<h1>
+
+<span>
+UPTD
+</span>
+
+<span>
+PUSKESMAS
+</span>
+
+<span>
+TANJUNG PINANG
+</span>
+
+</h1>
+
+
+<p class="hero-subtitle">
+
+Pelayanan kesehatan primer yang berkualitas,
+inovatif dan merata menuju masyarakat
+Kota Jambi yang sehat.
+
+</p>
+
+
+<div class="hero-buttons">
+
+<a
+  href="pelayanan.html"
+  class="btn btn-white"
+>
+LIHAT PELAYANAN
+</a>
+
+<a
+  href="#informasi"
+  class="btn btn-outline"
+>
+INFORMASI PUSKESMAS
+</a>
+
+</div>
+
+</div>
+
+
+<div class="hero-visual">
+
+<img
+  src="gedung-puskesmas.jpg"
+  alt="Gedung UPTD Puskesmas Tanjung Pinang Kota Jambi"
+  width="700"
+  height="700"
+>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     QUICK ACCESS
+========================================================= -->
+
+<section class="quick">
+
+<div class="container quick-grid">
+
+
+<a
+  href="pelayanan.html"
+  class="quick-item"
+>
+
+<span class="quick-number">
+01
+</span>
+
+<h2>
+Pelayanan
+</h2>
+
+<p>
+Informasi layanan kesehatan
+</p>
+
+</a>
+
+
+<a
+  href="jadwal.html"
+  class="quick-item"
+>
+
+<span class="quick-number">
+02
+</span>
+
+<h2>
+Jadwal
+</h2>
+
+<p>
+Jam pelayanan Puskesmas
+</p>
+
+</a>
+
+
+<a
+  href="tarif.html"
+  class="quick-item"
+>
+
+<span class="quick-number">
+03
+</span>
+
+<h2>
+Tarif
+</h2>
+
+<p>
+Tarif pelayanan kesehatan
+</p>
+
+</a>
+
+
+<a
+  href="kontak.html"
+  class="quick-item"
+>
+
+<span class="quick-number">
+04
+</span>
+
+<h2>
+Lokasi
+</h2>
+
+<p>
+Alamat dan petunjuk lokasi
+</p>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     INTRO
+========================================================= -->
+
+<section
+  class="section"
+  id="informasi"
+>
+
+<div class="container">
+
+<span class="section-label">
+UPTD PUSKESMAS TANJUNG PINANG
+</span>
+
+<h2 class="section-title">
+Hadir untuk kesehatan masyarakat.
+</h2>
+
+<p class="section-description">
+
+UPTD Puskesmas Tanjung Pinang Kota Jambi
+berkomitmen memberikan pelayanan kesehatan
+primer yang mudah diakses, aman, bermutu,
+ramah dan berorientasi pada kebutuhan masyarakat.
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section class="section section-gray">
+
+<div class="container">
+
+<span class="section-label">
+Pelayanan Kesehatan
+</span>
+
+<h2 class="section-title">
+Layanan kami
+</h2>
+
+
+<div class="services">
+
+
+<article class="service">
+
+<span class="service-number">
+01
+</span>
+
+<h3>
+Pelayanan Umum
+</h3>
+
+<p>
+Pelayanan pemeriksaan kesehatan dasar
+bagi masyarakat.
+</p>
+
+</article>
+
+
+<article class="service">
+
+<span class="service-number">
+02
+</span>
+
+<h3>
+Kesehatan Ibu & Anak
+</h3>
+
+<p>
+Pelayanan ibu hamil, bayi, balita,
+imunisasi dan tumbuh kembang.
+</p>
+
+</article>
+
+
+<article class="service">
+
+<span class="service-number">
+03
+</span>
+
+<h3>
+Kesehatan Gigi
+</h3>
+
+<p>
+Pemeriksaan dan pelayanan
+kesehatan gigi dan mulut.
+</p>
+
+</article>
+
+
+<article class="service">
+
+<span class="service-number">
+04
+</span>
+
+<h3>
+Laboratorium
+</h3>
+
+<p>
+Pemeriksaan laboratorium
+untuk mendukung diagnosis.
+</p>
+
+</article>
+
+
+<article class="service">
+
+<span class="service-number">
+05
+</span>
+
+<h3>
+Kesehatan Lansia
+</h3>
+
+<p>
+Pemantauan dan pelayanan
+kesehatan lanjut usia.
+</p>
+
+</article>
+
+
+<article class="service">
+
+<span class="service-number">
+06
+</span>
+
+<h3>
+Kegawatdaruratan
+</h3>
+
+<p>
+Penanganan awal kondisi
+kegawatdaruratan.
+</p>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURE
+========================================================= -->
+
+<section class="feature">
+
+<div class="feature-image">
+
+</div>
+
+
+<div class="feature-content">
+
+<span class="section-label">
+Komitmen Kami
+</span>
+
+<h2 class="section-title">
+Pelayanan
+yang ramah.
+</h2>
+
+<p>
+
+Kami berupaya memberikan pelayanan
+yang profesional, transparan, mudah
+diakses dan mengutamakan keselamatan
+serta kepuasan masyarakat.
+
+</p>
+
+<a
+  href="profil.html"
+  class="btn btn-white"
+  style="margin-top:25px"
+>
+LIHAT PROFIL
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     INFORMATION CARDS
+========================================================= -->
+
+<section class="section">
+
+<div class="container">
+
+<span class="section-label">
+Informasi Penting
+</span>
+
+<h2 class="section-title">
+Sebelum berkunjung
+</h2>
+
+
+<div class="information">
+
+
+<article class="info">
+
+<small>
+01 · JADWAL
+</small>
+
+<h3>
+Jadwal Pelayanan
+</h3>
+
+<p>
+Informasi jam pelayanan dan jadwal
+masing-masing layanan Puskesmas.
+</p>
+
+<a
+  href="jadwal.html"
+  class="btn"
+  style="
+    background:#d71920;
+    color:#fff;
+    margin-top:15px;
+  "
+>
+LIHAT JADWAL
+</a>
+
+</article>
+
+
+<article class="info">
+
+<small>
+02 · TARIF
+</small>
+
+<h3>
+Tarif Pelayanan
+</h3>
+
+<p>
+Informasi tarif pelayanan kesehatan
+yang tersedia di Puskesmas.
+</p>
+
+<a
+  href="tarif.html"
+  class="btn"
+  style="
+    background:#d71920;
+    color:#fff;
+    margin-top:15px;
+  "
+>
+LIHAT TARIF
+</a>
+
+</article>
+
+
+<article class="info">
+
+<small>
+03 · LOKASI
+</small>
+
+<h3>
+Lokasi Puskesmas
+</h3>
+
+<p>
+Jl. Taruma Negara No.RT.12,
+Kota Jambi, Provinsi Jambi.
+</p>
+
+<a
+  href="kontak.html"
+  class="btn"
+  style="
+    background:#d71920;
+    color:#fff;
+    margin-top:15px;
+  "
+>
+BUKA LOKASI
+</a>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section class="section contact">
+
+<div class="container contact-grid">
+
+
+<div>
+
+<span class="section-label">
+Hubungi Kami
+</span>
+
+<h2 class="section-title">
+Kami siap
+membantu.
+</h2>
+
+<p class="section-description">
+
+Untuk informasi pelayanan, jadwal,
+tarif maupun lokasi, silakan hubungi
+UPTD Puskesmas Tanjung Pinang.
+
+</p>
+
+<a
+  href="https://wa.me/6282180622274"
+  target="_blank"
+  rel="noopener"
+  class="btn btn-white"
+>
+WHATSAPP
+</a>
+
+</div>
+
+
+<div>
+
+
+<div class="contact-box">
+
+<small>
+Alamat
+</small>
+
+<strong>
+Jl. Taruma Negara No.RT.12,
+Kota Jambi
+</strong>
+
+</div>
+
+
+<div class="contact-box">
+
+<small>
+Telepon
+</small>
+
+<strong>
+(0741) 7555394
+</strong>
+
+</div>
+
+
+<div class="contact-box">
+
+<small>
+Email
+</small>
+
+<strong>
+pkmtanjungpinang18jambi@gmail.com
+</strong>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="container">
+
+
+<div class="footer-grid">
+
+
+<div>
+
+<h3>
+UPTD Puskesmas Tanjung Pinang
+</h3>
+
+<p>
+
+Website resmi UPTD Puskesmas
+Tanjung Pinang Kota Jambi.
+
+</p>
+
+</div>
+
+
+<div>
+
+<h3>
+Menu
+</h3>
+
+<ul>
+
+<li>
+<a href="profil.html">
+Profil
+</a>
+</li>
+
+<li>
+<a href="pelayanan.html">
+Pelayanan
+</a>
+</li>
+
+<li>
+<a href="jadwal.html">
+Jadwal
+</a>
+</li>
+
+<li>
+<a href="tarif.html">
+Tarif
+</a>
+</li>
+
+<li>
+<a href="kontak.html">
+Lokasi
+</a>
+</li>
+
+</ul>
+
+</div>
+
+
+<div>
+
+<h3>
+Kota Jambi
+</h3>
+
+<p>
+UPTD Puskesmas Tanjung Pinang
+</p>
+
+<p>
+Provinsi Jambi · Indonesia
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi
+
+</div>
+
+
+</div>
+
+</footer>
+
+
 <script>
-  function openPhotoLightbox(){
-    document.getElementById('photoLightbox').classList.add('is-open');
-    document.body.style.overflow='hidden';
-  }
-  function closePhotoLightbox(){
-    document.getElementById('photoLightbox').classList.remove('is-open');
-    document.body.style.overflow='';
-  }
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ closePhotoLightbox(); }
-  });
+
+const menuButton =
+document.querySelector(".menu-button");
+
+const navigation =
+document.querySelector(".navigation");
+
+if(menuButton){
+
+  menuButton.addEventListener(
+    "click",
+    function(){
+
+      navigation.classList.toggle(
+        "open"
+      );
+
+    }
+  );
+
+}
+
 </script>
+
 
 </body>
 </html>
