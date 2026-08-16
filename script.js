@@ -108,19 +108,58 @@
 
   /* Aktivasi tab Profil berdasarkan hash URL, misal profil.html#struktur */
   function activatePanelById(id){
-    var target=document.getElementById(id);
-    if(!target || !target.classList.contains('profile-panel')) return false;
-    var tabName=target.dataset.panel;
-    var btn=document.querySelector('[data-tab="'+tabName+'"]');
-    if(btn){
-      btn.click();
-      setTimeout(function(){
-        target.scrollIntoView({behavior:'smooth',block:'start'});
-      },60);
-      return true;
-    }
+  var target=document.getElementById(id);
+
+  if(!target || !target.classList.contains('profile-panel')){
     return false;
   }
+
+  var root=target.closest('[data-tabs]');
+
+  if(!root){
+    return false;
+  }
+
+  var tabName=target.dataset.panel;
+
+  /*
+   * Jika panel mempunyai tombol tab,
+   * gunakan mekanisme tab yang sudah ada.
+   */
+  var btn=root.querySelector('[data-tab="'+tabName+'"]');
+
+  if(btn){
+    btn.click();
+  }else{
+    /*
+     * Untuk panel tambahan seperti:
+     * struktur, wilayah, komitmen, prestasi
+     * yang belum mempunyai tombol sidebar,
+     * aktifkan panel secara langsung.
+     */
+    root.querySelectorAll('.profile-panel').forEach(function(panel){
+      panel.classList.remove('active');
+    });
+
+    target.classList.add('active');
+
+    /*
+     * Matikan status active pada tombol sidebar.
+     */
+    root.querySelectorAll('[data-tab]').forEach(function(button){
+      button.classList.remove('active');
+    });
+  }
+
+  setTimeout(function(){
+    target.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+  },60);
+
+  return true;
+}
 
   if(window.location.hash){
     activatePanelById(window.location.hash.slice(1));

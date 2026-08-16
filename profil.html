@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="id">
 <head>
@@ -24,6 +25,7 @@
 .klaster-list li:first-child{border-top:none}
 .klaster-list b{display:block;font-size:.82rem}
 .klaster-list span{display:block;font-size:.86rem;color:#55706a;margin-top:2px}
+.side-nav-heading{margin:14px 0 4px;padding:8px 12px 6px;border-top:1px solid var(--line,#e2e8f0);font-size:.72rem;font-weight:800;letter-spacing:.08em;color:#55706a}
 </style>
 </head>
 <body>
@@ -34,7 +36,7 @@
 <header class="site-header"><div class="container nav-wrap">
 <a class="brand" href="index.html"><span class="brand-mark">🏥</span><span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a>
 <button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">☰</button>
-<nav class="nav"><a href="index.html">Beranda</a><div class="nav-item-dropdown"><a class="active" href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#struktur">Struktur Organisasi</a><a href="profil.html#wilayah">Wilayah &amp; Pustu</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a><a href="profil.html#komitmen">Komitmen Pelayanan</a><a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a></div></div><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
+<nav class="nav"><a href="index.html">Beranda</a><div class="nav-item-dropdown"><a class="active" href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#ketatausahaan">Ketatausahaan</a><a href="profil.html#manajemen-sumber-daya">Manajemen Sumber Daya</a><a href="profil.html#manajemen-puskesmas">Manajemen Puskesmas</a><a href="profil.html#mutu-keselamatan">Manajemen Mutu &amp; Keselamatan Pasien</a><a href="profil.html#manajemen-jejaring">Manajemen Jejaring Puskesmas</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="kontak.html">Kontak & Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
 </div></header>
 
 <section class="page-hero"><div class="container">
@@ -44,20 +46,25 @@
 </div></section>
 
 <main class="page-content"><div class="container">
-<div class="profile-jump" aria-label="Akses cepat profil">
-<a href="#visi-misi">🎯 Visi & Misi</a>
-<a href="#motto-tata-nilai">💚 Motto & Tata Nilai</a>
-</div>
 <div class="profile-grid" data-tabs>
 <aside class="side-nav" aria-label="Navigasi profil">
 <button class="active" data-tab="sejarah">Sejarah</button>
-<button data-tab="visi">Visi & Misi</button>
-<button data-tab="nilai">Motto & Tata Nilai</button>
-<button data-tab="struktur">Struktur Organisasi</button>
-<button data-tab="wilayah">Wilayah & Pustu</button>
-<button data-tab="karakter">Karakteristik & Kekuatan</button>
-<button data-tab="komitmen">Komitmen Pelayanan</button>
-<button data-tab="prestasi">Prestasi & Penghargaan</button>
+<button data-tab="visi">Visi &amp; Misi</button>
+<button data-tab="nilai">Motto &amp; Tata Nilai</button>
+<div class="side-nav-heading">KLASTER 1 — MANAJEMEN</div>
+
+<button data-tab="ketatausahaan">Ketatausahaan</button>
+
+<a class="side-nav-subitem" href="#struktur">
+  ↳ Struktur Organisasi
+</a>
+
+<button data-tab="manajemen-sumber-daya">Manajemen Sumber Daya</button>
+<button data-tab="manajemen-puskesmas">Manajemen Puskesmas</button>
+<button data-tab="mutu-keselamatan">Mutu &amp; Keselamatan Pasien</button>
+<button data-tab="manajemen-jejaring">Manajemen Jejaring Puskesmas</button>
+<div class="side-nav-heading">INFORMASI PROFIL</div>
+<button data-tab="karakter">Karakteristik &amp; Kekuatan</button>
 </aside>
 
 <div>
@@ -160,6 +167,60 @@
 </ul>
 </div>
 <p class="source-note">Sumber: Materi Rapat Visi-Misi, Motto dan Tata Nilai UPTD Puskesmas Tanjung Pinang Tahun 2026.</p>
+</section>
+
+
+<section class="profile-panel" id="ketatausahaan" data-panel="ketatausahaan">
+<h2>Ketatausahaan</h2>
+<p>Ketatausahaan mendukung penyelenggaraan administrasi Puskesmas, termasuk kepegawaian, arsip, keuangan, aset, dan sistem informasi, serta mendukung koordinasi penyelenggaraan manajemen Puskesmas.</p>
+<div class="achievement-grid">
+<article class="achievement-card"><span class="achievement-year">PJ</span><h3>Manajemen Inti Puskesmas</h3><p><strong>Nur Saadyah, AM.Keb, SKM</strong></p><p>Koordinasi manajemen inti dan penyelenggaraan manajemen Puskesmas.</p></article>
+<article class="achievement-card"><span class="achievement-year">ARSIP</span><h3>Manajemen Arsip</h3><p><strong>Nur Saadyah, AM.Keb, SKM</strong></p><p>Pengelolaan arsip dan administrasi dokumentasi Puskesmas.</p></article>
+<article class="achievement-card"><span class="achievement-year">KEUANGAN</span><h3>Manajemen Keuangan &amp; Aset/BMD</h3><p><strong>Nur Saadyah, AM.Keb, SKM</strong></p><p>Pengelolaan keuangan serta aset atau Barang Milik Daerah.</p></article>
+<article class="achievement-card"><span class="achievement-year">SIP</span><h3>Manajemen Sistem Informasi Digital</h3><p><strong>Kiki Ayu.A, S.Tr.Keb, MKM</strong></p><p>Pengelolaan data, pencatatan, pelaporan, dan sistem informasi kesehatan.</p></article>
+</div>
+<a class="btn btn-green" href="#struktur">📋 Lihat Struktur Organisasi &amp; Pembagian Klaster</a>
+</section>
+
+<section class="profile-panel" id="manajemen-sumber-daya" data-panel="manajemen-sumber-daya">
+<h2>Manajemen Sumber Daya</h2>
+<p>Manajemen sumber daya mencakup pengelolaan sumber daya manusia serta sarana, prasarana, obat, dan bahan medis habis pakai untuk mendukung pelayanan Puskesmas.</p>
+<div class="achievement-grid">
+<article class="achievement-card"><span class="achievement-year">SDM</span><h3>Manajemen Sumber Daya</h3><p><strong>PJ: Kiki Ayu.A, S.Tr.Keb, MKM</strong></p><p>Pengelolaan dan pengembangan sumber daya manusia sesuai kebutuhan penyelenggaraan pelayanan.</p></article>
+<article class="achievement-card"><span class="achievement-year">SARPRAS</span><h3>Sarana, Prasarana &amp; Perbekalan Kesehatan</h3><p><strong>PJ: Bdn. Fatmawati, S.Keb</strong></p><p>Pengelolaan sarana, prasarana, obat, dan perbekalan kesehatan termasuk BMHP.</p></article>
+</div>
+<a class="btn btn-green" href="#struktur">📋 Lihat pembagian Klaster &amp; petugas</a>
+</section>
+
+<section class="profile-panel" id="manajemen-puskesmas" data-panel="manajemen-puskesmas">
+<h2>Manajemen Puskesmas</h2>
+<p>Manajemen Puskesmas mengoordinasikan perencanaan, pelaksanaan, pemantauan, evaluasi, manajemen program/klaster, dan pemberdayaan masyarakat dalam penyelenggaraan pelayanan kesehatan primer.</p>
+<div class="achievement-grid">
+<article class="achievement-card"><span class="achievement-year">INTI</span><h3>Manajemen Inti Puskesmas</h3><p><strong>PJ: Nur Saadyah, AM.Keb, SKM</strong></p><p>Mengoordinasikan pelaksanaan manajemen Puskesmas dan mendukung keterpaduan antar-klaster.</p></article>
+<article class="achievement-card"><span class="achievement-year">PROGRAM</span><h3>Manajemen Program / Klaster</h3><p>Koordinasi pelaksanaan program dan klaster sesuai pembagian tugas Puskesmas.</p></article>
+<article class="achievement-card"><span class="achievement-year">PEMBERDAYAAN</span><h3>Manajemen Pemberdayaan Masyarakat</h3><p><strong>PJ: Benget Sihotang, SKM</strong></p><p>Mendukung keterlibatan dan pemberdayaan masyarakat dalam pembangunan kesehatan.</p></article>
+</div>
+<a class="btn btn-green" href="#struktur">📋 Lihat struktur organisasi lengkap</a>
+</section>
+
+<section class="profile-panel" id="mutu-keselamatan" data-panel="mutu-keselamatan">
+<h2>Manajemen Mutu &amp; Keselamatan Pasien</h2>
+<p>Manajemen mutu dan keselamatan pasien menjaga agar pelayanan Puskesmas berjalan sesuai standar, aman, berorientasi pada masyarakat, dan terus mengalami perbaikan.</p>
+<div class="achievement-grid">
+<article class="achievement-card"><span class="achievement-year">MUTU</span><h3>Manajemen Mutu</h3><p><strong>PJ: Apt. Hj. Susanti, S.Farm</strong></p><p>Mengoordinasikan pengelolaan mutu pelayanan dan perbaikan berkelanjutan.</p></article>
+<article class="achievement-card"><span class="achievement-year">KOMITMEN</span><h3>Komitmen Pelayanan</h3><p>Komitmen pelayanan Puskesmas dan Maklumat Pelayanan menjadi bagian dari penguatan mutu serta akuntabilitas pelayanan.</p><a href="#komitmen">Lihat Komitmen &amp; Maklumat →</a></article>
+<article class="achievement-card"><span class="achievement-year">INOVASI</span><h3>Inovasi</h3><p>Inovasi pelayanan dikembangkan sebagai bagian dari peningkatan mutu, respons terhadap kebutuhan masyarakat, dan penguatan pelayanan primer yang inovatif dan terintegrasi.</p></article>
+<article class="achievement-card"><span class="achievement-year">PRESTASI</span><h3>Prestasi &amp; Penghargaan</h3><p>Dokumentasi capaian dan penghargaan Puskesmas ditempatkan sebagai bagian dari rekam jejak mutu dan pengembangan pelayanan.</p><a href="#prestasi">Lihat Prestasi &amp; Penghargaan →</a></article>
+</div>
+</section>
+
+<section class="profile-panel" id="manajemen-jejaring" data-panel="manajemen-jejaring">
+<h2>Manajemen Jejaring Puskesmas</h2>
+<p>Manajemen jejaring membina hubungan kerja sama dan keterhubungan Puskesmas dengan jejaring fasilitas kesehatan serta unsur pelayanan kesehatan di wilayah kerja.</p>
+<div class="achievement-grid">
+<article class="achievement-card"><span class="achievement-year">JEJARING</span><h3>Manajemen Jejaring</h3><p><strong>PJ: drg. Widja Darmi</strong></p><p>Mengoordinasikan hubungan dan jejaring pelayanan kesehatan dalam wilayah kerja Puskesmas.</p></article>
+<article class="achievement-card"><span class="achievement-year">WILAYAH</span><h3>Wilayah Kerja &amp; Pustu</h3><p>Wilayah kerja dan Puskesmas Pembantu merupakan bagian dari jaringan pelayanan Puskesmas.</p><a href="#wilayah">Lihat Wilayah &amp; Pustu →</a></article>
+</div>
 </section>
 
 <section class="profile-panel" id="struktur" data-panel="struktur">
