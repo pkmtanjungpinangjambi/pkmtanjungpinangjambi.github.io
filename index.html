@@ -41,13 +41,9 @@
   --max:1180px;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -57,19 +53,11 @@ body{
   line-height:1.5;
 }
 
-img{
-  max-width:100%;
-  display:block;
-}
+img{max-width:100%;display:block}
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
+a{color:inherit;text-decoration:none}
 
-button{
-  font:inherit;
-}
+button{font:inherit}
 
 .container{
   width:min(var(--max),92%);
@@ -121,9 +109,7 @@ button{
   object-fit:contain;
 }
 
-.brand-text{
-  min-width:0;
-}
+.brand-text{min-width:0}
 
 .brand-text strong{
   display:block;
@@ -169,7 +155,7 @@ button{
 }
 
 /* =========================================================
-   HUT RI 81
+   HUT RI 81 - LOGO
 ========================================================= */
 
 .hutri81{
@@ -265,9 +251,7 @@ button{
   font-weight:900;
 }
 
-.hero h1 span{
-  display:block;
-}
+.hero h1 span{display:block}
 
 .hero-subtitle{
   max-width:650px;
@@ -296,9 +280,7 @@ button{
   transition:.2s;
 }
 
-.btn:hover{
-  transform:translateY(-3px);
-}
+.btn:hover{transform:translateY(-3px)}
 
 .btn-white{
   background:#fff;
@@ -328,6 +310,67 @@ button{
 }
 
 /* =========================================================
+   DOKUMENTASI HUT RI 81
+========================================================= */
+
+.hutri-photo-section{
+  display:none;
+  padding:85px 0 35px;
+  background:#fff;
+}
+
+.hutri-photo-wrap{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:50px;
+  align-items:center;
+}
+
+.hutri-photo{
+  overflow:hidden;
+  background:#f3f3f3;
+  border:1px solid #eee;
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
+}
+
+.hutri-photo img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.hutri-photo-copy{
+  padding:20px 10px;
+}
+
+.hutri-photo-copy h2{
+  margin:0;
+  font-size:clamp(34px,5vw,60px);
+  line-height:.98;
+  text-transform:uppercase;
+  letter-spacing:-2px;
+}
+
+.hutri-photo-copy p{
+  margin-top:22px;
+  max-width:520px;
+  color:#666;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.hutri-photo-badge{
+  display:inline-block;
+  margin-top:18px;
+  padding:9px 13px;
+  background:var(--red);
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+/* =========================================================
    QUICK MENU
 ========================================================= */
 
@@ -351,9 +394,7 @@ button{
   transition:.2s;
 }
 
-.quick-item:last-child{
-  border-right:0;
-}
+.quick-item:last-child{border-right:0}
 
 .quick-item:hover{
   background:var(--red);
@@ -366,9 +407,7 @@ button{
   font-weight:900;
 }
 
-.quick-item:hover .quick-number{
-  color:#fff;
-}
+.quick-item:hover .quick-number{color:#fff}
 
 .quick-item h2{
   margin:25px 0 5px;
@@ -382,21 +421,15 @@ button{
   font-size:11px;
 }
 
-.quick-item:hover p{
-  color:rgba(255,255,255,.8);
-}
+.quick-item:hover p{color:rgba(255,255,255,.8)}
 
 /* =========================================================
    SECTION
 ========================================================= */
 
-.section{
-  padding:110px 0;
-}
+.section{padding:110px 0}
 
-.section-gray{
-  background:var(--light);
-}
+.section-gray{background:var(--light)}
 
 .section-title{
   max-width:850px;
@@ -454,9 +487,7 @@ button{
   font-weight:700;
 }
 
-.service:hover .service-number{
-  color:#fff;
-}
+.service:hover .service-number{color:#fff}
 
 .service h3{
   margin-top:45px;
@@ -470,9 +501,7 @@ button{
   font-size:12px;
 }
 
-.service:hover p{
-  color:rgba(255,255,255,.82);
-}
+.service:hover p{color:rgba(255,255,255,.82)}
 
 /* =========================================================
    FEATURE
@@ -639,9 +668,7 @@ footer ul{
   list-style:none;
 }
 
-footer li{
-  margin:7px 0;
-}
+footer li{margin:7px 0}
 
 .copyright{
   margin-top:40px;
@@ -671,22 +698,16 @@ footer li{
     box-shadow:0 15px 35px rgba(0,0,0,.2);
   }
 
-  .navigation.open{
-    display:flex;
-  }
+  .navigation.open{display:flex}
 
   .navigation a{
     width:100%;
     text-align:left;
   }
 
-  .menu-button{
-    display:block;
-  }
+  .menu-button{display:block}
 
-  .hero{
-    min-height:850px;
-  }
+  .hero{min-height:850px}
 
   .hero-visual{
     width:240px;
@@ -701,33 +722,26 @@ footer li{
     width:150px;
   }
 
-  .quick-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .quick-grid{grid-template-columns:repeat(2,1fr)}
 
-  .services{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .services{grid-template-columns:repeat(2,1fr)}
 
-  .information{
+  .information{grid-template-columns:1fr}
+
+  .feature{grid-template-columns:1fr}
+
+  .feature-image{min-height:400px}
+
+  .contact-grid{grid-template-columns:1fr}
+
+  .footer-grid{grid-template-columns:1fr 1fr}
+
+  .hutri-photo-wrap{
     grid-template-columns:1fr;
+    gap:30px;
   }
 
-  .feature{
-    grid-template-columns:1fr;
-  }
-
-  .feature-image{
-    min-height:400px;
-  }
-
-  .contact-grid{
-    grid-template-columns:1fr;
-  }
-
-  .footer-grid{
-    grid-template-columns:1fr 1fr;
-  }
+  .hutri-photo-copy{padding:0 5px}
 }
 
 /* =========================================================
@@ -736,9 +750,7 @@ footer li{
 
 @media(max-width:600px){
 
-  .header-inner{
-    min-height:72px;
-  }
+  .header-inner{min-height:72px}
 
   .brand-logo{
     width:46px;
@@ -746,17 +758,11 @@ footer li{
     flex-basis:46px;
   }
 
-  .brand-text strong{
-    font-size:10px;
-  }
+  .brand-text strong{font-size:10px}
 
-  .brand-text small{
-    font-size:8px;
-  }
+  .brand-text small{font-size:8px}
 
-  .hero{
-    min-height:850px;
-  }
+  .hero{min-height:850px}
 
   .hero h1{
     font-size:54px;
@@ -780,38 +786,30 @@ footer li{
     width:115px;
   }
 
-  .quick-grid{
-    grid-template-columns:1fr 1fr;
-  }
+  .quick-grid{grid-template-columns:1fr 1fr}
 
   .quick-item{
     min-height:145px;
     padding:18px;
   }
 
-  .quick-item h2{
-    font-size:15px;
+  .quick-item h2{font-size:15px}
+
+  .services{grid-template-columns:1fr}
+
+  .section{padding:75px 0}
+
+  .section-title{font-size:43px}
+
+  .feature-content{padding:50px 25px}
+
+  .footer-grid{grid-template-columns:1fr}
+
+  .hutri-photo-section{
+    padding:60px 0 25px;
   }
 
-  .services{
-    grid-template-columns:1fr;
-  }
-
-  .section{
-    padding:75px 0;
-  }
-
-  .section-title{
-    font-size:43px;
-  }
-
-  .feature-content{
-    padding:50px 25px;
-  }
-
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
+  .hutri-photo-copy h2{font-size:38px}
 }
 </style>
 
@@ -870,7 +868,6 @@ footer li{
       class="brand"
       aria-label="Beranda UPTD Puskesmas Tanjung Pinang"
     >
-
       <span class="brand-logo">
         <img
           src="logo-kota-jambi.png"
@@ -884,7 +881,6 @@ footer li{
         <strong>UPTD PUSKESMAS TANJUNG PINANG</strong>
         <small>Dinas Kesehatan Kota Jambi</small>
       </span>
-
     </a>
 
     <button
@@ -893,40 +889,19 @@ footer li{
       aria-label="Buka menu"
       aria-expanded="false"
       aria-controls="main-navigation"
-    >
-      ☰
-    </button>
+    >☰</button>
 
     <nav
       id="main-navigation"
       class="navigation"
       aria-label="Navigasi utama"
     >
-
-      <a class="active" href="index.html">
-        Beranda
-      </a>
-
-      <a href="profil.html">
-        Profil
-      </a>
-
-      <a href="pelayanan.html">
-        Pelayanan
-      </a>
-
-      <a href="jadwal.html">
-        Jadwal
-      </a>
-
-      <a href="tarif.html">
-        Tarif
-      </a>
-
-      <a href="kontak.html">
-        Lokasi
-      </a>
-
+      <a class="active" href="index.html">Beranda</a>
+      <a href="profil.html">Profil</a>
+      <a href="pelayanan.html">Pelayanan</a>
+      <a href="jadwal.html">Jadwal</a>
+      <a href="tarif.html">Tarif</a>
+      <a href="kontak.html">Lokasi</a>
     </nav>
 
   </div>
@@ -948,7 +923,6 @@ footer li{
     id="hutri81"
     aria-label="HUT Kemerdekaan Republik Indonesia ke-81"
   >
-
     <img
       src="logo-hutri-81.jpg"
       alt="Logo HUT ke-81 Kemerdekaan Republik Indonesia"
@@ -959,7 +933,6 @@ footer li{
     <div class="hutri-caption">
       INDONESIA BERDAULAT, ADIL DAN MAKMUR
     </div>
-
   </div>
 
   <div class="container hero-content">
@@ -982,17 +955,11 @@ footer li{
 
     <div class="hero-buttons">
 
-      <a
-        href="pelayanan.html"
-        class="btn btn-white"
-      >
+      <a href="pelayanan.html" class="btn btn-white">
         LIHAT PELAYANAN
       </a>
 
-      <a
-        href="#informasi"
-        class="btn btn-outline"
-      >
+      <a href="#informasi" class="btn btn-outline">
         INFORMASI PUSKESMAS
       </a>
 
@@ -1015,90 +982,91 @@ footer li{
 </section>
 
 <!-- =========================================================
-     QUICK ACCESS
+     DOKUMENTASI HUT RI 81
+     Hanya tampil pada bulan Agustus.
 ========================================================= -->
 
 <section
-  class="quick"
-  aria-label="Akses cepat"
+  class="hutri-photo-section"
+  id="hutri-foto"
+  aria-labelledby="hutri-foto-title"
 >
+
+  <div class="container">
+
+    <div class="hutri-photo-wrap">
+
+      <div class="hutri-photo">
+
+        <img
+          src="hutri81-puskesmas.jpg"
+          alt="Keluarga besar UPTD Puskesmas Tanjung Pinang Kota Jambi dalam rangka HUT ke-81 Republik Indonesia"
+          width="1024"
+          height="1536"
+          loading="lazy"
+        >
+
+      </div>
+
+      <div class="hutri-photo-copy">
+
+        <span class="section-label">
+          SEMANGAT KEMERDEKAAN
+        </span>
+
+        <h2 id="hutri-foto-title">
+          Indonesia Berdaulat,
+          Adil dan Makmur
+        </h2>
+
+        <p>
+          Keluarga besar UPTD Puskesmas Tanjung Pinang
+          Kota Jambi turut memeriahkan Hari Ulang Tahun
+          ke-81 Kemerdekaan Republik Indonesia.
+        </p>
+
+        <span class="hutri-photo-badge">
+          HUT RI KE-81 · 17 AGUSTUS 2026
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     QUICK ACCESS
+========================================================= -->
+
+<section class="quick" aria-label="Akses cepat">
 
   <div class="container quick-grid">
 
-    <a
-      href="pelayanan.html"
-      class="quick-item"
-    >
-
-      <span class="quick-number">
-        01
-      </span>
-
-      <h2>
-        Pelayanan
-      </h2>
-
-      <p>
-        Informasi layanan kesehatan
-      </p>
-
+    <a href="pelayanan.html" class="quick-item">
+      <span class="quick-number">01</span>
+      <h2>Pelayanan</h2>
+      <p>Informasi layanan kesehatan</p>
     </a>
 
-    <a
-      href="jadwal.html"
-      class="quick-item"
-    >
-
-      <span class="quick-number">
-        02
-      </span>
-
-      <h2>
-        Jadwal
-      </h2>
-
-      <p>
-        Jam pelayanan Puskesmas
-      </p>
-
+    <a href="jadwal.html" class="quick-item">
+      <span class="quick-number">02</span>
+      <h2>Jadwal</h2>
+      <p>Jam pelayanan Puskesmas</p>
     </a>
 
-    <a
-      href="tarif.html"
-      class="quick-item"
-    >
-
-      <span class="quick-number">
-        03
-      </span>
-
-      <h2>
-        Tarif
-      </h2>
-
-      <p>
-        Tarif pelayanan kesehatan
-      </p>
-
+    <a href="tarif.html" class="quick-item">
+      <span class="quick-number">03</span>
+      <h2>Tarif</h2>
+      <p>Tarif pelayanan kesehatan</p>
     </a>
 
-    <a
-      href="kontak.html"
-      class="quick-item"
-    >
-
-      <span class="quick-number">
-        04
-      </span>
-
-      <h2>
-        Lokasi
-      </h2>
-
-      <p>
-        Alamat dan petunjuk lokasi
-      </p>
-
+    <a href="kontak.html" class="quick-item">
+      <span class="quick-number">04</span>
+      <h2>Lokasi</h2>
+      <p>Alamat dan petunjuk lokasi</p>
     </a>
 
   </div>
@@ -1109,10 +1077,7 @@ footer li{
      INTRODUCTION
 ========================================================= -->
 
-<section
-  class="section"
-  id="informasi"
->
+<section class="section" id="informasi">
 
   <div class="container">
 
@@ -1154,105 +1119,39 @@ footer li{
     <div class="services">
 
       <article class="service">
-
-        <span class="service-number">
-          01
-        </span>
-
-        <h3>
-          Pelayanan Umum
-        </h3>
-
-        <p>
-          Pelayanan pemeriksaan kesehatan
-          dasar bagi masyarakat.
-        </p>
-
+        <span class="service-number">01</span>
+        <h3>Pelayanan Umum</h3>
+        <p>Pelayanan pemeriksaan kesehatan dasar bagi masyarakat.</p>
       </article>
 
       <article class="service">
-
-        <span class="service-number">
-          02
-        </span>
-
-        <h3>
-          Kesehatan Ibu &amp; Anak
-        </h3>
-
-        <p>
-          Pelayanan ibu hamil, bayi, balita,
-          imunisasi dan tumbuh kembang.
-        </p>
-
+        <span class="service-number">02</span>
+        <h3>Kesehatan Ibu &amp; Anak</h3>
+        <p>Pelayanan ibu hamil, bayi, balita, imunisasi dan tumbuh kembang.</p>
       </article>
 
       <article class="service">
-
-        <span class="service-number">
-          03
-        </span>
-
-        <h3>
-          Kesehatan Gigi
-        </h3>
-
-        <p>
-          Pemeriksaan dan pelayanan
-          kesehatan gigi dan mulut.
-        </p>
-
+        <span class="service-number">03</span>
+        <h3>Kesehatan Gigi</h3>
+        <p>Pemeriksaan dan pelayanan kesehatan gigi dan mulut.</p>
       </article>
 
       <article class="service">
-
-        <span class="service-number">
-          04
-        </span>
-
-        <h3>
-          Laboratorium
-        </h3>
-
-        <p>
-          Pemeriksaan laboratorium
-          untuk mendukung diagnosis.
-        </p>
-
+        <span class="service-number">04</span>
+        <h3>Laboratorium</h3>
+        <p>Pemeriksaan laboratorium untuk mendukung diagnosis.</p>
       </article>
 
       <article class="service">
-
-        <span class="service-number">
-          05
-        </span>
-
-        <h3>
-          Kesehatan Lansia
-        </h3>
-
-        <p>
-          Pemantauan dan pelayanan
-          kesehatan lanjut usia.
-        </p>
-
+        <span class="service-number">05</span>
+        <h3>Kesehatan Lansia</h3>
+        <p>Pemantauan dan pelayanan kesehatan lanjut usia.</p>
       </article>
 
       <article class="service">
-
-        <span class="service-number">
-          06
-        </span>
-
-        <h3>
-          Kegawatdaruratan
-        </h3>
-
-        <p>
-          Penanganan awal kondisi
-          kegawatdaruratan.
-        </p>
-
+        <span class="service-number">06</span>
+        <h3>Kegawatdaruratan</h3>
+        <p>Penanganan awal kondisi kegawatdaruratan.</p>
       </article>
 
     </div>
@@ -1322,13 +1221,9 @@ footer li{
 
       <article class="info">
 
-        <small>
-          01 · JADWAL
-        </small>
+        <small>01 · JADWAL</small>
 
-        <h3>
-          Jadwal Pelayanan
-        </h3>
+        <h3>Jadwal Pelayanan</h3>
 
         <p>
           Informasi jam pelayanan dan jadwal
@@ -1347,13 +1242,9 @@ footer li{
 
       <article class="info">
 
-        <small>
-          02 · TARIF
-        </small>
+        <small>02 · TARIF</small>
 
-        <h3>
-          Tarif Pelayanan
-        </h3>
+        <h3>Tarif Pelayanan</h3>
 
         <p>
           Informasi tarif pelayanan kesehatan
@@ -1372,13 +1263,9 @@ footer li{
 
       <article class="info">
 
-        <small>
-          03 · LOKASI
-        </small>
+        <small>03 · LOKASI</small>
 
-        <h3>
-          Lokasi Puskesmas
-        </h3>
+        <h3>Lokasi Puskesmas</h3>
 
         <p>
           Jl. Taruma Negara No.RT.12,
@@ -1439,40 +1326,21 @@ footer li{
     <div>
 
       <div class="contact-box">
-
-        <small>
-          ALAMAT
-        </small>
-
+        <small>ALAMAT</small>
         <strong>
           Jl. Taruma Negara No.RT.12,
           Kota Jambi
         </strong>
-
       </div>
 
       <div class="contact-box">
-
-        <small>
-          TELEPON
-        </small>
-
-        <strong>
-          (0741) 7555394
-        </strong>
-
+        <small>TELEPON</small>
+        <strong>(0741) 7555394</strong>
       </div>
 
       <div class="contact-box">
-
-        <small>
-          EMAIL
-        </small>
-
-        <strong>
-          pkmtanjungpinang18jambi@gmail.com
-        </strong>
-
+        <small>EMAIL</small>
+        <strong>pkmtanjungpinang18jambi@gmail.com</strong>
       </div>
 
     </div>
@@ -1508,57 +1376,22 @@ footer li{
 
       <div>
 
-        <h3>
-          Menu
-        </h3>
+        <h3>Menu</h3>
 
         <ul>
-
-          <li>
-            <a href="index.html">
-              Beranda
-            </a>
-          </li>
-
-          <li>
-            <a href="profil.html">
-              Profil
-            </a>
-          </li>
-
-          <li>
-            <a href="pelayanan.html">
-              Pelayanan
-            </a>
-          </li>
-
-          <li>
-            <a href="jadwal.html">
-              Jadwal
-            </a>
-          </li>
-
-          <li>
-            <a href="tarif.html">
-              Tarif
-            </a>
-          </li>
-
-          <li>
-            <a href="kontak.html">
-              Lokasi
-            </a>
-          </li>
-
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="profil.html">Profil</a></li>
+          <li><a href="pelayanan.html">Pelayanan</a></li>
+          <li><a href="jadwal.html">Jadwal</a></li>
+          <li><a href="tarif.html">Tarif</a></li>
+          <li><a href="kontak.html">Lokasi</a></li>
         </ul>
 
       </div>
 
       <div>
 
-        <h3>
-          Kota Jambi
-        </h3>
+        <h3>Kota Jambi</h3>
 
         <p>
           UPTD Puskesmas Tanjung Pinang
@@ -1593,16 +1426,17 @@ footer li{
   ======================================================== */
 
   const hutri = document.getElementById("hutri81");
+  const hutriPhoto = document.getElementById("hutri-foto");
+
+  const currentMonth = new Date().getMonth() + 1;
+  const isAugust = currentMonth === 8;
 
   if(hutri){
+    hutri.style.display = isAugust ? "block" : "none";
+  }
 
-    const currentMonth =
-      new Date().getMonth() + 1;
-
-    hutri.style.display =
-      currentMonth === 8
-        ? "block"
-        : "none";
+  if(hutriPhoto){
+    hutriPhoto.style.display = isAugust ? "block" : "none";
   }
 
 
@@ -1632,7 +1466,6 @@ footer li{
 
       }
     );
-
 
     navigation
       .querySelectorAll("a")
