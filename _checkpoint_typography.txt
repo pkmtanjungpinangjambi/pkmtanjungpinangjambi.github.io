@@ -1,1 +1,0 @@
-Home typography checkpoint: branch fix/home-typography. Changes are limited to typography overrides in styles.css; original stylesheet preserved as styles-base.css. Commit f66626040e52a4e2a9bd8e6f89210da684dc01e3.
