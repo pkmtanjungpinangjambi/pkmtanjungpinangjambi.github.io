@@ -19,13 +19,14 @@
 <meta name="twitter:title" content="UPTD Puskesmas Tanjung Pinang Kota Jambi">
 <meta name="twitter:description" content="Informasi pelayanan, jadwal, tarif, lokasi, dan pendaftaran UPTD Puskesmas Tanjung Pinang Kota Jambi.">
 <meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20260817-visual1">
 <style>
-/* Home-specific polish: keep the header/logo compact and the five quick links balanced. */
-.brand-mark{width:46px;height:46px;flex:0 0 46px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden}
-.brand-mark img{width:100%;height:100%;object-fit:contain}
-.brand strong{font-size:.94rem}
-.brand small{font-size:.7rem}
+/* Home-specific polish: compact header, deterministic logo sizing, balanced quick links. */
+.site-header .brand{min-width:0;max-width:440px}
+.site-header .brand-mark{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;flex:0 0 44px!important;padding:4px!important;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden;display:grid;place-items:center}
+.site-header .brand-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;display:block}
+.site-header .brand strong{font-size:.94rem;line-height:1.2}
+.site-header .brand small{font-size:.7rem;line-height:1.2}
 .home-flag{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);font-size:.72rem;font-weight:800;color:#e6f7f1}
 .home-quick-grid{grid-template-columns:repeat(5,1fr)}
 .home-quick-grid .quick-card{min-height:142px}
@@ -35,7 +36,7 @@
 .home-note strong{color:#fff}
 .home-address{font-size:.92rem;line-height:1.6}
 @media(max-width:900px){.home-quick-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.brand-mark{width:40px;height:40px;flex-basis:40px;padding:4px}.brand strong{font-size:.78rem}.brand small{font-size:.62rem}.home-quick-grid{grid-template-columns:1fr}.home-quick-grid .quick-card{min-height:0}}
+@media(max-width:600px){.site-header .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex-basis:40px!important;padding:4px!important}.site-header .brand strong{font-size:.78rem}.site-header .brand small{font-size:.62rem}.home-quick-grid{grid-template-columns:1fr}.home-quick-grid .quick-card{min-height:0}}
 </style>
 <script type="application/ld+json">
 {
@@ -58,162 +59,22 @@
 </script>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="container topbar-inner">
-    <span>📍 Jl. Taruma Negara No. 50, RT.12, Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</span>
-    <span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email</a></span>
-  </div>
-</div>
-
-<header class="site-header">
-  <div class="container nav-wrap">
-    <a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang">
-      <span class="brand-mark"><img src="logo-kota-jambi.png" alt="Lambang Kota Jambi" width="46" height="46"></span>
-      <span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span>
-    </a>
-    <button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
-    <nav class="nav" aria-label="Navigasi utama">
-      <a class="active" href="index.html">Beranda</a>
-      <div class="nav-item-dropdown">
-        <a href="profil.html">Profil</a>
-        <button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button>
-        <div class="dropdown-menu">
-          <a href="profil.html#sejarah">Sejarah</a>
-          <a href="profil.html#visi-misi">Visi &amp; Misi</a>
-          <a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a>
-          <a href="profil.html#struktur">Struktur Organisasi</a>
-          <a href="profil.html#wilayah">Wilayah &amp; Pustu</a>
-          <a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a>
-          <a href="profil.html#komitmen">Komitmen Pelayanan</a>
-          <a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a>
-        </div>
-      </div>
-      <a href="pelayanan.html">Pelayanan</a>
-      <a href="jadwal.html">Jadwal</a>
-      <a href="tarif.html">Tarif Pelayanan</a>
-      <a href="kontak.html">Kontak &amp; Lokasi</a>
-      <a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-    </nav>
-  </div>
-</header>
-
+<div class="topbar"><div class="container topbar-inner"><span>📍 Jl. Taruma Negara No. 50, RT.12, Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</span><span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email</a></span></div></div>
+<header class="site-header"><div class="container nav-wrap">
+<a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang"><span class="brand-mark" style="width:44px;height:44px;flex:0 0 44px"><img src="logo-kota-jambi.png" alt="Lambang Kota Jambi" width="44" height="44" style="width:100%;height:100%;object-fit:contain"></span><span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a>
+<button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
+<nav class="nav" aria-label="Navigasi utama"><a class="active" href="index.html">Beranda</a><div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#struktur">Struktur Organisasi</a><a href="profil.html#wilayah">Wilayah &amp; Pustu</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a><a href="profil.html#komitmen">Komitmen Pelayanan</a><a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a></div></div><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
+</div></header>
 <main>
-  <section class="hero">
-    <div class="container hero-inner">
-      <div>
-        <span class="eyebrow">WEBSITE RESMI · KOTA JAMBI</span>
-        <div class="home-flag">🇮🇩 HUT RI KE-81 · SEMANGAT MELAYANI</div>
-        <h1>Sehat lebih dekat, pelayanan lebih mudah.</h1>
-        <p>UPTD Puskesmas Tanjung Pinang hadir memberikan pelayanan kesehatan primer yang berkualitas, inovatif, merata, ramah, dan berorientasi pada kebutuhan masyarakat.</p>
-        <div class="hero-actions">
-          <a href="pelayanan.html" class="btn btn-primary">Lihat Pelayanan</a>
-          <a href="jadwal.html" class="btn btn-outline">Lihat Jadwal</a>
-        </div>
-      </div>
-
-      <aside class="hero-panel" aria-label="Informasi sebelum datang ke Puskesmas">
-        <h3>Sebelum datang ke Puskesmas</h3>
-        <div class="mini">
-          <div class="mini-item"><span class="mini-icon">📱</span><div><strong>Pendaftaran</strong><span>Pendaftaran tersedia melalui Mobile JKN dan pendaftaran langsung di Puskesmas.</span></div></div>
-          <div class="mini-item"><span class="mini-icon">🗓️</span><div><strong>Jadwal</strong><span>Lihat jadwal pelayanan untuk mengetahui waktu dan ketentuan layanan yang tersedia.</span></div></div>
-          <div class="mini-item"><span class="mini-icon">💬</span><div><strong>Butuh bantuan?</strong><span>Hubungi Puskesmas melalui telepon atau WhatsApp resmi sebelum berkunjung.</span></div></div>
-        </div>
-        <div class="home-note"><strong>Catatan:</strong> informasi waktu pendaftaran mengikuti jadwal pelayanan. Untuk perbedaan hari, silakan gunakan <a href="jadwal.html"><u>Jadwal</u></a> sebagai acuan utama.</div>
-      </aside>
-    </div>
-  </section>
-
-  <section class="quick" aria-label="Akses cepat">
-    <div class="container quick-grid home-quick-grid">
-      <a href="pelayanan.html" class="quick-card"><span class="icon">🏥</span><strong>Pelayanan</strong><span>Temukan layanan berdasarkan 5 klaster.</span></a>
-      <a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a>
-      <a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a>
-      <a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a>
-      <a href="profil.html#karakter" class="quick-card"><span class="icon">💪</span><strong>Karakteristik</strong><span>Wilayah kerja dan kekuatan pelayanan.</span></a>
-    </div>
-  </section>
-
-  <section class="section" id="tentang">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="kicker">UPTD PUSKESMAS TANJUNG PINANG</span>
-          <h2>Pelayanan primer yang dekat dengan masyarakat.</h2>
-          <p>Pelayanan dirancang agar informasi penting mudah ditemukan sebelum masyarakat datang ke Puskesmas.</p>
-        </div>
-      </div>
-      <div class="cards">
-        <article class="card"><div class="card-icon">🤝</div><h3>Ramah &amp; mudah diakses</h3><p>Budaya pelayanan mengutamakan Senyum, Sapa, Salam, Sopan, dan Santun.</p><a class="card-link" href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai →</a></article>
-        <article class="card"><div class="card-icon">🧩</div><h3>5 Klaster pelayanan</h3><p>Pelayanan disusun dalam klaster agar masyarakat lebih mudah menemukan layanan yang dibutuhkan.</p><a class="card-link" href="pelayanan.html">Lihat 5 Klaster →</a></article>
-        <article class="card"><div class="card-icon">📍</div><h3>Menjangkau wilayah kerja</h3><p>Wilayah kerja mencakup 5 kelurahan dengan dukungan Pustu dan Posyandu.</p><a class="card-link" href="profil.html#karakter">Lihat Karakteristik →</a></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="band section">
-    <div class="container">
-      <div class="section-head">
-        <div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div>
-        <a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a>
-      </div>
-      <div class="cards">
-        <article class="card"><div class="card-icon">🩺</div><h3>Pelayanan umum</h3><p>Pemeriksaan dan pelayanan kesehatan dasar sesuai kebutuhan masyarakat.</p></article>
-        <article class="card"><div class="card-icon">👩‍🍼</div><h3>Ibu &amp; anak</h3><p>Pelayanan kesehatan ibu, bayi, balita, anak prasekolah, sekolah, dan remaja.</p></article>
-        <article class="card"><div class="card-icon">🦷</div><h3>Gigi &amp; mulut</h3><p>Pelayanan kesehatan gigi dan mulut sebagai bagian dari layanan lintas klaster.</p></article>
-        <article class="card"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium untuk mendukung pelayanan dan penegakan diagnosis.</p></article>
-        <article class="card"><div class="card-icon">🚑</div><h3>Gawat darurat</h3><p>Pelayanan dan penanganan awal kondisi kegawatdaruratan.</p></article>
-        <article class="card"><div class="card-icon">💊</div><h3>Kefarmasian</h3><p>Pelayanan kefarmasian dan pengelolaan obat sesuai ketentuan yang berlaku.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="feature">
-    <div class="feature-image" role="img" aria-label="Gedung UPTD Puskesmas Tanjung Pinang Kota Jambi"></div>
-    <div class="feature-content">
-      <span class="section-label">Komitmen Kami</span>
-      <h2 class="section-title">Pelayanan yang ramah, aman, dan bermutu.</h2>
-      <p>Kami terus memperkuat tata kelola, mutu pelayanan, keselamatan pasien, inovasi, serta keterhubungan dengan masyarakat dan jejaring pelayanan.</p>
-      <a href="profil.html" class="btn btn-white" style="margin-top:25px">Lihat Profil</a>
-    </div>
-  </section>
-
-  <section class="section" id="informasi">
-    <div class="container">
-      <div class="section-head"><div><span class="kicker">INFORMASI PENTING</span><h2>Sebelum berkunjung</h2><p>Gunakan halaman berikut sebagai rujukan informasi terbaru.</p></div></div>
-      <div class="two-col">
-        <article class="notice"><h3>📱 Pendaftaran</h3><ul class="list"><li><strong>Mobile JKN</strong><br>Gunakan Mobile JKN untuk pendaftaran sesuai ketentuan layanan.</li><li><strong>Pendaftaran langsung</strong><br>Pendaftaran langsung tersedia di Puskesmas sesuai jadwal pelayanan.</li></ul><a class="card-link" href="jadwal.html">Lihat ketentuan jadwal →</a></article>
-        <article class="notice"><h3>📍 Alamat Puskesmas</h3><p class="home-address"><strong>Jl. Taruma Negara No. 50, RT.12</strong><br>Kelurahan Tanjung Pinang, Kecamatan Jambi Timur, Kota Jambi, Provinsi Jambi.</p><a class="card-link" href="kontak.html">Buka lokasi &amp; kontak →</a></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section contact">
-    <div class="container contact-grid">
-      <div>
-        <span class="section-label">HUBUNGI KAMI</span>
-        <h2 class="section-title">Kami siap membantu.</h2>
-        <p class="section-description">Untuk informasi pelayanan, jadwal, tarif, lokasi, maupun pengaduan, silakan gunakan kanal resmi UPTD Puskesmas Tanjung Pinang.</p>
-        <a href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer" class="btn btn-white">WhatsApp Resmi</a>
-      </div>
-      <div>
-        <div class="contact-box"><small>ALAMAT</small><strong>Jl. Taruma Negara No. 50, RT.12<br>Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</strong></div>
-        <div class="contact-box"><small>TELEPON</small><strong>(0741) 7555394</strong></div>
-        <div class="contact-box"><small>EMAIL</small><strong>pkmtanjungpinang18jambi@gmail.com</strong></div>
-      </div>
-    </div>
-  </section>
+<section class="hero"><div class="container hero-inner"><div><span class="eyebrow">WEBSITE RESMI · KOTA JAMBI</span><div class="home-flag">🇮🇩 HUT RI KE-81 · SEMANGAT MELAYANI</div><h1>Sehat lebih dekat, pelayanan lebih mudah.</h1><p>UPTD Puskesmas Tanjung Pinang hadir memberikan pelayanan kesehatan primer yang berkualitas, inovatif, merata, ramah, dan berorientasi pada kebutuhan masyarakat.</p><div class="hero-actions"><a href="pelayanan.html" class="btn btn-primary">Lihat Pelayanan</a><a href="jadwal.html" class="btn btn-outline">Lihat Jadwal</a></div></div><aside class="hero-panel" aria-label="Informasi sebelum datang ke Puskesmas"><h3>Sebelum datang ke Puskesmas</h3><div class="mini"><div class="mini-item"><span class="mini-icon">📱</span><div><strong>Pendaftaran</strong><span>Pendaftaran tersedia melalui Mobile JKN dan pendaftaran langsung di Puskesmas.</span></div></div><div class="mini-item"><span class="mini-icon">🗓️</span><div><strong>Jadwal</strong><span>Lihat jadwal pelayanan untuk mengetahui waktu dan ketentuan layanan yang tersedia.</span></div></div><div class="mini-item"><span class="mini-icon">💬</span><div><strong>Butuh bantuan?</strong><span>Hubungi Puskesmas melalui telepon atau WhatsApp resmi sebelum berkunjung.</span></div></div></div><div class="home-note"><strong>Catatan:</strong> informasi waktu pendaftaran mengikuti jadwal pelayanan. Untuk perbedaan hari, silakan gunakan <a href="jadwal.html"><u>Jadwal</u></a> sebagai acuan utama.</div></aside></div></section>
+<section class="quick" aria-label="Akses cepat"><div class="container quick-grid home-quick-grid"><a href="pelayanan.html" class="quick-card"><span class="icon">🏥</span><strong>Pelayanan</strong><span>Temukan layanan berdasarkan 5 klaster.</span></a><a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a><a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a><a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a><a href="profil.html#karakter" class="quick-card"><span class="icon">💪</span><strong>Karakteristik</strong><span>Wilayah kerja dan kekuatan pelayanan.</span></a></div></section>
+<section class="section" id="tentang"><div class="container"><div class="section-head"><div><span class="kicker">UPTD PUSKESMAS TANJUNG PINANG</span><h2>Pelayanan primer yang dekat dengan masyarakat.</h2><p>Pelayanan dirancang agar informasi penting mudah ditemukan sebelum masyarakat datang ke Puskesmas.</p></div></div><div class="cards"><article class="card"><div class="card-icon">🤝</div><h3>Ramah &amp; mudah diakses</h3><p>Budaya pelayanan mengutamakan Senyum, Sapa, Salam, Sopan, dan Santun.</p><a class="card-link" href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai →</a></article><article class="card"><div class="card-icon">🧩</div><h3>5 Klaster pelayanan</h3><p>Pelayanan disusun dalam klaster agar masyarakat lebih mudah menemukan layanan yang dibutuhkan.</p><a class="card-link" href="pelayanan.html">Lihat 5 Klaster →</a></article><article class="card"><div class="card-icon">📍</div><h3>Menjangkau wilayah kerja</h3><p>Wilayah kerja mencakup 5 kelurahan dengan dukungan Pustu dan Posyandu.</p><a class="card-link" href="profil.html#karakter">Lihat Karakteristik →</a></article></div></div></section>
+<section class="band section"><div class="container"><div class="section-head"><div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div><a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a></div><div class="cards"><article class="card"><div class="card-icon">🩺</div><h3>Pelayanan umum</h3><p>Pemeriksaan dan pelayanan kesehatan dasar sesuai kebutuhan masyarakat.</p></article><article class="card"><div class="card-icon">👩‍🍼</div><h3>Ibu &amp; anak</h3><p>Pelayanan kesehatan ibu, bayi, balita, anak prasekolah, sekolah, dan remaja.</p></article><article class="card"><div class="card-icon">🦷</div><h3>Gigi &amp; mulut</h3><p>Pelayanan kesehatan gigi dan mulut sebagai bagian dari layanan lintas klaster.</p></article><article class="card"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium untuk mendukung pelayanan dan penegakan diagnosis.</p></article><article class="card"><div class="card-icon">🚑</div><h3>Gawat darurat</h3><p>Pelayanan dan penanganan awal kondisi kegawatdaruratan.</p></article><article class="card"><div class="card-icon">💊</div><h3>Kefarmasian</h3><p>Pelayanan kefarmasian dan pengelolaan obat sesuai ketentuan yang berlaku.</p></article></div></div></section>
+<section class="feature"><div class="feature-image" role="img" aria-label="Gedung UPTD Puskesmas Tanjung Pinang Kota Jambi"></div><div class="feature-content"><span class="section-label">Komitmen Kami</span><h2 class="section-title">Pelayanan yang ramah, aman, dan bermutu.</h2><p>Kami terus memperkuat tata kelola, mutu pelayanan, keselamatan pasien, inovasi, serta keterhubungan dengan masyarakat dan jejaring pelayanan.</p><a href="profil.html" class="btn btn-white" style="margin-top:25px">Lihat Profil</a></div></section>
+<section class="section" id="informasi"><div class="container"><div class="section-head"><div><span class="kicker">INFORMASI PENTING</span><h2>Sebelum berkunjung</h2><p>Gunakan halaman berikut sebagai rujukan informasi terbaru.</p></div></div><div class="two-col"><article class="notice"><h3>📱 Pendaftaran</h3><ul class="list"><li><strong>Mobile JKN</strong><br>Gunakan Mobile JKN untuk pendaftaran sesuai ketentuan layanan.</li><li><strong>Pendaftaran langsung</strong><br>Pendaftaran langsung tersedia di Puskesmas sesuai jadwal pelayanan.</li></ul><a class="card-link" href="jadwal.html">Lihat ketentuan jadwal →</a></article><article class="notice"><h3>📍 Alamat Puskesmas</h3><p class="home-address"><strong>Jl. Taruma Negara No. 50, RT.12</strong><br>Kelurahan Tanjung Pinang, Kecamatan Jambi Timur, Kota Jambi, Provinsi Jambi.</p><a class="card-link" href="kontak.html">Buka lokasi &amp; kontak →</a></article></div></div></section>
+<section class="section contact"><div class="container contact-grid"><div><span class="section-label">HUBUNGI KAMI</span><h2 class="section-title">Kami siap membantu.</h2><p class="section-description">Untuk informasi pelayanan, jadwal, tarif, lokasi, maupun pengaduan, silakan gunakan kanal resmi UPTD Puskesmas Tanjung Pinang.</p><a href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer" class="btn btn-white">WhatsApp Resmi</a></div><div><div class="contact-box"><small>ALAMAT</small><strong>Jl. Taruma Negara No. 50, RT.12<br>Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</strong></div><div class="contact-box"><small>TELEPON</small><strong>(0741) 7555394</strong></div><div class="contact-box"><small>EMAIL</small><strong>pkmtanjungpinang18jambi@gmail.com</strong></div></div></div></section>
 </main>
-
-<footer class="footer">
-  <div class="container footer-grid">
-    <div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi.</p></div>
-    <div><h3>Menu</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
-    <div><h3>Alamat</h3><p>Jl. Taruma Negara No. 50, RT.12<br>Kel. Tanjung Pinang, Jambi Timur<br>Kota Jambi, Provinsi Jambi</p></div>
-    <div class="footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div>
-  </div>
-</footer>
-
+<footer class="footer"><div class="container footer-grid"><div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi.</p></div><div><h3>Menu</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div><div><h3>Alamat</h3><p>Jl. Taruma Negara No. 50, RT.12<br>Kel. Tanjung Pinang, Jambi Timur<br>Kota Jambi, Provinsi Jambi</p></div><div class="footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></div></footer>
 <a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
 <script src="script.js" defer></script>
 </body>
