@@ -3,834 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>UPTD Puskesmas Tanjung Pinang Kota Jambi | Pelayanan Kesehatan</title>
-
-<meta name="description" content="Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi. Informasi profil, pelayanan, jadwal, tarif pelayanan, lokasi, pengaduan dan informasi kesehatan masyarakat.">
+<meta name="description" content="Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi. Informasi profil, pelayanan, jadwal, tarif, lokasi, pendaftaran, pengaduan, dan informasi kesehatan masyarakat.">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="googlebot" content="index,follow">
-
 <link rel="canonical" href="https://pkmtanjungpinangjambi.vercel.app/">
-<link rel="sitemap" type="application/xml" title="Sitemap" href="https://pkmtanjungpinangjambi.vercel.app/sitemap.xml">
-
-<meta name="theme-color" content="#d71920">
-
+<meta name="theme-color" content="#00563f">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="id_ID">
 <meta property="og:site_name" content="UPTD Puskesmas Tanjung Pinang Kota Jambi">
 <meta property="og:title" content="UPTD Puskesmas Tanjung Pinang Kota Jambi">
-<meta property="og:description" content="Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi.">
+<meta property="og:description" content="Pelayanan kesehatan primer yang mudah diakses, aman, bermutu, ramah, dan berorientasi pada kebutuhan masyarakat.">
 <meta property="og:url" content="https://pkmtanjungpinangjambi.vercel.app/">
 <meta property="og:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG">
-
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="UPTD Puskesmas Tanjung Pinang Kota Jambi">
-<meta name="twitter:description" content="Informasi pelayanan, jadwal, tarif dan lokasi UPTD Puskesmas Tanjung Pinang Kota Jambi.">
+<meta name="twitter:description" content="Informasi pelayanan, jadwal, tarif, lokasi, dan pendaftaran UPTD Puskesmas Tanjung Pinang Kota Jambi.">
 <meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG">
-
+<link rel="stylesheet" href="styles.css">
 <style>
-:root{
-  --red:#d71920;
-  --red-dark:#a80e15;
-  --red-light:#ed1c24;
-  --white:#fff;
-  --black:#111;
-  --gray:#666;
-  --light:#f5f5f5;
-  --border:#e5e5e5;
-  --max:1180px;
-}
-
-*{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--black);
-  background:#fff;
-  line-height:1.5;
-}
-
-img{max-width:100%;display:block}
-
-a{color:inherit;text-decoration:none}
-
-button{font:inherit}
-
-.container{
-  width:min(var(--max),92%);
-  margin:auto;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.site-header{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  z-index:50;
-  color:#fff;
-}
-
-.header-inner{
-  min-height:84px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-  border-bottom:1px solid rgba(255,255,255,.3);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-}
-
-.brand-logo{
-  width:54px;
-  height:54px;
-  flex:0 0 54px;
-  padding:4px;
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 8px 25px rgba(0,0,0,.18);
-}
-
-.brand-logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.brand-text{min-width:0}
-
-.brand-text strong{
-  display:block;
-  font-size:13px;
-  line-height:1.2;
-  letter-spacing:.4px;
-}
-
-.brand-text small{
-  display:block;
-  margin-top:4px;
-  font-size:10px;
-  opacity:.8;
-}
-
-.navigation{
-  display:flex;
-  align-items:center;
-  gap:3px;
-}
-
-.navigation a{
-  color:#fff;
-  padding:10px 11px;
-  font-size:11px;
-  font-weight:700;
-  border-radius:4px;
-  transition:.2s;
-}
-
-.navigation a:hover,
-.navigation a.active{
-  background:rgba(255,255,255,.17);
-}
-
-.menu-button{
-  display:none;
-  border:0;
-  background:transparent;
-  color:#fff;
-  font-size:25px;
-  cursor:pointer;
-}
-
-/* =========================================================
-   HUT RI 81 - LOGO
-========================================================= */
-
-.hutri81{
-  position:absolute;
-  z-index:20;
-  top:104px;
-  right:6%;
-  width:210px;
-  padding:8px;
-  background:#fff;
-  border-radius:5px;
-  box-shadow:0 18px 45px rgba(0,0,0,.25);
-}
-
-.hutri81 img{
-  width:100%;
-  height:auto;
-}
-
-.hutri-caption{
-  margin:7px 3px 1px;
-  text-align:center;
-  color:#111;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  position:relative;
-  min-height:900px;
-  overflow:hidden;
-  color:#fff;
-  background:
-    linear-gradient(
-      115deg,
-      rgba(168,14,21,.97),
-      rgba(215,25,32,.83)
-    ),
-    url("gedung-puskesmas.JPG")
-    center/cover no-repeat;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  top:180px;
-  right:-180px;
-  width:500px;
-  height:500px;
-  border:70px solid rgba(255,255,255,.08);
-  border-radius:50%;
-}
-
-.hero::after{
-  content:"";
-  position:absolute;
-  left:-5%;
-  bottom:-220px;
-  width:110%;
-  height:360px;
-  background:#fff;
-  transform:rotate(-4deg);
-}
-
-.hero-content{
-  position:relative;
-  z-index:5;
-  padding-top:185px;
-  padding-bottom:250px;
-}
-
-.eyebrow{
-  display:inline-block;
-  padding:8px 14px;
-  border:1px solid rgba(255,255,255,.6);
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:1.7px;
-}
-
-.hero h1{
-  max-width:900px;
-  margin:25px 0 0;
-  font-size:clamp(55px,9vw,116px);
-  line-height:.87;
-  letter-spacing:-6px;
-  text-transform:uppercase;
-  font-weight:900;
-}
-
-.hero h1 span{display:block}
-
-.hero-subtitle{
-  max-width:650px;
-  margin-top:30px;
-  font-size:17px;
-  line-height:1.6;
-  color:rgba(255,255,255,.9);
-}
-
-.hero-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:30px;
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:48px;
-  padding:0 23px;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.5px;
-  transition:.2s;
-}
-
-.btn:hover{transform:translateY(-3px)}
-
-.btn-white{
-  background:#fff;
-  color:var(--red);
-}
-
-.btn-outline{
-  color:#fff;
-  border:1px solid rgba(255,255,255,.75);
-}
-
-.hero-visual{
-  position:absolute;
-  z-index:6;
-  right:7%;
-  bottom:70px;
-  width:330px;
-  height:330px;
-}
-
-.hero-visual img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border:12px solid #fff;
-  box-shadow:0 25px 60px rgba(0,0,0,.25);
-}
-
-/* =========================================================
-   DOKUMENTASI HUT RI 81
-========================================================= */
-
-.hutri-photo-section{
-  display:none;
-  padding:85px 0 35px;
-  background:#fff;
-}
-
-.hutri-photo-wrap{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:50px;
-  align-items:center;
-}
-
-.hutri-photo{
-  overflow:hidden;
-  background:#f3f3f3;
-  border:1px solid #eee;
-  box-shadow:0 25px 60px rgba(0,0,0,.15);
-}
-
-.hutri-photo img{
-  width:100%;
-  height:auto;
-  display:block;
-}
-
-.hutri-photo-copy{
-  padding:20px 10px;
-}
-
-.hutri-photo-copy h2{
-  margin:0;
-  font-size:clamp(34px,5vw,60px);
-  line-height:.98;
-  text-transform:uppercase;
-  letter-spacing:-2px;
-}
-
-.hutri-photo-copy p{
-  margin-top:22px;
-  max-width:520px;
-  color:#666;
-  font-size:14px;
-  line-height:1.7;
-}
-
-.hutri-photo-badge{
-  display:inline-block;
-  margin-top:18px;
-  padding:9px 13px;
-  background:var(--red);
-  color:#fff;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
-/* =========================================================
-   QUICK MENU
-========================================================= */
-
-.quick{
-  position:relative;
-  z-index:10;
-  margin-top:-80px;
-}
-
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  background:#fff;
-  box-shadow:0 20px 60px rgba(0,0,0,.13);
-}
-
-.quick-item{
-  min-height:170px;
-  padding:27px;
-  border-right:1px solid var(--border);
-  transition:.2s;
-}
-
-.quick-item:last-child{border-right:0}
-
-.quick-item:hover{
-  background:var(--red);
-  color:#fff;
-}
-
-.quick-number{
-  color:var(--red);
-  font-size:10px;
-  font-weight:900;
-}
-
-.quick-item:hover .quick-number{color:#fff}
-
-.quick-item h2{
-  margin:25px 0 5px;
-  font-size:19px;
-  text-transform:uppercase;
-}
-
-.quick-item p{
-  margin:0;
-  color:#777;
-  font-size:11px;
-}
-
-.quick-item:hover p{color:rgba(255,255,255,.8)}
-
-/* =========================================================
-   SECTION
-========================================================= */
-
-.section{padding:110px 0}
-
-.section-gray{background:var(--light)}
-
-.section-title{
-  max-width:850px;
-  margin:0;
-  font-size:clamp(40px,6vw,75px);
-  line-height:.95;
-  letter-spacing:-3px;
-  text-transform:uppercase;
-}
-
-.section-label{
-  display:block;
-  margin-bottom:16px;
-  color:var(--red);
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.section-description{
-  max-width:700px;
-  margin-top:25px;
-  color:var(--gray);
-  font-size:15px;
-  line-height:1.7;
-}
-
-/* =========================================================
-   SERVICES
-========================================================= */
-
-.services{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:2px;
-  margin-top:55px;
-  background:#ddd;
-}
-
-.service{
-  min-height:250px;
-  padding:30px;
-  background:#fff;
-  transition:.25s;
-}
-
-.service:hover{
-  color:#fff;
-  background:var(--red);
-}
-
-.service-number{
-  color:var(--red);
-  font-size:10px;
-  font-weight:700;
-}
-
-.service:hover .service-number{color:#fff}
-
-.service h3{
-  margin-top:45px;
-  font-size:23px;
-  line-height:1;
-  text-transform:uppercase;
-}
-
-.service p{
-  color:#777;
-  font-size:12px;
-}
-
-.service:hover p{color:rgba(255,255,255,.82)}
-
-/* =========================================================
-   FEATURE
-========================================================= */
-
-.feature{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  min-height:600px;
-}
-
-.feature-image{
-  min-height:500px;
-  background:
-    url("gedung-puskesmas.JPG")
-    center/cover no-repeat;
-}
-
-.feature-content{
-  padding:80px;
-  color:#fff;
-  background:var(--red);
-}
-
-.feature-content .section-label{
-  color:#fff;
-  opacity:.75;
-}
-
-.feature-content .section-title{
-  font-size:clamp(40px,5vw,70px);
-}
-
-.feature-content p{
-  max-width:520px;
-  color:rgba(255,255,255,.82);
-  line-height:1.7;
-}
-
-/* =========================================================
-   INFORMATION
-========================================================= */
-
-.information{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:50px;
-}
-
-.info{
-  position:relative;
-  min-height:330px;
-  padding:35px;
-  overflow:hidden;
-  border:1px solid #ddd;
-}
-
-.info::after{
-  content:"";
-  position:absolute;
-  right:-85px;
-  bottom:-85px;
-  width:170px;
-  height:170px;
-  border-radius:50%;
-  background:var(--red);
-  opacity:.08;
-}
-
-.info small{
-  color:var(--red);
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:1px;
-}
-
-.info h3{
-  margin-top:35px;
-  font-size:28px;
-  text-transform:uppercase;
-}
-
-.info p{
-  color:#666;
-  font-size:13px;
-}
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact{
-  color:#fff;
-  background:#111;
-}
-
-.contact-grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:60px;
-}
-
-.contact .section-label{
-  color:#fff;
-  opacity:.6;
-}
-
-.contact .section-description{
-  color:rgba(255,255,255,.65);
-}
-
-.contact-box{
-  padding:25px;
-  margin-bottom:10px;
-  border:1px solid rgba(255,255,255,.18);
-}
-
-.contact-box small{
-  display:block;
-  color:rgba(255,255,255,.5);
-  font-size:9px;
-  letter-spacing:1px;
-}
-
-.contact-box strong{
-  display:block;
-  margin-top:5px;
-  font-size:14px;
-  line-height:1.5;
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-  padding:50px 0 25px;
-  color:#fff;
-  background:var(--red-dark);
-}
-
-.footer-grid{
-  display:grid;
-  grid-template-columns:1.5fr 1fr 1fr;
-  gap:40px;
-}
-
-footer h3{
-  font-size:14px;
-  text-transform:uppercase;
-}
-
-footer p,
-footer li{
-  color:rgba(255,255,255,.7);
-  font-size:11px;
-  line-height:1.6;
-}
-
-footer ul{
-  padding:0;
-  margin:0;
-  list-style:none;
-}
-
-footer li{margin:7px 0}
-
-.copyright{
-  margin-top:40px;
-  padding-top:20px;
-  border-top:1px solid rgba(255,255,255,.2);
-  color:rgba(255,255,255,.55);
-  font-size:9px;
-  text-align:center;
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:900px){
-
-  .navigation{
-    display:none;
-    position:absolute;
-    top:75px;
-    left:4%;
-    right:4%;
-    flex-direction:column;
-    align-items:stretch;
-    padding:10px;
-    background:var(--red-dark);
-    box-shadow:0 15px 35px rgba(0,0,0,.2);
-  }
-
-  .navigation.open{display:flex}
-
-  .navigation a{
-    width:100%;
-    text-align:left;
-  }
-
-  .menu-button{display:block}
-
-  .hero{min-height:850px}
-
-  .hero-visual{
-    width:240px;
-    height:240px;
-    right:5%;
-    bottom:90px;
-  }
-
-  .hutri81{
-    top:94px;
-    right:4%;
-    width:150px;
-  }
-
-  .quick-grid{grid-template-columns:repeat(2,1fr)}
-
-  .services{grid-template-columns:repeat(2,1fr)}
-
-  .information{grid-template-columns:1fr}
-
-  .feature{grid-template-columns:1fr}
-
-  .feature-image{min-height:400px}
-
-  .contact-grid{grid-template-columns:1fr}
-
-  .footer-grid{grid-template-columns:1fr 1fr}
-
-  .hutri-photo-wrap{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .hutri-photo-copy{padding:0 5px}
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:600px){
-
-  .header-inner{min-height:72px}
-
-  .brand-logo{
-    width:46px;
-    height:46px;
-    flex-basis:46px;
-  }
-
-  .brand-text strong{font-size:10px}
-
-  .brand-text small{font-size:8px}
-
-  .hero{min-height:850px}
-
-  .hero h1{
-    font-size:54px;
-    letter-spacing:-3px;
-  }
-
-  .hero-subtitle{
-    max-width:500px;
-    font-size:14px;
-  }
-
-  .hero-visual{
-    width:190px;
-    height:190px;
-    bottom:70px;
-  }
-
-  .hutri81{
-    top:80px;
-    right:4%;
-    width:115px;
-  }
-
-  .quick-grid{grid-template-columns:1fr 1fr}
-
-  .quick-item{
-    min-height:145px;
-    padding:18px;
-  }
-
-  .quick-item h2{font-size:15px}
-
-  .services{grid-template-columns:1fr}
-
-  .section{padding:75px 0}
-
-  .section-title{font-size:43px}
-
-  .feature-content{padding:50px 25px}
-
-  .footer-grid{grid-template-columns:1fr}
-
-  .hutri-photo-section{
-    padding:60px 0 25px;
-  }
-
-  .hutri-photo-copy h2{font-size:38px}
-}
+/* Home-specific polish: keep the header/logo compact and the five quick links balanced. */
+.brand-mark{width:46px;height:46px;flex:0 0 46px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden}
+.brand-mark img{width:100%;height:100%;object-fit:contain}
+.brand strong{font-size:.94rem}
+.brand small{font-size:.7rem}
+.home-flag{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);font-size:.72rem;font-weight:800;color:#e6f7f1}
+.home-quick-grid{grid-template-columns:repeat(5,1fr)}
+.home-quick-grid .quick-card{min-height:142px}
+.home-quick-grid .quick-card strong{font-size:.94rem}
+.home-quick-grid .quick-card span{line-height:1.45}
+.home-note{margin-top:16px;padding:13px 15px;border-left:4px solid #7ce0bc;background:rgba(255,255,255,.08);border-radius:10px;color:#dff5ed;font-size:.78rem;line-height:1.55}
+.home-note strong{color:#fff}
+.home-address{font-size:.92rem;line-height:1.6}
+@media(max-width:900px){.home-quick-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.brand-mark{width:40px;height:40px;flex-basis:40px;padding:4px}.brand strong{font-size:.78rem}.brand small{font-size:.62rem}.home-quick-grid{grid-template-columns:1fr}.home-quick-grid .quick-card{min-height:0}}
 </style>
-
-<!-- =========================================================
-     GOOGLE STRUCTURED DATA
-========================================================= -->
-
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "@id":"https://pkmtanjungpinangjambi.vercel.app/#website",
-  "name":"UPTD Puskesmas Tanjung Pinang Kota Jambi",
-  "url":"https://pkmtanjungpinangjambi.vercel.app/",
-  "inLanguage":"id-ID",
-  "publisher":{
-    "@id":"https://pkmtanjungpinangjambi.vercel.app/#clinic"
-  }
-}
-</script>
-
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -842,7 +48,7 @@ footer li{margin:7px 0}
   "email":"pkmtanjungpinang18jambi@gmail.com",
   "address":{
     "@type":"PostalAddress",
-    "streetAddress":"Jl. Taruma Negara No.RT.12",
+    "streetAddress":"Jl. Taruma Negara No. 50, RT.12",
     "addressLocality":"Kota Jambi",
     "addressRegion":"Jambi",
     "addressCountry":"ID"
@@ -850,647 +56,165 @@ footer li{margin:7px 0}
   "image":"https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG"
 }
 </script>
-
 </head>
-
 <body>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>📍 Jl. Taruma Negara No. 50, RT.12, Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</span>
+    <span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email</a></span>
+  </div>
+</div>
 
 <header class="site-header">
-
-  <div class="container header-inner">
-
-    <a
-      href="index.html"
-      class="brand"
-      aria-label="Beranda UPTD Puskesmas Tanjung Pinang"
-    >
-      <span class="brand-logo">
-        <img
-          src="logo-kota-jambi.png"
-          alt="Lambang Kota Jambi"
-          width="54"
-          height="54"
-        >
-      </span>
-
-      <span class="brand-text">
-        <strong>UPTD PUSKESMAS TANJUNG PINANG</strong>
-        <small>Dinas Kesehatan Kota Jambi</small>
-      </span>
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang">
+      <span class="brand-mark"><img src="logo-kota-jambi.png" alt="Lambang Kota Jambi" width="46" height="46"></span>
+      <span><strong>UPTD PUSKESMAS TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span>
     </a>
-
-    <button
-      class="menu-button"
-      type="button"
-      aria-label="Buka menu"
-      aria-expanded="false"
-      aria-controls="main-navigation"
-    >☰</button>
-
-    <nav
-      id="main-navigation"
-      class="navigation"
-      aria-label="Navigasi utama"
-    >
+    <button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Navigasi utama">
       <a class="active" href="index.html">Beranda</a>
-      <a href="profil.html">Profil</a>
+      <div class="nav-item-dropdown">
+        <a href="profil.html">Profil</a>
+        <button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button>
+        <div class="dropdown-menu">
+          <a href="profil.html#sejarah">Sejarah</a>
+          <a href="profil.html#visi-misi">Visi &amp; Misi</a>
+          <a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a>
+          <a href="profil.html#struktur">Struktur Organisasi</a>
+          <a href="profil.html#wilayah">Wilayah &amp; Pustu</a>
+          <a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a>
+          <a href="profil.html#komitmen">Komitmen Pelayanan</a>
+          <a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a>
+        </div>
+      </div>
       <a href="pelayanan.html">Pelayanan</a>
       <a href="jadwal.html">Jadwal</a>
-      <a href="tarif.html">Tarif</a>
-      <a href="kontak.html">Lokasi</a>
+      <a href="tarif.html">Tarif Pelayanan</a>
+      <a href="kontak.html">Kontak &amp; Lokasi</a>
+      <a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </nav>
-
   </div>
-
 </header>
 
 <main>
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
-<section class="hero">
-
-  <!-- HUT RI 81: OTOMATIS TAMPIL PADA BULAN AGUSTUS -->
-
-  <div
-    class="hutri81"
-    id="hutri81"
-    aria-label="HUT Kemerdekaan Republik Indonesia ke-81"
-  >
-    <img
-      src="logo-hutri-81.jpg"
-      alt="Logo HUT ke-81 Kemerdekaan Republik Indonesia"
-      width="900"
-      height="600"
-    >
-
-    <div class="hutri-caption">
-      INDONESIA BERDAULAT, ADIL DAN MAKMUR
-    </div>
-  </div>
-
-  <div class="container hero-content">
-
-    <span class="eyebrow">
-      WEBSITE RESMI · KOTA JAMBI
-    </span>
-
-    <h1>
-      <span>UPTD</span>
-      <span>PUSKESMAS</span>
-      <span>TANJUNG PINANG</span>
-    </h1>
-
-    <p class="hero-subtitle">
-      Pelayanan kesehatan primer yang berkualitas,
-      inovatif dan merata menuju masyarakat
-      Kota Jambi yang sehat.
-    </p>
-
-    <div class="hero-buttons">
-
-      <a href="pelayanan.html" class="btn btn-white">
-        LIHAT PELAYANAN
-      </a>
-
-      <a href="#informasi" class="btn btn-outline">
-        INFORMASI PUSKESMAS
-      </a>
-
-    </div>
-
-  </div>
-
-  <div class="hero-visual">
-
-    <img
-      src="gedung-puskesmas.JPG"
-      alt="Gedung UPTD Puskesmas Tanjung Pinang Kota Jambi"
-      width="700"
-      height="700"
-      loading="eager"
-    >
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     DOKUMENTASI HUT RI 81
-     Hanya tampil pada bulan Agustus.
-========================================================= -->
-
-<section
-  class="hutri-photo-section"
-  id="hutri-foto"
-  aria-labelledby="hutri-foto-title"
->
-
-  <div class="container">
-
-    <div class="hutri-photo-wrap">
-
-      <div class="hutri-photo">
-
-        <img
-          src="hutri81-puskesmas.jpg"
-          alt="Keluarga besar UPTD Puskesmas Tanjung Pinang Kota Jambi dalam rangka HUT ke-81 Republik Indonesia"
-          width="1024"
-          height="1536"
-          loading="lazy"
-        >
-
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">WEBSITE RESMI · KOTA JAMBI</span>
+        <div class="home-flag">🇮🇩 HUT RI KE-81 · SEMANGAT MELAYANI</div>
+        <h1>Sehat lebih dekat, pelayanan lebih mudah.</h1>
+        <p>UPTD Puskesmas Tanjung Pinang hadir memberikan pelayanan kesehatan primer yang berkualitas, inovatif, merata, ramah, dan berorientasi pada kebutuhan masyarakat.</p>
+        <div class="hero-actions">
+          <a href="pelayanan.html" class="btn btn-primary">Lihat Pelayanan</a>
+          <a href="jadwal.html" class="btn btn-outline">Lihat Jadwal</a>
+        </div>
       </div>
 
-      <div class="hutri-photo-copy">
+      <aside class="hero-panel" aria-label="Informasi sebelum datang ke Puskesmas">
+        <h3>Sebelum datang ke Puskesmas</h3>
+        <div class="mini">
+          <div class="mini-item"><span class="mini-icon">📱</span><div><strong>Pendaftaran</strong><span>Pendaftaran tersedia melalui Mobile JKN dan pendaftaran langsung di Puskesmas.</span></div></div>
+          <div class="mini-item"><span class="mini-icon">🗓️</span><div><strong>Jadwal</strong><span>Lihat jadwal pelayanan untuk mengetahui waktu dan ketentuan layanan yang tersedia.</span></div></div>
+          <div class="mini-item"><span class="mini-icon">💬</span><div><strong>Butuh bantuan?</strong><span>Hubungi Puskesmas melalui telepon atau WhatsApp resmi sebelum berkunjung.</span></div></div>
+        </div>
+        <div class="home-note"><strong>Catatan:</strong> informasi waktu pendaftaran mengikuti jadwal pelayanan. Untuk perbedaan hari, silakan gunakan <a href="jadwal.html"><u>Jadwal</u></a> sebagai acuan utama.</div>
+      </aside>
+    </div>
+  </section>
 
-        <span class="section-label">
-          SEMANGAT KEMERDEKAAN
-        </span>
+  <section class="quick" aria-label="Akses cepat">
+    <div class="container quick-grid home-quick-grid">
+      <a href="pelayanan.html" class="quick-card"><span class="icon">🏥</span><strong>Pelayanan</strong><span>Temukan layanan berdasarkan 5 klaster.</span></a>
+      <a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a>
+      <a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a>
+      <a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a>
+      <a href="profil.html#karakter" class="quick-card"><span class="icon">💪</span><strong>Karakteristik</strong><span>Wilayah kerja dan kekuatan pelayanan.</span></a>
+    </div>
+  </section>
 
-        <h2 id="hutri-foto-title">
-          Indonesia Berdaulat,
-          Adil dan Makmur
-        </h2>
-
-        <p>
-          Keluarga besar UPTD Puskesmas Tanjung Pinang
-          Kota Jambi turut memeriahkan Hari Ulang Tahun
-          ke-81 Kemerdekaan Republik Indonesia.
-        </p>
-
-        <span class="hutri-photo-badge">
-          HUT RI KE-81 · 17 AGUSTUS 2026
-        </span>
-
+  <section class="section" id="tentang">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="kicker">UPTD PUSKESMAS TANJUNG PINANG</span>
+          <h2>Pelayanan primer yang dekat dengan masyarakat.</h2>
+          <p>Pelayanan dirancang agar informasi penting mudah ditemukan sebelum masyarakat datang ke Puskesmas.</p>
+        </div>
       </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     QUICK ACCESS
-========================================================= -->
-
-<section class="quick" aria-label="Akses cepat">
-
-  <div class="container quick-grid">
-
-    <a href="pelayanan.html" class="quick-item">
-      <span class="quick-number">01</span>
-      <h2>Pelayanan</h2>
-      <p>Informasi layanan kesehatan</p>
-    </a>
-
-    <a href="jadwal.html" class="quick-item">
-      <span class="quick-number">02</span>
-      <h2>Jadwal</h2>
-      <p>Jam pelayanan Puskesmas</p>
-    </a>
-
-    <a href="tarif.html" class="quick-item">
-      <span class="quick-number">03</span>
-      <h2>Tarif</h2>
-      <p>Tarif pelayanan kesehatan</p>
-    </a>
-
-    <a href="kontak.html" class="quick-item">
-      <span class="quick-number">04</span>
-      <h2>Lokasi</h2>
-      <p>Alamat dan petunjuk lokasi</p>
-    </a>
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     INTRODUCTION
-========================================================= -->
-
-<section class="section" id="informasi">
-
-  <div class="container">
-
-    <span class="section-label">
-      UPTD PUSKESMAS TANJUNG PINANG
-    </span>
-
-    <h2 class="section-title">
-      Hadir untuk kesehatan masyarakat.
-    </h2>
-
-    <p class="section-description">
-      UPTD Puskesmas Tanjung Pinang Kota Jambi
-      berkomitmen memberikan pelayanan kesehatan
-      primer yang mudah diakses, aman, bermutu,
-      ramah dan berorientasi pada kebutuhan masyarakat.
-    </p>
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     SERVICES
-========================================================= -->
-
-<section class="section section-gray">
-
-  <div class="container">
-
-    <span class="section-label">
-      Pelayanan Kesehatan
-    </span>
-
-    <h2 class="section-title">
-      Layanan kami
-    </h2>
-
-    <div class="services">
-
-      <article class="service">
-        <span class="service-number">01</span>
-        <h3>Pelayanan Umum</h3>
-        <p>Pelayanan pemeriksaan kesehatan dasar bagi masyarakat.</p>
-      </article>
-
-      <article class="service">
-        <span class="service-number">02</span>
-        <h3>Kesehatan Ibu &amp; Anak</h3>
-        <p>Pelayanan ibu hamil, bayi, balita, imunisasi dan tumbuh kembang.</p>
-      </article>
-
-      <article class="service">
-        <span class="service-number">03</span>
-        <h3>Kesehatan Gigi</h3>
-        <p>Pemeriksaan dan pelayanan kesehatan gigi dan mulut.</p>
-      </article>
-
-      <article class="service">
-        <span class="service-number">04</span>
-        <h3>Laboratorium</h3>
-        <p>Pemeriksaan laboratorium untuk mendukung diagnosis.</p>
-      </article>
-
-      <article class="service">
-        <span class="service-number">05</span>
-        <h3>Kesehatan Lansia</h3>
-        <p>Pemantauan dan pelayanan kesehatan lanjut usia.</p>
-      </article>
-
-      <article class="service">
-        <span class="service-number">06</span>
-        <h3>Kegawatdaruratan</h3>
-        <p>Penanganan awal kondisi kegawatdaruratan.</p>
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     FEATURE
-========================================================= -->
-
-<section class="feature">
-
-  <div
-    class="feature-image"
-    role="img"
-    aria-label="Gedung UPTD Puskesmas Tanjung Pinang"
-  ></div>
-
-  <div class="feature-content">
-
-    <span class="section-label">
-      Komitmen Kami
-    </span>
-
-    <h2 class="section-title">
-      Pelayanan yang ramah.
-    </h2>
-
-    <p>
-      Kami berupaya memberikan pelayanan
-      yang profesional, transparan, mudah
-      diakses dan mengutamakan keselamatan
-      serta kepuasan masyarakat.
-    </p>
-
-    <a
-      href="profil.html"
-      class="btn btn-white"
-      style="margin-top:25px"
-    >
-      LIHAT PROFIL
-    </a>
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     IMPORTANT INFORMATION
-========================================================= -->
-
-<section class="section">
-
-  <div class="container">
-
-    <span class="section-label">
-      Informasi Penting
-    </span>
-
-    <h2 class="section-title">
-      Sebelum berkunjung
-    </h2>
-
-    <div class="information">
-
-      <article class="info">
-
-        <small>01 · JADWAL</small>
-
-        <h3>Jadwal Pelayanan</h3>
-
-        <p>
-          Informasi jam pelayanan dan jadwal
-          masing-masing layanan Puskesmas.
-        </p>
-
-        <a
-          href="jadwal.html"
-          class="btn"
-          style="background:#d71920;color:#fff;margin-top:15px"
-        >
-          LIHAT JADWAL
-        </a>
-
-      </article>
-
-      <article class="info">
-
-        <small>02 · TARIF</small>
-
-        <h3>Tarif Pelayanan</h3>
-
-        <p>
-          Informasi tarif pelayanan kesehatan
-          yang tersedia di Puskesmas.
-        </p>
-
-        <a
-          href="tarif.html"
-          class="btn"
-          style="background:#d71920;color:#fff;margin-top:15px"
-        >
-          LIHAT TARIF
-        </a>
-
-      </article>
-
-      <article class="info">
-
-        <small>03 · LOKASI</small>
-
-        <h3>Lokasi Puskesmas</h3>
-
-        <p>
-          Jl. Taruma Negara No.RT.12,
-          Kota Jambi, Provinsi Jambi.
-        </p>
-
-        <a
-          href="kontak.html"
-          class="btn"
-          style="background:#d71920;color:#fff;margin-top:15px"
-        >
-          BUKA LOKASI
-        </a>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- =========================================================
-     CONTACT
-========================================================= -->
-
-<section class="section contact">
-
-  <div class="container contact-grid">
-
-    <div>
-
-      <span class="section-label">
-        Hubungi Kami
-      </span>
-
-      <h2 class="section-title">
-        Kami siap membantu.
-      </h2>
-
-      <p class="section-description">
-        Untuk informasi pelayanan, jadwal,
-        tarif maupun lokasi, silakan hubungi
-        UPTD Puskesmas Tanjung Pinang.
-      </p>
-
-      <a
-        href="https://wa.me/6282180622274"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn-white"
-      >
-        WHATSAPP
-      </a>
-
-    </div>
-
-    <div>
-
-      <div class="contact-box">
-        <small>ALAMAT</small>
-        <strong>
-          Jl. Taruma Negara No.RT.12,
-          Kota Jambi
-        </strong>
+      <div class="cards">
+        <article class="card"><div class="card-icon">🤝</div><h3>Ramah &amp; mudah diakses</h3><p>Budaya pelayanan mengutamakan Senyum, Sapa, Salam, Sopan, dan Santun.</p><a class="card-link" href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai →</a></article>
+        <article class="card"><div class="card-icon">🧩</div><h3>5 Klaster pelayanan</h3><p>Pelayanan disusun dalam klaster agar masyarakat lebih mudah menemukan layanan yang dibutuhkan.</p><a class="card-link" href="pelayanan.html">Lihat 5 Klaster →</a></article>
+        <article class="card"><div class="card-icon">📍</div><h3>Menjangkau wilayah kerja</h3><p>Wilayah kerja mencakup 5 kelurahan dengan dukungan Pustu dan Posyandu.</p><a class="card-link" href="profil.html#karakter">Lihat Karakteristik →</a></article>
       </div>
-
-      <div class="contact-box">
-        <small>TELEPON</small>
-        <strong>(0741) 7555394</strong>
-      </div>
-
-      <div class="contact-box">
-        <small>EMAIL</small>
-        <strong>pkmtanjungpinang18jambi@gmail.com</strong>
-      </div>
-
     </div>
+  </section>
 
-  </div>
+  <section class="band section">
+    <div class="container">
+      <div class="section-head">
+        <div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div>
+        <a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="card-icon">🩺</div><h3>Pelayanan umum</h3><p>Pemeriksaan dan pelayanan kesehatan dasar sesuai kebutuhan masyarakat.</p></article>
+        <article class="card"><div class="card-icon">👩‍🍼</div><h3>Ibu &amp; anak</h3><p>Pelayanan kesehatan ibu, bayi, balita, anak prasekolah, sekolah, dan remaja.</p></article>
+        <article class="card"><div class="card-icon">🦷</div><h3>Gigi &amp; mulut</h3><p>Pelayanan kesehatan gigi dan mulut sebagai bagian dari layanan lintas klaster.</p></article>
+        <article class="card"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium untuk mendukung pelayanan dan penegakan diagnosis.</p></article>
+        <article class="card"><div class="card-icon">🚑</div><h3>Gawat darurat</h3><p>Pelayanan dan penanganan awal kondisi kegawatdaruratan.</p></article>
+        <article class="card"><div class="card-icon">💊</div><h3>Kefarmasian</h3><p>Pelayanan kefarmasian dan pengelolaan obat sesuai ketentuan yang berlaku.</p></article>
+      </div>
+    </div>
+  </section>
 
-</section>
+  <section class="feature">
+    <div class="feature-image" role="img" aria-label="Gedung UPTD Puskesmas Tanjung Pinang Kota Jambi"></div>
+    <div class="feature-content">
+      <span class="section-label">Komitmen Kami</span>
+      <h2 class="section-title">Pelayanan yang ramah, aman, dan bermutu.</h2>
+      <p>Kami terus memperkuat tata kelola, mutu pelayanan, keselamatan pasien, inovasi, serta keterhubungan dengan masyarakat dan jejaring pelayanan.</p>
+      <a href="profil.html" class="btn btn-white" style="margin-top:25px">Lihat Profil</a>
+    </div>
+  </section>
 
+  <section class="section" id="informasi">
+    <div class="container">
+      <div class="section-head"><div><span class="kicker">INFORMASI PENTING</span><h2>Sebelum berkunjung</h2><p>Gunakan halaman berikut sebagai rujukan informasi terbaru.</p></div></div>
+      <div class="two-col">
+        <article class="notice"><h3>📱 Pendaftaran</h3><ul class="list"><li><strong>Mobile JKN</strong><br>Gunakan Mobile JKN untuk pendaftaran sesuai ketentuan layanan.</li><li><strong>Pendaftaran langsung</strong><br>Pendaftaran langsung tersedia di Puskesmas sesuai jadwal pelayanan.</li></ul><a class="card-link" href="jadwal.html">Lihat ketentuan jadwal →</a></article>
+        <article class="notice"><h3>📍 Alamat Puskesmas</h3><p class="home-address"><strong>Jl. Taruma Negara No. 50, RT.12</strong><br>Kelurahan Tanjung Pinang, Kecamatan Jambi Timur, Kota Jambi, Provinsi Jambi.</p><a class="card-link" href="kontak.html">Buka lokasi &amp; kontak →</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <div class="container contact-grid">
+      <div>
+        <span class="section-label">HUBUNGI KAMI</span>
+        <h2 class="section-title">Kami siap membantu.</h2>
+        <p class="section-description">Untuk informasi pelayanan, jadwal, tarif, lokasi, maupun pengaduan, silakan gunakan kanal resmi UPTD Puskesmas Tanjung Pinang.</p>
+        <a href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer" class="btn btn-white">WhatsApp Resmi</a>
+      </div>
+      <div>
+        <div class="contact-box"><small>ALAMAT</small><strong>Jl. Taruma Negara No. 50, RT.12<br>Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</strong></div>
+        <div class="contact-box"><small>TELEPON</small><strong>(0741) 7555394</strong></div>
+        <div class="contact-box"><small>EMAIL</small><strong>pkmtanjungpinang18jambi@gmail.com</strong></div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
-
-  <div class="container">
-
-    <div class="footer-grid">
-
-      <div>
-
-        <h3>
-          UPTD Puskesmas Tanjung Pinang
-        </h3>
-
-        <p>
-          Website resmi UPTD Puskesmas
-          Tanjung Pinang Kota Jambi.
-        </p>
-
-      </div>
-
-      <div>
-
-        <h3>Menu</h3>
-
-        <ul>
-          <li><a href="index.html">Beranda</a></li>
-          <li><a href="profil.html">Profil</a></li>
-          <li><a href="pelayanan.html">Pelayanan</a></li>
-          <li><a href="jadwal.html">Jadwal</a></li>
-          <li><a href="tarif.html">Tarif</a></li>
-          <li><a href="kontak.html">Lokasi</a></li>
-        </ul>
-
-      </div>
-
-      <div>
-
-        <h3>Kota Jambi</h3>
-
-        <p>
-          UPTD Puskesmas Tanjung Pinang
-        </p>
-
-        <p>
-          Provinsi Jambi · Indonesia
-        </p>
-
-      </div>
-
-    </div>
-
-    <div class="copyright">
-      © 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi
-    </div>
-
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi.</p></div>
+    <div><h3>Menu</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
+    <div><h3>Alamat</h3><p>Jl. Taruma Negara No. 50, RT.12<br>Kel. Tanjung Pinang, Jambi Timur<br>Kota Jambi, Provinsi Jambi</p></div>
+    <div class="footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div>
   </div>
-
 </footer>
 
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
-
-<script>
-(function(){
-
-  /* ========================================================
-     LOGO HUT RI 81
-     Tampil otomatis hanya pada bulan Agustus.
-  ======================================================== */
-
-  const hutri = document.getElementById("hutri81");
-  const hutriPhoto = document.getElementById("hutri-foto");
-
-  const currentMonth = new Date().getMonth() + 1;
-  const isAugust = currentMonth === 8;
-
-  if(hutri){
-    hutri.style.display = isAugust ? "block" : "none";
-  }
-
-  if(hutriPhoto){
-    hutriPhoto.style.display = isAugust ? "block" : "none";
-  }
-
-
-  /* ========================================================
-     MOBILE MENU
-  ======================================================== */
-
-  const menuButton =
-    document.querySelector(".menu-button");
-
-  const navigation =
-    document.querySelector(".navigation");
-
-  if(menuButton && navigation){
-
-    menuButton.addEventListener(
-      "click",
-      function(){
-
-        const isOpen =
-          navigation.classList.toggle("open");
-
-        menuButton.setAttribute(
-          "aria-expanded",
-          String(isOpen)
-        );
-
-      }
-    );
-
-    navigation
-      .querySelectorAll("a")
-      .forEach(function(link){
-
-        link.addEventListener(
-          "click",
-          function(){
-
-            navigation.classList.remove("open");
-
-            menuButton.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
-        );
-
-      });
-
-  }
-
-})();
-</script>
-
+<a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+<script src="script.js" defer></script>
 </body>
 </html>
