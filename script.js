@@ -1,7 +1,6 @@
 (function(){
   const toggle=document.querySelector('.nav-toggle');
   const nav=document.querySelector('.nav');
-
   if(toggle&&nav){
     toggle.addEventListener('click',()=>{
       const open=nav.classList.toggle('open');
@@ -13,87 +12,80 @@
     const buttons=group.querySelectorAll('[data-filter]');
     const target=group.dataset.filterGroup;
     const cards=document.querySelectorAll('[data-filter-target="'+target+'"]');
-    buttons.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        buttons.forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        const value=btn.dataset.filter;
-        cards.forEach(card=>{card.hidden=!(value==='all'||card.dataset.category===value);});
-      });
-    });
+    buttons.forEach(btn=>btn.addEventListener('click',()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const value=btn.dataset.filter;
+      cards.forEach(card=>{card.hidden=!(value==='all'||card.dataset.category===value);});
+    }));
   });
 
   document.querySelectorAll('[data-tabs]').forEach(root=>{
     const buttons=root.querySelectorAll('[data-tab]');
     const panels=root.querySelectorAll('[data-panel]');
-    buttons.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        buttons.forEach(b=>b.classList.remove('active'));
-        panels.forEach(p=>p.classList.remove('active'));
-        btn.classList.add('active');
-        const panel=root.querySelector('[data-panel="'+btn.dataset.tab+'"]');
-        if(panel) panel.classList.add('active');
-      });
-    });
+    buttons.forEach(btn=>btn.addEventListener('click',()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel=root.querySelector('[data-panel="'+btn.dataset.tab+'"]');
+      if(panel) panel.classList.add('active');
+    }));
   });
 
-  document.addEventListener('dragstart',function(e){
+  document.addEventListener('dragstart',e=>{
     if(e.target&&e.target.tagName==='IMG') e.preventDefault();
   });
-  document.addEventListener('contextmenu',function(e){
+  document.addEventListener('contextmenu',e=>{
     if(e.target&&e.target.tagName==='IMG') e.preventDefault();
   });
 
-  document.querySelectorAll('.dropdown-caret-btn').forEach(function(btn){
-    btn.addEventListener('click',function(e){
-      e.preventDefault(); e.stopPropagation();
-      var parent=btn.closest('.nav-item-dropdown');
-      var isOpen=parent.classList.contains('open');
-      document.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){
+  document.querySelectorAll('.dropdown-caret-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.preventDefault();e.stopPropagation();
+      const parent=btn.closest('.nav-item-dropdown');
+      const isOpen=parent.classList.contains('open');
+      document.querySelectorAll('.nav-item-dropdown.open').forEach(d=>{
         d.classList.remove('open');
-        var b=d.querySelector('.dropdown-caret-btn');
-        if(b) b.setAttribute('aria-expanded','false');
+        const b=d.querySelector('.dropdown-caret-btn');
+        if(b)b.setAttribute('aria-expanded','false');
       });
-      if(!isOpen){
-        parent.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-      }
+      if(!isOpen){parent.classList.add('open');btn.setAttribute('aria-expanded','true');}
     });
   });
-  document.addEventListener('click',function(e){
+  document.addEventListener('click',e=>{
     if(!e.target.closest('.nav-item-dropdown')){
-      document.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){
+      document.querySelectorAll('.nav-item-dropdown.open').forEach(d=>{
         d.classList.remove('open');
-        var b=d.querySelector('.dropdown-caret-btn');
-        if(b) b.setAttribute('aria-expanded','false');
+        const b=d.querySelector('.dropdown-caret-btn');
+        if(b)b.setAttribute('aria-expanded','false');
       });
     }
   });
 
   function activatePanelById(id){
-    var target=document.getElementById(id);
+    const target=document.getElementById(id);
     if(!target||!target.classList.contains('profile-panel')) return false;
-    var root=target.closest('[data-tabs]');
+    const root=target.closest('[data-tabs]');
     if(!root) return false;
-    var tabName=target.dataset.panel;
-    var btn=root.querySelector('[data-tab="'+tabName+'"]');
+    const tabName=target.dataset.panel;
+    const btn=root.querySelector('[data-tab="'+tabName+'"]');
     if(btn){
       btn.click();
     }else{
-      root.querySelectorAll('.profile-panel').forEach(function(panel){panel.classList.remove('active');});
+      root.querySelectorAll('.profile-panel').forEach(panel=>panel.classList.remove('active'));
       target.classList.add('active');
-      root.querySelectorAll('[data-tab]').forEach(function(button){button.classList.remove('active');});
+      root.querySelectorAll('[data-tab]').forEach(button=>button.classList.remove('active'));
     }
-    setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'});},60);
+    setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),60);
     return true;
   }
 
   if(window.location.hash) activatePanelById(window.location.hash.slice(1));
-  document.querySelectorAll('a[href*="#"]').forEach(function(link){
-    var url; try{url=new URL(link.href);}catch(e){return;}
+  document.querySelectorAll('a[href*="#"]').forEach(link=>{
+    let url;try{url=new URL(link.href);}catch(e){return;}
     if(url.pathname.endsWith('profil.html')&&url.hash&&window.location.pathname.endsWith('profil.html')){
-      link.addEventListener('click',function(e){
-        var id=url.hash.slice(1),target=document.getElementById(id);
+      link.addEventListener('click',e=>{
+        const id=url.hash.slice(1),target=document.getElementById(id);
         if(target&&target.classList.contains('profile-panel')){e.preventDefault();activatePanelById(id);}
       });
     }
@@ -101,35 +93,28 @@
 
   function addStyleOnce(id,css){
     if(document.getElementById(id)) return;
-    var style=document.createElement('style');
-    style.id=id; style.textContent=css; document.head.appendChild(style);
+    const style=document.createElement('style');style.id=id;style.textContent=css;document.head.appendChild(style);
   }
 
   function loadLeaflet(callback){
     if(window.L){callback();return;}
     if(!document.getElementById('leaflet-css-characteristic')){
-      var link=document.createElement('link');
-      link.id='leaflet-css-characteristic'; link.rel='stylesheet';
-      link.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-      document.head.appendChild(link);
+      const link=document.createElement('link');link.id='leaflet-css-characteristic';link.rel='stylesheet';link.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(link);
     }
-    var script=document.getElementById('leaflet-js-characteristic');
+    let script=document.getElementById('leaflet-js-characteristic');
     if(script){script.addEventListener('load',callback,{once:true});return;}
-    script=document.createElement('script');
-    script.id='leaflet-js-characteristic'; script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script=document.createElement('script');script.id='leaflet-js-characteristic';script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     script.onload=callback;
-    script.onerror=function(){
-      var map=document.getElementById('characteristic-map');
-      if(map) map.innerHTML='<div class="char-map-error">Peta interaktif belum dapat dimuat. Silakan coba lagi.</div>';
-    };
+    script.onerror=()=>{const map=document.getElementById('characteristic-map');if(map)map.innerHTML='<div class="char-map-error">Peta interaktif belum dapat dimuat. Silakan coba lagi.</div>';};
     document.head.appendChild(script);
   }
 
   function renderCharacteristic(){
     if(!window.location.pathname.endsWith('profil.html')) return;
-    var panel=document.getElementById('karakter');
+    const panel=document.getElementById('karakter');
     if(!panel||panel.dataset.characteristicReady==='1') return;
     panel.dataset.characteristicReady='1';
+
     addStyleOnce('characteristic-v1-style',`
       .char-shell{margin-top:24px}
       .char-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 28px}
@@ -160,6 +145,7 @@
       @media(max-width:480px){.char-village{padding:11px 8px;font-size:.72rem}}
       @media(min-width:901px){.quick-grid.char-quick-ready{grid-template-columns:repeat(5,1fr)}}
     `);
+
     panel.innerHTML=`
       <h2>Karakteristik &amp; Kekuatan Wilayah</h2>
       <p>Profil ringkas wilayah kerja UPTD Puskesmas Tanjung Pinang yang menggabungkan data profil Puskesmas, peta wilayah kerja, jaringan pelayanan, dan ruang untuk data pendukung yang akan diperbarui secara bertahap.</p>
@@ -177,7 +163,10 @@
           <h3>Wilayah Kerja &amp; Peta Interaktif</h3>
           <p>Wilayah kerja mencakup Tanjung Pinang, Rajawali, Kasang, Kasang Jaya, dan Sejinjang. Peta digunakan untuk visualisasi wilayah kerja, bukan sebagai penetapan hukum batas administrasi.</p>
           <div class="char-villages" id="characteristic-villages"></div>
-          <div class="char-map-wrap"><div id="characteristic-map" aria-label="Peta interaktif wilayah kerja UPTD Puskesmas Tanjung Pinang"></div><div class="char-map-caption">Sumber geometri: Badan Informasi Geospasial (BIG). Data peta mengikuti geometri kelurahan publik dan mendukung variasi penamaan Sijinjang/Sijenjang/Sejinjang.</div></div>
+          <div class="char-map-wrap">
+            <div id="characteristic-map" aria-label="Peta interaktif wilayah kerja UPTD Puskesmas Tanjung Pinang"></div>
+            <div class="char-map-caption">Sumber geometri: layanan geospasial Badan Informasi Geospasial (BIG). Peta digunakan untuk visualisasi informasi wilayah kerja, bukan sebagai penetapan hukum batas administrasi.</div>
+          </div>
         </section>
         <section class="char-section" id="karakter-jaringan">
           <h3>Jaringan Pelayanan</h3>
@@ -206,111 +195,131 @@
             <article class="char-strength"><h4>❤️ Budaya 5S</h4><p>Senyum, Sapa, Salam, Sopan, Santun menjadi identitas komunikasi pelayanan.</p></article>
           </div>
         </section>
-        <p class="char-source">Sumber internal: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan materi pembaruan website 2026.<br>Sumber geospasial: BIG. Peta bersifat visualisasi wilayah kerja dan bukan penetapan hukum batas administrasi.</p>
+        <p class="char-source">Sumber internal: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan materi pembaruan website 2026.<br>Sumber geospasial: BIG.</p>
       </div>`;
-    loadLeaflet(initCharacteristicMap);
+    loadLeaflet(()=>initCharacteristicMap());
   }
 
   function initCharacteristicMap(){
-    var el=document.getElementById('characteristic-map');
+    const el=document.getElementById('characteristic-map');
     if(!el||el.dataset.mapReady==='1'||!window.L) return;
     el.dataset.mapReady='1';
-    var names=['Tanjung Pinang','Sijinjang','Kasang','Kasang Jaya','Rajawali'];
-    var aliases={
-      'Tanjung Pinang':['Tanjung Pinang'],
-      'Sijinjang':['Sijinjang','Sijenjang','Sejinjang'],
-      'Kasang':['Kasang'],
-      'Kasang Jaya':['Kasang Jaya'],
-      'Rajawali':['Rajawali']
+
+    /* Mesin peta diambil dari wilayah-kerja-v8.html yang diberikan Chief. */
+    const names=["Tanjung Pinang","Sijinjang","Kasang","Kasang Jaya","Rajawali"];
+    const aliases={
+      "Tanjung Pinang":["tanjungpinang"],
+      "Sijinjang":["sijinjang","sijenjang","sejinjang"],
+      "Kasang":["kasang"],
+      "Kasang Jaya":["kasangjaya"],
+      "Rajawali":["rajawali"]
     };
-    var maps={
-      'Tanjung Pinang':'https://maps.app.goo.gl/GohWewWGF9WBMFNc7',
-      'Sijinjang':'https://maps.app.goo.gl/qw5y2gLMPUZQHHnGA',
-      'Kasang':'https://maps.app.goo.gl/E96JT77D25Lvtn7Y8',
-      'Kasang Jaya':'https://maps.app.goo.gl/yi27vTWMeSm97saY6',
-      'Rajawali':'https://maps.app.goo.gl/1kq4vKTXwjsjW5Nu9'
+    const regionInfo={
+      "Tanjung Pinang":{description:"Wilayah kerja UPTD Puskesmas Tanjung Pinang di Kecamatan Jambi Timur.",maps:"https://maps.app.goo.gl/GohWewWGF9WBMFNc7"},
+      "Sijinjang":{description:"Wilayah kerja UPTD Puskesmas Tanjung Pinang di Kecamatan Jambi Timur. Pada data geospasial BIG, nama wilayah dapat tampil sebagai “Sijenjang”.",maps:"https://maps.app.goo.gl/qw5y2gLMPUZQHHnGA"},
+      "Kasang":{description:"Wilayah kerja UPTD Puskesmas Tanjung Pinang di Kecamatan Jambi Timur.",maps:"https://maps.app.goo.gl/E96JT77D25Lvtn7Y8"},
+      "Kasang Jaya":{description:"Wilayah kerja UPTD Puskesmas Tanjung Pinang di Kecamatan Jambi Timur.",maps:"https://maps.app.goo.gl/yi27vTWMeSm97saY6"},
+      "Rajawali":{description:"Wilayah kerja UPTD Puskesmas Tanjung Pinang di Kecamatan Jambi Timur.",maps:"https://maps.app.goo.gl/1kq4vKTXwjsjW5Nu9"}
     };
-    var fallback={
-      'Tanjung Pinang':[-1.5930,103.6315],
-      'Sijinjang':[-1.5821,103.6418],
-      'Kasang':[-1.5851,103.6242],
-      'Kasang Jaya':[-1.5861,103.6334],
-      'Rajawali':[-1.5908,103.6228]
+    const fallback={
+      "Tanjung Pinang":[-1.5930,103.6315],
+      "Sijinjang":[-1.5821,103.6418],
+      "Kasang":[-1.5851,103.6242],
+      "Kasang Jaya":[-1.5861,103.6334],
+      "Rajawali":[-1.5908,103.6228]
     };
-    function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');}
-    function canonical(v){
-      var n=norm(v);
-      for(var i=0;i<names.length;i++){
-        var list=(aliases[names[i]]||[]).map(norm);
-        if(list.some(function(x){return n===x;})) return names[i];
+    const colors=["#d71920","#b51219","#e53b42","#8f0c12","#f05a60"];
+    const map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+    let geoLayer=null,selectedLayer=null;
+    const buttonWrap=document.getElementById('characteristic-villages');
+
+    function featureName(f){const p=f.properties||{};return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';}
+    function normalizeName(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');}
+    function canonicalName(value){
+      const n=normalizeName(value);
+      for(const displayName of names){
+        const candidates=aliases[displayName]||[normalizeName(displayName)];
+        if(candidates.some(c=>n===c)) return displayName;
       }
-      var matches=[];
-      for(var j=0;j<names.length;j++){
-        var vals=(aliases[names[j]]||[]).map(norm);
-        vals.forEach(function(x){if(x&&(n.includes(x)||x.includes(n)))matches.push({name:names[j],len:x.length});});
+      const matches=[];
+      for(const displayName of names){
+        const candidates=aliases[displayName]||[normalizeName(displayName)];
+        candidates.forEach(c=>{if(c&&(n.includes(c)||c.includes(n)))matches.push({displayName,length:c.length});});
       }
-      matches.sort(function(a,b){return b.len-a.len;});
-      return matches.length?matches[0].name:'';
+      matches.sort((a,b)=>b.length-a.length);
+      return matches.length?matches[0].displayName:'';
     }
-    function featureName(f){var p=f.properties||{};return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';}
-    var map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-    var layerGroup=L.featureGroup().addTo(map);
-    var selected=null;
-    var colors=['#d71920','#b51219','#e53b42','#8f0c12','#f05a60'];
-    var buttonsWrap=document.getElementById('characteristic-villages');
-    names.forEach(function(name){
-      var b=document.createElement('button'); b.type='button'; b.className='char-village'; b.textContent=name; b.dataset.name=name;
-      b.addEventListener('click',function(){focusVillage(name);}); buttonsWrap.appendChild(b);
-    });
-    function activateButton(name){buttonsWrap.querySelectorAll('.char-village').forEach(function(b){b.classList.toggle('active',b.dataset.name===name);});}
-    function baseStyle(name){var idx=Math.max(0,names.indexOf(name));return {color:colors[idx],weight:2,fillColor:colors[idx],fillOpacity:.22};}
-    function selectLayer(layer,name,fit){
-      if(selected&&selected!==layer){selected.setStyle(baseStyle(canonical(featureName(selected.feature))||''));}
-      selected=layer; layer.setStyle({color:'#8f0c12',weight:4,fillColor:'#d71920',fillOpacity:.42}); activateButton(name);
-      if(fit) map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:16});
+    function styleFeature(f){
+      const name=canonicalName(featureName(f));
+      const idx=names.findIndex(n=>n.toLowerCase()===name.toLowerCase());
+      return {color:colors[idx>=0?idx:0],weight:2,fillColor:colors[idx>=0?idx:0],fillOpacity:.22};
+    }
+    function activateButton(name){buttonWrap.querySelectorAll('.char-village').forEach(b=>{const active=b.dataset.name.toLowerCase()===name.toLowerCase();b.classList.toggle('active',active);});}
+    function selectLayer(layer,name,zoomTo=true){
+      if(selectedLayer&&selectedLayer!==layer) layerStyle(selectedLayer,2,.22);
+      selectedLayer=layer;layerStyle(layer,4,.42);activateButton(name);
+      if(zoomTo) map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:16});
       layer.openPopup();
     }
+    function layerStyle(layer,weight,fillOpacity){layer.setStyle({weight:weight,fillOpacity:fillOpacity});if(weight>2&&layer.bringToFront)layer.bringToFront();}
     function focusVillage(name){
-      var wanted=canonical(name)||name,found=null;
-      layerGroup.eachLayer(function(layer){if(layer.feature&&canonical(featureName(layer.feature))===wanted)found=layer;});
-      if(found){selectLayer(found,wanted,true);return;}
+      if(!geoLayer) return;
+      const wanted=canonicalName(name)||name;let target=null;
+      geoLayer.eachLayer(layer=>{if(canonicalName(featureName(layer.feature))===wanted)target=layer;});
+      if(target){selectLayer(target,wanted,true);return;}
       if(fallback[wanted]){map.flyTo(fallback[wanted],15,{duration:.8});activateButton(wanted);}
     }
+
+    names.forEach(name=>{
+      const b=document.createElement('button');b.type='button';b.className='char-village';b.dataset.name=name;b.textContent=name;
+      b.addEventListener('click',()=>focusVillage(name));buttonWrap.appendChild(b);
+    });
+
     function fetchVillage(name){
-      var values=(aliases[name]||[name]);
-      var clauses=values.map(function(value){var escaped=value.replace(/'/g,"''");return "WADMKD='"+escaped+"' OR UPPER(WADMKD)='"+escaped.toUpperCase()+"'";}).join(' OR ');
-      var where="WADMKK='Kota Jambi' AND ("+clauses+")";
-      var url='https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query?where='+encodeURIComponent(where)+'&outFields='+encodeURIComponent('WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM')+'&returnGeometry=true&outSR=4326&f=geojson';
-      return fetch(url).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status+' untuk '+name);return r.json();});
+      const aliasesQuery=(aliases[name]||[]).concat([normalizeName(name)]);
+      const values=Array.from(new Set(aliasesQuery));
+      const clauses=values.map(v=>"LOWER(WADMKD)='"+v.replace(/'/g,"''")+"'").join(' OR ');
+      const where="WADMKK='Kota Jambi' AND ("+clauses+")";
+      const url='https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query?where='+encodeURIComponent(where)+'&outFields='+encodeURIComponent('WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM')+'&returnGeometry=true&outSR=4326&f=geojson';
+      return fetch(url).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status+' untuk '+name);return r.json();});
     }
-    Promise.all(names.map(fetchVillage)).then(function(results){
-      var merged={type:'FeatureCollection',features:[]},seen=new Set();
-      results.forEach(function(data){if(data&&Array.isArray(data.features))data.features.forEach(function(f){var canonicalName=canonical(featureName(f))||'';var key=canonicalName+'|'+String((f.properties||{}).KDEBPS||((f.properties||{}).KDEPUM)||'');if(!seen.has(key)){seen.add(key);merged.features.push(f);}});});
-      if(!merged.features.length)throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
-      var geo=L.geoJSON(merged,{style:function(f){var n=canonical(featureName(f));return baseStyle(n);},onEachFeature:function(f,layer){
-        var official=featureName(f),name=canonical(official)||official,p=f.properties||{};
-        layer.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Nama data BIG: '+official+'<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+'<br>Kota '+(p.WADMKK||'Jambi')+'<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
-        layer.on('mouseover',function(){if(selected!==layer)layer.setStyle({weight:3,fillOpacity:.32});});
-        layer.on('mouseout',function(){if(selected!==layer)layer.setStyle(baseStyle(name));});
-        layer.on('click',function(){selectLayer(layer,name,false);});
-      }}).addTo(layerGroup);
-      map.fitBounds(geo.getBounds(),{padding:[25,25]});
-      setTimeout(function(){focusVillage('Tanjung Pinang');},300);
-    }).catch(function(err){
+
+    Promise.all(names.map(fetchVillage)).then(results=>{
+      const merged={type:'FeatureCollection',features:[]};const seen=new Set();
+      results.forEach((data,idx)=>{
+        if(!data||!Array.isArray(data.features)) return;
+        data.features.forEach(f=>{
+          const canonical=canonicalName(featureName(f))||names[idx];
+          const key=canonical.toLowerCase()+'|'+String((f.properties||{}).KDEBPS||(f.properties||{}).KDEPUM||'');
+          if(!seen.has(key)){seen.add(key);merged.features.push(f);}
+        });
+      });
+      if(!merged.features.length) throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
+      geoLayer=L.geoJSON(merged,{style:styleFeature,onEachFeature:(f,layer)=>{
+        const officialName=featureName(f),name=canonicalName(officialName)||officialName,p=f.properties||{};
+        layer.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Nama data BIG: '+officialName+'<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+'<br>Kota '+(p.WADMKK||'Jambi')+'<br><a href="'+((regionInfo[name]||{}).maps||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
+        layer.on({mouseover:()=>layerStyle(layer,4,.38),mouseout:()=>{if(selectedLayer!==layer)layerStyle(layer,2,.22);else layerStyle(layer,4,.42);},click:()=>selectLayer(layer,canonicalName(name)||name,false)});
+      }}).addTo(map);
+      map.fitBounds(geoLayer.getBounds(),{padding:[30,30]});
+      setTimeout(()=>focusVillage('Tanjung Pinang'),350);
+    }).catch(err=>{
       console.error(err);
-      names.forEach(function(name){var circle=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(layerGroup);circle.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+maps[name]+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');});
-      map.fitBounds(layerGroup.getBounds(),{padding:[25,25]}); focusVillage('Tanjung Pinang');
+      names.forEach(name=>{
+        const c=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(map);
+        c.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+((regionInfo[name]||{}).maps||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
+      });
+      map.fitBounds(L.featureGroup(Object.values(map._layers).filter(x=>x instanceof L.CircleMarker)).getBounds(),{padding:[25,25]});
     });
   }
 
   function injectHomeShortcut(){
     if(!window.location.pathname.endsWith('index.html')&&window.location.pathname!=='/'&&window.location.pathname!=='')return;
-    var grid=document.querySelector('.quick-grid');
+    const grid=document.querySelector('.quick-grid');
     if(!grid||grid.querySelector('[data-characteristic-shortcut]'))return;
     grid.classList.add('char-quick-ready');
-    var a=document.createElement('a'); a.href='profil.html#karakter'; a.className='quick-item'; a.setAttribute('data-characteristic-shortcut','1');
-    a.innerHTML='<span class="quick-number">05</span><h2>Karakteristik</h2><p>Wilayah kerja dan kekuatan pelayanan</p>'; grid.appendChild(a);
+    const a=document.createElement('a');a.href='profil.html#karakter';a.className='quick-item';a.setAttribute('data-characteristic-shortcut','1');
+    a.innerHTML='<span class="quick-number">05</span><h2>Karakteristik</h2><p>Wilayah kerja dan kekuatan pelayanan</p>';grid.appendChild(a);
   }
 
   renderCharacteristic();
