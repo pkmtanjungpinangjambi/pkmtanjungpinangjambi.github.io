@@ -12,23 +12,13 @@
   document.querySelectorAll('[data-filter-group]').forEach(group=>{
     const buttons=group.querySelectorAll('[data-filter]');
     const target=group.dataset.filterGroup;
-    const cards=document.querySelectorAll(
-      '[data-filter-target="'+target+'"]'
-    );
-
+    const cards=document.querySelectorAll('[data-filter-target="'+target+'"]');
     buttons.forEach(btn=>{
       btn.addEventListener('click',()=>{
         buttons.forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
-
         const value=btn.dataset.filter;
-
-        cards.forEach(card=>{
-          card.hidden=!(
-            value==='all' ||
-            card.dataset.category===value
-          );
-        });
+        cards.forEach(card=>{card.hidden=!(value==='all'||card.dataset.category===value);});
       });
     });
   });
@@ -36,53 +26,27 @@
   document.querySelectorAll('[data-tabs]').forEach(root=>{
     const buttons=root.querySelectorAll('[data-tab]');
     const panels=root.querySelectorAll('[data-panel]');
-
     buttons.forEach(btn=>{
       btn.addEventListener('click',()=>{
         buttons.forEach(b=>b.classList.remove('active'));
         panels.forEach(p=>p.classList.remove('active'));
-
         btn.classList.add('active');
-
-        const panel=root.querySelector(
-          '[data-panel="'+btn.dataset.tab+'"]'
-        );
-
-        if(panel){
-          panel.classList.add('active');
-        }
+        const panel=root.querySelector('[data-panel="'+btn.dataset.tab+'"]');
+        if(panel) panel.classList.add('active');
       });
     });
   });
 
-  /*
-   * V2.11
-   * Tidak menambahkan/menduplikasi blok CKG, BPJS, WhatsApp,
-   * Google Maps, atau visitor counter.
-   * Blok layanan yang sudah ada di HTML tetap menjadi satu-satunya sumber.
-   *
-   * Perlindungan ringan untuk gambar:
-   * - mencegah drag gambar
-   * - mencegah context menu khusus pada gambar
-   */
-
   document.addEventListener('dragstart',function(e){
-    if(e.target && e.target.tagName==='IMG'){
-      e.preventDefault();
-    }
+    if(e.target&&e.target.tagName==='IMG') e.preventDefault();
   });
-
   document.addEventListener('contextmenu',function(e){
-    if(e.target && e.target.tagName==='IMG'){
-      e.preventDefault();
-    }
+    if(e.target&&e.target.tagName==='IMG') e.preventDefault();
   });
 
-  /* Dropdown menu nav "Profil" */
   document.querySelectorAll('.dropdown-caret-btn').forEach(function(btn){
     btn.addEventListener('click',function(e){
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
       var parent=btn.closest('.nav-item-dropdown');
       var isOpen=parent.classList.contains('open');
       document.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){
@@ -106,114 +70,53 @@
     }
   });
 
-  /* Aktivasi tab Profil berdasarkan hash URL, misal profil.html#struktur */
   function activatePanelById(id){
     var target=document.getElementById(id);
-
-    if(!target || !target.classList.contains('profile-panel')){
-      return false;
-    }
-
+    if(!target||!target.classList.contains('profile-panel')) return false;
     var root=target.closest('[data-tabs]');
-
-    if(!root){
-      return false;
-    }
-
+    if(!root) return false;
     var tabName=target.dataset.panel;
-
-    /*
-     * Jika panel mempunyai tombol tab,
-     * gunakan mekanisme tab yang sudah ada.
-     */
     var btn=root.querySelector('[data-tab="'+tabName+'"]');
-
     if(btn){
       btn.click();
     }else{
-      /*
-       * Untuk panel tambahan seperti:
-       * struktur, wilayah, komitmen, prestasi
-       * yang belum mempunyai tombol sidebar,
-       * aktifkan panel secara langsung.
-       */
-      root.querySelectorAll('.profile-panel').forEach(function(panel){
-        panel.classList.remove('active');
-      });
-
+      root.querySelectorAll('.profile-panel').forEach(function(panel){panel.classList.remove('active');});
       target.classList.add('active');
-
-      /*
-       * Matikan status active pada tombol sidebar.
-       */
-      root.querySelectorAll('[data-tab]').forEach(function(button){
-        button.classList.remove('active');
-      });
+      root.querySelectorAll('[data-tab]').forEach(function(button){button.classList.remove('active');});
     }
-
-    setTimeout(function(){
-      target.scrollIntoView({
-        behavior:'smooth',
-        block:'start'
-      });
-    },60);
-
+    setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'});},60);
     return true;
   }
 
-  if(window.location.hash){
-    activatePanelById(window.location.hash.slice(1));
-  }
-
+  if(window.location.hash) activatePanelById(window.location.hash.slice(1));
   document.querySelectorAll('a[href*="#"]').forEach(function(link){
-    var url;
-    try{ url=new URL(link.href); }catch(e){ return; }
-    if(url.pathname.endsWith('profil.html') && url.hash && window.location.pathname.endsWith('profil.html')){
+    var url; try{url=new URL(link.href);}catch(e){return;}
+    if(url.pathname.endsWith('profil.html')&&url.hash&&window.location.pathname.endsWith('profil.html')){
       link.addEventListener('click',function(e){
-        var id=url.hash.slice(1);
-        var target=document.getElementById(id);
-        if(target && target.classList.contains('profile-panel')){
-          e.preventDefault();
-          activatePanelById(id);
-        }
+        var id=url.hash.slice(1),target=document.getElementById(id);
+        if(target&&target.classList.contains('profile-panel')){e.preventDefault();activatePanelById(id);}
       });
     }
   });
 
-  /* =========================================================
-     KARAKTERISTIK & KEKUATAN - V1
-     Integrasi dilakukan secara progresif melalui panel #karakter
-     yang sudah ada di profil.html. Tidak menghapus struktur profil.
-     ========================================================= */
-
   function addStyleOnce(id,css){
     if(document.getElementById(id)) return;
     var style=document.createElement('style');
-    style.id=id;
-    style.textContent=css;
-    document.head.appendChild(style);
+    style.id=id; style.textContent=css; document.head.appendChild(style);
   }
 
   function loadLeaflet(callback){
-    if(window.L){ callback(); return; }
-
+    if(window.L){callback();return;}
     if(!document.getElementById('leaflet-css-characteristic')){
       var link=document.createElement('link');
-      link.id='leaflet-css-characteristic';
-      link.rel='stylesheet';
+      link.id='leaflet-css-characteristic'; link.rel='stylesheet';
       link.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
       document.head.appendChild(link);
     }
-
     var script=document.getElementById('leaflet-js-characteristic');
-    if(script){
-      script.addEventListener('load',callback,{once:true});
-      return;
-    }
-
+    if(script){script.addEventListener('load',callback,{once:true});return;}
     script=document.createElement('script');
-    script.id='leaflet-js-characteristic';
-    script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.id='leaflet-js-characteristic'; script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     script.onload=callback;
     script.onerror=function(){
       var map=document.getElementById('characteristic-map');
@@ -224,12 +127,9 @@
 
   function renderCharacteristic(){
     if(!window.location.pathname.endsWith('profil.html')) return;
-
     var panel=document.getElementById('karakter');
-    if(!panel || panel.dataset.characteristicReady==='1') return;
-
+    if(!panel||panel.dataset.characteristicReady==='1') return;
     panel.dataset.characteristicReady='1';
-
     addStyleOnce('characteristic-v1-style',`
       .char-shell{margin-top:24px}
       .char-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 28px}
@@ -244,7 +144,6 @@
       .char-card strong{display:block;color:#0b5d49;margin-bottom:6px}
       .char-card p{margin:0;color:#55706a;font-size:.86rem;line-height:1.55}
       .char-placeholder{opacity:.82;background:#fafcfc}
-      .char-placeholder b{color:#6a7774}
       .char-map-wrap{margin-top:16px;border:1px solid var(--line,#e2e8f0);border-radius:16px;overflow:hidden;background:#fff}
       #characteristic-map{height:500px;width:100%}
       .char-map-caption{padding:14px 16px;font-size:.78rem;color:#66736f;border-top:1px solid var(--line,#e2e8f0);line-height:1.5}
@@ -261,15 +160,9 @@
       @media(max-width:480px){.char-village{padding:11px 8px;font-size:.72rem}}
       @media(min-width:901px){.quick-grid.char-quick-ready{grid-template-columns:repeat(5,1fr)}}
     `);
-
     panel.innerHTML=`
       <h2>Karakteristik &amp; Kekuatan Wilayah</h2>
-      <p>
-        Profil ringkas wilayah kerja UPTD Puskesmas Tanjung Pinang yang menggabungkan
-        data profil Puskesmas, peta wilayah kerja, jaringan pelayanan, dan ruang untuk
-        data pendukung yang akan diperbarui secara bertahap.
-      </p>
-
+      <p>Profil ringkas wilayah kerja UPTD Puskesmas Tanjung Pinang yang menggabungkan data profil Puskesmas, peta wilayah kerja, jaringan pelayanan, dan ruang untuk data pendukung yang akan diperbarui secara bertahap.</p>
       <div class="char-shell">
         <div class="char-summary" aria-label="Ringkasan karakteristik">
           <div class="char-stat"><b>5</b><span>Kelurahan wilayah kerja</span></div>
@@ -279,28 +172,13 @@
           <div class="char-stat"><b>42</b><span>Posyandu aktif · 2025</span></div>
           <div class="char-stat"><b>5</b><span>Klaster dalam penerapan ILP</span></div>
         </div>
-
-        <div class="char-note">
-          <strong>Sumber utama:</strong> Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025,
-          termasuk data penduduk Desember 2025. Data yang belum memiliki angka final tetap ditampilkan sebagai tanda em dash (—).
-        </div>
-
+        <div class="char-note"><strong>Sumber utama:</strong> Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025, termasuk data penduduk Desember 2025. Data yang belum memiliki angka final tetap ditampilkan sebagai tanda em dash (—).</div>
         <section class="char-section" id="karakter-wilayah">
           <h3>Wilayah Kerja &amp; Peta Interaktif</h3>
-          <p>
-            Wilayah kerja mencakup Tanjung Pinang, Rajawali, Kasang, Kasang Jaya, dan Sejinjang.
-            Peta digunakan untuk visualisasi wilayah kerja, bukan sebagai penetapan hukum batas administrasi.
-          </p>
+          <p>Wilayah kerja mencakup Tanjung Pinang, Rajawali, Kasang, Kasang Jaya, dan Sejinjang. Peta digunakan untuk visualisasi wilayah kerja, bukan sebagai penetapan hukum batas administrasi.</p>
           <div class="char-villages" id="characteristic-villages"></div>
-          <div class="char-map-wrap">
-            <div id="characteristic-map" aria-label="Peta interaktif wilayah kerja UPTD Puskesmas Tanjung Pinang"></div>
-            <div class="char-map-caption">
-              Sumber geometri: Badan Informasi Geospasial (BIG).
-              Data peta dapat menampilkan variasi penamaan seperti Sijenjang/Sijinjang.
-            </div>
-          </div>
+          <div class="char-map-wrap"><div id="characteristic-map" aria-label="Peta interaktif wilayah kerja UPTD Puskesmas Tanjung Pinang"></div><div class="char-map-caption">Sumber geometri: Badan Informasi Geospasial (BIG). Data peta mengikuti geometri kelurahan publik dan mendukung variasi penamaan Sijinjang/Sijenjang/Sejinjang.</div></div>
         </section>
-
         <section class="char-section" id="karakter-jaringan">
           <h3>Jaringan Pelayanan</h3>
           <div class="char-grid">
@@ -310,7 +188,6 @@
             <article class="char-card"><strong>Klaster ILP</strong><p>5 klaster dalam penyelenggaraan Integrasi Layanan Primer.</p></article>
           </div>
         </section>
-
         <section class="char-section" id="karakter-data">
           <h3>Data Pendukung</h3>
           <div class="char-grid">
@@ -320,7 +197,6 @@
             <article class="char-card char-placeholder"><strong>SMA/SMK</strong><p>— Belum diisi sampai ada angka sumber final.</p></article>
           </div>
         </section>
-
         <section class="char-section" id="karakter-kekuatan">
           <h3>Kekuatan Pelayanan</h3>
           <div class="char-strengths">
@@ -330,31 +206,22 @@
             <article class="char-strength"><h4>❤️ Budaya 5S</h4><p>Senyum, Sapa, Salam, Sopan, Santun menjadi identitas komunikasi pelayanan.</p></article>
           </div>
         </section>
-
-        <p class="char-source">
-          Sumber internal: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan materi pembaruan website 2026.<br>
-          Sumber geospasial: BIG. Peta bersifat visualisasi wilayah kerja dan bukan penetapan hukum batas administrasi.
-        </p>
-      </div>
-    `;
-
-    loadLeaflet(function(){
-      initCharacteristicMap();
-    });
+        <p class="char-source">Sumber internal: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan materi pembaruan website 2026.<br>Sumber geospasial: BIG. Peta bersifat visualisasi wilayah kerja dan bukan penetapan hukum batas administrasi.</p>
+      </div>`;
+    loadLeaflet(initCharacteristicMap);
   }
 
   function initCharacteristicMap(){
     var el=document.getElementById('characteristic-map');
-    if(!el || el.dataset.mapReady==='1' || !window.L) return;
+    if(!el||el.dataset.mapReady==='1'||!window.L) return;
     el.dataset.mapReady='1';
-
     var names=['Tanjung Pinang','Sijinjang','Kasang','Kasang Jaya','Rajawali'];
     var aliases={
-      'Tanjung Pinang':['tanjungpinang'],
-      'Sijinjang':['sijinjang','sijenjang','sejinjang'],
-      'Kasang':['kasang'],
-      'Kasang Jaya':['kasangjaya'],
-      'Rajawali':['rajawali']
+      'Tanjung Pinang':['Tanjung Pinang'],
+      'Sijinjang':['Sijinjang','Sijenjang','Sejinjang'],
+      'Kasang':['Kasang'],
+      'Kasang Jaya':['Kasang Jaya'],
+      'Rajawali':['Rajawali']
     };
     var maps={
       'Tanjung Pinang':'https://maps.app.goo.gl/GohWewWGF9WBMFNc7',
@@ -370,320 +237,82 @@
       'Kasang Jaya':[-1.5861,103.6334],
       'Rajawali':[-1.5908,103.6228]
     };
-
-    function norm(v){
-      return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
-    }
+    function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');}
     function canonical(v){
       var n=norm(v);
       for(var i=0;i<names.length;i++){
-        var list=aliases[names[i]]||[norm(names[i])];
+        var list=(aliases[names[i]]||[]).map(norm);
         if(list.some(function(x){return n===x;})) return names[i];
       }
-      return '';
+      var matches=[];
+      for(var j=0;j<names.length;j++){
+        var vals=(aliases[names[j]]||[]).map(norm);
+        vals.forEach(function(x){if(x&&(n.includes(x)||x.includes(n)))matches.push({name:names[j],len:x.length});});
+      }
+      matches.sort(function(a,b){return b.len-a.len;});
+      return matches.length?matches[0].name:'';
     }
-    function featureName(f){
-      var p=f.properties||{};
-      return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';
-    }
-
+    function featureName(f){var p=f.properties||{};return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';}
     var map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-
     var layerGroup=L.featureGroup().addTo(map);
     var selected=null;
     var colors=['#d71920','#b51219','#e53b42','#8f0c12','#f05a60'];
     var buttonsWrap=document.getElementById('characteristic-villages');
-
-    names.forEach(function(name,index){
-      var b=document.createElement('button');
-      b.type='button';
-      b.className='char-village';
-      b.textContent=name;
-      b.dataset.name=name;
-      b.addEventListener('click',function(){ focusVillage(name); });
-      buttonsWrap.appendChild(b);
+    names.forEach(function(name){
+      var b=document.createElement('button'); b.type='button'; b.className='char-village'; b.textContent=name; b.dataset.name=name;
+      b.addEventListener('click',function(){focusVillage(name);}); buttonsWrap.appendChild(b);
     });
-
-    function activateButton(name){
-      buttonsWrap.querySelectorAll('.char-village').forEach(function(b){
-        b.classList.toggle('active',b.dataset.name===name);
-      });
-    }
+    function activateButton(name){buttonsWrap.querySelectorAll('.char-village').forEach(function(b){b.classList.toggle('active',b.dataset.name===name);});}
+    function baseStyle(name){var idx=Math.max(0,names.indexOf(name));return {color:colors[idx],weight:2,fillColor:colors[idx],fillOpacity:.22};}
     function selectLayer(layer,name,fit){
-      if(selected && selected!==layer){ selected.setStyle({weight:2,fillOpacity:.22}); }
-      selected=layer;
-      layer.setStyle({weight:4,fillOpacity:.42});
-      activateButton(name);
-      if(fit){ map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:16}); }
-      layer.openPopup();
-    }
-    function focusVillage(name){
-      var wanted=canonical(name)||name;
-      var found=null;
-      layerGroup.eachLayer(function(layer){
-        if(layer.feature && canonical(featureName(layer.feature))===wanted){ found=layer; }
-      });
-      if(found){ selectLayer(found,wanted,true); return; }
-      if(fallback[wanted]){ map.flyTo(fallback[wanted],15,{duration:.8}); activateButton(wanted); }
-    }
-    function fetchVillage(name){
-      var where=
-        "WADMKK='Kota Jambi' AND " +
-        "(WADMKD='" + name.replace(/'/g,"''") + "' OR " +
-        "UPPER(WADMKD)='" + name.toUpperCase().replace(/'/g,"''") + "')";
-      var url=
-        "https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query" +
-        "?where=" + encodeURIComponent(where) +
-        "&outFields=" + encodeURIComponent("WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM") +
-        "&returnGeometry=true&outSR=4326&f=geojson";
-      return fetch(url).then(function(r){
-        if(!r.ok) throw new Error("HTTP "+r.status+" untuk "+name);
-        return r.json();
-      });
-    }
-
-    Promise.all(names.map(fetchVillage)).then(function(results){
-      var merged={type:'FeatureCollection',features:[]};
-      var seen=new Set();
-      results.forEach(function(data,idx){
-        if(!data || !Array.isArray(data.features)) return;
-        data.features.forEach(function(f){
-          var canonicalName=canonical(featureName(f)) || names[idx];
-          var key=canonicalName.toLowerCase()+"|"+String((f.properties||{}).KDEBPS || (f.properties||{}).KDEPUM || '');
-          if(!seen.has(key)){
-            seen.add(key);
-            merged.features.push(f);
-          }
-        });
-      });
-
-      if(!merged.features.length) throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
-
-      var geo=L.geoJSON(merged,{
-        style:function(f){
-          var name=canonical(featureName(f));
-          var idx=names.indexOf(name);
-          return {color:colors[idx>=0?idx:0],weight:2,fillColor:colors[idx>=0?idx:0],fillOpacity:.22};
-        },
-        onEachFeature:function(f,layer){
-          var officialName=featureName(f);
-          var name=canonical(officialName) || officialName;
-          var p=f.properties||{};
-          layer.bindPopup(
-            '<div class="popup-title">'+name+'</div>'+ 
-            '<div class="popup-sub">Nama data BIG: '+officialName+
-            '<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+
-            '<br>Kota '+(p.WADMKK||'Jambi')+
-            '<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>'
-          );
-          layer.on({
-            mouseover:function(){layer.setStyle({weight:4,fillOpacity:.38});},
-            mouseout:function(){if(selected!==layer) layer.setStyle({weight:2,fillOpacity:.22});},
-            click:function(){selectLayer(layer,name,false);}
-          });
-        }
-      }).addTo(layerGroup);
-
-      map.fitBounds(geo.getBounds(),{padding:[30,30]});
-      setTimeout(function(){focusVillage('Tanjung Pinang');},350);
-    }).catch(function(err){
-      console.warn('Gagal memuat polygon BIG versi sumber wilayah-kerja-v8:',err);
-      names.forEach(function(name){
-        var circle=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(layerGroup);
-        circle.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+maps[name]+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
-      });
-      map.fitBounds(layerGroup.getBounds(),{padding:[25,25]});
-      focusVillage('Tanjung Pinang');
-    });
-  }
-
-  /* Shortcut Karakteristik di Beranda: tidak mengubah markup lama. */
-  function injectHomeShortcut(){
-    if(!window.location.pathname.endsWith('index.html') && window.location.pathname!=='/' && window.location.pathname!=='') return;
-    var grid=document.querySelector('.quick-grid');
-    if(!grid || grid.querySelector('[data-characteristic-shortcut]')) return;
-    grid.classList.add('char-quick-ready');
-    var a=document.createElement('a');
-    a.href='profil.html#karakter';
-    a.className='quick-item';
-    a.setAttribute('data-characteristic-shortcut','1');
-    a.innerHTML='<span class="quick-number">05</span><h2>Karakteristik</h2><p>Wilayah kerja dan kekuatan pelayanan</p>';
-    grid.appendChild(a);
-  }
-
-  renderCharacteristic();
-  injectHomeShortcut();
-
-})();
-
-/* =========================================================
-   KARAKTERISTIK MAP - boundary source aligned to wilayah-kerja-v8.html
-   Source: user-provided wilayah-kerja-v8.html lines 455-560.
-   This correction replaces only the visual map instance; existing
-   Karakteristik data/cards and shortcuts remain unchanged.
-   ========================================================= */
-(function(){
-  if(!window.location.pathname.endsWith('profil.html')) return;
-
-  var tries=0;
-  function boot(){
-    var el=document.getElementById('characteristic-map');
-    if(!el) return;
-    if(!window.L){
-      if(tries++<40) setTimeout(boot,250);
-      return;
-    }
-
-    /* Replace the previous map node so the source-aligned map owns a clean Leaflet instance. */
-    if(el.dataset.sourceBoundaryReady==='1') return;
-    var fresh=el.cloneNode(false);
-    fresh.removeAttribute('data-map-ready');
-    fresh.dataset.sourceBoundaryReady='1';
-    el.replaceWith(fresh);
-    el=fresh;
-
-    var names=['Tanjung Pinang','Sijinjang','Kasang','Kasang Jaya','Rajawali'];
-    var maps={
-      'Tanjung Pinang':'https://maps.app.goo.gl/GohWewWGF9WBMFNc7',
-      'Sijinjang':'https://maps.app.goo.gl/qw5y2gLMPUZQHHnGA',
-      'Kasang':'https://maps.app.goo.gl/E96JT77D25Lvtn7Y8',
-      'Kasang Jaya':'https://maps.app.goo.gl/yi27vTWMeSm97saY6',
-      'Rajawali':'https://maps.app.goo.gl/1kq4vKTXwjsjW5Nu9'
-    };
-    var fallback={
-      'Tanjung Pinang':[-1.5930,103.6315],
-      'Sijinjang':[-1.5821,103.6418],
-      'Kasang':[-1.5851,103.6242],
-      'Kasang Jaya':[-1.5861,103.6334],
-      'Rajawali':[-1.5908,103.6228]
-    };
-    var aliases={
-      'Tanjung Pinang':['tanjungpinang'],
-      'Sijinjang':['sijinjang','sijenjang','sejinjang'],
-      'Kasang':['kasang'],
-      'Kasang Jaya':['kasangjaya'],
-      'Rajawali':['rajawali']
-    };
-    var colors=['#d71920','#b51219','#e53b42','#8f0c12','#f05a60'];
-
-    function norm(v){
-      return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
-    }
-    function canonical(v){
-      var n=norm(v);
-      for(var i=0;i<names.length;i++){
-        var list=aliases[names[i]]||[norm(names[i])];
-        if(list.some(function(x){return n===x;})) return names[i];
-      }
-      return '';
-    }
-    function featureName(f){
-      var p=f.properties||{};
-      return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';
-    }
-
-    var map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-
-    var layerGroup=L.featureGroup().addTo(map);
-    var selected=null;
-    var buttonsWrap=document.getElementById('characteristic-villages');
-
-    function activateButton(name){
-      if(!buttonsWrap) return;
-      buttonsWrap.querySelectorAll('.char-village').forEach(function(b){
-        b.classList.toggle('active',b.dataset.name===name);
-      });
-    }
-    function selectLayer(layer,name,fit){
-      if(selected && selected!==layer){ selected.setStyle({weight:2,fillOpacity:.22}); }
-      selected=layer;
-      layer.setStyle({weight:4,fillOpacity:.42});
-      activateButton(name);
+      if(selected&&selected!==layer){selected.setStyle(baseStyle(canonical(featureName(selected.feature))||''));}
+      selected=layer; layer.setStyle({color:'#8f0c12',weight:4,fillColor:'#d71920',fillOpacity:.42}); activateButton(name);
       if(fit) map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:16});
       layer.openPopup();
     }
     function focusVillage(name){
-      var wanted=canonical(name)||name;
-      var found=null;
-      layerGroup.eachLayer(function(layer){
-        if(layer.feature && canonical(featureName(layer.feature))===wanted){ found=layer; }
-      });
-      if(found){ selectLayer(found,wanted,true); return; }
-      if(fallback[wanted]){ map.flyTo(fallback[wanted],15,{duration:.8}); activateButton(wanted); }
+      var wanted=canonical(name)||name,found=null;
+      layerGroup.eachLayer(function(layer){if(layer.feature&&canonical(featureName(layer.feature))===wanted)found=layer;});
+      if(found){selectLayer(found,wanted,true);return;}
+      if(fallback[wanted]){map.flyTo(fallback[wanted],15,{duration:.8});activateButton(wanted);}
     }
     function fetchVillage(name){
-      var where=
-        "WADMKK='Kota Jambi' AND " +
-        "(WADMKD='" + name.replace(/'/g,"''") + "' OR " +
-        "UPPER(WADMKD)='" + name.toUpperCase().replace(/'/g,"''") + "')";
-      var url=
-        "https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query"+
-        "?where="+encodeURIComponent(where)+
-        "&outFields="+encodeURIComponent("WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM")+
-        "&returnGeometry=true&outSR=4326&f=geojson";
-      return fetch(url).then(function(r){
-        if(!r.ok) throw new Error("HTTP "+r.status+" untuk "+name);
-        return r.json();
-      });
+      var values=(aliases[name]||[name]);
+      var clauses=values.map(function(value){var escaped=value.replace(/'/g,"''");return "WADMKD='"+escaped+"' OR UPPER(WADMKD)='"+escaped.toUpperCase()+"'";}).join(' OR ');
+      var where="WADMKK='Kota Jambi' AND ("+clauses+")";
+      var url='https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query?where='+encodeURIComponent(where)+'&outFields='+encodeURIComponent('WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM')+'&returnGeometry=true&outSR=4326&f=geojson';
+      return fetch(url).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status+' untuk '+name);return r.json();});
     }
-
     Promise.all(names.map(fetchVillage)).then(function(results){
-      var merged={type:'FeatureCollection',features:[]};
-      var seen=new Set();
-      results.forEach(function(data,idx){
-        if(!data || !Array.isArray(data.features)) return;
-        data.features.forEach(function(f){
-          var canonicalName=canonical(featureName(f))||names[idx];
-          var p=f.properties||{};
-          var key=canonicalName.toLowerCase()+'|'+String(p.KDEBPS||p.KDEPUM||'');
-          if(!seen.has(key)){
-            seen.add(key);
-            merged.features.push(f);
-          }
-        });
-      });
-      if(!merged.features.length) throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
-
-      var geo=L.geoJSON(merged,{
-        style:function(f){
-          var name=canonical(featureName(f));
-          var idx=names.indexOf(name);
-          return {color:colors[idx>=0?idx:0],weight:2,fillColor:colors[idx>=0?idx:0],fillOpacity:.22};
-        },
-        onEachFeature:function(f,layer){
-          var officialName=featureName(f);
-          var name=canonical(officialName)||officialName;
-          var p=f.properties||{};
-          layer.bindPopup(
-            '<div class="popup-title">'+name+'</div>'+ 
-            '<div class="popup-sub">Nama data BIG: '+officialName+
-            '<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+
-            '<br>Kota '+(p.WADMKK||'Jambi')+
-            '<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>'
-          );
-          layer.on('mouseover',function(){layer.setStyle({weight:4,fillOpacity:.38});});
-          layer.on('mouseout',function(){if(selected!==layer) layer.setStyle({weight:2,fillOpacity:.22});});
-          layer.on('click',function(){selectLayer(layer,name,false);});
-        }
-      }).addTo(layerGroup);
-
-      map.fitBounds(geo.getBounds(),{padding:[30,30]});
-      setTimeout(function(){focusVillage('Tanjung Pinang');},350);
-    }).catch(function(){
-      names.forEach(function(name){
-        var circle=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(layerGroup);
-        circle.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+maps[name]+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
-      });
-      map.fitBounds(layerGroup.getBounds(),{padding:[25,25]});
-      focusVillage('Tanjung Pinang');
+      var merged={type:'FeatureCollection',features:[]},seen=new Set();
+      results.forEach(function(data){if(data&&Array.isArray(data.features))data.features.forEach(function(f){var canonicalName=canonical(featureName(f))||'';var key=canonicalName+'|'+String((f.properties||{}).KDEBPS||((f.properties||{}).KDEPUM)||'');if(!seen.has(key)){seen.add(key);merged.features.push(f);}});});
+      if(!merged.features.length)throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
+      var geo=L.geoJSON(merged,{style:function(f){var n=canonical(featureName(f));return baseStyle(n);},onEachFeature:function(f,layer){
+        var official=featureName(f),name=canonical(official)||official,p=f.properties||{};
+        layer.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Nama data BIG: '+official+'<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+'<br>Kota '+(p.WADMKK||'Jambi')+'<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
+        layer.on('mouseover',function(){if(selected!==layer)layer.setStyle({weight:3,fillOpacity:.32});});
+        layer.on('mouseout',function(){if(selected!==layer)layer.setStyle(baseStyle(name));});
+        layer.on('click',function(){selectLayer(layer,name,false);});
+      }}).addTo(layerGroup);
+      map.fitBounds(geo.getBounds(),{padding:[25,25]});
+      setTimeout(function(){focusVillage('Tanjung Pinang');},300);
+    }).catch(function(err){
+      console.error(err);
+      names.forEach(function(name){var circle=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(layerGroup);circle.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+maps[name]+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');});
+      map.fitBounds(layerGroup.getBounds(),{padding:[25,25]}); focusVillage('Tanjung Pinang');
     });
   }
 
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',boot,{once:true});
-  }else{
-    setTimeout(boot,800);
+  function injectHomeShortcut(){
+    if(!window.location.pathname.endsWith('index.html')&&window.location.pathname!=='/'&&window.location.pathname!=='')return;
+    var grid=document.querySelector('.quick-grid');
+    if(!grid||grid.querySelector('[data-characteristic-shortcut]'))return;
+    grid.classList.add('char-quick-ready');
+    var a=document.createElement('a'); a.href='profil.html#karakter'; a.className='quick-item'; a.setAttribute('data-characteristic-shortcut','1');
+    a.innerHTML='<span class="quick-number">05</span><h2>Karakteristik</h2><p>Wilayah kerja dan kekuatan pelayanan</p>'; grid.appendChild(a);
   }
+
+  renderCharacteristic();
+  injectHomeShortcut();
 })();
