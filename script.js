@@ -422,40 +422,73 @@
       var wanted=canonical(name)||name;
       var found=null;
       layerGroup.eachLayer(function(layer){
-        if(canonical(featureName(layer.feature))===wanted){ found=layer; }
+        if(layer.feature && canonical(featureName(layer.feature))===wanted){ found=layer; }
       });
       if(found){ selectLayer(found,wanted,true); return; }
       if(fallback[wanted]){ map.flyTo(fallback[wanted],15,{duration:.8}); activateButton(wanted); }
     }
     function fetchVillage(name){
-      var aliasesQuery=(aliases[name]||[]).concat([norm(name)]);
-      var values=Array.from(new Set(aliasesQuery));
-      var clauses=values.map(function(v){ return "LOWER(WADMKD)='"+v.replace(/'/g,"''")+"'"; }).join(' OR ');
-      var where="WADMKK='Kota Jambi' AND ("+clauses+")";
-      var url='https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query?where='+encodeURIComponent(where)+'&outFields='+encodeURIComponent('WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM')+'&returnGeometry=true&outSR=4326&f=geojson';
-      return fetch(url).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); });
+      var where=
+        "WADMKK='Kota Jambi' AND " +
+        "(WADMKD='" + name.replace(/'/g,"''") + "' OR " +
+        "UPPER(WADMKD)='" + name.toUpperCase().replace(/'/g,"''") + "')";
+      var url=
+        "https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query" +
+        "?where=" + encodeURIComponent(where) +
+        "&outFields=" + encodeURIComponent("WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM") +
+        "&returnGeometry=true&outSR=4326&f=geojson";
+      return fetch(url).then(function(r){
+        if(!r.ok) throw new Error("HTTP "+r.status+" untuk "+name);
+        return r.json();
+      });
     }
 
     Promise.all(names.map(fetchVillage)).then(function(results){
-      var features=[];
-      results.forEach(function(data){
-        if(data&&Array.isArray(data.features)) data.features.forEach(function(f){features.push(f);});
+      var merged={type:'FeatureCollection',features:[]};
+      var seen=new Set();
+      results.forEach(function(data,idx){
+        if(!data || !Array.isArray(data.features)) return;
+        data.features.forEach(function(f){
+          var canonicalName=canonical(featureName(f)) || names[idx];
+          var key=canonicalName.toLowerCase()+"|"+String((f.properties||{}).KDEBPS || (f.properties||{}).KDEPUM || '');
+          if(!seen.has(key)){
+            seen.add(key);
+            merged.features.push(f);
+          }
+        });
       });
-      var merged={type:'FeatureCollection',features:features};
-      var geo=L.geoJSON(merged,{style:function(f){
-        var name=canonical(featureName(f));
-        var idx=Math.max(0,names.indexOf(name));
-        return {color:colors[idx],weight:2,fillColor:colors[idx],fillOpacity:.22};
-      },onEachFeature:function(f,layer){
-        var official=featureName(f); var name=canonical(official)||official; var p=f.properties||{};
-        layer.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Nama data BIG: '+official+'<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+'<br>Kota '+(p.WADMKK||'Jambi')+'<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
-        layer.on('mouseover',function(){layer.setStyle({weight:4,fillOpacity:.38});});
-        layer.on('mouseout',function(){if(selected!==layer) layer.setStyle({weight:2,fillOpacity:.22});});
-        layer.on('click',function(){selectLayer(layer,name,false);});
-      }}).addTo(layerGroup);
-      if(features.length){ map.fitBounds(geo.getBounds(),{padding:[25,25]}); }
-      setTimeout(function(){focusVillage('Tanjung Pinang');},300);
-    }).catch(function(){
+
+      if(!merged.features.length) throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
+
+      var geo=L.geoJSON(merged,{
+        style:function(f){
+          var name=canonical(featureName(f));
+          var idx=names.indexOf(name);
+          return {color:colors[idx>=0?idx:0],weight:2,fillColor:colors[idx>=0?idx:0],fillOpacity:.22};
+        },
+        onEachFeature:function(f,layer){
+          var officialName=featureName(f);
+          var name=canonical(officialName) || officialName;
+          var p=f.properties||{};
+          layer.bindPopup(
+            '<div class="popup-title">'+name+'</div>'+ 
+            '<div class="popup-sub">Nama data BIG: '+officialName+
+            '<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+
+            '<br>Kota '+(p.WADMKK||'Jambi')+
+            '<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>'
+          );
+          layer.on({
+            mouseover:function(){layer.setStyle({weight:4,fillOpacity:.38});},
+            mouseout:function(){if(selected!==layer) layer.setStyle({weight:2,fillOpacity:.22});},
+            click:function(){selectLayer(layer,name,false);}
+          });
+        }
+      }).addTo(layerGroup);
+
+      map.fitBounds(geo.getBounds(),{padding:[30,30]});
+      setTimeout(function(){focusVillage('Tanjung Pinang');},350);
+    }).catch(function(err){
+      console.warn('Gagal memuat polygon BIG versi sumber wilayah-kerja-v8:',err);
       names.forEach(function(name){
         var circle=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(layerGroup);
         circle.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+maps[name]+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
@@ -482,4 +515,175 @@
   renderCharacteristic();
   injectHomeShortcut();
 
+})();
+
+/* =========================================================
+   KARAKTERISTIK MAP - boundary source aligned to wilayah-kerja-v8.html
+   Source: user-provided wilayah-kerja-v8.html lines 455-560.
+   This correction replaces only the visual map instance; existing
+   Karakteristik data/cards and shortcuts remain unchanged.
+   ========================================================= */
+(function(){
+  if(!window.location.pathname.endsWith('profil.html')) return;
+
+  var tries=0;
+  function boot(){
+    var el=document.getElementById('characteristic-map');
+    if(!el) return;
+    if(!window.L){
+      if(tries++<40) setTimeout(boot,250);
+      return;
+    }
+
+    /* Replace the previous map node so the source-aligned map owns a clean Leaflet instance. */
+    if(el.dataset.sourceBoundaryReady==='1') return;
+    var fresh=el.cloneNode(false);
+    fresh.removeAttribute('data-map-ready');
+    fresh.dataset.sourceBoundaryReady='1';
+    el.replaceWith(fresh);
+    el=fresh;
+
+    var names=['Tanjung Pinang','Sijinjang','Kasang','Kasang Jaya','Rajawali'];
+    var maps={
+      'Tanjung Pinang':'https://maps.app.goo.gl/GohWewWGF9WBMFNc7',
+      'Sijinjang':'https://maps.app.goo.gl/qw5y2gLMPUZQHHnGA',
+      'Kasang':'https://maps.app.goo.gl/E96JT77D25Lvtn7Y8',
+      'Kasang Jaya':'https://maps.app.goo.gl/yi27vTWMeSm97saY6',
+      'Rajawali':'https://maps.app.goo.gl/1kq4vKTXwjsjW5Nu9'
+    };
+    var fallback={
+      'Tanjung Pinang':[-1.5930,103.6315],
+      'Sijinjang':[-1.5821,103.6418],
+      'Kasang':[-1.5851,103.6242],
+      'Kasang Jaya':[-1.5861,103.6334],
+      'Rajawali':[-1.5908,103.6228]
+    };
+    var aliases={
+      'Tanjung Pinang':['tanjungpinang'],
+      'Sijinjang':['sijinjang','sijenjang','sejinjang'],
+      'Kasang':['kasang'],
+      'Kasang Jaya':['kasangjaya'],
+      'Rajawali':['rajawali']
+    };
+    var colors=['#d71920','#b51219','#e53b42','#8f0c12','#f05a60'];
+
+    function norm(v){
+      return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
+    }
+    function canonical(v){
+      var n=norm(v);
+      for(var i=0;i<names.length;i++){
+        var list=aliases[names[i]]||[norm(names[i])];
+        if(list.some(function(x){return n===x;})) return names[i];
+      }
+      return '';
+    }
+    function featureName(f){
+      var p=f.properties||{};
+      return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';
+    }
+
+    var map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+
+    var layerGroup=L.featureGroup().addTo(map);
+    var selected=null;
+    var buttonsWrap=document.getElementById('characteristic-villages');
+
+    function activateButton(name){
+      if(!buttonsWrap) return;
+      buttonsWrap.querySelectorAll('.char-village').forEach(function(b){
+        b.classList.toggle('active',b.dataset.name===name);
+      });
+    }
+    function selectLayer(layer,name,fit){
+      if(selected && selected!==layer){ selected.setStyle({weight:2,fillOpacity:.22}); }
+      selected=layer;
+      layer.setStyle({weight:4,fillOpacity:.42});
+      activateButton(name);
+      if(fit) map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:16});
+      layer.openPopup();
+    }
+    function focusVillage(name){
+      var wanted=canonical(name)||name;
+      var found=null;
+      layerGroup.eachLayer(function(layer){
+        if(layer.feature && canonical(featureName(layer.feature))===wanted){ found=layer; }
+      });
+      if(found){ selectLayer(found,wanted,true); return; }
+      if(fallback[wanted]){ map.flyTo(fallback[wanted],15,{duration:.8}); activateButton(wanted); }
+    }
+    function fetchVillage(name){
+      var where=
+        "WADMKK='Kota Jambi' AND " +
+        "(WADMKD='" + name.replace(/'/g,"''") + "' OR " +
+        "UPPER(WADMKD)='" + name.toUpperCase().replace(/'/g,"''") + "')";
+      var url=
+        "https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query"+
+        "?where="+encodeURIComponent(where)+
+        "&outFields="+encodeURIComponent("WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM")+
+        "&returnGeometry=true&outSR=4326&f=geojson";
+      return fetch(url).then(function(r){
+        if(!r.ok) throw new Error("HTTP "+r.status+" untuk "+name);
+        return r.json();
+      });
+    }
+
+    Promise.all(names.map(fetchVillage)).then(function(results){
+      var merged={type:'FeatureCollection',features:[]};
+      var seen=new Set();
+      results.forEach(function(data,idx){
+        if(!data || !Array.isArray(data.features)) return;
+        data.features.forEach(function(f){
+          var canonicalName=canonical(featureName(f))||names[idx];
+          var p=f.properties||{};
+          var key=canonicalName.toLowerCase()+'|'+String(p.KDEBPS||p.KDEPUM||'');
+          if(!seen.has(key)){
+            seen.add(key);
+            merged.features.push(f);
+          }
+        });
+      });
+      if(!merged.features.length) throw new Error('Tidak ada polygon kelurahan yang berhasil dimuat dari layanan BIG.');
+
+      var geo=L.geoJSON(merged,{
+        style:function(f){
+          var name=canonical(featureName(f));
+          var idx=names.indexOf(name);
+          return {color:colors[idx>=0?idx:0],weight:2,fillColor:colors[idx>=0?idx:0],fillOpacity:.22};
+        },
+        onEachFeature:function(f,layer){
+          var officialName=featureName(f);
+          var name=canonical(officialName)||officialName;
+          var p=f.properties||{};
+          layer.bindPopup(
+            '<div class="popup-title">'+name+'</div>'+ 
+            '<div class="popup-sub">Nama data BIG: '+officialName+
+            '<br>Kecamatan '+(p.WADMKC||'Jambi Timur')+
+            '<br>Kota '+(p.WADMKK||'Jambi')+
+            '<br><a href="'+(maps[name]||'#')+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>'
+          );
+          layer.on('mouseover',function(){layer.setStyle({weight:4,fillOpacity:.38});});
+          layer.on('mouseout',function(){if(selected!==layer) layer.setStyle({weight:2,fillOpacity:.22});});
+          layer.on('click',function(){selectLayer(layer,name,false);});
+        }
+      }).addTo(layerGroup);
+
+      map.fitBounds(geo.getBounds(),{padding:[30,30]});
+      setTimeout(function(){focusVillage('Tanjung Pinang');},350);
+    }).catch(function(){
+      names.forEach(function(name){
+        var circle=L.circleMarker(fallback[name],{radius:7,color:'#d71920',weight:2,fillColor:'#d71920',fillOpacity:.45}).addTo(layerGroup);
+        circle.bindPopup('<div class="popup-title">'+name+'</div><div class="popup-sub">Polygon BIG sedang tidak tersedia. <a href="'+maps[name]+'" target="_blank" rel="noopener">Buka Google Maps →</a></div>');
+      });
+      map.fitBounds(layerGroup.getBounds(),{padding:[25,25]});
+      focusVillage('Tanjung Pinang');
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',boot,{once:true});
+  }else{
+    setTimeout(boot,800);
+  }
 })();
