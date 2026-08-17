@@ -109,35 +109,35 @@
     if(!panel||panel.dataset.characteristicReady==='1') return;
     panel.dataset.characteristicReady='1';
 
-    addStyleOnce('characteristic-v1-style',`
-      .char-shell{margin-top:24px}
-      .char-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 28px}
-      .char-stat{padding:18px;border:1px solid var(--line,#e2e8f0);border-radius:16px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.04)}
-      .char-stat b{display:block;font-size:1.65rem;color:#0b5d49;line-height:1}
-      .char-stat span{display:block;margin-top:8px;color:#55706a;font-size:.78rem}
-      .char-note{margin:14px 0 24px;padding:12px 14px;border-left:4px solid #0b5d49;background:#eef8f5;color:#45635c;font-size:.82rem;line-height:1.5;border-radius:8px}
-      .char-section{margin-top:34px;padding-top:28px;border-top:1px solid var(--line,#e2e8f0);scroll-margin-top:100px}
-      .char-section h3{margin-bottom:8px}
-      .char-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
-      .char-card{padding:18px;border:1px solid var(--line,#e2e8f0);border-radius:14px;background:#fff}
-      .char-card strong{display:block;color:#0b5d49;margin-bottom:6px}
-      .char-card p{margin:0;color:#55706a;font-size:.86rem;line-height:1.55}
-      .char-placeholder{opacity:.82;background:#fafcfc}
-      .char-map-wrap{margin-top:16px;border:1px solid var(--line,#e2e8f0);border-radius:16px;overflow:hidden;background:#fff}
-      #characteristic-map{height:500px;width:100%}
-      .char-map-caption{padding:14px 16px;font-size:.78rem;color:#66736f;border-top:1px solid var(--line,#e2e8f0);line-height:1.5}
-      .char-map-error{padding:30px;text-align:center;color:#8a4b4b;background:#fff6f6}
-      .char-villages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
-      .char-village{padding:12px;border:1px solid #d8ebe5;background:#fff;color:#0b5d49;font-weight:800;border-radius:10px;cursor:pointer;font-size:.78rem}
-      .char-village.active,.char-village:hover{background:#0b5d49;color:#fff}
-      .char-strengths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
-      .char-strength{padding:18px;border-radius:16px;background:linear-gradient(135deg,#eef8f5,#f8fcfb);border:1px solid #d9ebe5}
-      .char-strength h4{margin:0 0 7px;color:#0b5d49}
-      .char-strength p{margin:0;color:#55706a;font-size:.86rem;line-height:1.55}
-      .char-source{margin-top:24px;padding-top:16px;border-top:1px dashed #d9e5e1;color:#6a7774;font-size:.75rem;line-height:1.55}
-      @media(max-width:760px){.char-summary,.char-grid,.char-strengths{grid-template-columns:1fr}.char-villages{grid-template-columns:1fr 1fr}#characteristic-map{height:430px}}
-      @media(max-width:480px){.char-village{padding:11px 8px;font-size:.72rem}}
-      @media(min-width:901px){.quick-grid.char-quick-ready{grid-template-columns:repeat(5,1fr)}}
+    addStyleOnce('characteristic-v1-style',`\
+      .char-shell{margin-top:24px}\
+      .char-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 28px}\
+      .char-stat{padding:18px;border:1px solid var(--line,#e2e8f0);border-radius:16px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.04)}\
+      .char-stat b{display:block;font-size:1.65rem;color:#0b5d49;line-height:1}\
+      .char-stat span{display:block;margin-top:8px;color:#55706a;font-size:.78rem}\
+      .char-note{margin:14px 0 24px;padding:12px 14px;border-left:4px solid #0b5d49;background:#eef8f5;color:#45635c;font-size:.82rem;line-height:1.5;border-radius:8px}\
+      .char-section{margin-top:34px;padding-top:28px;border-top:1px solid var(--line,#e2e8f0);scroll-margin-top:100px}\
+      .char-section h3{margin-bottom:8px}\
+      .char-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}\
+      .char-card{padding:18px;border:1px solid var(--line,#e2e8f0);border-radius:14px;background:#fff}\
+      .char-card strong{display:block;color:#0b5d49;margin-bottom:6px}\
+      .char-card p{margin:0;color:#55706a;font-size:.86rem;line-height:1.55}\
+      .char-placeholder{opacity:.82;background:#fafcfc}\
+      .char-map-wrap{margin-top:16px;border:1px solid var(--line,#e2e8f0);border-radius:16px;overflow:hidden;background:#fff}\
+      #characteristic-map{height:500px;width:100%}\
+      .char-map-caption{padding:14px 16px;font-size:.78rem;color:#66736f;border-top:1px solid var(--line,#e2e8f0);line-height:1.5}\
+      .char-map-error{padding:30px;text-align:center;color:#8a4b4b;background:#fff6f6}\
+      .char-villages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}\
+      .char-village{padding:12px;border:1px solid #d8ebe5;background:#fff;color:#0b5d49;font-weight:800;border-radius:10px;cursor:pointer;font-size:.78rem}\
+      .char-village.active,.char-village:hover{background:#0b5d49;color:#fff}\
+      .char-strengths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}\
+      .char-strength{padding:18px;border-radius:16px;background:linear-gradient(135deg,#eef8f5,#f8fcfb);border:1px solid #d9ebe5}\
+      .char-strength h4{margin:0 0 7px;color:#0b5d49}\
+      .char-strength p{margin:0;color:#55706a;font-size:.86rem;line-height:1.55}\
+      .char-source{margin-top:24px;padding-top:16px;border-top:1px dashed #d9e5e1;color:#6a7774;font-size:.75rem;line-height:1.55}\
+      @media(max-width:760px){.char-summary,.char-grid,.char-strengths{grid-template-columns:1fr}.char-villages{grid-template-columns:1fr 1fr}#characteristic-map{height:430px}}\
+      @media(max-width:480px){.char-village{padding:11px 8px;font-size:.72rem}}\
+      @media(min-width:901px){.quick-grid.char-quick-ready{grid-template-columns:repeat(5,1fr)}}\
     `);
 
     panel.innerHTML=`
@@ -220,7 +220,7 @@
       "Kasang Jaya":[-1.5861,103.6334],
       "Rajawali":[-1.5908,103.6228]
     };
-    const colors=["#d71920","#b51219","#e53b42","#8f0c12","#f05a60"];
+    const colors=["#D94841","#F39C12","#2E86DE","#8E44AD","#27AE60"];
     const map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
     let geoLayer=null,selectedLayer=null;
