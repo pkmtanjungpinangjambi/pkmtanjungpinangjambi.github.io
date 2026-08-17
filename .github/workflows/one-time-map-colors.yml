@@ -1,0 +1,33 @@
+name: One-time map colors
+
+on:
+  push:
+    branches:
+      - feature/karakteristik-wilayah
+
+permissions:
+  contents: write
+
+jobs:
+  recolor-map:
+    if: contains(github.event.head_commit.message, 'one-time map colors') == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply five kelurahan colors
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('script.js')
+          s = p.read_text()
+          old = 'const colors=["#d71920","#b51219","#e53b42","#8f0c12","#f05a60"];'
+          new = 'const colors=["#D94841","#F39C12","#2E86DE","#8E44AD","#27AE60"];'
+          if old not in s:
+              raise SystemExit('Target color array not found; no changes made.')
+          p.write_text(s.replace(old, new, 1))
+          PY
+          git config user.name "UPTD Puskesmas Tanjung Pinang Kota Jambi"
+          git config user.email "313901015+pkmtanjungpinangjambi@users.noreply.github.com"
+          git add script.js
+          git commit -m "fix: apply five distinct kelurahan map colors"
+          git push
