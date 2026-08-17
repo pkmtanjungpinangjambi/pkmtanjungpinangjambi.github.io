@@ -92,3 +92,7 @@
 .achievement-card{background:#f5fbf8;border:1px solid #d6eee6;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(0,80,60,.06)}
 .achievement-card h3{margin:8px 0 8px;color:#075b48;font-size:1.08rem;line-height:1.35}.achievement-card p{margin:0;color:#52635e;line-height:1.55}.achievement-year{display:inline-flex;padding:5px 10px;border-radius:999px;background:#dff4ec;color:#075b48;font-weight:800;font-size:.82rem}
 @media(max-width:700px){.achievement-grid{grid-template-columns:1fr}}
+
+/* FINAL: Logo Kota Jambi seragam pada seluruh header halaman */
+.brand-mark{background-color:#fff;background-image:url("./logo-kota-jambi.png");background-repeat:no-repeat;background-position:center;background-size:contain;border:1px solid var(--line);color:transparent;font-size:0;box-shadow:0 8px 20px rgba(0,59,45,.12)}
+.brand-mark::before,.brand-mark::after{content:none}
