@@ -32,12 +32,8 @@
     }));
   });
 
-  document.addEventListener('dragstart',e=>{
-    if(e.target&&e.target.tagName==='IMG') e.preventDefault();
-  });
-  document.addEventListener('contextmenu',e=>{
-    if(e.target&&e.target.tagName==='IMG') e.preventDefault();
-  });
+  document.addEventListener('dragstart',e=>{if(e.target&&e.target.tagName==='IMG') e.preventDefault();});
+  document.addEventListener('contextmenu',e=>{if(e.target&&e.target.tagName==='IMG') e.preventDefault();});
 
   document.querySelectorAll('.dropdown-caret-btn').forEach(btn=>{
     btn.addEventListener('click',e=>{
@@ -69,9 +65,7 @@
     if(!root) return false;
     const tabName=target.dataset.panel;
     const btn=root.querySelector('[data-tab="'+tabName+'"]');
-    if(btn){
-      btn.click();
-    }else{
+    if(btn){btn.click();}else{
       root.querySelectorAll('.profile-panel').forEach(panel=>panel.classList.remove('active'));
       target.classList.add('active');
       root.querySelectorAll('[data-tab]').forEach(button=>button.classList.remove('active'));
@@ -204,14 +198,12 @@
     const el=document.getElementById('characteristic-map');
     if(!el||el.dataset.mapReady==='1'||!window.L) return;
     el.dataset.mapReady='1';
-
-    /* Mesin peta diambil dari wilayah-kerja-v8.html yang diberikan Chief. */
     const names=["Tanjung Pinang","Sijinjang","Kasang","Kasang Jaya","Rajawali"];
     const aliases={
-      "Tanjung Pinang":["tanjungpinang"],
+      "Tanjung Pinang":["tanjung pinang","tanjungpinang"],
       "Sijinjang":["sijinjang","sijenjang","sejinjang"],
       "Kasang":["kasang"],
-      "Kasang Jaya":["kasangjaya"],
+      "Kasang Jaya":["kasang jaya","kasangjaya"],
       "Rajawali":["rajawali"]
     };
     const regionInfo={
@@ -233,19 +225,18 @@
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
     let geoLayer=null,selectedLayer=null;
     const buttonWrap=document.getElementById('characteristic-villages');
-
     function featureName(f){const p=f.properties||{};return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';}
     function normalizeName(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');}
     function canonicalName(value){
       const n=normalizeName(value);
       for(const displayName of names){
         const candidates=aliases[displayName]||[normalizeName(displayName)];
-        if(candidates.some(c=>n===c)) return displayName;
+        if(candidates.some(c=>normalizeName(c)===n)) return displayName;
       }
       const matches=[];
       for(const displayName of names){
         const candidates=aliases[displayName]||[normalizeName(displayName)];
-        candidates.forEach(c=>{if(c&&(n.includes(c)||c.includes(n)))matches.push({displayName,length:c.length});});
+        candidates.forEach(c=>{const nc=normalizeName(c);if(nc&&(n.includes(nc)||nc.includes(n)))matches.push({displayName,length:nc.length});});
       }
       matches.sort((a,b)=>b.length-a.length);
       return matches.length?matches[0].displayName:'';
@@ -270,21 +261,18 @@
       if(target){selectLayer(target,wanted,true);return;}
       if(fallback[wanted]){map.flyTo(fallback[wanted],15,{duration:.8});activateButton(wanted);}
     }
-
     names.forEach(name=>{
       const b=document.createElement('button');b.type='button';b.className='char-village';b.dataset.name=name;b.textContent=name;
       b.addEventListener('click',()=>focusVillage(name));buttonWrap.appendChild(b);
     });
-
     function fetchVillage(name){
-      const aliasesQuery=(aliases[name]||[]).concat([normalizeName(name)]);
+      const aliasesQuery=(aliases[name]||[]).concat([name]);
       const values=Array.from(new Set(aliasesQuery));
-      const clauses=values.map(v=>"LOWER(WADMKD)='"+v.replace(/'/g,"''")+"'").join(' OR ');
+      const clauses=values.map(v=>"LOWER(WADMKD)='"+String(v).toLowerCase().replace(/'/g,"''")+"'").join(' OR ');
       const where="WADMKK='Kota Jambi' AND ("+clauses+")";
       const url='https://geoservices.big.go.id/rbi/rest/services/BATASWILAYAH/Administrasi_AR_KelDesa_10K/MapServer/0/query?where='+encodeURIComponent(where)+'&outFields='+encodeURIComponent('WADMKD,WADMKC,WADMKK,WADMPR,KDEBPS,KDEPUM')+'&returnGeometry=true&outSR=4326&f=geojson';
       return fetch(url).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status+' untuk '+name);return r.json();});
     }
-
     Promise.all(names.map(fetchVillage)).then(results=>{
       const merged={type:'FeatureCollection',features:[]};const seen=new Set();
       results.forEach((data,idx)=>{
