@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const igResponse = await fetch(
-      `https://graph.facebook.com/${version}/${igUserId}/media?fields=${igFields}&limit=8&access_token=${encodeURIComponent(token)}`
+      `https://graph.facebook.com/${version}/${igUserId}/media?fields=${igFields}&limit=5&access_token=${encodeURIComponent(token)}`
     );
     const igJson = await igResponse.json();
 
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       }))
       .filter(item => item.created_time)
       .sort((a, b) => new Date(b.created_time) - new Date(a.created_time))
-      .slice(0, 8);
+      .slice(0, 5);
 
     return res.status(200).json({
       ok: true,
