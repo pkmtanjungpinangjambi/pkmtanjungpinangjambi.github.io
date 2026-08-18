@@ -21,7 +21,100 @@
 <meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG">
 <link rel="stylesheet" href="styles.css?v=20260817-visual1">
 <style>
-/* Home-specific polish: compact header, deterministic logo sizing, balanced quick links. */
+/* Styling Banner SIPPN */
+.sippn-section {
+  padding: 20px 0;
+}
+.sippn-banner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: linear-gradient(135deg, #00563f 0%, #0b7a5a 100%);
+  border-radius: 20px;
+  padding: 32px;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 86, 63, 0.15);
+}
+.sippn-logo-wrap {
+  flex: 0 0 280px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.sippn-logo-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.sippn-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #e2f7ed;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.sippn-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  line-height: 1.3;
+}
+.sippn-desc {
+  font-size: 0.88rem;
+  color: #e0f2fe;
+  line-height: 1.5;
+  margin: 0 0 18px 0;
+  max-width: 600px;
+}
+.sippn-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  color: #00563f;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.sippn-btn:hover {
+  background-color: #e6f7f1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+  .sippn-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+    gap: 20px;
+  }
+  .sippn-logo-wrap {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 240px;
+  }
+  .sippn-btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
+  /* Home-specific polish: compact header, deterministic logo sizing, balanced quick links. */
 .site-header .brand{min-width:0;max-width:440px}
 .site-header .brand-mark{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;flex:0 0 44px!important;padding:4px!important;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden;display:grid;place-items:center}
 .site-header .brand-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;display:block}
