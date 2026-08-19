@@ -96,25 +96,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsif Mobile */
-@media (max-width: 768px) {
-  .sippn-banner {
-    flex-direction: column;
-    text-align: center;
-    padding: 24px;
-    gap: 20px;
-  }
-  .sippn-logo-wrap {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: 240px;
-  }
-  .sippn-btn {
-    justify-content: center;
-    width: 100%;
-  }
-}
-  /* Home-specific polish: compact header, deterministic logo sizing, balanced quick links. */
+/* Home-specific polish */
 .site-header .brand{min-width:0;max-width:440px}
 .site-header .brand-mark{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;flex:0 0 44px!important;padding:4px!important;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden;display:grid;place-items:center}
 .site-header .brand-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;display:block}
@@ -142,6 +124,114 @@
 .social-feed-status.error{color:#7a4b4b;background:#fff8f8}
 .social-empty{padding:24px;border:1px dashed #cddbd6;border-radius:14px;background:#fff;color:#66736f;text-align:center;font-size:.82rem}
 .social-official-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+/* STYLING FOOTER 3D */
+.footer-3d {
+  background: #003323;
+  color: #ffffff;
+  padding: 50px 20px 20px;
+  font-family: inherit;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr 1fr;
+  gap: 25px;
+}
+.footer-col {
+  background: #004d33;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.footer-col:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+.footer-col h4 {
+  margin: 0 0 12px 0;
+  border-bottom: 2px solid #0b7a5a;
+  padding-bottom: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+.footer-col p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #e0f2fe;
+  margin: 0 0 10px 0;
+}
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-col ul li {
+  margin-bottom: 6px;
+}
+.footer-col ul li a {
+  color: #e0f2fe;
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.2s;
+}
+.footer-col ul li a:hover {
+  color: #a3e635;
+}
+.btn-3d {
+  display: inline-block;
+  padding: 7px 14px;
+  margin-right: 6px;
+  margin-bottom: 8px;
+  background: #0b7a5a;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #002e1f;
+  transition: all 0.1s ease;
+}
+.btn-3d:hover {
+  background: #0e936d;
+}
+.btn-3d:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #002e1f;
+}
+.footer-copyright {
+  max-width: 1200px;
+  margin: 30px auto 0;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a3b8b0;
+}
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+  .sippn-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+    gap: 20px;
+  }
+  .sippn-logo-wrap {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 240px;
+  }
+  .sippn-btn {
+    justify-content: center;
+    width: 100%;
+  }
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}
 @media(max-width:900px){.home-quick-grid{grid-template-columns:repeat(2,1fr)}.social-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.site-header .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex-basis:40px!important;padding:4px!important}.site-header .brand strong{font-size:.78rem}.site-header .brand small{font-size:.62rem}.home-quick-grid{grid-template-columns:1fr}.home-quick-grid .quick-card{min-height:0}.social-feed-grid{grid-template-columns:1fr}.social-official-links{display:grid;grid-template-columns:1fr}.social-official-links .btn{width:100%;text-align:center}}
 </style>
@@ -172,6 +262,7 @@
 <button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
 <nav class="nav" aria-label="Navigasi utama"><a class="active" href="index.html">Beranda</a><div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#struktur">Struktur Organisasi</a><a href="profil.html#wilayah">Wilayah &amp; Pustu</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a><a href="profil.html#komitmen">Komitmen Pelayanan</a><a href="profil.html#prestasi">Prestasi &amp; Penghargaan</a></div></div><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a><a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
 </div></header>
+
 <main>
 <section class="hero"><div class="container hero-inner"><div><span class="eyebrow">WEBSITE RESMI · KOTA JAMBI</span><div class="home-flag">🇮🇩 HUT RI KE-81 · SEMANGAT MELAYANI</div><h1>Sehat lebih dekat, pelayanan lebih mudah.</h1><p>UPTD Puskesmas Tanjung Pinang hadir memberikan pelayanan kesehatan primer yang berkualitas, inovatif, merata, ramah, dan berorientasi pada kebutuhan masyarakat.</p><div class="hero-actions"><a href="pelayanan.html" class="btn btn-primary">Lihat Pelayanan</a><a href="jadwal.html" class="btn btn-outline">Lihat Jadwal</a></div></div><aside class="hero-panel" aria-label="Informasi sebelum datang ke Puskesmas"><h3>Sebelum datang ke Puskesmas</h3><div class="mini"><div class="mini-item"><span class="mini-icon">📱</span><div><strong>Pendaftaran</strong><span>Pendaftaran tersedia melalui Mobile JKN dan pendaftaran langsung di Puskesmas.</span></div></div><div class="mini-item"><span class="mini-icon">🗓️</span><div><strong>Jadwal</strong><span>Lihat jadwal pelayanan untuk mengetahui waktu dan ketentuan layanan yang tersedia.</span></div></div><div class="mini-item"><span class="mini-icon">💬</span><div><strong>Butuh bantuan?</strong><span>Hubungi Puskesmas melalui telepon atau WhatsApp resmi sebelum berkunjung.</span></div></div></div><div class="home-note"><strong>Catatan:</strong> informasi waktu pendaftaran mengikuti jadwal pelayanan. Untuk perbedaan hari, silakan gunakan <a href="jadwal.html"><u>Jadwal</u></a> sebagai acuan utama.</div></aside></div></section>
 <section class="quick" aria-label="Akses cepat"><div class="container quick-grid home-quick-grid"><a href="pelayanan.html" class="quick-card"><span class="icon">🏥</span><strong>Pelayanan</strong><span>Temukan layanan berdasarkan 5 klaster.</span></a><a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a><a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a><a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a><a href="profil.html#karakter" class="quick-card"><span class="icon">💪</span><strong>Karakteristik</strong><span>Wilayah kerja dan kekuatan pelayanan.</span></a></div></section>
@@ -179,6 +270,7 @@
 <section class="band section"><div class="container"><div class="section-head"><div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div><a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a></div><div class="cards"><article class="card"><div class="card-icon">🩺</div><h3>Pelayanan umum</h3><p>Pemeriksaan dan pelayanan kesehatan dasar sesuai kebutuhan masyarakat.</p></article><article class="card"><div class="card-icon">👩‍🍼</div><h3>Ibu &amp; anak</h3><p>Pelayanan kesehatan ibu, bayi, balita, anak prasekolah, sekolah, dan remaja.</p></article><article class="card"><div class="card-icon">🦷</div><h3>Gigi &amp; mulut</h3><p>Pelayanan kesehatan gigi dan mulut sebagai bagian dari layanan lintas klaster.</p></article><article class="card"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium untuk mendukung pelayanan dan penegakan diagnosis.</p></article><article class="card"><div class="card-icon">🚑</div><h3>Gawat darurat</h3><p>Pelayanan dan penanganan awal kondisi kegawatdaruratan.</p></article><article class="card"><div class="card-icon">💊</div><h3>Kefarmasian</h3><p>Pelayanan kefarmasian dan pengelolaan obat sesuai ketentuan yang berlaku.</p></article></div></div></section>
 <section class="feature"><div class="feature-image" role="img" aria-label="Gedung UPTD Puskesmas Tanjung Pinang Kota Jambi"></div><div class="feature-content"><span class="section-label">Komitmen Kami</span><h2 class="section-title">Pelayanan yang ramah, aman, dan bermutu.</h2><p>Kami terus memperkuat tata kelola, mutu pelayanan, keselamatan pasien, inovasi, serta keterhubungan dengan masyarakat dan jejaring pelayanan.</p><a href="profil.html" class="btn btn-white" style="margin-top:25px">Lihat Profil</a></div></section>
 <section class="section social-feed" id="media-sosial"><div class="container"><div class="section-head"><div><span class="kicker">MEDIA SOSIAL RESMI</span><h2>Info terbaru dari Puskesmas</h2><p>Konten terbaru dari Instagram resmi ditampilkan otomatis di sini. Facebook dan YouTube tersedia sebagai kanal resmi tambahan.</p></div></div><div id="social-feed-grid" class="social-feed-grid"><div class="social-empty">Memuat informasi terbaru…</div></div><div id="social-feed-status" class="social-feed-status">Terhubung ke kanal Instagram resmi.</div></div></section>
+
 <!-- BANNER SIPPN KEMENPANRB -->
 <section class="section sippn-section" id="sippn">
   <div class="container">
@@ -203,30 +295,74 @@
   </div>
 </section>
 </main>
-<footer class="footer"><div class="container footer-grid"><div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi.</p></div><div><h3>Menu</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div><div><h3>Alamat</h3><p>Jl. Taruma Negara No. 50, RT. 12<br>Kel. Tanjung Pinang, Jambi Timur<br>Kota Jambi, Provinsi Jambi</p></div><div class="footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></div><!-- VISITOR COUNTER SECTION -->
-<div class="visitor-counter-container" style="background: rgba(255, 255, 255, 0.08); padding: 15px 20px; border-radius: 10px; margin: 20px 0; font-family: sans-serif; color: #ffffff;">
-  <h4 style="margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #a3e635; display: flex; align-items: center; gap: 6px;">
-    📊 Statistik Pengunjung
-  </h4>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; font-size: 13px;">
-    <div style="background: rgba(0, 0, 0, 0.2); padding: 8px; border-radius: 6px; text-align: center;">
-      <span style="display: block; font-size: 11px; opacity: 0.8;">Hari Ini</span>
-      <strong id="v-today" style="font-size: 16px; color: #fff;">124</strong>
+
+<!-- ================= FOOTER 3D BARU ================= -->
+<footer class="footer-3d">
+  <div class="footer-container">
+    
+    <!-- Kolom 1: Profil Singkat -->
+    <div class="footer-col">
+      <h4>Puskesmas Tanjung Pinang</h4>
+      <p>Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi. Melayani dengan ramah, cepat, dan profesional.</p>
     </div>
-    <div style="background: rgba(0, 0, 0, 0.2); padding: 8px; border-radius: 6px; text-align: center;">
-      <span style="display: block; font-size: 11px; opacity: 0.8;">Bulan Ini</span>
-      <strong id="v-month" style="font-size: 16px; color: #fff;">3,450</strong>
+
+    <!-- Kolom 2: Navigasi Cepat -->
+    <div class="footer-col">
+      <h4>Menu Utama</h4>
+      <ul>
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="profil.html">Profil</a></li>
+        <li><a href="pelayanan.html">Pelayanan</a></li>
+        <li><a href="jadwal.html">Jadwal</a></li>
+        <li><a href="tarif.html">Tarif Pelayanan</a></li>
+        <li><a href="kontak.html">Kontak &amp; Lokasi</a></li>
+      </ul>
     </div>
-    <div style="background: rgba(0, 0, 0, 0.2); padding: 8px; border-radius: 6px; text-align: center;">
-      <span style="display: block; font-size: 11px; opacity: 0.8;">Total</span>
-      <strong id="v-total" style="font-size: 16px; color: #fff;">45,890</strong>
+
+    <!-- Kolom 3: Alamat & Kontak -->
+    <div class="footer-col">
+      <h4>Alamat &amp; Kontak</h4>
+      <p>📍 Jl. Taruma Negara No. 50, RT. 12, Kel. Tanjung Pinang, Kec. Jambi Timur, Kota Jambi</p>
+      <p>📞 (0741) 7555394</p>
     </div>
-    <div style="background: rgba(0, 0, 0, 0.2); padding: 8px; border-radius: 6px; text-align: center;">
-      <span style="display: block; font-size: 11px; opacity: 0.8;">Status</span>
-      <strong style="color: #4ade80; font-size: 13px;">🟢 Online</strong>
+
+    <!-- Kolom 4: Media Sosial & Statistik Pengunjung -->
+    <div class="footer-col">
+      <h4>Sosial &amp; Statistik</h4>
+      <div style="margin-bottom: 12px;">
+        <!-- Sesuaikan link sosmed di bawah dengan link resmi puskesmas jika ada -->
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-3d">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="btn-3d">Facebook</a>
+      </div>
+
+      <!-- Visitor Counter -->
+      <div style="background: rgba(0, 0, 0, 0.25); padding: 10px; border-radius: 8px; font-size: 11px;">
+        <strong style="color: #a3e635; display: block; margin-bottom: 6px;">📊 Statistik Pengunjung</strong>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; text-align: center;">
+          <div style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 4px;">
+            <span style="opacity:0.8; font-size:9px; display:block;">Hari Ini</span>
+            <strong id="v-today" style="font-size:12px;">124</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 4px;">
+            <span style="opacity:0.8; font-size:9px; display:block;">Bulan Ini</span>
+            <strong id="v-month" style="font-size:12px;">3,450</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 4px;">
+            <span style="opacity:0.8; font-size:9px; display:block;">Total</span>
+            <strong id="v-total" style="font-size:12px;">45,890</strong>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
-</div></footer>
+
+  <!-- Copyright -->
+  <div class="footer-copyright">
+    &copy; 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi. All rights reserved.
+  </div>
+</footer>
+
 <a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
 <script src="script.js" defer></script>
 <script src="social-feed.js" defer></script>
