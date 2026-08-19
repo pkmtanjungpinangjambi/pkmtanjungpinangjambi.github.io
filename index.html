@@ -99,7 +99,7 @@
 /* Styling Grid Tautan Terkait dengan Icon */
 .related-links-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 15px;
   margin-top: 20px;
 }
@@ -143,7 +143,7 @@
 .site-header .brand strong{font-size:.94rem;line-height:1.2}
 .site-header .brand small{font-size:.7rem;line-height:1.2}
 .home-flag{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);font-size:.72rem;font-weight:800;color:#e6f7f1}
-.home-quick-grid{grid-template-columns:repeat(4,1fr)}
+.home-quick-grid{grid-template-columns:repeat(5,1fr)}
 .home-quick-grid .quick-card{min-height:142px}
 .home-quick-grid .quick-card strong{font-size:.94rem}
 .home-quick-grid .quick-card span{line-height:1.45}
@@ -252,10 +252,12 @@
 }
 
 /* Responsif Mobile */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .related-links-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
+}
+@media (max-width: 900px) {
   .home-quick-grid{grid-template-columns:repeat(2,1fr)}
   .social-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -326,6 +328,7 @@
     <a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a>
     <a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a>
     <a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a>
+    <a href="profil.html#karakter" class="quick-card"><span class="icon">💪</span><strong>Karakteristik</strong><span>Wilayah kerja dan kekuatan pelayanan.</span></a>
   </div>
 </section>
 
@@ -368,6 +371,11 @@
         <img src="logo-bpjs.png" alt="BPJS Kesehatan" class="related-link-icon">
         <span>BPJS Kesehatan</span>
       </a>
+      <!-- TAUTAN BARU SP4N LAPOR -->
+      <a href="https://www.lapor.go.id/" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-lapor.png" alt="SP4N LAPOR!" class="related-link-icon">
+        <span>SP4N LAPOR!</span>
+      </a>
     </div>
   </div>
 </section>
@@ -385,7 +393,7 @@
         <p class="sippn-desc">
           Akses informasi resmi mengenai standar pelayanan, maklumat, dan sistem pengaduan UPTD Puskesmas Tanjung Pinang di portal terpadu KemenPANRB.
         </p>
-        <a href="https://sippn.menpan.go.id/instansi/puskesmas-tanjung-pinang-kota-jambi-1879822" 
+        <a href="url?id=19" 
            target="_blank" 
            rel="noopener noreferrer" 
            class="sippn-btn">
