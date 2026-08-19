@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG">
 <link rel="stylesheet" href="styles.css?v=20260817-visual1">
 <style>
-/* Styling Banner SIPPN */
+/* Styling Banner SIPPN & Tautan Terkait */
 .sippn-section {
   padding: 20px 0;
 }
@@ -96,6 +96,46 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Styling Grid Tautan Terkait dengan Icon */
+.related-links-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+.related-link-card {
+  background: #ffffff;
+  border: 1px solid #dfe9e5;
+  border-radius: 14px;
+  padding: 16px 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(0, 59, 45, 0.04);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.related-link-card:hover {
+  transform: translateY(-4px);
+  border-color: #0b7a5a;
+  box-shadow: 0 8px 20px rgba(0, 59, 45, 0.1);
+}
+.related-link-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
+.related-link-card span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
 /* Home-specific polish */
 .site-header .brand{min-width:0;max-width:440px}
 .site-header .brand-mark{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;flex:0 0 44px!important;padding:4px!important;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden;display:grid;place-items:center}
@@ -103,7 +143,7 @@
 .site-header .brand strong{font-size:.94rem;line-height:1.2}
 .site-header .brand small{font-size:.7rem;line-height:1.2}
 .home-flag{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);font-size:.72rem;font-weight:800;color:#e6f7f1}
-.home-quick-grid{grid-template-columns:repeat(4,1fr)} /* Diubah dari 5 menjadi 4 */
+.home-quick-grid{grid-template-columns:repeat(5,1fr)}
 .home-quick-grid .quick-card{min-height:142px}
 .home-quick-grid .quick-card strong{font-size:.94rem}
 .home-quick-grid .quick-card span{line-height:1.45}
@@ -211,45 +251,18 @@
   color: #a3b8b0;
 }
 
-/* Styling Tautan Terkait */
-.tautan-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 20px;
-}
-@media(min-width: 600px) {
-  .tautan-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-}
-@media(min-width: 900px) {
-  .tautan-grid { grid-template-columns: repeat(6, 1fr); }
-}
-.tautan-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px;
-  background: #ffffff;
-  border: 1px solid var(--line, #dfe9e5);
-  border-radius: 12px;
-  text-decoration: none;
-  color: #00563f;
-  font-weight: 700;
-  font-size: 0.85rem;
-  text-align: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 59, 45, 0.04);
-}
-.tautan-card:hover {
-  background: #e6f7f1;
-  border-color: #0b7a5a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 86, 63, 0.12);
-  color: #0b7a5a;
-}
-
 /* Responsif Mobile */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .related-links-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .home-quick-grid{grid-template-columns:repeat(2,1fr)}
+  .social-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width: 600px) {
+  .related-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .sippn-banner {
     flex-direction: column;
     text-align: center;
@@ -268,9 +281,13 @@
   .footer-container {
     grid-template-columns: 1fr;
   }
+  .site-header .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex-basis:40px!important;padding:4px!important}
+  .site-header .brand strong{font-size:.78rem}
+  .site-header .brand small{font-size:.62rem}
+  .home-quick-grid{grid-template-columns:1fr}
+  .home-quick-grid .quick-card{min-height:0}
+  .social-feed-grid{grid-template-columns:1fr}
 }
-@media(max-width:900px){.home-quick-grid{grid-template-columns:repeat(2,1fr)}.social-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.site-header .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex-basis:40px!important;padding:4px!important}.site-header .brand strong{font-size:.78rem}.site-header .brand small{font-size:.62rem}.home-quick-grid{grid-template-columns:1fr}.home-quick-grid .quick-card{min-height:0}.social-feed-grid{grid-template-columns:1fr}.social-official-links{display:grid;grid-template-columns:1fr}.social-official-links .btn{width:100%;text-align:center}}
 </style>
 <script type="application/ld+json">
 {
@@ -303,13 +320,13 @@
 <main>
 <section class="hero"><div class="container hero-inner"><div><span class="eyebrow">WEBSITE RESMI · KOTA JAMBI</span><div class="home-flag">🇮🇩 HUT RI KE-81 · SEMANGAT MELAYANI</div><h1>Sehat lebih dekat, pelayanan lebih mudah.</h1><p>UPTD Puskesmas Tanjung Pinang hadir memberikan pelayanan kesehatan primer yang berkualitas, inovatif, merata, ramah, dan berorientasi pada kebutuhan masyarakat.</p><div class="hero-actions"><a href="pelayanan.html" class="btn btn-primary">Lihat Pelayanan</a><a href="jadwal.html" class="btn btn-outline">Lihat Jadwal</a></div></div><aside class="hero-panel" aria-label="Informasi sebelum datang ke Puskesmas"><h3>Sebelum datang ke Puskesmas</h3><div class="mini"><div class="mini-item"><span class="mini-icon">📱</span><div><strong>Pendaftaran</strong><span>Pendaftaran tersedia melalui Mobile JKN dan pendaftaran langsung di Puskesmas.</span></div></div><div class="mini-item"><span class="mini-icon">🗓️</span><div><strong>Jadwal</strong><span>Lihat jadwal pelayanan untuk mengetahui waktu dan ketentuan layanan yang tersedia.</span></div></div><div class="mini-item"><span class="mini-icon">💬</span><div><strong>Butuh bantuan?</strong><span>Hubungi Puskesmas melalui telepon atau WhatsApp resmi sebelum berkunjung.</span></div></div></div><div class="home-note"><strong>Catatan:</strong> informasi waktu pendaftaran mengikuti jadwal pelayanan. Untuk perbedaan hari, silakan gunakan <a href="jadwal.html"><u>Jadwal</u></a> sebagai acuan utama.</div></aside></div></section>
 
-<!-- AKSES CEPAT -->
 <section class="quick" aria-label="Akses cepat">
   <div class="container quick-grid home-quick-grid">
     <a href="pelayanan.html" class="quick-card"><span class="icon">🏥</span><strong>Pelayanan</strong><span>Temukan layanan berdasarkan 5 klaster.</span></a>
     <a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a>
     <a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a>
     <a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a>
+    <a href="profil.html#karakter" class="quick-card"><span class="icon">💪</span><strong>Karakteristik</strong><span>Wilayah kerja dan kekuatan pelayanan.</span></a>
   </div>
 </section>
 
@@ -317,7 +334,7 @@
 <section class="band section"><div class="container"><div class="section-head"><div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div><a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a></div><div class="cards"><article class="card"><div class="card-icon">🩺</div><h3>Pelayanan umum</h3><p>Pemeriksaan dan pelayanan kesehatan dasar sesuai kebutuhan masyarakat.</p></article><article class="card"><div class="card-icon">👩‍🍼</div><h3>Ibu &amp; anak</h3><p>Pelayanan kesehatan ibu, bayi, balita, anak prasekolah, sekolah, dan remaja.</p></article><article class="card"><div class="card-icon">🦷</div><h3>Gigi &amp; mulut</h3><p>Pelayanan kesehatan gigi dan mulut sebagai bagian dari layanan lintas klaster.</p></article><article class="card"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium untuk mendukung pelayanan dan penegakan diagnosis.</p></article><article class="card"><div class="card-icon">🚑</div><h3>Gawat darurat</h3><p>Pelayanan dan penanganan awal kondisi kegawatdaruratan.</p></article><article class="card"><div class="card-icon">💊</div><h3>Kefarmasian</h3><p>Pelayanan kefarmasian dan pengelolaan obat sesuai ketentuan yang berlaku.</p></article></div></div></section>
 <section class="section social-feed" id="media-sosial"><div class="container"><div class="section-head"><div><span class="kicker">MEDIA SOSIAL RESMI</span><h2>Info terbaru dari Puskesmas</h2><p>Konten terbaru dari Instagram resmi ditampilkan otomatis di sini. Facebook dan YouTube tersedia sebagai kanal resmi tambahan.</p></div></div><div id="social-feed-grid" class="social-feed-grid"><div class="social-empty">Memuat informasi terbaru…</div></div><div id="social-feed-status" class="social-feed-status">Terhubung ke kanal Instagram resmi.</div></div></section>
 
-<!-- TAUTAN TERKAIT -->
+<!-- SEKSI TAUTAN TERKAIT DENGAN ICON -->
 <section class="section" id="tautan-terkait">
   <div class="container">
     <div class="section-head">
@@ -327,24 +344,30 @@
         <p>Akses cepat ke portal layanan dan lembaga terkait.</p>
       </div>
     </div>
-    <div class="tautan-grid">
-      <a href="https://jambikota.go.id/" target="_blank" rel="noopener noreferrer" class="tautan-card">
-        Pemerintah Kota Jambi
+    <div class="related-links-grid">
+      <a href="https://www.jambikota.go.id" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-kota-jambi.png" alt="Pemerintah Kota Jambi" class="related-link-icon">
+        <span>Pemerintah Kota Jambi</span>
       </a>
-      <a href="https://www.menpan.go.id/" target="_blank" rel="noopener noreferrer" class="tautan-card">
-        KemenPAN-RB
+      <a href="https://www.menpan.go.id" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-kemenpan.png" alt="KemenPAN-RB" class="related-link-icon">
+        <span>KemenPAN-RB</span>
       </a>
-      <a href="https://renbut.kemkes.go.id/" target="_blank" rel="noopener noreferrer" class="tautan-card">
-        Renbut Kemenkes
+      <a href="https://renbut.kemkes.go.id" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-kemkes.png" alt="Renbut Kemenkes" class="related-link-icon">
+        <span>Renbut Kemenkes</span>
       </a>
-      <a href="https://ayockg.kemkes.go.id/" target="_blank" rel="noopener noreferrer" class="tautan-card">
-        AyoCKG Kemenkes
+      <a href="https://ayockg.kemkes.go.id" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-ayockg.jpg" alt="Ayo CKG Kemenkes" class="related-link-icon">
+        <span>Ayo CKG Kemenkes</span>
       </a>
-      <a href="https://webskrining.bpjs-kesehatan.go.id/" target="_blank" rel="noopener noreferrer" class="tautan-card">
-        Skrining BPJS
+      <a href="https://pcare.bpjs-kesehatan.go.id" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-bpjs.png" alt="Skrining BPJS" class="related-link-icon">
+        <span>Skrining BPJS</span>
       </a>
-      <a href="https://bpjs-kesehatan.go.id/" target="_blank" rel="noopener noreferrer" class="tautan-card">
-        BPJS Kesehatan
+      <a href="https://www.bpjs-kesehatan.go.id" target="_blank" rel="noopener noreferrer" class="related-link-card">
+        <img src="logo-bpjs.png" alt="BPJS Kesehatan" class="related-link-icon">
+        <span>BPJS Kesehatan</span>
       </a>
     </div>
   </div>
@@ -375,7 +398,7 @@
 </section>
 </main>
 
-<!-- ================= FOOTER 3D BARU ================= -->
+<!-- ================= FOOTER 3D ================= -->
 <footer class="footer-3d">
   <div class="footer-container">
     
