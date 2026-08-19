@@ -215,6 +215,40 @@
 .profile-intro-card strong{
   color:#0b5d49;
 }
+
+/* Styling Tambahan untuk Tabel Posyandu */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.posyandu-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+.posyandu-table th, 
+.posyandu-table td {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.posyandu-table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.posyandu-table tr:nth-child(even) {
+    background-color: #fcfdfe;
+}
+
+.posyandu-table tr:hover {
+    background-color: #f1f5f9;
+}
 </style>
 </head>
 
@@ -2073,6 +2107,76 @@
       Integrasi Layanan Primer (ILP).
     </div>
 
+  </div>
+
+
+  <!-- TABEL POSYANDU AKTIF (No 1 - 41) -->
+  <h3 class="subheading" style="margin-top: 30px;">
+    Data Jaringan Posyandu Aktif
+  </h3>
+  <p>Berikut adalah rincian data jadwal, alamat, dan petugas penanggung jawab Posyandu di wilayah kerja Puskesmas:</p>
+
+  <div class="table-responsive">
+    <table class="posyandu-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Kelurahan</th>
+                <th>Posyandu</th>
+                <th>Tanggal</th>
+                <th>Jam (WIB)</th>
+                <th>Alamat (RT)</th>
+                <th>Nama Petugas</th>
+                <th>Wilayah Kerja</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Kelurahan Tanjung Pinang, Kasang, & Rajawali (No 1 - 28) -->
+            <tr><td>1</td><td>Tanjung Pinang</td><td>Merpati I</td><td>19</td><td>15.00</td><td>28</td><td>Mawar Agustin</td><td>28,30</td></tr>
+            <tr><td>2</td><td>Tanjung Pinang</td><td>Merpati II</td><td>19</td><td>15.00</td><td>23</td><td>Sulistiorini</td><td>12,13,23,26</td></tr>
+            <tr><td>3</td><td>Tanjung Pinang</td><td>Merpati III</td><td>20</td><td>15.00</td><td>16</td><td>Sumiati</td><td>14,15,16,17</td></tr>
+            <tr><td>4</td><td>Tanjung Pinang</td><td>Merpati IV</td><td>20</td><td>15.00</td><td>7</td><td>Fatmawati</td><td>06,07,08</td></tr>
+            <tr><td>5</td><td>Tanjung Pinang</td><td>Merpati V</td><td>11</td><td>10.00</td><td>22</td><td>Fitri Nila Sari</td><td>20,21,22</td></tr>
+            <tr><td>6</td><td>Tanjung Pinang</td><td>Merpati VI</td><td>10</td><td>10.00</td><td>32</td><td>Dewi Novita</td><td>31,32</td></tr>
+            <tr><td>7</td><td>Tanjung Pinang</td><td>Merpati VII</td><td>15</td><td>10.00</td><td>10</td><td>Ayu Sriharni</td><td>09,10,11</td></tr>
+            <tr><td>8</td><td>Tanjung Pinang</td><td>Merpati VIII</td><td>18</td><td>10.00</td><td>5</td><td>Lieska Wulandari</td><td>04,05</td></tr>
+            <tr><td>9</td><td>Tanjung Pinang</td><td>Merpati IX</td><td>12</td><td>10.00</td><td>27</td><td>Dwi Safitri</td><td>27</td></tr>
+            <tr><td>10</td><td>Tanjung Pinang</td><td>Merpati X</td><td>13</td><td>10.00</td><td>19</td><td>Eka Sari</td><td>18,19</td></tr>
+            <tr><td>11</td><td>Tanjung Pinang</td><td>Merpati XI</td><td>6</td><td>15.00</td><td>2</td><td>Hambali</td><td>01,02,03</td></tr>
+            <tr><td>12</td><td>Tanjung Pinang</td><td>Merpati XII</td><td>13</td><td>10.00</td><td>24</td><td>Benget Sihotang</td><td>24,25</td></tr>
+            <tr><td>13</td><td>Tanjung Pinang</td><td>Merpati XIII</td><td>16</td><td>15.00</td><td>33</td><td>Harmiyati</td><td>29,33</td></tr>
+            <tr><td>14</td><td>Kasang</td><td>Nuri I</td><td>11</td><td>10.00</td><td>10</td><td>Ani Marlina</td><td>9,10</td></tr>
+            <tr><td>15</td><td>Kasang</td><td>Nuri II</td><td>5</td><td>10.00</td><td>12</td><td>Desti Wulandari Putri</td><td>12,13</td></tr>
+            <tr><td>16</td><td>Kasang</td><td>Nuri III</td><td>10</td><td>15.00</td><td>3</td><td>Nurfitriani</td><td>3</td></tr>
+            <tr><td>17</td><td>Kasang</td><td>Nuri IV</td><td>9</td><td>10.00</td><td>7</td><td>Dwi Safitri</td><td>7</td></tr>
+            <tr><td>18</td><td>Kasang</td><td>Nuri V</td><td>15</td><td>10.00</td><td>8</td><td>Lieska Wulandari</td><td>6,8</td></tr>
+            <tr><td>19</td><td>Kasang</td><td>Nuri VI</td><td>20</td><td>10.00</td><td>2</td><td>Rischa</td><td>1,2</td></tr>
+            <tr><td>20</td><td>Kasang</td><td>Nuri VII</td><td>19</td><td>10.00</td><td>11</td><td>Kiki Ayu Apriani</td><td>5,11</td></tr>
+            <tr><td>21</td><td>Kasang</td><td>Nuri VIII</td><td>11</td><td>10.00</td><td>4</td><td>Susanti Mukhtar</td><td>4</td></tr>
+            <tr><td>22</td><td>Rajawali</td><td>Melati I</td><td>5</td><td>10.00</td><td>21</td><td>Roy Sri Veronika</td><td>20,21</td></tr>
+            <tr><td>23</td><td>Rajawali</td><td>Melati II</td><td>8</td><td>10.00</td><td>2</td><td>Rozalti</td><td>1,2,3,4,5,6,7,8</td></tr>
+            <tr><td>24</td><td>Rajawali</td><td>Melati IV</td><td>7</td><td>15.00</td><td>19</td><td>Fenny Yulanda</td><td>14,15,19</td></tr>
+            <tr><td>25</td><td>Rajawali</td><td>Melati VI</td><td>5</td><td>10.00</td><td>23</td><td>Fitri Narti</td><td>22,23,24</td></tr>
+            <tr><td>26</td><td>Rajawali</td><td>Melati VII</td><td>5</td><td>10.00</td><td>10</td><td>Rischa Noviza</td><td>9,10,11</td></tr>
+            <tr><td>27</td><td>Rajawali</td><td>Melati VIII</td><td>12</td><td>10.00</td><td>13</td><td>Susanti</td><td>12,13</td></tr>
+            <tr><td>28</td><td>Rajawali</td><td>Melati IX</td><td>12</td><td>10.00</td><td>18</td><td>Sri Handayani</td><td>16,17,18,25</td></tr>
+
+            <!-- Kelurahan Kasang Jaya & Sijenjang (No 29 - 41) -->
+            <tr><td>29</td><td>Kasang Jaya</td><td>Cenderawasih I</td><td>11</td><td>15.00</td><td>2</td><td>Mawar Agustin</td><td>1, 2, 3</td></tr>
+            <tr><td>30</td><td>Kasang Jaya</td><td>Cenderawasih II</td><td>7</td><td>09.00</td><td>5</td><td>Dini Rika Miranti</td><td>4, 5, 15</td></tr>
+            <tr><td>31</td><td>Kasang Jaya</td><td>Cenderawasih III</td><td>16</td><td>10.00</td><td>8</td><td>Nurjanah</td><td>8</td></tr>
+            <tr><td>32</td><td>Kasang Jaya</td><td>Cenderawasih IV</td><td>9</td><td>15.00</td><td>9</td><td>Nurbaiti</td><td>9</td></tr>
+            <tr><td>33</td><td>Kasang Jaya</td><td>Cenderawasih V</td><td>6</td><td>10.00</td><td>14</td><td>Nurpika Safitri</td><td>10, 14</td></tr>
+            <tr><td>34</td><td>Kasang Jaya</td><td>Cenderawasih VI</td><td>10</td><td>10.00</td><td>11</td><td>Nurpika Safitri</td><td>11, 12</td></tr>
+            <tr><td>35</td><td>Kasang Jaya</td><td>Cenderawasih VII</td><td>5</td><td>10.00</td><td>13</td><td>Tri Minjuwinata</td><td>13</td></tr>
+            <tr><td>36</td><td>Kasang Jaya</td><td>Cenderawasih VIII</td><td>5</td><td>10.00</td><td>7</td><td>Ani Marlina</td><td>6, 7</td></tr>
+            <tr><td>37</td><td>Sijenjang</td><td>Serindit I</td><td>15</td><td>10.00</td><td>8</td><td>Hj. Maria</td><td>7, 8</td></tr>
+            <tr><td>38</td><td>Sijenjang</td><td>Serindit II</td><td>10</td><td>10.00</td><td>2</td><td>Hj. Maria</td><td>1, 2</td></tr>
+            <tr><td>39</td><td>Sijenjang</td><td>Serindit III</td><td>15</td><td>09.00</td><td>3</td><td>Ni Ketut Martini</td><td>3, 4</td></tr>
+            <tr><td>40</td><td>Sijenjang</td><td>Serindit IV</td><td>8</td><td>10.00</td><td>10</td><td>Kartinah</td><td>6, 10</td></tr>
+            <tr><td>41</td><td>Sijenjang</td><td>Serindit V</td><td>16</td><td>10.00</td><td>5</td><td>Tri Minjuwinata</td><td>5, 9</td></tr>
+        </tbody>
+    </table>
   </div>
 
 
