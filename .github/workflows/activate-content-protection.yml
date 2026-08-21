@@ -4,13 +4,20 @@ on:
   push:
     branches:
       - security/activate-content-protection
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
 
 jobs:
   activate:
-    if: ${{ !contains(github.event.head_commit.message, '[content-protection-autopatch]') }}
+    if: ${{ github.event_name == 'pull_request' || !contains(github.event.head_commit.message, '[content-protection-autopatch]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
