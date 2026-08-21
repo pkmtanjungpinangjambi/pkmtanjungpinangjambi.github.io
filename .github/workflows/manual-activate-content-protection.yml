@@ -1,0 +1,74 @@
+name: Activate Content Protection
+
+on:
+  push:
+    branches:
+      - security/manual-content-protection-activation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify and activate protection on HTML pages
+        shell: python
+        run: |
+          from pathlib import Path
+
+          marker = 'content-protection.js'
+          tag = '<script src="content-protection.js" defer></script>'
+          changed = []
+
+          html_files = sorted(Path('.').glob('*.html'))
+          if not html_files:
+              raise SystemExit('No root HTML files found; aborting without changes.')
+
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              lower = text.lower()
+
+              count = lower.count(marker)
+              body_count = lower.count('</body>')
+
+              if body_count != 1:
+                  raise SystemExit(f'{path}: expected exactly one </body>, found {body_count}. Aborting.')
+
+              if count > 1:
+                  raise SystemExit(f'{path}: duplicate content-protection.js reference found. Aborting.')
+
+              if count == 1:
+                  continue
+
+              idx = lower.rfind('</body>')
+              updated = text[:idx].rstrip() + '\n\n' + tag + '\n\n' + text[idx:]
+              path.write_text(updated, encoding='utf-8')
+              changed.append(str(path))
+
+          print('HTML files checked:', len(html_files))
+          print('HTML files changed:', len(changed))
+          for item in changed:
+              print('  +', item)
+
+          if not changed:
+              print('Protection already active on all root HTML files.')
+
+      - name: Commit activation changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git add -- '*.html'
+          git commit -m "security: activate content protection on HTML pages"
+          git push origin HEAD:security/manual-content-protection-activation
