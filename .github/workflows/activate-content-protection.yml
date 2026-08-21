@@ -1,0 +1,64 @@
+name: Activate content protection
+
+on:
+  push:
+    branches:
+      - security/activate-content-protection
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: write
+
+jobs:
+  activate:
+    if: ${{ github.event_name == 'pull_request' || !contains(github.event.head_commit.message, '[content-protection-autopatch]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: security/activate-content-protection
+          fetch-depth: 1
+
+      - name: Inject protection script into HTML entry points
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed=0
+          while IFS= read -r -d '' file; do
+            if ! grep -qE '<script[^>]+src="content-protection\.js"' "$file"; then
+              python3 - "$file" <<'PY'
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+text = path.read_text(encoding='utf-8')
+needle = '</body>'
+if needle not in text.lower():
+    raise SystemExit(f'Missing closing body tag: {path}')
+
+idx = text.lower().rfind(needle)
+text = text[:idx] + '  <script src="content-protection.js" defer></script>\n' + text[idx:]
+path.write_text(text, encoding='utf-8')
+PY
+              changed=1
+            fi
+          done < <(find . -type f -name '*.html' -not -path './.git/*' -print0)
+
+          if [ "$changed" -eq 0 ]; then
+            echo 'All HTML files already load content-protection.js.'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html'
+          git commit -m 'security: activate content protection on HTML pages [content-protection-autopatch]'
+          git push origin HEAD:security/activate-content-protection
