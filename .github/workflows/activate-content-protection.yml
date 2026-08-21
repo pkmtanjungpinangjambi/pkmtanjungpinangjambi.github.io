@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - security/manual-content-protection-activation
+      - security/manual-html-protection
   pull_request:
     branches:
       - main
@@ -42,8 +43,8 @@ path = pathlib.Path(sys.argv[1])
 text = path.read_text(encoding='utf-8')
 needle = '</body>'
 lower = text.lower()
-if needle not in lower:
-    raise SystemExit(f'Missing closing body tag: {path}')
+if lower.count(needle) != 1:
+    raise SystemExit(f'Expected exactly one closing body tag: {path}')
 
 idx = lower.rfind(needle)
 text = text[:idx] + '  <script src="content-protection.js" defer></script>\n' + text[idx:]
