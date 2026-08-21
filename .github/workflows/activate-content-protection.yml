@@ -3,7 +3,7 @@ name: Activate content protection
 on:
   push:
     branches:
-      - security/activate-content-protection
+      - security/manual-content-protection-activation
   pull_request:
     branches:
       - main
@@ -21,10 +21,10 @@ jobs:
     if: ${{ github.event_name == 'pull_request' || !contains(github.event.head_commit.message, '[content-protection-autopatch]') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout security branch
         uses: actions/checkout@v4
         with:
-          ref: security/activate-content-protection
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 1
 
       - name: Inject protection script into HTML entry points
@@ -41,10 +41,11 @@ import sys
 path = pathlib.Path(sys.argv[1])
 text = path.read_text(encoding='utf-8')
 needle = '</body>'
-if needle not in text.lower():
+lower = text.lower()
+if needle not in lower:
     raise SystemExit(f'Missing closing body tag: {path}')
 
-idx = text.lower().rfind(needle)
+idx = lower.rfind(needle)
 text = text[:idx] + '  <script src="content-protection.js" defer></script>\n' + text[idx:]
 path.write_text(text, encoding='utf-8')
 PY
@@ -61,4 +62,4 @@ PY
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- '*.html'
           git commit -m 'security: activate content protection on HTML pages [content-protection-autopatch]'
-          git push origin HEAD:security/activate-content-protection
+          git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
