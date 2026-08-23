@@ -1,0 +1,87 @@
+/* Gaya khusus Beranda - desain baru 2026-08-23 */
+
+.topbar-inner{gap:10px}
+.topbar-social{display:flex;gap:7px;align-items:center}
+.topbar-social a{width:25px;height:25px;border-radius:50%;background:rgba(255,255,255,.16);display:inline-grid;place-items:center;transition:background .2s}
+.topbar-social a:hover{background:var(--green-500)}
+
+.nav-daftar{gap:9px;padding:7px 14px;border-radius:12px}
+.nav-daftar .cal{font-size:1.05rem}
+.nav-daftar .tx{display:flex;flex-direction:column;line-height:1.18;text-align:left}
+.nav-daftar strong{font-size:.85rem}
+.nav-daftar small{font-size:.64rem;font-weight:700;opacity:.92}
+
+.hero-home{background:linear-gradient(180deg,#eaf6f0,#f6faf8);padding:56px 0 88px}
+.hero-home-inner{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
+.home-title{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.12;margin:0 0 16px;letter-spacing:-.02em;color:var(--ink)}
+.home-title .hl{color:var(--green-700)}
+.home-lead{color:#48605a;font-size:1.02rem;max-width:560px;margin:0 0 26px}
+.feat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:520px}
+.feat{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 6px 18px rgba(0,59,45,.07)}
+.feat .fi{font-size:1.35rem;line-height:1}
+.feat strong{font-size:.86rem;color:var(--ink);line-height:1.3}
+
+.leader-wrap{position:relative}
+.leader-img{width:100%;max-width:520px;aspect-ratio:1.04;object-fit:cover;object-position:center top;border-radius:24px;box-shadow:0 24px 55px rgba(0,59,45,.22);margin-left:auto}
+.leader-card-v2{position:absolute;top:50%;right:-4px;transform:translateY(-50%);width:min(280px,76%);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:20px 20px 16px;box-shadow:0 22px 50px rgba(0,59,45,.2)}
+.leader-card-v2 h3{margin:8px 0 2px;font-size:.95rem;color:var(--ink);font-weight:800;line-height:1.3}
+.leader-name{margin:2px 0 10px;font-size:2.05rem;font-weight:900;color:var(--green-700);letter-spacing:-.02em}
+.periode-pill{display:inline-block;background:var(--green-100);color:var(--green-900);border-radius:999px;font-size:.68rem;font-weight:900;padding:3px 10px}
+.periode-text{margin:6px 0 12px;font-weight:800;font-size:.95rem}
+.leader-badges{display:flex;gap:8px;flex-wrap:wrap}
+.leader-badges span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:.74rem;font-weight:900;color:var(--green-800)}
+.leader-script{margin:12px 0 0;font-style:italic;font-family:Georgia,"Times New Roman",serif;font-size:1.02rem;color:#3d514c}
+
+.info-bar{position:relative;z-index:6;margin-top:-52px}
+.info-bar-inner{background:linear-gradient(120deg,var(--green-950),#06553e 60%,var(--green-800));border-radius:22px;padding:20px 8px;display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 24px 50px rgba(0,59,45,.28)}
+.info-cell{display:flex;gap:11px;align-items:flex-start;padding:4px 14px;border-left:1px solid rgba(255,255,255,.16)}
+.info-cell:first-child{border-left:0}
+.info-ic{flex:none;width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:1.1rem}
+.info-cell strong{display:block;color:#fff;font-size:.88rem;margin-bottom:2px}
+.info-cell span,.info-cell a{font-size:.76rem;color:#cfe9df;text-decoration:none;line-height:1.4;display:block}
+.info-cell a{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.info-cell a:hover{color:#fff}
+
+.home-tri-section{padding:34px 0 8px}
+.home-tri{display:grid;grid-template-columns:1fr 1.02fr 1fr;gap:18px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 20px 12px;box-shadow:0 8px 25px rgba(0,59,45,.05)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.panel-head h3{margin:0;font-size:1.02rem;color:var(--ink)}
+.panel-head a{font-size:.76rem;font-weight:800;color:var(--green-700);text-decoration:none;white-space:nowrap}
+.panel-head a:hover{text-decoration:underline}
+
+.announce-item,.news-item{display:flex;gap:12px;padding:13px 0;border-top:1px dashed var(--line)}
+.announce-item:first-of-type,.news-item:first-of-type{border-top:0}
+.announce-item img,.news-item img{flex:none;width:72px;height:72px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:var(--mint)}
+.news-item img{width:86px;height:64px}
+.announce-item strong,.news-item strong{display:block;font-size:.87rem;line-height:1.35;color:var(--ink);font-weight:800}
+.announce-meta{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:.73rem;color:var(--muted)}
+.badge-baru{background:#e8f8ee;border:1px solid #bfe8d0;color:#0b7a4b;font-size:.66rem;font-weight:900;padding:2px 8px;border-radius:999px}
+
+.mak-frame{background:linear-gradient(135deg,#f3df9a,#dcb75d 55%,#eed9a0);padding:9px;border-radius:14px;box-shadow:0 14px 34px rgba(120,90,20,.25)}
+.mak-frame img{border-radius:9px;width:100%}
+.mak-cap{font-size:.76rem;color:var(--muted);text-align:center;margin:12px 0 2px}
+
+.floating-maps{position:fixed;right:18px;bottom:86px;z-index:60;width:62px;background:#1a73e8;color:#fff;border-radius:16px;padding:9px 6px;text-align:center;text-decoration:none;font-weight:900;font-size:.6rem;line-height:1.25;box-shadow:0 12px 28px rgba(26,115,232,.38)}
+.floating-maps .fm-ic{font-size:1.15rem;display:block;margin-bottom:3px}
+
+@media(max-width:1080px){
+.hero-home{padding:44px 0 84px}
+.hero-home-inner{grid-template-columns:1fr;gap:30px}
+.leader-wrap{display:grid;justify-items:center}
+.leader-img{max-width:480px}
+.leader-card-v2{position:relative;top:auto;right:auto;transform:none;margin:-46px auto 0;width:min(400px,92%)}
+.info-bar-inner{grid-template-columns:repeat(3,1fr);row-gap:14px}
+.info-cell{border-left:0}
+.home-tri{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+.hero-home{padding:36px 0 76px}
+.home-title{font-size:clamp(1.65rem,7vw,2.3rem)}
+.info-bar-inner{grid-template-columns:1fr 1fr;border-radius:18px}
+.floating-maps{right:12px;bottom:82px}
+}
+@media(max-width:460px){
+.info-bar-inner{grid-template-columns:1fr}
+.feat-grid{grid-template-columns:1fr}
+}
