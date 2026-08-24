@@ -21,137 +21,14 @@
 <meta name="twitter:description" content="Informasi pelayanan, jadwal, tarif, lokasi, dan pendaftaran UPTD Puskesmas Tanjung Pinang Kota Jambi.">
 <meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.JPG">
 <link rel="stylesheet" href="styles.css?v=20260823-home1">
-<link rel="stylesheet" href="styles-home.css?v=20260823-home8">
+<link rel="stylesheet" href="styles-home.css?v=20260823-home10">
 <style>
-/* Styling Banner SIPPN & Tautan Terkait */
-.sippn-section {
-  padding: 20px 0;
-}
-.sippn-banner {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  background: linear-gradient(135deg, #00563f 0%, #0b7a5a 100%);
-  border-radius: 20px;
-  padding: 32px;
-  color: #ffffff;
-  box-shadow: 0 10px 25px rgba(0, 86, 63, 0.15);
-}
-.sippn-logo-wrap {
-  flex: 0 0 280px;
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-.sippn-logo-img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
-.sippn-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #e2f7ed;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 999px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.sippn-title {
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: #ffffff;
-  line-height: 1.3;
-}
-.sippn-desc {
-  font-size: 0.88rem;
-  color: #e0f2fe;
-  line-height: 1.5;
-  margin: 0 0 18px 0;
-  max-width: 600px;
-}
-.sippn-btn {
-  display: inline-flex;
-  align-items: center;
-  background-color: #ffffff;
-  color: #00563f;
-  font-weight: 700;
-  font-size: 0.85rem;
-  padding: 10px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.sippn-btn:hover {
-  background-color: #e6f7f1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Styling Grid Tautan Terkait dengan Icon */
-.related-links-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
-.related-link-card {
-  background: #ffffff;
-  border: 1px solid #dfe9e5;
-  border-radius: 14px;
-  padding: 16px 10px;
-  text-align: center;
-  text-decoration: none;
-  color: #0f172a;
-  box-shadow: 0 4px 12px rgba(0, 59, 45, 0.04);
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.related-link-card:hover {
-  transform: translateY(-4px);
-  border-color: #0b7a5a;
-  box-shadow: 0 8px 20px rgba(0, 59, 45, 0.1);
-}
-.related-link-icon {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
-}
-.related-link-card span {
-  font-size: 0.78rem;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
 /* Home-specific polish */
 .site-header .brand{min-width:0;max-width:440px}
 .site-header .brand-mark{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;flex:0 0 44px!important;padding:4px!important;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 16px rgba(0,59,45,.10);overflow:hidden;display:grid;place-items:center}
 .site-header .brand-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;display:block}
 .site-header .brand strong{font-size:.94rem;line-height:1.2}
 .site-header .brand small{font-size:.7rem;line-height:1.2}
-.home-flag{display:inline-flex;align-items:center;gap:7px;margin-top:13px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);font-size:.72rem;font-weight:800;color:#e6f7f1}
-.home-quick-grid{grid-template-columns:repeat(4,1fr)}
-.home-quick-grid .quick-card{min-height:142px}
-.home-quick-grid .quick-card strong{font-size:.94rem}
-.home-quick-grid .quick-card span{line-height:1.45}
-.home-note{margin-top:16px;padding:13px 15px;border-left:4px solid #7ce0bc;background:rgba(255,255,255,.08);border-radius:10px;color:#dff5ed;font-size:.78rem;line-height:1.55}
-.home-note strong{color:#fff}
-.home-address{font-size:.92rem;line-height:1.6}
 .social-feed{background:#f4f9f7}
 .social-feed-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
 .social-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line,#dfe9e5);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,59,45,.06)}
@@ -254,42 +131,17 @@
 }
 
 /* Responsif Mobile */
-@media (max-width: 1024px) {
-  .related-links-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+
 @media (max-width: 900px) {
-  .home-quick-grid{grid-template-columns:repeat(2,1fr)}
   .social-feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width: 600px) {
-  .related-links-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .sippn-banner {
-    flex-direction: column;
-    text-align: center;
-    padding: 24px;
-    gap: 20px;
-  }
-  .sippn-logo-wrap {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: 240px;
-  }
-  .sippn-btn {
-    justify-content: center;
-    width: 100%;
-  }
   .footer-container {
     grid-template-columns: 1fr;
   }
   .site-header .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex-basis:40px!important;padding:4px!important}
   .site-header .brand strong{font-size:.78rem}
   .site-header .brand small{font-size:.62rem}
-  .home-quick-grid{grid-template-columns:1fr}
-  .home-quick-grid .quick-card{min-height:0}
   .social-feed-grid{grid-template-columns:1fr}
 }
 </style>
@@ -371,15 +223,6 @@
 <div class="news-item"><img src="diah-poster.jpg" alt="Poster kesehatan"><div><strong>Pentingnya skrining dini penyakit tidak menular</strong><div class="announce-meta"><time datetime="2026-08-05">5 Agu 2026</time></div></div></div>
 </div>
 </div></section>
-<section class="quick" aria-label="Akses cepat">
-  <div class="container quick-grid home-quick-grid">
-    <a href="pelayanan.html" class="quick-card"><span class="icon">🏥</span><strong>Pelayanan</strong><span>Temukan layanan berdasarkan 5 klaster.</span></a>
-    <a href="jadwal.html" class="quick-card"><span class="icon">🗓️</span><strong>Jadwal</strong><span>Jam pelayanan dan ketentuan pendaftaran.</span></a>
-    <a href="tarif.html" class="quick-card"><span class="icon">💳</span><strong>Tarif</strong><span>Informasi tarif pelayanan Puskesmas.</span></a>
-    <a href="kontak.html" class="quick-card"><span class="icon">📍</span><strong>Lokasi</strong><span>Kontak, alamat, dan petunjuk lokasi.</span></a>
-  </div>
-</section>
-<section class="section" id="tentang"><div class="container"><div class="section-head"><div><span class="kicker">UPTD PUSKESMAS TANJUNG PINANG</span><h2>Pelayanan primer yang dekat dengan masyarakat.</h2><p>Pelayanan dirancang agar informasi penting mudah ditemukan sebelum masyarakat datang ke Puskesmas.</p></div></div><div class="cards"><article class="card"><div class="card-icon">🤝</div><h3>Ramah &amp; mudah diakses</h3><p>Budaya pelayanan mengutamakan Senyum, Sapa, Salam, Sopan, dan Santun.</p><a class="card-link" href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai →</a></article><article class="card"><div class="card-icon">🧩</div><h3>5 Klaster pelayanan</h3><p>Pelayanan disusun dalam klaster agar masyarakat lebih mudah menemukan layanan yang dibutuhkan.</p><a class="card-link" href="pelayanan.html">Lihat 5 Klaster →</a></article><article class="card"><div class="card-icon">📍</div><h3>Menjangkau wilayah kerja</h3><p>Wilayah kerja mencakup 5 kelurahan dengan dukungan Pustu dan Posyandu.</p><a class="card-link" href="profil.html#karakter">Lihat Karakteristik →</a></article></div></div></section>
 <section class="band section"><div class="container"><div class="section-head"><div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div><a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a></div><div class="cards"><article class="card"><div class="card-icon">🩺</div><h3>Pelayanan umum</h3><p>Pemeriksaan dan pelayanan kesehatan dasar sesuai kebutuhan masyarakat.</p></article><article class="card"><div class="card-icon">👩‍🍼</div><h3>Ibu &amp; anak</h3><p>Pelayanan kesehatan ibu, bayi, balita, anak prasekolah, sekolah, dan remaja.</p></article><article class="card"><div class="card-icon">🦷</div><h3>Gigi &amp; mulut</h3><p>Pelayanan kesehatan gigi dan mulut sebagai bagian dari layanan lintas klaster.</p></article><article class="card"><div class="card-icon">🧪</div><h3>Laboratorium</h3><p>Pemeriksaan laboratorium untuk mendukung pelayanan dan penegakan diagnosis.</p></article><article class="card"><div class="card-icon">🚑</div><h3>Gawat darurat</h3><p>Pelayanan dan penanganan awal kondisi kegawatdaruratan.</p></article><article class="card"><div class="card-icon">💊</div><h3>Kefarmasian</h3><p>Pelayanan kefarmasian dan pengelolaan obat sesuai ketentuan yang berlaku.</p></article></div></div></section>
 <section class="section social-feed" id="media-sosial"><div class="container"><div class="section-head"><div><span class="kicker">MEDIA SOSIAL RESMI</span><h2>Info terbaru dari Puskesmas</h2><p>Konten terbaru dari Instagram resmi ditampilkan otomatis di sini. Facebook dan YouTube tersedia sebagai kanal resmi tambahan.</p></div></div><div id="social-feed-grid" class="social-feed-grid"><div class="social-empty">Memuat informasi terbaru…</div></div><div id="social-feed-status" class="social-feed-status">Terhubung ke kanal Instagram resmi.</div></div></section>
 
@@ -468,6 +311,12 @@
 <span class="portal-card-desc">Sampaikan aspirasi dan pengaduan Anda untuk pelayanan publik yang lebih baik.</span>
 <span class="portal-btn">Kunjungi →</span>
 </a>
+<a class="portal-card c-sippn" href="https://sippn.menpan.go.id/instansi/puskesmas-tanjung-pinang-kota-jambi-1879822" target="_blank" rel="noopener noreferrer">
+<span class="portal-card-logo"><img src="logo-sippn.png" alt="SIPPN KemenPANRB" loading="lazy"></span>
+<strong>SIPPN<br>KemenPANRB</strong>
+<span class="portal-card-desc">Standar pelayanan, maklumat, dan pengaduan layanan Puskesmas di portal nasional.</span>
+<span class="portal-btn">Kunjungi →</span>
+</a>
 </div>
 <div class="portal-bar">
 <div class="portal-brand"><span class="portal-logo">🏥</span><strong>UPTD Puskesmas<br>Tanjung Pinang<br>Kota Jambi</strong></div>
@@ -494,28 +343,6 @@
 </div>
 </div>
 </div>
-</section>
-<section class="section sippn-section" id="sippn">
-  <div class="container">
-    <div class="sippn-banner">
-      <div class="sippn-logo-wrap">
-        <img src="logo-sippn.png" alt="SIPPN KemenPANRB - Cariyanlik" class="sippn-logo-img">
-      </div>
-      <div class="sippn-info">
-        <span class="sippn-badge">Layanan Publik Resmi</span>
-        <h3 class="sippn-title">Sistem Informasi Pelayanan Publik Nasional (SIPPN)</h3>
-        <p class="sippn-desc">
-          Akses informasi resmi mengenai standar pelayanan, maklumat, dan sistem pengaduan UPTD Puskesmas Tanjung Pinang di portal terpadu KemenPANRB.
-        </p>
-        <a href="https://sippn.menpan.go.id/instansi/puskesmas-tanjung-pinang-kota-jambi-1879822" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="sippn-btn">
-          Kunjungi SIPPN Puskesmas →
-        </a>
-      </div>
-    </div>
-  </div>
 </section>
 </main>
 
