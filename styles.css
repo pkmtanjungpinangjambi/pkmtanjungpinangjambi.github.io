@@ -96,3 +96,12 @@
 /* FINAL: Logo Kota Jambi seragam pada seluruh header halaman */
 .brand-mark{background-color:#fff;background-image:url("./logo-kota-jambi.png");background-repeat:no-repeat;background-position:center;background-size:contain;border:1px solid var(--line);color:transparent;font-size:0;box-shadow:0 8px 20px rgba(0,59,45,.12)}
 .brand-mark::before,.brand-mark::after{content:none}
+
+/* Header brand seragam semua halaman */
+.site-header .nav-wrap .brand-mark{background:transparent!important;border:none!important;box-shadow:none!important;width:64px!important;height:64px!important;min-width:64px!important;max-width:64px!important;flex:0 0 64px!important;border-radius:16px;padding:0!important;font-size:0}
+.site-header .nav-wrap .brand-mark img{width:100%!important;height:100%!important;object-fit:contain!important}
+.site-header .nav-wrap .brand strong{font-size:1.5rem;letter-spacing:.01em}
+.site-header .nav-wrap .brand small{font-size:.94rem}
+.site-header .nav-wrap .brand{max-width:620px;gap:14px}
+@media(max-width:1180px){.site-header .nav-wrap .brand-mark{width:52px!important;height:52px!important;min-width:52px!important;max-width:52px!important;flex:0 0 52px!important}.site-header .nav-wrap .brand{max-width:340px}.site-header .nav-wrap .brand strong{font-size:1.06rem}.site-header .nav-wrap .brand small{font-size:.74rem}}
+@media(max-width:600px){.site-header .nav-wrap .brand-mark{width:47px!important;height:47px!important;min-width:47px!important;max-width:47px!important;flex-basis:47px!important}.site-header .nav-wrap .brand strong{font-size:1rem}.site-header .nav-wrap .brand small{font-size:.7rem}}
