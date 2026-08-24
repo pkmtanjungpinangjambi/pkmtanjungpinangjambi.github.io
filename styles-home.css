@@ -204,3 +204,7 @@
 @media(max-width:900px){.portal-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.portal-bar{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.portal-wrap{padding:20px;border-radius:20px}.portal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.portal-bar{grid-template-columns:1fr}.portal-ribbon{max-width:200px;font-size:.72rem}}
 .c-sippn .portal-btn{background:#ef6c00}
+
+/* Portal bar menyatu dengan footer */
+.footer-3d .portal-bar{margin:0 0 30px;border-radius:18px}
+.footer-3d{padding-top:36px}
