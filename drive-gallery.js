@@ -1,5 +1,5 @@
 /* Galeri otomatis dari Google Drive (via Apps Script Web App) */
-const DRIVE_API_URL = ''; // <- ISI URL Web App yang berakhiran /exec setelah deploy Apps Script
+const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEaCEvEBP3LiaTWv9WJM7hYAIMirg0arfqcVEandfsqO_k4sCmDKt/exec'; // <- ISI URL Web App yang berakhiran /exec setelah deploy Apps Script
 
 (function () {
   const grid = document.getElementById('galeri-grid');
