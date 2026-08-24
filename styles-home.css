@@ -234,3 +234,5 @@
 .footer-mapslink{color:#a3e635;font-size:.68rem;font-weight:800;text-decoration:none}
 .footer-bottomline{margin-top:14px;padding-top:8px;font-size:.64rem}
 @media(max-width:900px){.footer-grid3{grid-template-columns:1fr;gap:16px}}
+a.announce-item{text-decoration:none;color:inherit}
+a.announce-item:hover strong{color:var(--green-700)}
