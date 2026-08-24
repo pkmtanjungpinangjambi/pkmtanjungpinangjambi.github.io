@@ -1,0 +1,15 @@
+/* Galeri Drive - halaman galeri.html */
+.galeri-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.galeri-filter{border:1px solid var(--line);background:#fff;color:var(--green-900);border-radius:999px;padding:9px 16px;font-weight:800;cursor:pointer;font-size:.85rem}
+.galeri-filter.active{background:var(--green-900);color:#fff;border-color:var(--green-900)}
+.galeri-status{font-size:.8rem;color:var(--muted);margin-bottom:14px}
+.galeri-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.galeri-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 22px rgba(0,59,45,.06);text-decoration:none;display:flex;flex-direction:column}
+.galeri-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.galeri-caption{padding:10px 13px;font-size:.78rem;color:#3f514c;font-weight:700;line-height:1.4;word-break:break-word}
+.galeri-video-frame{aspect-ratio:16/9;background:#000}
+.galeri-video-frame iframe{width:100%;height:100%;border:0;display:block}
+.galeri-empty{grid-column:1/-1;padding:30px;text-align:center;color:var(--muted);border:1px dashed #cddbd6;border-radius:14px;background:#fff}
+.galeri-note{margin-top:22px;font-size:.78rem;color:var(--muted)}
+@media(max-width:900px){.galeri-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.galeri-grid{grid-template-columns:1fr}}
