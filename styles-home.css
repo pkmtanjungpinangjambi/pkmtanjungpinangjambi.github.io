@@ -86,10 +86,10 @@
 .feat-grid{grid-template-columns:1fr}
 }
 /* Penyesuaian ukuran header & foto (umpan balik 2026-08-23) */
-.site-header .nav-wrap .brand{max-width:560px}
+.site-header .nav-wrap .brand{max-width:620px}
 .site-header .nav-wrap .brand-mark{width:64px!important;height:64px!important;min-width:64px!important;max-width:64px!important;flex:0 0 64px!important;border-radius:16px}
-.site-header .nav-wrap .brand strong{font-size:1.3rem}
-.site-header .nav-wrap .brand small{font-size:.86rem}
+.site-header .nav-wrap .brand strong{font-size:1.5rem;letter-spacing:.01em}
+.site-header .nav-wrap .brand small{font-size:.94rem}
 .leader-img{max-width:415px;aspect-ratio:1.16}
 @media(max-width:600px){
 .site-header .nav-wrap .brand-mark{width:47px!important;height:47px!important;min-width:47px!important;max-width:47px!important;flex-basis:47px!important}
