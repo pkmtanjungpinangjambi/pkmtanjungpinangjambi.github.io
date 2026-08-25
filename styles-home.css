@@ -13,9 +13,9 @@
 
 .hero-home{background:linear-gradient(180deg,#eaf6f0,#f6faf8);padding:56px 0 88px}
 .hero-home-inner{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
-.home-title{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.12;margin:0 0 16px;letter-spacing:-.02em;color:var(--ink)}
+.home-title{line-height:1.12;margin:0 0 16px;letter-spacing:-.02em;color:var(--ink)}
 .home-title .hl{color:var(--green-700)}
-.home-lead{color:#48605a;font-size:1.02rem;max-width:560px;margin:0 0 26px}
+.home-lead{color:#48605a;font-size:17px;max-width:560px;margin:0 0 14px}
 .feat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:520px}
 .feat{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 6px 18px rgba(0,59,45,.07)}
 .feat .fi{font-size:1.35rem;line-height:1}
@@ -234,3 +234,9 @@ a.announce-item:hover strong{color:var(--green-700)}
 .svc-imgcard img{width:100%;display:block}
 @media(max-width:900px){.cards-svc{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.cards-svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Tipografi hero final */
+.home-title .t-ilp{display:block;font-size:48px;font-weight:900;line-height:1.1}
+.home-title .t-layanan{display:block;font-size:56px;font-weight:900;line-height:1.08}
+.home-tagline{font-size:20px;font-weight:800;color:var(--green-800);margin:0 0 24px;line-height:1.35}
+@media(max-width:1024px){.home-title .t-ilp{font-size:36px}.home-title .t-layanan{font-size:42px}.home-tagline{font-size:18px}}
+@media(max-width:600px){.home-title .t-ilp{font-size:29px}.home-title .t-layanan{font-size:33px}.home-lead{font-size:15px}.home-tagline{font-size:16px}}
