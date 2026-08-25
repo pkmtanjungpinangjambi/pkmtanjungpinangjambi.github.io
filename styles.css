@@ -105,3 +105,5 @@
 .site-header .nav-wrap .brand{max-width:620px;gap:14px}
 @media(max-width:1180px){.site-header .nav-wrap .brand-mark{width:52px!important;height:52px!important;min-width:52px!important;max-width:52px!important;flex:0 0 52px!important}.site-header .nav-wrap .brand{max-width:340px}.site-header .nav-wrap .brand strong{font-size:1.06rem}.site-header .nav-wrap .brand small{font-size:.74rem}}
 @media(max-width:600px){.site-header .nav-wrap .brand-mark{width:47px!important;height:47px!important;min-width:47px!important;max-width:47px!important;flex-basis:47px!important}.site-header .nav-wrap .brand strong{font-size:1rem}.site-header .nav-wrap .brand small{font-size:.7rem}}
+/* Label grup di dropdown Informasi */
+.menu-group{display:block;padding:9px 12px 4px;font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green-700);border-top:1px solid var(--line);margin-top:6px}
