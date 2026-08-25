@@ -229,7 +229,7 @@ a.announce-item:hover strong{color:var(--green-700)}
 .gt-card:hover{opacity:.92}
 /* Ikon layanan utama (gaya mockup) */
 .svc-icon{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin-bottom:14px;box-shadow:0 10px 22px rgba(0,59,45,.16);position:relative}
-.svc-icon svg{width:38px;height:38px}
+.svc-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .svc-icon::after{content:"+";position:absolute;top:-3px;right:-5px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.18)}
 .svc-green .svc-icon{background:linear-gradient(135deg,#10b981,#057a4b)}
 .svc-green .svc-icon::after{background:#057a4b}
