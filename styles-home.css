@@ -228,9 +228,9 @@ a.announce-item:hover strong{color:var(--green-700)}
 .gt-label{position:absolute;left:8px;bottom:8px;background:rgba(11,93,73,.9);color:#fff;font-size:.68rem;font-weight:800;padding:5px 10px;border-radius:999px}
 .gt-card:hover{opacity:.92}
 /* Kartu layanan utama - gambar utuh */
-.cards-svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cards-svc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .svc-imgcard{display:block;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(0,59,45,.08);transition:transform .2s,box-shadow .2s}
 .svc-imgcard:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,59,45,.14)}
 .svc-imgcard img{width:100%;display:block}
-@media(max-width:900px){.cards-svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.cards-svc{grid-template-columns:1fr}}
+@media(max-width:900px){.cards-svc{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.cards-svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
