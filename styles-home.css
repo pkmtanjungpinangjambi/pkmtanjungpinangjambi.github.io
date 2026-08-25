@@ -207,7 +207,7 @@ a.announce-item:hover strong{color:var(--green-700)}
 /* Leader final (posisi seperti semula: foto kanan, kartu menempel ringan) */
 .hero-home-inner{grid-template-columns:1.02fr .98fr}
 .leader-wrap{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);align-items:center}
-.leader-img{grid-area:1/1;width:100%;max-width:330px;aspect-ratio:1.05;object-fit:cover;object-position:center top;border-radius:26px;box-shadow:0 24px 55px rgba(0,59,45,.22);margin-left:0}
+.leader-img{grid-area:1/1;width:100%;max-width:330px;aspect-ratio:1.05;object-fit:cover;object-position:center 22%;border-radius:26px;box-shadow:0 24px 55px rgba(0,59,45,.22);margin-left:0}
 .leader-card-v2{grid-area:1/2;position:relative;z-index:2;top:auto;right:auto;transform:none;width:min(270px,100%);margin-left:-40px}
 @media(max-width:1024px){
 .hero-home-inner{grid-template-columns:1fr}
