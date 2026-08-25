@@ -4,7 +4,8 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
 (function () {
   const grid = document.getElementById('galeri-grid');
   const status = document.getElementById('galeri-status');
-  if (!grid) return;
+  var beranda = document.getElementById('gt-foto-img');
+  if (!grid && !beranda) return;
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
   function thumb(id, w) { return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + w; }
@@ -44,6 +45,15 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
       DATA = d;
       render('semua');
       status.textContent = 'Diperbarui otomatis dari Google Drive resmi Puskesmas.';
+    var gtF = document.getElementById('gt-foto-img');
+    var gtV = document.getElementById('gt-video-img');
+    if (gtF && DATA.foto.length) { gtF.src = thumb(DATA.foto[0].id, 640); gtF.style.display = 'block'; }
+    if (gtV && DATA.video.length) { gtV.src = thumb(DATA.video[0].id, 640); gtV.style.display = 'block'; }
+    var h = (location.hash || '').replace('#', '');
+    if (h === 'foto' || h === 'video') {
+      var b = document.querySelector('[data-galeri-filter="' + h + '"]');
+      if (b) b.click();
+    }
     var h = (location.hash || '').replace('#', '');
     if (h === 'foto' || h === 'video') {
       var b = document.querySelector('[data-galeri-filter="' + h + '"]');
