@@ -227,31 +227,10 @@ a.announce-item:hover strong{color:var(--green-700)}
 .gt-play{position:absolute;inset:0;display:grid;place-items:center;font-size:2.2rem;color:rgba(255,255,255,.95)}
 .gt-label{position:absolute;left:8px;bottom:8px;background:rgba(11,93,73,.9);color:#fff;font-size:.68rem;font-weight:800;padding:5px 10px;border-radius:999px}
 .gt-card:hover{opacity:.92}
-/* Ikon layanan utama (gaya mockup) */
-.svc-icon{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin-bottom:14px;box-shadow:0 10px 22px rgba(0,59,45,.16);position:relative}
-.svc-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.svc-icon::after{content:"+";position:absolute;top:-3px;right:-5px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.18)}
-.svc-green .svc-icon{background:linear-gradient(135deg,#10b981,#057a4b)}
-.svc-green .svc-icon::after{background:#057a4b}
-.svc-green h3{color:#057a4b}
-.svc-green{border-bottom:4px solid #10b981}
-.svc-pink .svc-icon{background:linear-gradient(135deg,#f472b6,#db2777)}
-.svc-pink .svc-icon::after{background:#db2777}
-.svc-pink h3{color:#db2777}
-.svc-pink{border-bottom:4px solid #f472b6}
-.svc-purple .svc-icon{background:linear-gradient(135deg,#a78bfa,#7c3aed)}
-.svc-purple .svc-icon::after{background:#7c3aed}
-.svc-purple h3{color:#7c3aed}
-.svc-purple{border-bottom:4px solid #a78bfa}
-.svc-blue .svc-icon{background:linear-gradient(135deg,#60a5fa,#2563eb)}
-.svc-blue .svc-icon::after{background:#2563eb}
-.svc-blue h3{color:#2563eb}
-.svc-blue{border-bottom:4px solid #60a5fa}
-.svc-teal .svc-icon{background:linear-gradient(135deg,#2dd4bf,#0d9488)}
-.svc-teal .svc-icon::after{background:#0d9488}
-.svc-teal h3{color:#0d9488}
-.svc-teal{border-bottom:4px solid #2dd4bf}
-.svc-orange .svc-icon{background:linear-gradient(135deg,#fbbf24,#ea8a0a)}
-.svc-orange .svc-icon::after{background:#ea8a0a}
-.svc-orange h3{color:#ea8a0a}
-.svc-orange{border-bottom:4px solid #fbbf24}
+/* Kartu layanan utama - gambar utuh */
+.cards-svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.svc-imgcard{display:block;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(0,59,45,.08);transition:transform .2s,box-shadow .2s}
+.svc-imgcard:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,59,45,.14)}
+.svc-imgcard img{width:100%;display:block}
+@media(max-width:900px){.cards-svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.cards-svc{grid-template-columns:1fr}}
