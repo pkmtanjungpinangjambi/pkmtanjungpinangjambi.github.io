@@ -25,7 +25,7 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
   let DATA = null;
 
   function render(filter) {
-    if (!DATA) return;
+    if (!DATA || !grid) return;
     let items = [];
     if (filter === 'foto') items = DATA.foto.map(cardFoto);
     else if (filter === 'video') items = DATA.video.map(cardVideo);
@@ -34,7 +34,7 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
   }
 
   if (!DRIVE_API_URL) {
-    status.textContent = 'Galeri sedang disiapkan. Hubungkan Apps Script terlebih dahulu (lihat docs/cara-deploy-galeri.md).';
+    if (status) status.textContent = 'Galeri sedang disiapkan. Hubungkan Apps Script terlebih dahulu (lihat docs/cara-deploy-galeri.md).';
     grid.innerHTML = '<div class="galeri-empty">Galeri akan terisi otomatis dari Google Drive.</div>';
     return;
   }
@@ -44,7 +44,7 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
     .then(function (d) {
       DATA = d;
       render('semua');
-      status.textContent = 'Diperbarui otomatis dari Google Drive resmi Puskesmas.';
+      if (status) status.textContent = 'Diperbarui otomatis dari Google Drive resmi Puskesmas.';
     var gtF = document.getElementById('gt-foto-img');
     var gtV = document.getElementById('gt-video-img');
     if (gtF && DATA.foto.length) { gtF.src = thumb(DATA.foto[0].id, 640); gtF.style.display = 'block'; }
@@ -61,7 +61,7 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
     }
     })
     .catch(function (e) {
-      status.textContent = 'Gagal memuat galeri: ' + e.message;
+      if (status) status.textContent = 'Gagal memuat galeri: ' + e.message;
     });
 
   document.querySelectorAll('[data-galeri-filter]').forEach(function (btn) {
