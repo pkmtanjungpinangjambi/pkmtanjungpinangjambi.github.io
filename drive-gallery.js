@@ -13,14 +13,12 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
     return '<a class="galeri-card" href="https://drive.google.com/uc?export=view&id=' + it.id +
       '" target="_blank" rel="noopener noreferrer" title="Lihat ukuran penuh">' +
       '<img src="' + thumb(it.id, 800) + '" alt="' + esc(it.name) + '" loading="lazy">' +
-      '<span class="galeri-caption">' + esc(it.name) + '</span></a>';
   }
 
   function cardVideo(it) {
     return '<div class="galeri-card"><div class="galeri-video-frame">' +
       '<iframe src="https://drive.google.com/file/d/' + it.id + '/preview" title="' + esc(it.name) +
       '" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div>' +
-      '<span class="galeri-caption">' + esc(it.name) + '</span></div>';
   }
 
   let DATA = null;
@@ -46,6 +44,11 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
       DATA = d;
       render('semua');
       status.textContent = 'Diperbarui otomatis dari Google Drive resmi Puskesmas.';
+    var h = (location.hash || '').replace('#', '');
+    if (h === 'foto' || h === 'video') {
+      var b = document.querySelector('[data-galeri-filter="' + h + '"]');
+      if (b) b.click();
+    }
     })
     .catch(function (e) {
       status.textContent = 'Gagal memuat galeri: ' + e.message;
