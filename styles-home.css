@@ -235,8 +235,8 @@ a.announce-item:hover strong{color:var(--green-700)}
 @media(max-width:900px){.cards-svc{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.cards-svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Tipografi hero final */
-.home-title .t-ilp{display:block;font-size:48px;font-weight:900;line-height:1.1}
-.home-title .t-layanan{display:block;font-size:56px;font-weight:900;line-height:1.08}
-.home-tagline{font-size:20px;font-weight:800;color:var(--green-800);margin:0 0 24px;line-height:1.35}
-@media(max-width:1024px){.home-title .t-ilp{font-size:36px}.home-title .t-layanan{font-size:42px}.home-tagline{font-size:18px}}
+.home-title .t-ilp{display:block;font-size:clamp(26px,3vw,34px);font-weight:900;line-height:1.15}
+.home-title .t-layanan{display:block;font-size:clamp(30px,3.5vw,40px);font-weight:900;line-height:1.12}
+.home-tagline{font-size:clamp(16px,1.7vw,19px);font-weight:800;color:var(--green-800);margin:0 0 24px;line-height:1.35}
+
 @media(max-width:600px){.home-title .t-ilp{font-size:29px}.home-title .t-layanan{font-size:33px}.home-lead{font-size:15px}.home-tagline{font-size:16px}}
