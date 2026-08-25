@@ -20,10 +20,6 @@
 .feat{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 6px 18px rgba(0,59,45,.07)}
 .feat .fi{font-size:1.35rem;line-height:1}
 .feat strong{font-size:.86rem;color:var(--ink);line-height:1.3}
-
-.leader-wrap{position:relative}
-.leader-img{width:100%;max-width:520px;aspect-ratio:1.04;object-fit:cover;object-position:center top;border-radius:24px;box-shadow:0 24px 55px rgba(0,59,45,.22);margin-left:auto}
-.leader-card-v2{position:absolute;top:50%;right:-4px;transform:translateY(-50%);width:min(280px,76%);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:20px 20px 16px;box-shadow:0 22px 50px rgba(0,59,45,.2)}
 .leader-card-v2 h3{margin:8px 0 2px;font-size:.95rem;color:var(--ink);font-weight:800;line-height:1.3}
 .leader-name{margin:2px 0 10px;font-size:2.05rem;font-weight:900;color:var(--green-700);letter-spacing:-.02em}
 .periode-pill{display:inline-block;background:var(--green-100);color:var(--green-900);border-radius:999px;font-size:.68rem;font-weight:900;padding:3px 10px}
@@ -68,9 +64,6 @@
 @media(max-width:1080px){
 .hero-home{padding:44px 0 84px}
 .hero-home-inner{grid-template-columns:1fr;gap:30px}
-.leader-wrap{display:grid;justify-items:center}
-.leader-img{max-width:480px}
-.leader-card-v2{position:relative;top:auto;right:auto;transform:none;margin:-46px auto 0;width:min(400px,92%)}
 .info-bar-inner{grid-template-columns:repeat(3,1fr);row-gap:14px}
 .info-cell{border-left:0}
 .home-tri{grid-template-columns:1fr}
@@ -90,7 +83,6 @@
 .site-header .nav-wrap .brand-mark{width:64px!important;height:64px!important;min-width:64px!important;max-width:64px!important;flex:0 0 64px!important;border-radius:16px}
 .site-header .nav-wrap .brand strong{font-size:1.5rem;letter-spacing:.01em}
 .site-header .nav-wrap .brand small{font-size:.94rem}
-.leader-img{max-width:415px;aspect-ratio:1.16}
 @media(max-width:600px){
 .site-header .nav-wrap .brand-mark{width:47px!important;height:47px!important;min-width:47px!important;max-width:47px!important;flex-basis:47px!important}
 .site-header .nav-wrap .brand strong{font-size:1rem}
@@ -116,46 +108,21 @@
 .dropdown-menu{position:static;box-shadow:none;border:none;margin-top:2px;margin-left:10px;padding:0;width:calc(100% - 10px);min-width:0}
 .nav-item-dropdown.open .dropdown-menu{display:flex;flex-direction:column;gap:2px}
 .nav-daftar{margin:6px 4px 4px;justify-content:flex-start}
-.leader-wrap{display:grid;justify-items:center}
-.leader-img{max-width:430px;width:100%;margin-left:0}
-.leader-card-v2{position:relative;top:auto;right:auto;transform:none;margin:-46px auto 0;width:min(400px,90%)}
 }
 @media(max-width:600px){
-.leader-img{max-width:100%}
-.leader-card-v2{margin:-30px auto 0;width:min(340px,94%)}
 .site-header .nav-wrap .brand{max-width:240px}
 .site-header .nav-wrap .brand strong{font-size:1rem}
 .site-header .nav-wrap .brand small{font-size:.7rem}
 }
 /* Logo tanpa kotak putih + kartu pimpinan di samping foto (umpan balik 2026-08-23) */
 .site-header .nav-wrap .brand-mark{background:transparent!important;border:none!important;box-shadow:none!important;overflow:visible}
-.leader-wrap{display:grid;grid-template-columns:350px minmax(230px,1fr);align-items:center}
-.leader-img{grid-area:1/1;width:350px;max-width:100%;aspect-ratio:1.05;margin-left:0;border-radius:26px}
-.leader-card-v2{grid-area:1/2;position:relative;z-index:2;top:auto;right:auto;transform:none;width:min(280px,100%);margin-left:-120px}
-@media(max-width:1024px){
-.leader-wrap{grid-template-columns:1fr;justify-items:center}
-.leader-img{max-width:430px}
-.leader-card-v2{grid-area:auto;margin:-46px auto 0;width:min(400px,90%)}
-}
-@media(max-width:600px){
-.leader-img{max-width:100%}
-.leader-card-v2{margin:-30px auto 0;width:min(340px,94%)}
-}
+
+
 /* Finalisasi hero pimpinan: wajah lebih kecil, kartu menempel ringan */
 .hero-home-inner{grid-template-columns:1.02fr .98fr}
-.leader-wrap{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);align-items:center}
-.leader-img{grid-area:1/1;width:100%;max-width:330px;aspect-ratio:1.05;margin-left:0;border-radius:26px}
-.leader-card-v2{grid-area:1/2;position:relative;z-index:2;top:auto;right:auto;transform:none;width:min(270px,100%);margin-left:-40px}
 .site-header .nav-wrap .brand > span:last-child{padding-top:10px}
-@media(max-width:1024px){
-.leader-wrap{grid-template-columns:1fr;justify-items:center}
-.leader-img{max-width:430px}
-.leader-card-v2{grid-area:auto;margin:-46px auto 0;width:min(400px,90%)}
-}
-@media(max-width:600px){
-.leader-img{max-width:100%}
-.leader-card-v2{margin:-30px auto 0;width:min(340px,94%)}
-}
+
+
 /* Seksi Portal Layanan Publik Resmi (tautan terkait) */
 .portal-wrap{background:linear-gradient(160deg,#f2faf6,#e8f5ee);border:1px solid var(--line);border-radius:28px;padding:34px;box-shadow:var(--shadow)}
 .portal-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-950);color:#fff;font-weight:900;font-size:.78rem;letter-spacing:.06em;padding:9px 16px;border-radius:999px}
@@ -236,3 +203,27 @@
 @media(max-width:900px){.footer-grid3{grid-template-columns:1fr;gap:16px}}
 a.announce-item{text-decoration:none;color:inherit}
 a.announce-item:hover strong{color:var(--green-700)}
+
+/* Leader final (posisi seperti semula: foto kanan, kartu menempel ringan) */
+.hero-home-inner{grid-template-columns:1.02fr .98fr}
+.leader-wrap{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);align-items:center}
+.leader-img{grid-area:1/1;width:100%;max-width:330px;aspect-ratio:1.05;object-fit:cover;object-position:center top;border-radius:26px;box-shadow:0 24px 55px rgba(0,59,45,.22);margin-left:0}
+.leader-card-v2{grid-area:1/2;position:relative;z-index:2;top:auto;right:auto;transform:none;width:min(270px,100%);margin-left:-40px}
+@media(max-width:1024px){
+.hero-home-inner{grid-template-columns:1fr}
+.leader-wrap{grid-template-columns:1fr;justify-items:center}
+.leader-img{max-width:430px}
+.leader-card-v2{grid-area:auto;margin:-46px auto 0;width:min(400px,90%)}
+}
+@media(max-width:600px){
+.leader-img{max-width:100%}
+.leader-card-v2{margin:-30px auto 0;width:min(340px,94%)}
+}
+
+/* Galeri terbaru di beranda */
+.galeri-terbaru-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gt-card{position:relative;display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;background:linear-gradient(135deg,var(--green-900),var(--green-700));text-decoration:none}
+.gt-card img{width:100%;height:100%;object-fit:cover;display:block}
+.gt-play{position:absolute;inset:0;display:grid;place-items:center;font-size:2.2rem;color:rgba(255,255,255,.95)}
+.gt-label{position:absolute;left:8px;bottom:8px;background:rgba(11,93,73,.9);color:#fff;font-size:.68rem;font-weight:800;padding:5px 10px;border-radius:999px}
+.gt-card:hover{opacity:.92}
