@@ -22,6 +22,6 @@ Setiap halaman detail memiliki accordion layanan, tombol kembali ke Klaster 3, d
 ## QC
 - Placeholder sementara dihapus.
 - Tidak ada perubahan langsung ke `main`.
-- Branch harus tetap sinkron dengan `main` sebelum merge.
+- Branch tetap dimulai dari commit `fe5f0ad` yang saat ini menjadi `main`.
 - Preview/deployment harus diperiksa sebelum merge.
 - Jangan merge tanpa review visual dan navigasi.
