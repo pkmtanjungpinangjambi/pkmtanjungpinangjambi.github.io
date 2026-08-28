@@ -14,6 +14,32 @@
     return !!(target && target.closest && target.closest(editableSelector));
   }
 
+  function wireMaternalServiceLink() {
+    const path = window.location.pathname || '';
+    if (!path.endsWith('pelayanan.html')) return;
+
+    const cluster = document.querySelector('details.cluster-2');
+    if (!cluster) return;
+
+    const targetText = 'Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas';
+    const items = cluster.querySelectorAll('.service-link');
+
+    items.forEach(function (item) {
+      const title = item.querySelector('strong');
+      if (!title || title.textContent.trim() !== targetText) return;
+      if (item.closest('a')) return;
+
+      const link = document.createElement('a');
+      link.className = item.className;
+      link.href = 'pelayanan-ibu-hamil-bersalin-nifas.html';
+      link.style.textDecoration = 'none';
+      link.style.color = 'inherit';
+      link.setAttribute('aria-label', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
+      link.innerHTML = item.innerHTML;
+      item.replaceWith(link);
+    });
+  }
+
   function installStyle() {
     if (document.getElementById('content-protection-style')) return;
 
@@ -86,8 +112,12 @@
   }, true);
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', installStyle, { once: true });
+    document.addEventListener('DOMContentLoaded', function () {
+      installStyle();
+      wireMaternalServiceLink();
+    }, { once: true });
   } else {
     installStyle();
+    wireMaternalServiceLink();
   }
 })();
