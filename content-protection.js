@@ -14,11 +14,11 @@
     return !!(target && target.closest && target.closest(editableSelector));
   }
 
-  function wireServiceLink(targetText, href, ariaLabel) {
+  function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
     const path = window.location.pathname || '';
     if (!path.endsWith('pelayanan.html')) return;
 
-    const cluster = document.querySelector('details.cluster-2');
+    const cluster = document.querySelector(clusterSelector);
     if (!cluster) return;
 
     const items = cluster.querySelectorAll('.service-link');
@@ -97,10 +97,19 @@
 
   function init() {
     installStyle();
-    wireServiceLink('Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas', 'pelayanan-ibu-hamil-bersalin-nifas.html', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
-    wireServiceLink('Pelayanan Anak', 'pelayanan-anak.html', 'Buka Pelayanan Anak');
-    wireServiceLink('Pelayanan Imunisasi', 'pelayanan-imunisasi.html', 'Buka Pelayanan Imunisasi');
-    wireServiceLink('Pelayanan Tumbuh Kembang Anak', 'pelayanan-tumbuh-kembang-anak.html', 'Buka Pelayanan Tumbuh Kembang Anak');
+
+    // Klaster 2 — master pattern already used in production.
+    wireServiceLink('details.cluster-2', 'Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas', 'pelayanan-ibu-hamil-bersalin-nifas.html', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
+    wireServiceLink('details.cluster-2', 'Pelayanan Anak', 'pelayanan-anak.html', 'Buka Pelayanan Anak');
+    wireServiceLink('details.cluster-2', 'Pelayanan Imunisasi', 'pelayanan-imunisasi.html', 'Buka Pelayanan Imunisasi');
+    wireServiceLink('details.cluster-2', 'Pelayanan Tumbuh Kembang Anak', 'pelayanan-tumbuh-kembang-anak.html', 'Buka Pelayanan Tumbuh Kembang Anak');
+
+    // Klaster 3 — five service detail pages.
+    wireServiceLink('details.cluster-3', 'Pelayanan Kesehatan Usia Dewasa', 'pelayanan-kesehatan-dewasa.html', 'Buka Pelayanan Kesehatan Usia Dewasa');
+    wireServiceLink('details.cluster-3', 'Pelayanan Kesehatan Lansia', 'pelayanan-kesehatan-lansia.html', 'Buka Pelayanan Kesehatan Lansia');
+    wireServiceLink('details.cluster-3', 'Pelayanan Keluarga Berencana (KB)', 'pelayanan-kb.html', 'Buka Pelayanan Keluarga Berencana');
+    wireServiceLink('details.cluster-3', 'Pelayanan Calon Pengantin (Caten)', 'pelayanan-catin.html', 'Buka Pelayanan Calon Pengantin');
+    wireServiceLink('details.cluster-3', 'Pelayanan UBM (Upaya Berhenti Merokok)', 'pelayanan-ubm.html', 'Buka Pelayanan UBM');
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
