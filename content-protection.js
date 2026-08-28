@@ -40,6 +40,32 @@
     });
   }
 
+  function wireChildServiceLink() {
+    const path = window.location.pathname || '';
+    if (!path.endsWith('pelayanan.html')) return;
+
+    const cluster = document.querySelector('details.cluster-2');
+    if (!cluster) return;
+
+    const targetText = 'Pelayanan Anak';
+    const items = cluster.querySelectorAll('.service-link');
+
+    items.forEach(function (item) {
+      const title = item.querySelector('strong');
+      if (!title || title.textContent.trim() !== targetText) return;
+      if (item.closest('a')) return;
+
+      const link = document.createElement('a');
+      link.className = item.className;
+      link.href = 'pelayanan-anak.html';
+      link.style.textDecoration = 'none';
+      link.style.color = 'inherit';
+      link.setAttribute('aria-label', 'Buka Pelayanan Anak');
+      link.innerHTML = item.innerHTML;
+      item.replaceWith(link);
+    });
+  }
+
   function installStyle() {
     if (document.getElementById('content-protection-style')) return;
 
@@ -115,9 +141,11 @@
     document.addEventListener('DOMContentLoaded', function () {
       installStyle();
       wireMaternalServiceLink();
+      wireChildServiceLink();
     }, { once: true });
   } else {
     installStyle();
     wireMaternalServiceLink();
+    wireChildServiceLink();
   }
 })();
