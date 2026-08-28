@@ -1,32 +1,21 @@
 /*
  * Content Protection — UPTD Puskesmas Tanjung Pinang Kota Jambi
  *
- * This is a deterrent layer only. It cannot make public web assets impossible
- * to copy because browsers must receive HTML/CSS/JS/media to render the site.
- * Do not place secrets or patient data in frontend code.
+ * Deterrent only; frontend assets remain public by design.
  */
 (function () {
   'use strict';
 
   const editableSelector = 'input, textarea, select, [contenteditable="true"], [contenteditable=""]';
-
-  function isEditable(target) {
-    return !!(target && target.closest && target.closest(editableSelector));
-  }
+  const isEditable = target => !!(target && target.closest && target.closest(editableSelector));
 
   function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
-    const path = window.location.pathname || '';
-    if (!path.endsWith('pelayanan.html')) return;
-
+    if (!window.location.pathname.endsWith('pelayanan.html')) return;
     const cluster = document.querySelector(clusterSelector);
     if (!cluster) return;
-
-    const items = cluster.querySelectorAll('.service-link');
-    items.forEach(function (item) {
+    cluster.querySelectorAll('.service-link').forEach(item => {
       const title = item.querySelector('strong');
-      if (!title || title.textContent.trim() !== targetText) return;
-      if (item.closest('a')) return;
-
+      if (!title || title.textContent.trim() !== targetText || item.closest('a')) return;
       const link = document.createElement('a');
       link.className = item.className;
       link.href = href;
@@ -54,9 +43,9 @@
   function blockEvent(event) { if (!isEditable(event.target)) event.preventDefault(); }
   document.addEventListener('copy', blockEvent, true);
   document.addEventListener('cut', blockEvent, true);
-  document.addEventListener('contextmenu', function (event) { if (!isEditable(event.target)) event.preventDefault(); }, true);
-  document.addEventListener('dragstart', function (event) { if (!isEditable(event.target)) event.preventDefault(); }, true);
-  document.addEventListener('keydown', function (event) {
+  document.addEventListener('contextmenu', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
+  document.addEventListener('dragstart', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
+  document.addEventListener('keydown', event => {
     if (isEditable(event.target)) return;
     const key = String(event.key || '').toLowerCase();
     const modifier = event.ctrlKey || event.metaKey;
@@ -76,5 +65,7 @@
     wireServiceLink('details.cluster-3', 'Pelayanan Calon Pengantin (Caten)', 'pelayanan-catin.html', 'Buka Pelayanan Calon Pengantin');
     wireServiceLink('details.cluster-3', 'Pelayanan UBM (Upaya Berhenti Merokok)', 'pelayanan-ubm.html', 'Buka Pelayanan UBM');
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true }); else init();
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
 })();
