@@ -97,14 +97,10 @@
 
   function init() {
     installStyle();
-
-    // Klaster 2 — master pattern already used in production.
     wireServiceLink('details.cluster-2', 'Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas', 'pelayanan-ibu-hamil-bersalin-nifas.html', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
     wireServiceLink('details.cluster-2', 'Pelayanan Anak', 'pelayanan-anak.html', 'Buka Pelayanan Anak');
     wireServiceLink('details.cluster-2', 'Pelayanan Imunisasi', 'pelayanan-imunisasi.html', 'Buka Pelayanan Imunisasi');
     wireServiceLink('details.cluster-2', 'Pelayanan Tumbuh Kembang Anak', 'pelayanan-tumbuh-kembang-anak.html', 'Buka Pelayanan Tumbuh Kembang Anak');
-
-    // Klaster 3 — five service detail pages.
     wireServiceLink('details.cluster-3', 'Pelayanan Kesehatan Usia Dewasa', 'pelayanan-kesehatan-dewasa.html', 'Buka Pelayanan Kesehatan Usia Dewasa');
     wireServiceLink('details.cluster-3', 'Pelayanan Kesehatan Lansia', 'pelayanan-kesehatan-lansia.html', 'Buka Pelayanan Kesehatan Lansia');
     wireServiceLink('details.cluster-3', 'Pelayanan Keluarga Berencana (KB)', 'pelayanan-kb.html', 'Buka Pelayanan Keluarga Berencana');
