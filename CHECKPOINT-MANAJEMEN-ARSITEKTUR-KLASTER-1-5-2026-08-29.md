@@ -12,17 +12,13 @@ Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 - Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online berada di dalam masing-masing klaster sebagai Informasi Pelayanan.
 - Detail manajemen Klaster 1 diarahkan ke `manajemen-puskesmas.html` sehingga tidak terjadi duplikasi konten besar.
 
-## Struktur setiap Klaster
-- Layanan utama.
-- Informasi Pelayanan: Jadwal, Tarif, Persyaratan, Alur, Layanan Online.
-
 ## Implementasi
 - `pelayanan.html` menjadi halaman utama lima klaster.
 - Klaster 1 menjadi entry point ke Manajemen Puskesmas.
 - Klaster 2–5 tetap menyediakan tautan ke halaman detail layanan yang tersedia.
-- Informasi Pelayanan ditempatkan di dalam accordion masing-masing klaster.
+- Setiap klaster memiliki lima unsur Informasi Pelayanan dalam accordion.
 - Dropdown Pelayanan pada halaman Pelayanan memuat Klaster 1–5.
-- Workflow sementara migrasi sudah dibersihkan.
+- Workflow sementara migrasi telah dibersihkan.
 
 ## QC
 - Lima klaster tersedia di Pelayanan.
