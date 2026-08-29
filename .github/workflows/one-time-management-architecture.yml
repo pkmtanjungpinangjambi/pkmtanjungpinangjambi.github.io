@@ -1,0 +1,139 @@
+name: One-time management architecture restructuring
+
+on:
+  push:
+    branches:
+      - feature/manajemen-puskesmas-cluster-1
+
+permissions:
+  contents: write
+
+jobs:
+  restructure:
+    if: ${{ !contains(github.event.head_commit.message, '[management-architecture-autopatch]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref_name }}
+
+      - name: Restructure Klaster 1
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          management_nav = '''<div class="nav-item-dropdown"><a href="manajemen-puskesmas.html">Manajemen Puskesmas</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Manajemen Puskesmas" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="manajemen-puskesmas.html#ketatausahaan">Ketatausahaan &amp; Layanan Administrasi</a><a href="manajemen-puskesmas.html#sumber-daya">Manajemen Sumber Daya</a><a href="manajemen-puskesmas.html#manajemen-puskesmas">Manajemen Puskesmas</a><a href="manajemen-puskesmas.html#mutu-keselamatan">Mutu &amp; Keselamatan Pasien</a><a href="manajemen-puskesmas.html#jejaring">Manajemen Jejaring</a><a href="manajemen-puskesmas.html#pemberdayaan">Pemberdayaan Masyarakat</a><a href="manajemen-puskesmas.html#struktur">Struktur Organisasi</a><a href="manajemen-puskesmas.html#standar-klaster-1">Standar Pelayanan Klaster 1</a></div></div>'''
+
+          def remove_top_level_details(text, marker):
+              start = text.find(marker)
+              if start < 0:
+                  return text
+              pos = start
+              depth = 0
+              token_re = re.compile(r'</?details\b', re.I)
+              first = True
+              end = None
+              while True:
+                  m = token_re.search(text, pos)
+                  if not m:
+                      break
+                  if text[m.start()+1] != '/':
+                      depth += 1
+                  else:
+                      depth -= 1
+                      if not first and depth == 0:
+                          close_end = text.find('>', m.end())
+                          end = close_end + 1
+                          break
+                  first = False
+                  pos = m.end()
+              if end is None:
+                  raise RuntimeError('Could not find matching </details> for cluster 1')
+              return text[:start] + text[end:]
+
+          def restructure_profile(text):
+              text = re.sub(r'\n\s*<a href="profil\.html#klaster1">.*?</a>\s*', '\n', text, flags=re.S)
+              text = re.sub(r'\n\s*<button\s+data-tab="klaster1">.*?</button>\s*', '\n', text, flags=re.S)
+              text = re.sub(r'\n?<!--\s*=+\s*\n\s*4\. KLASTER 1 — MANAJEMEN\s*\n\s*=+\s*-->.*?(?=<!--\s*=+\s*\n\s*5\. KARAKTERISTIK & KEKUATAN)', '\n', text, flags=re.S)
+              text = text.replace('Klaster 1 Manajemen, ', '')
+              text = text.replace('sistem manajemen,', 'tata kelola dan sistem pelayanan,')
+              return text
+
+          def restructure_service_page(text):
+              text = remove_top_level_details(text, '<details class="cluster cluster-1" id="klaster-1"')
+              text = re.sub(r'<a href="pelayanan\.html#klaster-1">\s*Klaster 1\s*</a>', '<a href="manajemen-puskesmas.html#standar-klaster-1">Klaster 1 — Manajemen</a>', text)
+              text = text.replace('berdasarkan 5 klaster pelayanan.', 'berdasarkan Klaster 2–5. Klaster 1 — Manajemen tersedia di menu Manajemen Puskesmas.')
+              text = text.replace('<span class="kicker">5 KLASTER PELAYANAN</span>', '<span class="kicker">KLASTER 2–5</span>')
+              text = text.replace('Pelayanan UPTD Puskesmas Tanjung Pinang disusun dalam 5 klaster agar masyarakat lebih mudah menemukan layanan yang dibutuhkan.', 'Pelayanan kesehatan masyarakat ditampilkan dalam Klaster 2–5. Klaster 1 — Manajemen berada pada menu utama Manajemen Puskesmas agar informasi manajemen dan layanan administrasi tidak bercampur.')
+              needle = '<div class="service-intro"><span class="kicker">KLASTER 2–5</span>'
+              note = '<div class="service-note" style="max-width:850px;margin:0 auto 22px"><strong>Klaster 1 — Manajemen:</strong> informasi manajemen Puskesmas dan standar pelayanan administrasi tersedia di menu <a href="manajemen-puskesmas.html#standar-klaster-1"><strong>Manajemen Puskesmas</strong> →</a></div>\n'
+              if 'manajemen-puskesmas.html#standar-klaster-1' not in text:
+                  text = text.replace(needle, needle, 1)
+                  marker2 = '</div>\n<div class="cluster-list">'
+                  text = text.replace(marker2, '</div>\n' + note + '<div class="cluster-list">', 1)
+              return text
+
+          files = sorted(Path('.').glob('*.html'))
+          changed = []
+          for path in files:
+              if path.name == 'manajemen-puskesmas.html':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              text = re.sub(r'\n\s*<a href="profil\.html#klaster1">.*?</a>\s*', '\n', text, flags=re.S)
+              if 'href="manajemen-puskesmas.html"' not in text:
+                  pattern = re.compile(r'(<div class="nav-item-dropdown">\s*<a[^>]+href="pelayanan\.html"[^>]*>Pelayanan</a>)', re.S)
+                  text, n = pattern.subn(management_nav + r'\1', text, count=1)
+                  if n == 0:
+                      print(f'WARNING: could not insert management nav in {path}')
+
+              if path.name == 'profil.html':
+                  text = restructure_profile(text)
+              elif path.name == 'pelayanan.html':
+                  text = restructure_service_page(text)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          print('Changed files:')
+          for item in changed:
+              print(' -', item)
+
+          if not changed:
+              raise SystemExit('No files changed; refusing to create an empty autopatch commit.')
+
+      - name: Validate HTML and JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+
+          class Parser(HTMLParser):
+              pass
+
+          for path in sorted(Path('.').glob('*.html')):
+              Parser().feed(path.read_text(encoding='utf-8'))
+              if '</html>' not in path.read_text(encoding='utf-8').lower():
+                  raise SystemExit(f'Missing </html>: {path}')
+              print(f'HTML parse check OK: {path}')
+          PY
+
+          node --check content-protection.js
+          node --check script.js
+
+      - name: Commit restructuring
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html'
+          git commit -m 'feat: promote Manajemen Puskesmas to main navigation [management-architecture-autopatch]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
