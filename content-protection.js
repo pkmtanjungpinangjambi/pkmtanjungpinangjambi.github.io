@@ -64,6 +64,16 @@
     wireServiceLink('details.cluster-3', 'Pelayanan Keluarga Berencana (KB)', 'pelayanan-kb.html', 'Buka Pelayanan Keluarga Berencana');
     wireServiceLink('details.cluster-3', 'Pelayanan Calon Pengantin (Caten)', 'pelayanan-catin.html', 'Buka Pelayanan Calon Pengantin');
     wireServiceLink('details.cluster-3', 'Pelayanan UBM (Upaya Berhenti Merokok)', 'pelayanan-ubm.html', 'Buka Pelayanan UBM');
+    wireServiceLink('details.cluster-4', 'Pelayanan Penyakit Tuberkulosis', 'pelayanan-tuberkulosis.html', 'Buka Pelayanan Penyakit Tuberkulosis');
+    wireServiceLink('details.cluster-4', 'Pelayanan PDP, VCT dan IMS', 'pelayanan-pdp-vct-ims.html', 'Buka Pelayanan PDP, VCT dan IMS');
+    wireServiceLink('details.cluster-4', 'Pelayanan Klinik Sanitasi', 'pelayanan-klinik-sanitasi.html', 'Buka Pelayanan Klinik Sanitasi');
+    wireServiceLink('details.cluster-4', 'Pelayanan Gigitan Hewan Pembawa Rabies (GHPR)', 'pelayanan-ghpr.html', 'Buka Pelayanan Gigitan Hewan Pembawa Rabies');
+    wireServiceLink('details.cluster-4', 'Pelayanan Penanggulangan Krisis Kesehatan', 'pelayanan-krisis-kesehatan.html', 'Buka Pelayanan Penanggulangan Krisis Kesehatan');
+    wireServiceLink('details.cluster-5', 'Pelayanan Kesehatan Gigi dan Mulut', 'pelayanan-kesehatan-gigi-mulut.html', 'Buka Pelayanan Kesehatan Gigi dan Mulut');
+    wireServiceLink('details.cluster-5', 'Pelayanan Gawat Darurat', 'pelayanan-gawat-darurat.html', 'Buka Pelayanan Gawat Darurat');
+    wireServiceLink('details.cluster-5', 'Pelayanan Laboratorium', 'pelayanan-laboratorium.html', 'Buka Pelayanan Laboratorium');
+    wireServiceLink('details.cluster-5', 'Pelayanan Resep Obat', 'pelayanan-resep-obat.html', 'Buka Pelayanan Resep Obat');
+    wireServiceLink('details.cluster-5', 'Pelayanan CKG (Cek Kesehatan Gratis)', 'pelayanan-ckg.html', 'Buka Pelayanan Cek Kesehatan Gratis');
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
