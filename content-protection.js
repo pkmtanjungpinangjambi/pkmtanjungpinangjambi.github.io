@@ -9,6 +9,46 @@
   const editableSelector = 'input, textarea, select, [contenteditable="true"], [contenteditable=""]';
   const isEditable = target => !!(target && target.closest && target.closest(editableSelector));
 
+  function normalizePrimaryNavigation() {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+
+    const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    let active = 'informasi';
+    if (file === 'index.html') active = 'home';
+    else if (file.startsWith('profil') || file === 'struktur.html') active = 'profil';
+    else if (file === 'pelayanan.html' || file.startsWith('pelayanan-') || file === 'manajemen-puskesmas.html' || file === 'jadwal.html' || file === 'tarif.html') active = 'pelayanan';
+
+    const oldCta = nav.querySelector('.nav-cta');
+    const cta = oldCta ? oldCta.outerHTML : '<a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a>';
+
+    const linkClass = key => key === active ? ' class="active"' : '';
+    nav.innerHTML = `
+<a href="index.html"${linkClass('home')}>Beranda</a>
+<div class="nav-item-dropdown"><a href="profil.html"${linkClass('profil')}>Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div>
+<div class="nav-item-dropdown"><a href="pelayanan.html"${linkClass('pelayanan')}>Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="manajemen-puskesmas.html">Manajemen Puskesmas</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
+<div class="nav-item-dropdown"><a href="informasi.html"${linkClass('informasi')}>Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
+${cta}`;
+
+    nav.querySelectorAll('.dropdown-caret-btn').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        const parent = btn.closest('.nav-item-dropdown');
+        const wasOpen = parent.classList.contains('open');
+        nav.querySelectorAll('.nav-item-dropdown.open').forEach(drop => {
+          drop.classList.remove('open');
+          const control = drop.querySelector('.dropdown-caret-btn');
+          if (control) control.setAttribute('aria-expanded', 'false');
+        });
+        if (!wasOpen) {
+          parent.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
   function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
     if (!window.location.pathname.endsWith('pelayanan.html')) return;
     const cluster = document.querySelector(clusterSelector);
@@ -54,6 +94,7 @@
   }, true);
 
   function init() {
+    normalizePrimaryNavigation();
     installStyle();
     wireServiceLink('details.cluster-2', 'Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas', 'pelayanan-ibu-hamil-bersalin-nifas.html', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
     wireServiceLink('details.cluster-2', 'Pelayanan Anak', 'pelayanan-anak.html', 'Buka Pelayanan Anak');

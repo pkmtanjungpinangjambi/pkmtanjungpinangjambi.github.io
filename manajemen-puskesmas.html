@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manajemen Puskesmas | UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
+<meta name="description" content="Manajemen Puskesmas UPTD Puskesmas Tanjung Pinang Kota Jambi sebagai Klaster 1: ketatausahaan, layanan administrasi, sumber daya, mutu, jejaring, pemberdayaan masyarakat, dan struktur organisasi.">
+<link rel="canonical" href="https://pkmtanjungpinangjambi.vercel.app/manajemen-puskesmas.html">
+<link rel="stylesheet" href="styles.css?v=20260824-info1">
+<style>
+.management-hero-note{max-width:820px;margin:0 auto;text-align:center;line-height:1.8}
+.management-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#e8f6f2;color:#0b5d49;font-weight:900;font-size:.8rem}
+.management-intro{padding:24px;border:1px solid #d9ebe5;border-radius:20px;background:linear-gradient(135deg,#eef8f5,#f8fcfb);margin-bottom:24px}
+.management-intro h2{margin:0 0 8px;color:#0b5d49}
+.management-intro p{margin:0;color:#53645f;line-height:1.7}
+.management-section{margin-top:34px;scroll-margin-top:100px}
+.management-section>h2{margin:0 0 8px;color:#0b5d49}
+.management-section>p{color:#60706b;line-height:1.7}
+.management-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.management-card{background:#fff;border:1px solid #dfe9e5;border-radius:16px;padding:18px;box-shadow:0 7px 22px rgba(0,59,45,.05)}
+.management-card h3{margin:0 0 7px;color:#0b5d49;font-size:1rem}
+.management-card p{margin:0;color:#62706c;font-size:.88rem;line-height:1.6}
+.management-card .pj{margin-top:8px;font-weight:800;color:#334f47}
+.admin-list{display:grid;gap:12px;margin-top:16px}
+.admin-item{border:1px solid #dfe9e5;border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 6px 18px rgba(0,59,45,.05)}
+.admin-item summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;padding:16px 18px;font-weight:900;color:#0b5d49}
+.admin-item summary::-webkit-details-marker{display:none}
+.admin-item summary::after{content:'+';margin-left:auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#0b5d49;color:#fff;font-size:18px}
+.admin-item[open] summary::after{content:'−'}
+.admin-index{flex:0 0 32px;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:#e8f3ef;color:#0b5d49;font-size:.78rem;font-weight:900}
+.admin-body{padding:0 18px 18px;border-top:1px solid #edf2ef;color:#61706b;font-size:.86rem;line-height:1.7}
+.admin-body strong{color:#0b5d49}
+.admin-ref{margin-top:18px;padding:14px 16px;border-left:4px solid #0b5d49;background:#f4f9f7;border-radius:0 10px 10px 0;color:#566760;font-size:.82rem;line-height:1.6}
+.structure-card{display:grid;grid-template-columns:minmax(260px,520px) 1fr;gap:24px;align-items:start;margin-top:16px}
+.structure-card img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid #dfe9e5;box-shadow:0 10px 26px rgba(0,59,45,.08)}
+.structure-copy{background:#fff;border:1px solid #dfe9e5;border-radius:16px;padding:20px}
+.structure-copy h3{margin:0 0 8px;color:#0b5d49}
+.structure-copy p{margin:0 0 10px;color:#62706c;line-height:1.65;font-size:.88rem}
+.quick-nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px}
+.quick-nav a{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef7f4;color:#0b5d49;border:1px solid #d8ebe5;font-size:.8rem;font-weight:800}
+.quick-nav a:hover{background:#dff0ea}
+@media(max-width:760px){.management-grid,.structure-card{grid-template-columns:1fr}.structure-card img{max-width:520px}}
+
+.management-preservation-added{margin-top:24px}
+.management-poster{margin:18px 0;border:1px solid #dfe9e5;border-radius:16px;background:#fff;padding:16px;box-shadow:0 8px 24px rgba(0,59,45,.06)}
+.management-poster img{display:block;width:100%;max-width:560px;height:auto;border-radius:12px}
+.management-poster-caption{margin:10px 0 0;color:#5d6b66;font-size:.84rem;line-height:1.6}
+.management-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.management-value{padding:16px;border:1px solid #dfe9e5;border-radius:14px;background:#fff}
+.management-value strong{display:block;color:#0b5d49;margin-bottom:5px}
+.management-value span{color:#64716d;font-size:.85rem;line-height:1.55}
+.management-table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border:1px solid #dfe9e5;border-radius:12px;overflow:hidden}
+.management-table th,.management-table td{padding:10px 12px;border-bottom:1px solid #e8efec;text-align:left;vertical-align:top;font-size:.82rem;line-height:1.45}
+.management-table th{background:#f3f8f6;color:#0b5d49;font-weight:900}
+.management-table tr:last-child td{border-bottom:none}
+.management-achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.management-achievement{background:#fff;border:1px solid #dfe9e5;border-radius:16px;padding:18px;box-shadow:0 7px 22px rgba(0,59,45,.05)}
+.management-achievement .year{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e8f3ef;color:#0b5d49;font-size:.74rem;font-weight:900;margin-bottom:8px}
+.management-achievement h3{margin:0 0 7px;color:#0b5d49;font-size:.98rem}
+.management-achievement p{margin:0;color:#65716d;font-size:.84rem;line-height:1.6}
+.management-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.management-links a{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef7f4;color:#0b5d49;border:1px solid #d8ebe5;font-size:.8rem;font-weight:800}
+@media(max-width:760px){.management-values,.management-achievements{grid-template-columns:1fr}.management-table{display:block;overflow-x:auto;white-space:normal}}
+
+</style>
+</head>
+<body>
+<div class="topbar"><div class="container topbar-inner"><span>📍 Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</span><span><a href="tel:0741755394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email</a></span></div></div>
+<header class="site-header"><div class="container nav-wrap">
+<a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang"><span class="brand-mark" style="width:44px;height:44px;flex:0 0 44px"><img src="logo-kota-jambi.png" alt="Lambang Kota Jambi" width="44" height="44" style="width:100%;height:100%;object-fit:contain"></span><span><strong>UPTD PUSKESMAS<br>TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a>
+<button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
+<nav class="nav" aria-label="Navigasi utama"><a href="index.html">Beranda</a><div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div><div class="nav-item-dropdown"><a class="active" href="manajemen-puskesmas.html">Manajemen Puskesmas</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Manajemen Puskesmas" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="manajemen-puskesmas.html#ketatausahaan">Ketatausahaan &amp; Layanan Administrasi</a><a href="manajemen-puskesmas.html#sumber-daya">Manajemen Sumber Daya</a><a href="manajemen-puskesmas.html#manajemen-puskesmas">Manajemen Puskesmas</a><a href="manajemen-puskesmas.html#mutu-keselamatan">Mutu &amp; Keselamatan Pasien</a><a href="manajemen-puskesmas.html#jejaring">Manajemen Jejaring</a><a href="manajemen-puskesmas.html#pemberdayaan">Pemberdayaan Masyarakat</a><a href="manajemen-puskesmas.html#struktur">Struktur Organisasi</a><a href="manajemen-puskesmas.html#wilayah">Wilayah Kerja &amp; Pustu</a><a href="manajemen-puskesmas.html#komitmen">Komitmen &amp; IKM</a><a href="manajemen-puskesmas.html#prestasi">Prestasi &amp; Penghargaan</a><a href="manajemen-puskesmas.html#standar-klaster-1">Standar Pelayanan Klaster 1</a></div></div><div class="nav-item-dropdown"><a href="pelayanan.html">Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-2">Klaster 2</a><a href="pelayanan.html#klaster-3">Klaster 3</a><a href="pelayanan.html#klaster-4">Klaster 4</a><a href="pelayanan.html#klaster-5">Klaster 5</a></div></div><div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div><a class="nav-cta" href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20mendapatkan%20informasi." target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
+</div></header>
+<section class="page-hero"><div class="container"><span class="eyebrow">Klaster 1 — Manajemen</span><h1>Manajemen Puskesmas</h1><p class="management-hero-note">Pusat informasi tentang bagaimana UPTD Puskesmas Tanjung Pinang dikelola, termasuk ketatausahaan, sumber daya, mutu, jejaring, pemberdayaan masyarakat, struktur organisasi, dan standar pelayanan administrasi.</p></div></section>
+<main class="page-content"><div class="container">
+<div class="management-intro"><span class="management-badge">🏥 KLASTER 1 — MANAJEMEN</span><h2>Manajemen sebagai unsur utama</h2><p>Halaman ini menjadi rumah utama seluruh informasi manajemen Puskesmas. Menu Profil berfokus pada identitas dan karakteristik Puskesmas, sedangkan menu Pelayanan berfokus pada Klaster 2–5. Standar pelayanan Klaster 1 ditempatkan sebagai unsur penunjang di dalam Manajemen Puskesmas.</p></div>
+<nav class="quick-nav" aria-label="Navigasi internal Manajemen Puskesmas"><a href="#ketatausahaan">Ketatausahaan &amp; Administrasi</a><a href="#sumber-daya">Sumber Daya</a><a href="#manajemen-puskesmas">Manajemen</a><a href="#mutu-keselamatan">Mutu &amp; Keselamatan</a><a href="#jejaring">Jejaring</a><a href="#pemberdayaan">Pemberdayaan</a><a href="#struktur">Struktur</a><a href="#standar-klaster-1">Standar Pelayanan</a></nav>
+<section class="management-section" id="ketatausahaan"><h2>Ketatausahaan &amp; Layanan Administrasi</h2><p>Kelompok ini menjadi pintu layanan administrasi dan ketatausahaan bagi masyarakat maupun kebutuhan internal Puskesmas.</p><div class="admin-list">
+<details class="admin-item"><summary><span class="admin-index">01</span>Front Liner / Front Office</summary><div class="admin-body"><strong>Pelayanan awal dan informasi bagi pengunjung.</strong><br>Petugas menyapa pasien, mengarahkan pengambilan nomor antrean, meminta identitas, mengarahkan pasien menunggu, dan membantu proses awal sesuai alur pelayanan.</div></details>
+<details class="admin-item"><summary><span class="admin-index">02</span>Pendaftaran &amp; Rekam Medik</summary><div class="admin-body"><strong>Pendaftaran pasien dan pengelolaan rekam medis.</strong><br>Meliputi pendaftaran langsung maupun melalui Mobile JKN, verifikasi identitas, penentuan alur/klaster tujuan, serta pencatatan pada rekam medis.</div></details>
+<details class="admin-item"><summary><span class="admin-index">03</span>Informasi, Keluhan &amp; Pengaduan</summary><div class="admin-body"><strong>Penerimaan dan tindak lanjut informasi, saran, kritik, keluhan, dan pengaduan masyarakat.</strong><br>Saluran meliputi petugas, telepon, WhatsApp, email, media sosial, kotak saran, dan SP4N-LAPOR! sesuai mekanisme yang berlaku.</div></details>
+<details class="admin-item"><summary><span class="admin-index">04</span>Surat Masuk &amp; Surat Keluar</summary><div class="admin-body"><strong>Pengelolaan administrasi surat kedinasan.</strong><br>Surat diterima, diperiksa, dicatat, diarahkan kepada pimpinan, didistribusikan, dan didokumentasikan sesuai tata naskah dinas.</div></details>
+<details class="admin-item"><summary><span class="admin-index">05</span>Surat Keterangan Sehat</summary><div class="admin-body"><strong>Pelayanan penerbitan surat keterangan sehat sesuai ketentuan yang berlaku.</strong><br>Persyaratan, pemeriksaan, biaya, dan bentuk dokumen mengikuti standar pelayanan Puskesmas.</div></details>
+<details class="admin-item"><summary><span class="admin-index">06</span>Promosi Kesehatan</summary><div class="admin-body"><strong>Edukasi dan penyampaian informasi kesehatan kepada masyarakat.</strong><br>Materi harus akurat, berbasis data/ilmiah, menggunakan bahasa yang mudah dipahami, dan disampaikan melalui media yang sesuai.</div></details>
+</div><div class="admin-ref"><strong>Rujukan utama:</strong> Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik. Standar pelayanan Klaster 1 memuat komponen dasar hukum, persyaratan, prosedur, waktu, biaya/tarif, produk, sarana, kompetensi, pengawasan, pengaduan, jumlah pelaksana, jaminan pelayanan, keselamatan, dan evaluasi.</div></section>
+<section class="management-section" id="sumber-daya"><h2>Manajemen Sumber Daya</h2><p>Pengelolaan sumber daya manusia serta sarana, prasarana, obat, dan bahan medis habis pakai untuk mendukung pelayanan Puskesmas.</p><div class="management-grid"><article class="management-card"><h3>Manajemen Sumber Daya</h3><p class="pj">PJ: Kiki Ayu.A, S.Tr.Keb, MKM</p><p>Pengelolaan dan pengembangan sumber daya manusia sesuai kebutuhan penyelenggaraan pelayanan.</p></article><article class="management-card"><h3>Sarana, Prasarana &amp; Perbekalan Kesehatan</h3><p class="pj">PJ: Bdn. Fatmawati, S.Keb</p><p>Pengelolaan sarana, prasarana, obat, dan perbekalan kesehatan termasuk BMHP.</p></article></div></section>
+<section class="management-section" id="manajemen-puskesmas"><h2>Manajemen Puskesmas</h2><p>Mengoordinasikan perencanaan, pelaksanaan, pemantauan, evaluasi, manajemen program/klaster, dan pemberdayaan masyarakat.</p><div class="management-grid"><article class="management-card"><h3>Manajemen Inti Puskesmas</h3><p class="pj">PJ: Nur Saadyah, AM.Keb, SKM</p><p>Koordinasi manajemen inti dan penyelenggaraan manajemen Puskesmas serta keterpaduan antar-klaster.</p></article><article class="management-card"><h3>Manajemen Program / Klaster</h3><p>Koordinasi pelaksanaan program dan klaster sesuai pembagian tugas Puskesmas.</p></article><article class="management-card"><h3>Manajemen Pemberdayaan Masyarakat</h3><p class="pj">PJ: Benget Sihotang, SKM</p><p>Mendukung keterlibatan dan pemberdayaan masyarakat dalam pembangunan kesehatan.</p></article></div></section>
+<section class="management-section" id="mutu-keselamatan"><h2>Mutu &amp; Keselamatan Pasien</h2><p>Menjaga agar pelayanan Puskesmas berjalan sesuai standar, aman, berorientasi pada masyarakat, dan terus mengalami perbaikan.</p><div class="management-grid"><article class="management-card"><h3>Manajemen Mutu</h3><p class="pj">PJ: Apt. Hj. Susanti, S.Farm</p><p>Koordinasi pengelolaan mutu pelayanan dan perbaikan berkelanjutan.</p></article><article class="management-card"><h3>Komitmen Pelayanan</h3><p>Komitmen pelayanan dan maklumat pelayanan sebagai penguatan mutu dan akuntabilitas.</p><a href="#komitmen">Lihat Maklumat &amp; IKM →</a></article><article class="management-card"><h3>Inovasi</h3><p>Inovasi pelayanan sebagai respons kebutuhan masyarakat dan penguatan pelayanan primer yang inovatif dan terintegrasi.</p></article><article class="management-card"><h3>Prestasi &amp; Penghargaan</h3><p>Dokumentasi capaian dan penghargaan sebagai rekam jejak mutu dan pengembangan pelayanan.</p><a href="#prestasi">Lihat Prestasi →</a></article></div></section>
+<section class="management-section" id="jejaring"><h2>Manajemen Jejaring Puskesmas</h2><p>Membina hubungan kerja sama dan keterhubungan Puskesmas dengan jejaring fasilitas kesehatan serta unsur pelayanan kesehatan di wilayah kerja.</p><div class="management-grid"><article class="management-card"><h3>Manajemen Jejaring</h3><p class="pj">PJ: drg. Widja Darmi</p><p>Mengoordinasikan hubungan dan jejaring pelayanan kesehatan dalam wilayah kerja Puskesmas.</p></article><article class="management-card"><h3>Wilayah Kerja &amp; Pustu</h3><p>Wilayah kerja dan Puskesmas Pembantu merupakan bagian dari jaringan pelayanan Puskesmas.</p></article></div></section>
+<section class="management-section" id="pemberdayaan"><h2>Pemberdayaan Masyarakat</h2><div class="management-grid"><article class="management-card"><h3>Manajemen Pemberdayaan Masyarakat</h3><p class="pj">PJ: Benget Sihotang, SKM</p><p>Mendorong keterlibatan masyarakat dalam pembangunan kesehatan dan penguatan pelayanan primer berbasis wilayah.</p></article></div></section>
+<section class="management-section" id="struktur"><h2>Struktur Organisasi</h2><p>Struktur organisasi UPTD Puskesmas Tanjung Pinang disusun dalam sistem klaster sesuai Integrasi Layanan Primer (ILP), mengacu pada Peraturan Menteri Kesehatan Nomor 19 Tahun 2024 tentang Penyelenggaraan Pusat Kesehatan Masyarakat.</p><div class="structure-card"><img src="struktur-organisasi.png" alt="Bagan Struktur Organisasi UPTD Puskesmas Tanjung Pinang Kota Jambi" loading="lazy"><div class="structure-copy"><h3>Kepala Puskesmas</h3><p><strong>dr. Tini</strong></p><p>Struktur ini memperlihatkan pembagian fungsi manajemen dan penyelenggaraan pelayanan dalam sistem klaster.</p><p class="admin-ref" style="margin-top:14px">Sumber: Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan pembaruan struktur manajemen 2026.</p></div></div>
+<div class="management-preservation-added">
+  <h3>Penanggung Jawab &amp; Unsur Manajemen Klaster 1</h3>
+  <p>Ringkasan pembagian fungsi manajemen yang sebelumnya ditampilkan pada Profil Puskesmas, dipindahkan ke halaman utama Manajemen Puskesmas agar informasi tidak hilang.</p>
+  <table class="management-table">
+    <thead><tr><th>Unsur Manajemen</th><th>Penanggung Jawab</th></tr></thead>
+    <tbody>
+      <tr><td>Manajemen Inti Puskesmas</td><td>Nur Saadyah, AM.Keb, SKM</td></tr>
+      <tr><td>Manajemen Arsip</td><td>Nur Saadyah, AM.Keb, SKM</td></tr>
+      <tr><td>Manajemen Sumber Daya</td><td>Kiki Ayu.A, S.Tr.Keb, MKM</td></tr>
+      <tr><td>Sarana, Prasarana &amp; Perbekalan Kesehatan</td><td>Bdn. Fatmawati, S.Keb</td></tr>
+      <tr><td>Manajemen Mutu</td><td>Apt. Hj. Susanti, S.Farm</td></tr>
+      <tr><td>Manajemen Keuangan &amp; Aset/BMD</td><td>Nur Saadyah, AM.Keb, SKM</td></tr>
+      <tr><td>Manajemen Sistem Informasi Digital</td><td>Kiki Ayu.A, S.Tr.Keb, MKM</td></tr>
+      <tr><td>Manajemen Jejaring</td><td>drg. Widja Darmi</td></tr>
+      <tr><td>Manajemen Pemberdayaan Masyarakat</td><td>Benget Sihotang, SKM</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<section class="management-section management-preservation-added" id="wilayah">
+  <h2>Wilayah Kerja &amp; Puskesmas Pembantu</h2>
+  <p>Informasi wilayah kerja dan Puskesmas Pembantu merupakan bagian dari manajemen jejaring dan pelayanan berbasis wilayah.</p>
+  <div class="management-values">
+    <div class="management-value"><strong>01 · Kelurahan Tanjung Pinang</strong><span>Bagian dari wilayah kerja UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>02 · Kelurahan Rajawali</strong><span>Bagian dari wilayah kerja UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>03 · Kelurahan Kasang</strong><span>Bagian dari wilayah kerja UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>04 · Kelurahan Kasang Jaya</strong><span>Bagian dari wilayah kerja UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>05 · Kelurahan Sijenjang</strong><span>Bagian dari wilayah kerja UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>🏥 Pustu Kasang Jaya</strong><span>Bagian dari jaringan pelayanan UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>🏥 Pustu Sijenjang I</strong><span>Bagian dari jaringan pelayanan UPTD Puskesmas Tanjung Pinang.</span></div>
+    <div class="management-value"><strong>🏥 Pustu Sijenjang II</strong><span>Bagian dari jaringan pelayanan UPTD Puskesmas Tanjung Pinang.</span></div>
+  </div>
+  <div class="admin-ref"><strong>Batas wilayah:</strong> Utara Sungai Batanghari; Selatan Kelurahan Talang Banjar; Barat Kelurahan Pasar Jambi; Timur Kelurahan Tanjung Sari.<br><strong>Sumber:</strong> Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025.</div>
+</section>
+
+<section class="management-section management-preservation-added" id="komitmen">
+  <h2>Maklumat &amp; Komitmen Pelayanan</h2>
+  <p>Pernyataan resmi kesiapan UPTD Puskesmas Tanjung Pinang dalam memberikan pelayanan sesuai standar serta menerima masukan masyarakat sebagai bagian dari perbaikan mutu.</p>
+  <div class="management-poster"><a href="maklumat.jpeg" target="_blank" rel="noopener noreferrer"><img src="maklumat.jpeg" alt="Maklumat Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi" loading="lazy"></a><p class="management-poster-caption">Klik gambar untuk melihat Maklumat Pelayanan dalam ukuran penuh.</p></div>
+  <div class="management-grid">
+    <article class="management-card"><h3>Standar Pelayanan</h3><p>Pelayanan dipertanggungjawabkan sesuai Standar Pelayanan Puskesmas.</p></article>
+    <article class="management-card"><h3>Pengaduan &amp; Masukan</h3><p>Email, call center, WhatsApp, Instagram, Facebook, kotak saran, dan SPAN-LAPOR menjadi kanal masukan masyarakat.</p></article>
+    <article class="management-card"><h3>Evaluasi</h3><p>Monitoring dan evaluasi dilakukan melalui mekanisme yang ditetapkan dalam standar pelayanan.</p></article>
+  </div>
+  <h3 style="margin-top:28px">Survei Kepuasan Masyarakat (IKM)</h3>
+  <p>Hasil evaluasi rutin terhadap mutu dan kualitas pelayanan berdasarkan penilaian masyarakat.</p>
+  <div class="management-poster"><img src="survei-ikm-tw2.jpg" alt="Poster Hasil Survei Kepuasan Masyarakat Triwulan II 2026 - Nilai IKM 99,29 Sangat Baik" loading="lazy"><p class="management-poster-caption"><strong>Triwulan II 2026 (April–Juni): Nilai IKM 99,29 — Sangat Baik.</strong></p></div>
+  <div class="management-poster"><img src="survei-kepuasan-masyarakat.jpg" alt="Poster Hasil Survei Kepuasan Masyarakat Triwulan I 2026 - Nilai IKM 98,54 Sangat Baik" loading="lazy"><p class="management-poster-caption"><strong>Triwulan I 2026 (Januari–Maret): Nilai IKM 98,54 — Sangat Baik.</strong></p></div>
+  <div class="management-links"><a href="kontak.html">💬 Hubungi Puskesmas</a></div>
+  <p class="admin-ref">Dasar konten: SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik, ditetapkan 15 Maret 2026.</p>
+</section>
+
+<section class="management-section management-preservation-added" id="prestasi">
+  <h2>Prestasi &amp; Penghargaan</h2>
+  <p>Capaian dan penghargaan UPTD Puskesmas Tanjung Pinang sebagai bagian dari rekam jejak mutu, inovasi, dan pengembangan pelayanan.</p>
+  <div class="management-achievements">
+    <article class="management-achievement"><span class="year">2025</span><h3>Inovasi Pelayanan Publik Terbaik 5 Kota Jambi</h3><p>Penghargaan inovasi pelayanan publik tingkat Kota Jambi.</p></article>
+    <article class="management-achievement"><span class="year">2025</span><h3>Pemenang Lomba Inovasi Daerah</h3><p><strong>Inovasi Genre_seh</strong> — pemenang Lomba Inovasi Daerah Tahun 2025.</p></article>
+    <article class="management-achievement"><span class="year">2024</span><h3>Puskesmas Rujukan Ramah Anak Provinsi Jambi</h3><p>Menjadi Puskesmas Rujukan Ramah Anak di Provinsi Jambi sejak Tahun 2024.</p></article>
+    <article class="management-achievement"><span class="year">2024</span><h3>Puskesmas Ramah Anak Terstandar Nasional</h3><p>Pengakuan sebagai Puskesmas Ramah Anak Terstandar Nasional Tahun 2024.</p></article>
+    <article class="management-achievement"><span class="year">2023</span><h3>Puskesmas Lokus KKS Kota Jambi Sehat</h3><p>Puskesmas Lokus KKS Kota Jambi Sehat Tahun 2023.</p></article>
+    <article class="management-achievement"><span class="year">2023</span><h3>Akreditasi PARIPURNA II</h3><p>Puskesmas Terakreditasi PARIPURNA ke II pada Tahun 2023.</p></article>
+    <article class="management-achievement"><span class="year">2022</span><h3>Inovasi Promosi Kesehatan — “LAGU SADARI”</h3><p>Penghargaan inovatif promosi kesehatan pencegahan kanker payudara dan kanker leher rahim sebagai pencipta “LAGU SADARI”.</p></article>
+    <article class="management-achievement"><span class="year">2020</span><h3>Dokter Teladan I Tingkat Provinsi Jambi</h3><p>Dokter Teladan I Tingkat Provinsi Jambi Tahun 2020.</p></article>
+    <article class="management-achievement"><span class="year">2019</span><h3>Akreditasi PARIPURNA I</h3><p>Puskesmas Terakreditasi PARIPURNA I pada Tahun 2019.</p></article>
+  </div>
+  <p class="admin-ref">Sumber: Informasi prestasi dan capaian Puskesmas yang digunakan pada pembaruan profil website.</p>
+</section>
+
+<section class="management-section" id="standar-klaster-1"><h2>Standar Pelayanan Klaster 1</h2><p>Bagian ini merupakan unsur penunjang di dalam Manajemen Puskesmas. Standar pelayanan Klaster 1 mengacu pada SK Nomor 39 Tahun 2026 dan dapat dikembangkan menjadi detail 14 komponen untuk setiap layanan.</p><div class="management-grid"><article class="management-card"><h3>01–06</h3><p>Front Liner, Pendaftaran &amp; Rekam Medik, Informasi/Keluhan/Pengaduan, Surat Masuk &amp; Surat Keluar, Surat Keterangan Sehat, serta Promosi Kesehatan.</p></article><article class="management-card"><h3>Dokumen Acuan</h3><p>SK Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik UPTD Puskesmas Tanjung Pinang.</p></article></div></section>
+</div></main>
+<footer class="footer"><div class="container footer-grid"><div><h3>UPTD Puskesmas Tanjung Pinang</h3><p>Manajemen Puskesmas sebagai Klaster 1 dalam penyelenggaraan Integrasi Layanan Primer.</p></div><div><h3>Tautan</h3><div class="footer-links"><a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="pelayanan.html">Pelayanan</a><a href="jadwal.html">Jadwal</a><a href="tarif.html">Tarif</a><a href="kontak.html">Kontak</a></div></div><div><h3>Kontak</h3><p>📞 0741 7555394<br>💬 +62 821-8062-2274</p></div></div><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer>
+<a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener">💬 WhatsApp</a>
+<script src="script.js" defer></script>
+<script src="content-protection.js" defer></script>
+</body>
+</html>
