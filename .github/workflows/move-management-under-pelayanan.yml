@@ -1,0 +1,83 @@
+name: Move management under Pelayanan
+
+on:
+  push:
+    branches:
+      - feature/manajemen-puskesmas-cluster-1-clean
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: ${{ !contains(github.event.head_commit.message, 'refactor: place management under pelayanan') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update primary navigation
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          def process(text: bytes) -> bytes:
+              nav_match = re.search(rb'<nav class="nav"(?:\s+[^>]*)?>.*?</nav>', text, re.S)
+              if not nav_match:
+                  return text
+              nav = nav_match.group(0)
+
+              # Remove the top-level Manajemen Puskesmas dropdown only.
+              mgmt = re.search(
+                  rb'<div class="nav-item-dropdown">\s*<a(?:\s+[^>]*)?\s+href="manajemen-puskesmas\.html"[^>]*>.*?</a>.*?<div class="dropdown-menu">.*?</div>\s*</div>',
+                  nav, re.S
+              )
+              if mgmt:
+                  nav = nav[:mgmt.start()] + nav[mgmt.end():]
+
+              # Add Manajemen Puskesmas as the first item in Pelayanan dropdown.
+              pelayanan = re.search(
+                  rb'(<div class="nav-item-dropdown">\s*<a(?:\s+[^>]*)?\s+href="pelayanan\.html"[^>]*>.*?</a>.*?<div class="dropdown-menu">)(.*?)(</div>\s*</div>)',
+                  nav, re.S
+              )
+              if pelayanan:
+                  menu = pelayanan.group(2)
+                  item = b'<a href="manajemen-puskesmas.html">Manajemen Puskesmas</a>'
+                  if b'href="manajemen-puskesmas.html"' not in menu:
+                      menu = item + menu
+                  nav = nav[:pelayanan.start(2)] + menu + nav[pelayanan.end(2):]
+
+              # On the management page, Pelayanan is the active top-level section.
+              if b'href="manajemen-puskesmas.html">Manajemen Puskesmas</a>' in nav:
+                  nav = re.sub(rb'<a class="active" href="manajemen-puskesmas\.html">', b'<a href="manajemen-puskesmas.html">', nav, count=1)
+                  nav = re.sub(rb'<a href="pelayanan\.html">', b'<a class="active" href="pelayanan.html">', nav, count=1)
+
+              return text[:nav_match.start()] + nav + text[nav_match.end():]
+
+          changed = []
+          for path in sorted(Path('.').glob('*.html')):
+              raw = path.read_bytes()
+              new = process(raw)
+              if new != raw:
+                  path.write_bytes(new)
+                  changed.append(str(path))
+
+          print(f'Changed files: {len(changed)}')
+          for path in changed:
+              print(path)
+
+      - name: Commit navigation update
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          if git diff --cached --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git commit -m "refactor: place management under pelayanan"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
