@@ -38,20 +38,21 @@ Setiap klaster memiliki:
 ## Implementasi terbaru
 - `pelayanan.html` dikembalikan menjadi halaman 5 klaster.
 - Klaster 1 dibuat sebagai entry point menuju Manajemen Puskesmas.
-- Klaster 2–5 mempertahankan layanan utama yang tersedia melalui halaman detail yang sudah ada.
-- Paket Informasi Pelayanan ditempatkan di dalam setiap klaster.
+- Klaster 2–5 mempertahankan layanan utama melalui halaman detail yang tersedia.
+- Paket Informasi Pelayanan ditempatkan di dalam setiap klaster menggunakan accordion.
 - Dropdown Pelayanan pada halaman `pelayanan.html` hanya memuat Klaster 1–5.
 - Workflow sementara migrasi sudah dibersihkan; workflow repository yang tersisa adalah workflow content protection yang sudah ada sebelumnya.
 
 ## QC
-- `pelayanan.html` memuat tepat lima klaster.
+- `pelayanan.html` memuat tepat lima klaster pada implementasi final.
 - Setiap klaster memiliki lima unsur Informasi Pelayanan.
-- Detail Klaster 1 tetap berada pada `manajemen-puskesmas.html`.
+- Klaster 1 tidak lagi menjadi section/tab utama di Profil.
+- Detail lengkap Klaster 1 tetap tersedia di `manajemen-puskesmas.html`.
 - Asset klaster dan halaman detail layanan yang direferensikan tetap tersedia di repository.
 - `main` tidak diubah langsung.
 - Pixel-level Production belum diverifikasi dari sesi ini karena akses Vercel berbeda team.
 
 ## Catatan sebelum merge
 - Lakukan review visual pada Preview/Production.
-- Pastikan tidak ada regresi pada accordion, mobile navigation, dan halaman detail layanan.
+- Pastikan accordion, mobile navigation, dan semua link layanan bekerja baik.
 - Merge PR hanya setelah review final.
