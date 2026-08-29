@@ -1,8 +1,9 @@
 # CHECKPOINT — NAVIGASI 4 MENU UTAMA
 
 Tanggal: 29 Agustus 2026
+Status: POST-MERGE BASELINE
 
-## Keputusan arsitektur final tahap ini
+## Keputusan arsitektur yang berlaku
 - Website mempertahankan tepat **4 menu utama** pada navigasi utama:
   1. Beranda
   2. Profil
@@ -11,9 +12,9 @@ Tanggal: 29 Agustus 2026
 - CTA seperti WhatsApp/Pendaftaran bukan menu utama.
 - **Manajemen Puskesmas tidak menjadi menu utama tersendiri.**
 - Manajemen Puskesmas ditempatkan dalam ekosistem **Pelayanan → Klaster 1 — Manajemen**.
-- Pelayanan tetap menjadi induk **Klaster 1–5**.
+- Pelayanan menjadi induk **Klaster 1–5**.
 - Setiap klaster memiliki ekosistem pelayanan: **Layanan Utama + Jadwal + Tarif + Persyaratan + Alur + Layanan Online**.
-- Jadwal dan Tarif tidak menjadi submenu global pada navigasi utama; keduanya tetap tersedia dari konteks klaster.
+- Jadwal dan Tarif tidak menjadi submenu global pada navigasi utama; keduanya tetap dapat diakses dari konteks klaster.
 
 ## Struktur navigasi Pelayanan
 Pelayanan
@@ -43,20 +44,25 @@ Informasi
 ├── Download
 └── Kontak & Lokasi
 
-## Implementasi
-- Normalisasi navigasi sitewide dikendalikan dari `content-protection.js` agar seluruh halaman memakai pola empat menu yang sama.
-- Dropdown Pelayanan memuat Klaster 1–5 dan akses Manajemen Puskesmas.
-- Submenu detail layanan per klaster ditampilkan pada halaman/komponen klasternya, bukan ditumpuk seluruhnya di navbar.
+## Implementasi yang sudah masuk main
+- Normalisasi navigasi sitewide menggunakan `content-protection.js` sebagai titik kontrol bersama.
+- Dropdown Pelayanan memuat Klaster 1–5 serta akses Manajemen Puskesmas.
+- Detail layanan per klaster tetap ditampilkan pada halaman/komponen klaster, bukan ditumpuk seluruhnya di navbar.
+- Materi Klaster 1 yang dipindahkan dari Profil tetap dipertahankan pada halaman Manajemen Puskesmas.
 
-## Baseline dan keselamatan
-- Main baseline: `66f9007af46f90a64d4d41acffc497b4eef18b0c`
-- Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
-- PR: #138
-- `main` tidak diubah langsung.
+## Baseline keselamatan
+- **Main baseline terbaru:** `d05738e5822c817bfd70cfff532b792171ccbd3c`
+- Baseline sebelumnya: `66f9007af46f90a64d4d41acffc497b4eef18b0c`
+- PR **#138 sudah MERGED** pada 29 Agustus 2026.
+- Merge commit: `d05738e5822c817bfd70cfff532b792171ccbd3c`.
+- Vercel pada merge commit: **SUCCESS**.
+- `main` tidak diubah langsung selama pekerjaan fitur; perubahan masuk melalui branch dan PR.
 - Workflow migrasi sementara sudah dibersihkan.
 - `node --check content-protection.js`: PASS.
-- Vercel untuk commit dokumentasi terakhir belum mendapatkan status final saat checkpoint dibuat.
-- Pixel-level Production belum diverifikasi karena akses Vercel yang tersedia berbeda team.
+- Pixel-level screenshot Production belum diverifikasi dari sesi ini karena akses Vercel yang tersedia berada pada team berbeda.
 
-## Tahap berikutnya
-Setelah checkpoint ini, tata ulang detail submenu klaster dilakukan secara bertahap dengan pola yang sama untuk Klaster 1–5, tanpa menambah menu utama baru kecuali ada keputusan arsitektur baru.
+## Checkpoint lanjutan
+- Branch checkpoint: `chore/checkpoint-post-merge-2026-08-29`
+- Dokumen ini menjadi sumber keputusan navigasi terbaru.
+- Tata ulang detail submenu Klaster 1–5 dilakukan pada branch terpisah berikutnya.
+- Jangan menambah menu utama baru tanpa keputusan arsitektur baru.
