@@ -5,54 +5,39 @@ Baseline main: `66f9007af46f90a64d4d41acffc497b4eef18b0c`
 Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 
 ## Keputusan arsitektur
-- **Klaster 1–5 menjadi tulang punggung struktur informasi website.**
-- **Profil** berfokus pada identitas Puskesmas dan tidak lagi menjadi rumah Klaster 1.
-- **Manajemen Puskesmas** menjadi menu utama untuk informasi lengkap **Klaster 1 — Manajemen**.
-- **Pelayanan** tetap menampilkan **Klaster 1, 2, 3, 4, dan 5**.
-- **Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online** berada di dalam masing-masing klaster sebagai **Informasi Pelayanan**.
-- Detail manajemen Klaster 1 diarahkan ke `manajemen-puskesmas.html`, sehingga tidak terjadi duplikasi konten besar.
-
-## Struktur Klaster 1
-- Ketatausahaan & Layanan Administrasi
-- Manajemen Sumber Daya
-- Manajemen Puskesmas
-- Mutu & Keselamatan Pasien
-- Manajemen Jejaring
-- Pemberdayaan Masyarakat
-- Struktur Organisasi
-- Wilayah Kerja & Pustu
-- Komitmen & IKM
-- Prestasi & Penghargaan
-- Standar Pelayanan Klaster 1
+- Klaster 1–5 menjadi tulang punggung struktur informasi website.
+- Profil berfokus pada identitas Puskesmas dan tidak lagi menjadi rumah Klaster 1.
+- Manajemen Puskesmas menjadi menu utama untuk informasi lengkap Klaster 1 — Manajemen.
+- Pelayanan tetap menampilkan Klaster 1, 2, 3, 4, dan 5.
+- Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online berada di dalam masing-masing klaster sebagai Informasi Pelayanan.
+- Detail manajemen Klaster 1 diarahkan ke `manajemen-puskesmas.html` sehingga tidak terjadi duplikasi konten besar.
 
 ## Struktur Pelayanan
-Setiap klaster di halaman Pelayanan memiliki:
-1. Daftar layanan utama.
-2. Informasi Pelayanan di dalam klaster:
-   - Jadwal
-   - Tarif
-   - Persyaratan
-   - Alur
-   - Layanan Online
+Setiap klaster terdiri dari layanan utama + Informasi Pelayanan:
+- Jadwal
+- Tarif
+- Persyaratan
+- Alur
+- Layanan Online
 
 ## Implementasi terbaru
-- `pelayanan.html` dikembalikan menjadi halaman utama 5 klaster.
-- Klaster 1 menjadi entry point menuju Manajemen Puskesmas.
-- Klaster 2–5 mempertahankan layanan utama melalui halaman detail yang tersedia.
+- `pelayanan.html` dikembalikan sebagai halaman utama lima klaster.
+- Klaster 1 menjadi entry point ke Manajemen Puskesmas.
+- Klaster 2–5 tetap memiliki tautan ke halaman detail layanan yang tersedia.
 - Informasi Pelayanan ditempatkan di dalam accordion masing-masing klaster.
-- Dropdown Pelayanan pada halaman utama Pelayanan hanya memuat Klaster 1–5.
-- Workflow sementara migrasi sudah dibersihkan.
+- Dropdown Pelayanan pada halaman Pelayanan memuat Klaster 1–5.
+- Workflow sementara migrasi dibersihkan.
 
 ## QC
-- Lima klaster tersedia di Pelayanan.
-- Lima unsur Informasi Pelayanan tersedia di setiap klaster.
-- Klaster 1 tidak lagi menjadi section/tab utama di Profil.
-- Detail Klaster 1 tetap tersedia di Manajemen Puskesmas.
-- Asset klaster dan halaman detail layanan yang direferensikan tetap tersedia.
+- Struktur lima klaster: PASS.
+- Lima unsur Informasi Pelayanan per klaster: PASS.
+- Klaster 1 tidak lagi menjadi section/tab utama di Profil: PASS.
+- Detail Klaster 1 tetap tersedia di Manajemen Puskesmas: PASS.
+- Asset dan halaman detail yang direferensikan tersedia: PASS.
 - `main` tidak diubah langsung.
-- Pixel-level Production belum diverifikasi dari sesi ini karena akses Vercel berbeda team.
+- Pixel-level Production belum diverifikasi karena akses Vercel berbeda team.
 
 ## Sebelum merge
-- Review visual pada Preview/Production.
-- Uji accordion, mobile navigation, dan seluruh tautan layanan.
+- Review visual Preview/Production.
+- Uji accordion, mobile navigation, dan tautan layanan.
 - Merge hanya setelah review final.
