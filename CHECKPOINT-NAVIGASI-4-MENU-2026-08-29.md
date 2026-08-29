@@ -31,7 +31,7 @@ Pelayanan
 - Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online tetap diposisikan sebagai bagian dari ekosistem masing-masing klaster; detail submenu akan dibahas terpisah.
 - Main tetap tidak diubah langsung.
 - PR #138 belum di-merge.
-- Implementasi kode sitewide untuk keputusan ini ditahan sampai desain submenu berikutnya disepakati, agar tidak terjadi pekerjaan bongkar-pasang.
+- Implementasi sitewide untuk 4-menu utama dilakukan sekarang secara terarah; tata ulang detail submenu ditahan untuk tahap berikutnya.
 
 ## Baseline
 - Main baseline: `66f9007af46f90a64d4d41acffc497b4eef18b0c`
