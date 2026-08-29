@@ -10,8 +10,8 @@ Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 - Pelayanan tetap menampilkan Klaster 1–5.
 - Setiap klaster memiliki Informasi Pelayanan di dalamnya: Jadwal, Tarif, Persyaratan, Alur, Layanan Online.
 - Manajemen Puskesmas dan Pelayanan saling melengkapi tanpa duplikasi konten besar.
-- `pelayanan.html` sudah memuat 5 klaster dan paket Informasi Pelayanan per klaster.
-- Global link support di dropdown Pelayanan halaman legacy sudah dibersihkan.
+- `pelayanan.html` sudah memuat lima klaster dengan paket Informasi Pelayanan per klaster.
+- Global support links pada dropdown Pelayanan halaman legacy sudah dibersihkan.
 - `main` tidak diubah langsung.
 - Pixel-level Production belum diverifikasi karena akses Vercel berbeda team.
 
