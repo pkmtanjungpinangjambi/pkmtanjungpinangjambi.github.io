@@ -1,0 +1,89 @@
+name: Cleanup global service links
+
+on:
+  push:
+    branches:
+      - feature/manajemen-puskesmas-cluster-1-clean
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: ${{ !contains(github.event.head_commit.message, '[global-service-links-cleanup]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref_name }}
+
+      - name: Remove global service links only from Pelayanan dropdowns
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          files_changed = []
+          anchor_re = re.compile(
+              rb'<a\b[^>]*href="(?:jadwal\.html|tarif\.html|pelayanan\.html|https://wa\.me/6282180622274(?:\?[^\"]*)?)"[^>]*>.*?</a>',
+              re.I | re.S,
+          )
+          parent_re = re.compile(
+              rb'(<div class="nav-item-dropdown">\s*<a\b[^>]*href="pelayanan\.html"[^>]*>Pelayanan</a>\s*<button\b.*?</button>\s*<div class="dropdown-menu">)(.*?)(</div>\s*</div>)',
+              re.I | re.S,
+          )
+
+          for path in sorted(Path('.').glob('*.html')):
+              raw = path.read_bytes()
+              original = raw
+
+              def clean_parent(match):
+                  before, body, after = match.groups()
+                  body = anchor_re.sub(b'', body)
+                  return before + body + after
+
+              cleaned = parent_re.sub(clean_parent, raw)
+              if cleaned != original:
+                  path.write_bytes(cleaned)
+                  files_changed.append(path.name)
+
+          print('Changed files:', len(files_changed))
+          for name in files_changed:
+              print(' -', name)
+
+      - name: Validate files and links
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          for path in sorted(Path('.').glob('*.html')):
+              raw = path.read_bytes()
+              text = raw.decode('utf-8')
+              assert '</html>' in text.lower(), f'Missing </html>: {path}'
+              if 'href="pelayanan.html"' in text:
+                  # No legacy global support items may remain inside a Pelayanan dropdown.
+                  import re
+                  for m in re.finditer(r'<div class="nav-item-dropdown">\s*<a[^>]*href="pelayanan\.html"[^>]*>Pelayanan</a>.*?<div class="dropdown-menu">(.*?)</div>\s*</div>', text, flags=re.S|re.I):
+                      body = m.group(1)
+                      assert 'href="jadwal.html"' not in body, f'Global Jadwal remains in Pelayanan dropdown: {path}'
+                      assert 'href="tarif.html"' not in body, f'Global Tarif remains in Pelayanan dropdown: {path}'
+                      assert '>Persyaratan<' not in body, f'Global Persyaratan remains in Pelayanan dropdown: {path}'
+                      assert '>Alur<' not in body, f'Global Alur remains in Pelayanan dropdown: {path}'
+                      assert 'wa.me/6282180622274' not in body, f'Global Layanan Online remains in Pelayanan dropdown: {path}'
+          print('HTML/navigation validation: PASS')
+          PY
+          git diff --check
+
+      - name: Commit and remove workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/cleanup-global-service-links.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m 'refactor: keep service support links inside clusters [global-service-links-cleanup]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
