@@ -1,0 +1,89 @@
+name: Final profile navigation cleanup
+
+on:
+  push:
+    branches:
+      - feature/manajemen-puskesmas-cluster-1-clean
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: ${{ !contains(github.event.head_commit.message, '[profile-nav-cleanup]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref_name }}
+      - name: Remove obsolete Profile anchors and verify architecture
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          obsolete = [
+              'profil.html#struktur',
+              'profil.html#wilayah',
+              'profil.html#komitmen',
+              'profil.html#prestasi',
+          ]
+          changed = []
+          for path in sorted(Path('.').glob('*.html')):
+              raw = path.read_bytes()
+              text = raw.decode('utf-8')
+              original = text
+              # These sections now live under Manajemen Puskesmas, so Profile navigation must not point to them.
+              text = re.sub(r'<a\s+href="profil\.html#(?:struktur|wilayah|komitmen|prestasi)"[^>]*>.*?</a>', '', text, flags=re.S)
+              if text != original:
+                  path.write_bytes(text.encode('utf-8'))
+                  changed.append(path.name)
+
+          profile = Path('profil.html').read_bytes().decode('utf-8')
+          assert 'profil.html#klaster1' not in profile, 'Legacy Profile Klaster 1 link remains'
+          assert 'id="klaster1"' not in profile and 'data-tab="klaster1"' not in profile, 'Legacy Profile Klaster 1 block remains'
+
+          pelayanan = Path('pelayanan.html').read_bytes().decode('utf-8')
+          assert 'id="klaster-1"' not in pelayanan, 'Legacy Pelayanan Klaster 1 accordion remains'
+
+          for path in sorted(Path('.').glob('*.html')):
+              text = path.read_bytes().decode('utf-8')
+              if '<nav' in text:
+                  assert 'href="manajemen-puskesmas.html"' in text, f'Management navigation missing: {path.name}'
+
+          sitemap = Path('sitemap.xml')
+          if sitemap.exists():
+              assert 'manajemen-puskesmas.html' in sitemap.read_bytes().decode('utf-8'), 'Management page missing from sitemap'
+
+          print(f'Changed files: {changed}')
+
+      - name: Validate HTML and JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              pass
+          for path in sorted(Path('.').glob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              P().feed(text)
+              assert '</html>' in text.lower(), f'Missing </html>: {path}'
+              print(f'HTML OK: {path}')
+          PY
+          node --check script.js
+          node --check content-protection.js
+
+      - name: Commit cleanup and remove workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/cleanup-profile-navigation.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git diff --cached --quiet && echo 'No cleanup changes required.' && exit 0
+          git commit -m 'fix: clean obsolete Profile navigation anchors [profile-nav-cleanup]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
