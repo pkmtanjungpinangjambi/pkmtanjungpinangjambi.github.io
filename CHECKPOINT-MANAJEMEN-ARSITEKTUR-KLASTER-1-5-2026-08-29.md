@@ -9,7 +9,7 @@ Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 - **Profil** berfokus pada identitas Puskesmas dan tidak lagi menjadi rumah Klaster 1.
 - **Manajemen Puskesmas** menjadi menu utama untuk informasi lengkap **Klaster 1 — Manajemen**.
 - **Pelayanan** tetap menampilkan **Klaster 1, 2, 3, 4, dan 5**.
-- **Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online** berada di dalam masing-masing klaster sebagai **Informasi Pelayanan**, bukan menu global pada halaman Pelayanan.
+- **Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online** berada di dalam masing-masing klaster sebagai **Informasi Pelayanan**.
 - Detail manajemen Klaster 1 diarahkan ke `manajemen-puskesmas.html`, sehingga tidak terjadi duplikasi konten besar.
 
 ## Struktur Klaster 1
@@ -37,7 +37,7 @@ Setiap klaster memiliki:
 
 ## Implementasi terbaru
 - `pelayanan.html` dikembalikan menjadi halaman 5 klaster.
-- Klaster 1 dibuat sebagai entry point menuju Manajemen Puskesmas.
+- Klaster 1 menjadi entry point menuju Manajemen Puskesmas.
 - Klaster 2–5 mempertahankan layanan utama melalui halaman detail yang tersedia.
 - Paket Informasi Pelayanan ditempatkan di dalam setiap klaster menggunakan accordion.
 - Dropdown Pelayanan pada halaman `pelayanan.html` hanya memuat Klaster 1–5.
