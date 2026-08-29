@@ -13,23 +13,23 @@ Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 - Detail manajemen Klaster 1 diarahkan ke `manajemen-puskesmas.html` sehingga tidak terjadi duplikasi konten besar.
 
 ## Struktur Pelayanan
-Setiap klaster terdiri dari layanan utama + Informasi Pelayanan:
-- Jadwal
-- Tarif
-- Persyaratan
-- Alur
-- Layanan Online
+Setiap klaster terdiri dari layanan utama dan lima unsur Informasi Pelayanan:
+1. Jadwal
+2. Tarif
+3. Persyaratan
+4. Alur
+5. Layanan Online
 
-## Implementasi terbaru
-- `pelayanan.html` dikembalikan sebagai halaman utama lima klaster.
+## Implementasi
+- `pelayanan.html` menjadi halaman utama lima klaster.
 - Klaster 1 menjadi entry point ke Manajemen Puskesmas.
-- Klaster 2–5 tetap memiliki tautan ke halaman detail layanan yang tersedia.
+- Klaster 2–5 tetap menyediakan tautan ke halaman detail layanan yang tersedia.
 - Informasi Pelayanan ditempatkan di dalam accordion masing-masing klaster.
-- Dropdown Pelayanan pada halaman Pelayanan memuat Klaster 1–5.
-- Workflow sementara migrasi dibersihkan.
+- Dropdown Pelayanan pada halaman Pelayanan hanya memuat Klaster 1–5.
+- Workflow sementara migrasi sudah dibersihkan.
 
 ## QC
-- Struktur lima klaster: PASS.
+- Lima klaster tersedia: PASS.
 - Lima unsur Informasi Pelayanan per klaster: PASS.
 - Klaster 1 tidak lagi menjadi section/tab utama di Profil: PASS.
 - Detail Klaster 1 tetap tersedia di Manajemen Puskesmas: PASS.
@@ -39,5 +39,5 @@ Setiap klaster terdiri dari layanan utama + Informasi Pelayanan:
 
 ## Sebelum merge
 - Review visual Preview/Production.
-- Uji accordion, mobile navigation, dan tautan layanan.
+- Uji accordion, mobile navigation, dan seluruh tautan layanan.
 - Merge hanya setelah review final.
