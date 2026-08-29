@@ -9,7 +9,6 @@ Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 - Manajemen Puskesmas menjadi menu utama untuk informasi lengkap Klaster 1.
 - Pelayanan tetap menampilkan Klaster 1–5.
 - Setiap klaster memiliki Informasi Pelayanan di dalamnya: Jadwal, Tarif, Persyaratan, Alur, Layanan Online.
-- Manajemen Puskesmas dan Pelayanan saling melengkapi tanpa duplikasi konten besar.
 - `pelayanan.html` sudah memuat lima klaster dengan paket Informasi Pelayanan per klaster.
 - Global support links pada dropdown Pelayanan halaman legacy sudah dibersihkan.
 - `main` tidak diubah langsung.
