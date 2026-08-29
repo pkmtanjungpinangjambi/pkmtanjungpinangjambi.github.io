@@ -1,4 +1,4 @@
-# CHECKPOINT WEB — ARSITEKTUR KLASTER 1–5
+# CHECKPOINT WEB — MANAJEMEN PUSKESMAS
 
 Tanggal: 29 Agustus 2026
 
@@ -8,16 +8,16 @@ Tanggal: 29 Agustus 2026
 - Branch fitur: `feature/manajemen-puskesmas-cluster-1-clean`
 - Pull Request: #138
 
-## Arsitektur master yang ditetapkan
-- **Klaster 1–5 menjadi tulang punggung struktur informasi website.**
-- **Profil** fokus pada identitas Puskesmas: sejarah, visi & misi, motto & tata nilai, karakteristik & kekuatan.
-- **Manajemen Puskesmas** menjadi menu utama untuk informasi lengkap **Klaster 1 — Manajemen**.
-- **Pelayanan** tetap menampilkan **Klaster 1–5** sebagai struktur utama pelayanan.
-- **Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online** menjadi **Informasi Pelayanan di dalam masing-masing klaster**, bukan submenu global.
-- Klaster 1 pada menu Pelayanan menjadi entry point menuju detail lengkap di `manajemen-puskesmas.html` agar tidak terjadi duplikasi konten besar.
-- Seluruh konten website ke depan harus memiliki keterkaitan dengan satu atau lebih Klaster 1–5.
+## Arsitektur terbaru yang ditetapkan
+- Website mempertahankan tepat **4 menu utama**: **Beranda, Profil, Pelayanan, Informasi**.
+- **Manajemen Puskesmas bukan menu utama tersendiri**.
+- Manajemen Puskesmas berada di ekosistem **Pelayanan → Klaster 1 — Manajemen**.
+- **Pelayanan adalah induk Klaster 1–5**.
+- Setiap klaster memiliki ekosistem pelayanan lengkap: **Layanan Utama + Jadwal + Tarif + Persyaratan + Alur + Layanan Online**.
+- Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online tidak menjadi submenu global pada navigasi utama.
+- Profil fokus pada identitas Puskesmas dan tidak menjadi rumah Klaster 1.
 
-## Struktur Manajemen Puskesmas — Klaster 1
+## Isi Manajemen Puskesmas — Klaster 1
 - Ketatausahaan & Layanan Administrasi
   - Front Liner / Front Office
   - Pendaftaran & Rekam Medik
@@ -36,51 +36,42 @@ Tanggal: 29 Agustus 2026
 - Prestasi & Penghargaan
 - Standar Pelayanan Klaster 1
 
-## Struktur Pelayanan
-Setiap Klaster menggunakan pola yang seragam:
-
-**Layanan Utama**
-+
-**Informasi Pelayanan**
-- Jadwal
-- Tarif
-- Persyaratan
-- Alur
-- Layanan Online
+## Struktur navigasi Pelayanan
+- Klaster 1 — Manajemen
+  - Akses Klaster 1 pada `pelayanan.html#klaster-1`
+  - Akses detail Manajemen Puskesmas pada `manajemen-puskesmas.html`
+- Klaster 2 — Ibu & Anak
+- Klaster 3 — Dewasa & Lansia
+- Klaster 4 — Penanggulangan Penyakit Menular
+- Klaster 5 — Lintas Klaster
 
 ## Preservation / anti-regression
-Materi Klaster 1 yang sebelumnya berada di Profil dipindahkan ke Manajemen Puskesmas dan tetap dipertahankan secara fungsional, termasuk:
+Materi Klaster 1 yang sebelumnya berada di Profil tetap dipertahankan secara fungsional di Manajemen Puskesmas, termasuk:
 - daftar unsur/PJ manajemen;
 - Wilayah Kerja dan 3 Pustu;
 - Maklumat & Komitmen Pelayanan;
-- IKM Triwulan I 2026 dan Triwulan II 2026 beserta asset poster;
+- IKM Triwulan I 2026 dan Triwulan II 2026 beserta aset poster;
 - Prestasi & Penghargaan 2019–2025.
 
-## QC yang sudah dilakukan
-- Validasi HTML seluruh halaman: PASS.
-- `node --check script.js`: PASS.
+## Implementasi navigasi
+- Konsistensi empat menu utama diterapkan melalui `content-protection.js` sebagai titik kontrol navigasi bersama.
+- Pelayanan dropdown memuat Klaster 1–5 serta akses Manajemen Puskesmas.
+- Informasi dropdown tidak lagi memuat Tarif sebagai submenu global; Tarif tetap diakses melalui ekosistem klaster.
+- CTA seperti WhatsApp/Pendaftaran tetap terpisah dari empat menu utama.
+
+## Testing
 - `node --check content-protection.js`: PASS.
-- Guard Profil: section/tab legacy Klaster 1 sudah dikeluarkan.
-- Guard Pelayanan: struktur Klaster 1–5 sudah tersedia.
-- Guard navigasi: halaman legacy sudah diberi akses Manajemen Puskesmas.
-- Guard asset Maklumat dan IKM: PASS.
-- `git diff --check`: PASS.
-- Vercel/CI pada branch: SUCCESS.
+- Validasi HTML/JavaScript sebelumnya: PASS.
+- `git diff --check` sebelumnya: PASS.
+- Workflow migrasi sementara sudah dihapus.
 
-## Status visual
-- Struktur visual dan responsive CSS mengikuti pola halaman Klaster 4–5 yang sebelumnya lulus QC.
-- Pixel-level screenshot langsung dari Production belum dapat diverifikasi dari sesi ini karena akses Vercel yang terhubung berada pada team berbeda.
-
-## Sebelum merge
-- Review visual final Preview/Production.
-- Uji desktop dan mobile.
-- Uji accordion Klaster 1–5.
-- Uji link Jadwal, Tarif, Persyaratan, Alur, dan Layanan Online dari setiap klaster.
-- Uji seluruh navigasi utama dan halaman detail.
-- Merge hanya setelah review final dinyatakan aman.
+## Deployment
+- Vercel untuk commit terbaru masih menunggu status final saat checkpoint ini dibuat.
+- Pixel-level Production belum diverifikasi karena akses Vercel yang terhubung berbeda team.
 
 ## Aturan lanjutan
 - Jangan mengubah `main` langsung.
 - Perubahan lanjutan melalui branch dan PR.
 - Jangan menghapus fitur/content yang sudah berjalan tanpa verifikasi.
+- Tata ulang detail submenu dapat dilanjutkan setelah arsitektur empat menu utama stabil.
 - Setelah merge, buat checkpoint baru dengan SHA merge sebagai baseline berikutnya.
