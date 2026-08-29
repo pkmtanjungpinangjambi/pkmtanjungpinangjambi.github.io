@@ -13,5 +13,17 @@ Branch kerja: `feature/manajemen-puskesmas-cluster-1-clean`
 - `main` tidak diubah langsung.
 - Pixel-level Production belum diverifikasi karena akses Vercel berbeda team.
 
+## Implementasi terbaru
+- `pelayanan.html` memuat lima klaster dengan accordion.
+- Klaster 1 menjadi entry point ke Manajemen Puskesmas.
+- Informasi Pelayanan lima unsur berada di dalam masing-masing klaster.
+- Dropdown Pelayanan di halaman Pelayanan memuat Klaster 1–5.
+- Global link Jadwal/Tarif/Persyaratan/Alur/Layanan Online dari dropdown Pelayanan pada halaman legacy sudah dibersihkan.
+
+## QC
+- Cleanup global service links workflow: SUCCESS.
+- Validasi HTML/navigation pada workflow cleanup: PASS.
+- Workflow migrasi sementara sudah dibersihkan.
+
 ## Sebelum merge
 Review visual Preview/Production, uji accordion/mobile/navigation/link, lalu merge hanya setelah review final.
