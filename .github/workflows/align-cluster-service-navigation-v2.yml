@@ -1,0 +1,178 @@
+name: Align cluster service navigation v2
+
+on:
+  push:
+    branches:
+      - feature/manajemen-puskesmas-cluster-1-clean
+
+permissions:
+  contents: write
+
+jobs:
+  align:
+    if: ${{ !contains(github.event.head_commit.message, '[cluster-service-navigation-v2]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref_name }}
+
+      - name: Rebuild cluster navigation safely
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          from urllib.parse import quote
+
+          path = Path('pelayanan.html')
+          text = path.read_text(encoding='utf-8')
+
+          css = '''
+          .cluster-tools{margin-top:18px;padding:14px;border:1px solid #dce8e3;border-radius:14px;background:#f7fbf9}
+          .cluster-tools-title{margin:0 0 10px;color:#0b5d49;font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.03em}
+          .cluster-tools-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+          .cluster-tool{display:flex;align-items:center;justify-content:center;min-height:42px;padding:9px 10px;border:1px solid #d8e8e2;border-radius:10px;background:#fff;color:#0b5d49;text-decoration:none;font-size:.77rem;font-weight:900;text-align:center;line-height:1.25;transition:.2s}
+          .cluster-tool:hover{transform:translateY(-1px);border-color:#0b5d49;background:#eef7f4}
+          .cluster-1 .cluster-tools{background:#f3faf6}
+          @media(max-width:900px){.cluster-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+          @media(max-width:560px){.cluster-tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+          '''
+          if '.cluster-tools{' not in text:
+              text = text.replace('</style>', css + '\n</style>', 1)
+
+          def find_details_block(html, n):
+              marker = f'<details class="cluster cluster-{n}" id="klaster-{n}">'
+              start = html.find(marker)
+              if start < 0:
+                  raise RuntimeError(f'Cluster {n} not found')
+              token_re = re.compile(r'</?details\b', re.I)
+              pos = start
+              depth = 0
+              first = True
+              while True:
+                  m = token_re.search(html, pos)
+                  if not m:
+                      raise RuntimeError(f'Cluster {n} closing tag not found')
+                  if html[m.start()+1] != '/':
+                      depth += 1
+                  else:
+                      depth -= 1
+                      if not first and depth == 0:
+                          close_end = html.find('>', m.end()) + 1
+                          if close_end <= 0:
+                              raise RuntimeError(f'Cluster {n} malformed closing tag')
+                          return start, close_end, html[start:close_end]
+                  first = False
+                  pos = m.end()
+
+          def tools_html(n):
+              label = {
+                1:'Klaster 1 — Manajemen',
+                2:'Klaster 2 — Ibu & Anak',
+                3:'Klaster 3 — Dewasa & Lansia',
+                4:'Klaster 4 — Penanggulangan Penyakit Menular',
+                5:'Klaster 5 — Lintas Klaster'
+              }[n]
+              msg = quote(f'Halo Puskesmas Tanjung Pinang, saya ingin informasi layanan {label}.', safe='')
+              return f'''\n<div class="cluster-tools" aria-label="Informasi pelayanan {label}">\n  <p class="cluster-tools-title">Informasi Pelayanan</p>\n  <div class="cluster-tools-grid">\n    <a class="cluster-tool" href="jadwal.html#klaster-{n}">🕒 Jadwal</a>\n    <a class="cluster-tool" href="tarif.html#klaster-{n}">💳 Tarif</a>\n    <a class="cluster-tool" href="#persyaratan-klaster-{n}">📋 Persyaratan</a>\n    <a class="cluster-tool" href="#alur-klaster-{n}">🧭 Alur</a>\n    <a class="cluster-tool" href="https://wa.me/6282180622274?text={msg}" target="_blank" rel="noopener noreferrer">💬 Layanan Online</a>\n  </div>\n</div>\n'''
+
+          # Restore Klaster 1 if it is absent.
+          try:
+              find_details_block(text, 1)
+              has_cluster1 = True
+          except RuntimeError:
+              has_cluster1 = False
+
+          if not has_cluster1:
+              cluster1 = '''\n<details class="cluster cluster-1" id="klaster-1">\n  <summary><img src="logo-klaster1.png" alt="Klaster 1 - Manajemen: ketatausahaan dan pengelolaan Puskesmas" class="cluster-banner" loading="lazy"></summary>\n  <div class="cluster-body">\n    <div class="service-grid cluster-1-services">\n      <a class="service-link" href="manajemen-puskesmas.html#ketatausahaan"><span class="service-index">01</span><div><strong>Ketatausahaan &amp; Layanan Administrasi</strong><span>Front office, pendaftaran, informasi/pengaduan, surat, dan administrasi layanan.</span></div></a>\n      <a class="service-link" href="manajemen-puskesmas.html#sumber-daya"><span class="service-index">02</span><div><strong>Manajemen Sumber Daya</strong><span>SDM, sarana, prasarana, obat, dan perbekalan kesehatan.</span></div></a>\n      <a class="service-link" href="manajemen-puskesmas.html#manajemen-puskesmas"><span class="service-index">03</span><div><strong>Manajemen Puskesmas</strong><span>Perencanaan, koordinasi, pemantauan, evaluasi, dan keterpaduan antar-klaster.</span></div></a>\n      <a class="service-link" href="manajemen-puskesmas.html#mutu-keselamatan"><span class="service-index">04</span><div><strong>Mutu &amp; Keselamatan Pasien</strong><span>Pengelolaan mutu, keselamatan, komitmen, inovasi, dan perbaikan berkelanjutan.</span></div></a>\n      <a class="service-link" href="manajemen-puskesmas.html#jejaring"><span class="service-index">05</span><div><strong>Manajemen Jejaring</strong><span>Jejaring fasilitas kesehatan dan pengelolaan pelayanan berbasis wilayah.</span></div></a>\n      <a class="service-link" href="manajemen-puskesmas.html#pemberdayaan"><span class="service-index">06</span><div><strong>Pemberdayaan Masyarakat</strong><span>Keterlibatan masyarakat dalam pembangunan kesehatan.</span></div></a>\n      <a class="service-link" href="manajemen-puskesmas.html#struktur"><span class="service-index">07</span><div><strong>Struktur Organisasi</strong><span>Struktur dan pembagian fungsi manajemen Puskesmas.</span></div></a>\n    </div>\n  </div>\n</details>\n'''
+              insert_at = text.find('<details class="cluster cluster-2" id="klaster-2">')
+              if insert_at < 0:
+                  raise RuntimeError('Cluster 2 not found for Cluster 1 insertion')
+              text = text[:insert_at] + cluster1 + text[insert_at:]
+
+          # Add support panel and local anchors inside each cluster.
+          for n in range(1, 6):
+              start, end, block = find_details_block(text, n)
+              if 'class="cluster-tools"' not in block:
+                  close_marker = re.search(r'</div>\s*</details>\s*$', block)
+                  if not close_marker:
+                      raise RuntimeError(f'Cluster {n} body closing structure not found')
+                  pos = close_marker.start()
+                  block = block[:pos] + tools_html(n) + block[pos:]
+              if f'id="persyaratan-klaster-{n}"' not in block:
+                  close_marker = re.search(r'</div>\s*</details>\s*$', block)
+                  pos = close_marker.start()
+                  block = block[:pos] + f'\n<div id="persyaratan-klaster-{n}" style="scroll-margin-top:100px"></div>\n<div id="alur-klaster-{n}" style="scroll-margin-top:100px"></div>\n' + block[pos:]
+              text = text[:start] + block + text[end:]
+
+          text = text.replace(
+              'Pelayanan kesehatan masyarakat ditampilkan dalam Klaster 2–5. Klaster 1 — Manajemen berada pada menu utama Manajemen Puskesmas agar informasi manajemen dan layanan administrasi tidak bercampur.',
+              'Pelayanan UPTD Puskesmas Tanjung Pinang disusun dalam 5 klaster. Setiap klaster menjadi satu paket layanan yang memuat layanan utama serta informasi pendukung berupa jadwal, tarif, persyaratan, alur, dan layanan online.'
+          )
+          text = text.replace('<span class="kicker">KLASTER 2–5</span>', '<span class="kicker">5 KLASTER PELAYANAN</span>')
+          text = re.sub(r'<div class="service-note" style="max-width:850px;margin:0 auto 22px"><strong>Klaster 1 — Manajemen:</strong>.*?</div>\s*', '', text, flags=re.S)
+
+          path.write_text(text, encoding='utf-8')
+
+          # Remove old global support links from every existing Pelayanan dropdown.
+          nav_item = re.compile(
+              r'<a href="jadwal\.html">Jadwal</a><a href="tarif\.html">Tarif</a><a href="pelayanan\.html">Persyaratan</a><a href="pelayanan\.html">Alur</a><a href="https://wa\.me/6282180622274"[^>]*>Layanan Online</a>'
+          )
+          for html_path in sorted(Path('.').glob('*.html')):
+              original_html = html_path.read_text(encoding='utf-8')
+              updated_html = nav_item.sub('', original_html)
+              if updated_html != original_html:
+                  html_path.write_text(updated_html, encoding='utf-8')
+
+          # Remove temporary/obsolete architecture workflows.
+          for obsolete in [
+              '.github/workflows/one-time-management-architecture.yml',
+              '.github/workflows/management-architecture-v2.yml',
+              '.github/workflows/cleanup-profile-navigation.yml',
+              '.github/workflows/preserve-cluster1-content.yml',
+              '.github/workflows/align-cluster-service-navigation.yml',
+              '.github/workflows/align-cluster-service-navigation-v2.yml',
+          ]:
+              p = Path(obsolete)
+              if p.exists():
+                  p.unlink()
+
+      - name: Validate architecture
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Parser(HTMLParser): pass
+          for path in sorted(Path('.').glob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              Parser().feed(text)
+              assert '</html>' in text.lower(), f'Missing </html>: {path}'
+          p = Path('pelayanan.html').read_text(encoding='utf-8')
+          for n in range(1,6):
+              assert p.count(f'id="klaster-{n}"') == 1, f'Cluster {n} count mismatch'
+              assert p.count(f'id="persyaratan-klaster-{n}"') == 1, f'Requirements anchor {n} mismatch'
+              assert p.count(f'id="alur-klaster-{n}"') == 1, f'Flow anchor {n} mismatch'
+          assert p.count('class="cluster-tools"') == 5, 'Expected five cluster support panels'
+          assert '5 KLASTER PELAYANAN' in p, 'Five-cluster title missing'
+          assert 'pelayanan.html#klaster-1' not in p, 'Legacy self link remains'
+          assert not ('href="jadwal.html">Jadwal</a>' in p and 'href="tarif.html">Tarif</a>' in p), 'Global support links remain in Pelayanan nav'
+          print('Cluster architecture checks: PASS')
+          PY
+          node --check script.js
+          node --check content-protection.js
+          git diff --check
+
+      - name: Commit and remove workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/align-cluster-service-navigation-v2.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m 'feat: keep service support inside every cluster [cluster-service-navigation-v2]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
