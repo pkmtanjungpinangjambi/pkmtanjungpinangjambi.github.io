@@ -1,1 +1,0 @@
-Klaster 2 pilot
