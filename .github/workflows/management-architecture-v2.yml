@@ -1,0 +1,174 @@
+name: One-time management architecture migration v2
+
+on:
+  push:
+    branches:
+      - feature/manajemen-puskesmas-cluster-1-clean
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: ${{ !contains(github.event.head_commit.message, '[management-architecture-autopatch]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref_name }}
+
+      - name: Restructure Klaster 1 safely
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          MANAGEMENT_DROPDOWN = '''<div class="nav-item-dropdown"><a href="manajemen-puskesmas.html">Manajemen Puskesmas</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Manajemen Puskesmas" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="manajemen-puskesmas.html#ketatausahaan">Ketatausahaan &amp; Layanan Administrasi</a><a href="manajemen-puskesmas.html#sumber-daya">Manajemen Sumber Daya</a><a href="manajemen-puskesmas.html#manajemen-puskesmas">Manajemen Puskesmas</a><a href="manajemen-puskesmas.html#mutu-keselamatan">Mutu &amp; Keselamatan Pasien</a><a href="manajemen-puskesmas.html#jejaring">Manajemen Jejaring</a><a href="manajemen-puskesmas.html#pemberdayaan">Pemberdayaan Masyarakat</a><a href="manajemen-puskesmas.html#struktur">Struktur Organisasi</a><a href="manajemen-puskesmas.html#standar-klaster-1">Standar Pelayanan Klaster 1</a></div></div>'''
+          MANAGEMENT_SIMPLE = '<a href="manajemen-puskesmas.html">Manajemen Puskesmas</a>'
+
+          def read(path):
+              return path.read_bytes().decode('utf-8')
+
+          def write(path, text):
+              path.write_bytes(text.encode('utf-8'))
+
+          def remove_details(text, marker, name):
+              start = text.find(marker)
+              if start < 0:
+                  raise RuntimeError(f'Expected block not found in {name}: {marker}')
+              token_re = re.compile(r'</?details\b', re.I)
+              pos = start
+              depth = 0
+              first = True
+              while True:
+                  m = token_re.search(text, pos)
+                  if not m:
+                      raise RuntimeError(f'Could not close details block in {name}')
+                  if text[m.start()+1] != '/':
+                      depth += 1
+                  else:
+                      depth -= 1
+                      if not first and depth == 0:
+                          close_end = text.find('>', m.end())
+                          if close_end < 0:
+                              raise RuntimeError(f'Malformed details close in {name}')
+                          return text[:start] + text[close_end+1:]
+                  first = False
+                  pos = m.end()
+
+          changed = []
+          warnings = []
+
+          for path in sorted(Path('.').glob('*.html')):
+              if path.name == 'manajemen-puskesmas.html':
+                  continue
+              original = read(path)
+              text = original
+
+              # Remove the old Profile Klaster 1 navigation item.
+              text = re.sub(r'\n\s*<a href="profil\.html#klaster1">.*?</a>\s*', '\n', text, flags=re.S)
+              text = re.sub(r'\n\s*<button\s+data-tab="klaster1">.*?</button>\s*', '\n', text, flags=re.S)
+
+              # Add main Management navigation to modern dropdown headers.
+              if 'href="manajemen-puskesmas.html"' not in text:
+                  rich = re.compile(r'(<div class="nav-item-dropdown">\s*<a[^>]+href="pelayanan\.html"[^>]*>Pelayanan</a>)', re.S)
+                  text, n = rich.subn(MANAGEMENT_DROPDOWN + r'\1', text, count=1)
+                  if n == 0:
+                      # Add a plain Management link to legacy/simple service-detail headers.
+                      simple = re.compile(r'(<a(?:\s+class="[^"]*")?\s+href="pelayanan\.html"[^>]*>Pelayanan</a>)', re.S)
+                      text, n2 = simple.subn(MANAGEMENT_SIMPLE + r'\1', text, count=1)
+                      if n2 == 0 and '<nav' in text:
+                          warnings.append(f'Navigation target not found: {path.name}')
+
+              # Redirect all old direct links to Klaster 1 to the Management page.
+              text = text.replace('pelayanan.html#klaster-1', 'manajemen-puskesmas.html#standar-klaster-1')
+
+              if path.name == 'profil.html':
+                  marker = '<!-- =======================================================\n     4. KLASTER 1 — MANAJEMEN\n     ======================================================= -->'
+                  boundary = '<!-- =======================================================\n     5. KARAKTERISTIK & KEKUATAN'
+                  if marker not in text or boundary not in text:
+                      raise RuntimeError('Profile Klaster 1 block boundary not found')
+                  start = text.index(marker)
+                  end = text.index(boundary, start)
+                  text = text[:start] + text[end:]
+                  text = text.replace(', Klaster 1 Manajemen', '')
+                  text = text.replace('Klaster 1 — Manajemen, ', '')
+                  text = text.replace('sistem manajemen,', 'tata kelola dan pelayanan,')
+
+              elif path.name == 'pelayanan.html':
+                  text = remove_details(text, '<details class="cluster cluster-1" id="klaster-1"', path.name)
+                  text = text.replace(
+                      'Pelayanan UPTD Puskesmas Tanjung Pinang disusun dalam 5 klaster agar masyarakat lebih mudah menemukan layanan yang dibutuhkan.',
+                      'Pelayanan kesehatan masyarakat ditampilkan dalam Klaster 2–5. Klaster 1 — Manajemen berada pada menu utama Manajemen Puskesmas agar informasi manajemen dan layanan administrasi tidak bercampur.'
+                  )
+                  text = text.replace('<span class="kicker">5 KLASTER PELAYANAN</span>', '<span class="kicker">KLASTER 2–5</span>')
+                  text = text.replace('Nomenklatur klaster dibuat seragam dengan struktur Profil Puskesmas.', 'Nomenklatur klaster mengikuti struktur Integrasi Layanan Primer dan Standar Pelayanan Puskesmas.')
+                  note = '<div class="service-note" style="max-width:850px;margin:0 auto 22px"><strong>Klaster 1 — Manajemen:</strong> informasi manajemen Puskesmas dan standar pelayanan administrasi tersedia di menu <a href="manajemen-puskesmas.html#standar-klaster-1"><strong>Manajemen Puskesmas</strong> →</a></div>\n'
+                  if 'Klaster 1 — Manajemen:</strong> informasi manajemen' not in text:
+                      text = text.replace('<div class="cluster-list">', note + '<div class="cluster-list">', 1)
+                  text = text.replace('/^#klaster-([1-5])$/', '/^#klaster-([2-5])$/')
+
+              if text != original:
+                  write(path, text)
+                  changed.append(path.name)
+
+          sitemap = Path('sitemap.xml')
+          if sitemap.exists():
+              original = read(sitemap)
+              if 'manajemen-puskesmas.html' not in original:
+                  text = original.replace('</urlset>', '  <url><loc>https://pkmtanjungpinangjambi.vercel.app/manajemen-puskesmas.html</loc></url>\n</urlset>')
+                  write(sitemap, text)
+                  changed.append('sitemap.xml')
+
+          # Every HTML page with a navigation element must expose the new Management page.
+          for path in sorted(Path('.').glob('*.html')):
+              text = read(path)
+              if '<nav' in text and 'href="manajemen-puskesmas.html"' not in text:
+                  warnings.append(f'Missing management nav after migration: {path.name}')
+
+          profile = read(Path('profil.html'))
+          assert 'id="klaster1"' not in profile and 'data-tab="klaster1"' not in profile, 'Legacy Profile Klaster 1 remains'
+
+          pelayanan = read(Path('pelayanan.html'))
+          assert 'id="klaster-1"' not in pelayanan, 'Legacy Pelayanan Klaster 1 remains'
+
+          if warnings:
+              print('\n'.join(warnings))
+              raise SystemExit('Migration warnings detected; refusing to commit.')
+          if not changed:
+              raise SystemExit('No files changed.')
+
+          print(f'Changed {len(changed)} files:')
+          for item in changed:
+              print(' -', item)
+
+      - name: Validate all HTML and JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              pass
+          for path in sorted(Path('.').glob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              P().feed(text)
+              assert '</html>' in text.lower(), f'Missing </html>: {path}'
+              print(f'HTML OK: {path}')
+          PY
+          node --check script.js
+          node --check content-protection.js
+
+      - name: Commit final migration and remove one-time workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/one-time-management-architecture.yml .github/workflows/management-architecture-v2.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m 'feat: promote Manajemen Puskesmas to main navigation [management-architecture-autopatch]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
