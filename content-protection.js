@@ -8,7 +8,7 @@
 
   const editableSelector = 'input, textarea, select, [contenteditable="true"], [contenteditable=""]';
   const isEditable = target => !!(target && target.closest && target.closest(editableSelector));
-  const NAV_VERSION = '2026-08-30-v5';
+  const NAV_VERSION = '2026-08-31-v6';
 
   function normalizePrimaryNavigation() {
     const nav = document.querySelector('.nav');
@@ -27,7 +27,7 @@
     nav.innerHTML = `
 <a href="index.html"${linkClass('home')}>Beranda</a>
 <div class="nav-item-dropdown"><a href="profil.html"${linkClass('profil')}>Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div>
-<div class="nav-item-dropdown"><a href="pelayanan.html"${linkClass('pelayanan')}>Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan-klaster-2-ibu-anak.html">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
+<div class="nav-item-dropdown"><a href="pelayanan.html"${linkClass('pelayanan')}>Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
 <div class="nav-item-dropdown"><a href="informasi.html"${linkClass('informasi')}>Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
 ${cta}`;
 
@@ -86,16 +86,41 @@ ${cta}`;
     const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
     const isServicePage = file === 'manajemen-puskesmas.html' || file.startsWith('pelayanan-');
     if (!isServicePage) return;
-    if (document.getElementById('service-back-to-hub')) return;
 
-    const container = document.querySelector('.page-content .container');
+    const existing = document.querySelector('a.back-link');
+    if (existing) {
+      existing.id = 'service-back-to-hub';
+      existing.href = 'pelayanan.html';
+      existing.textContent = '← Kembali ke Pelayanan';
+      existing.setAttribute('aria-label', 'Kembali ke Pelayanan');
+      existing.classList.add('service-back-link');
+      return;
+    }
+
+    if (document.getElementById('service-back-to-hub')) return;
+    const container = document.querySelector('.page-content .container')
+      || document.querySelector('.page-content')
+      || document.querySelector('main .container')
+      || document.querySelector('main');
     if (!container) return;
 
     const wrap = document.createElement('div');
     wrap.id = 'service-back-to-hub';
     wrap.className = 'service-backbar';
-    wrap.innerHTML = '<a href="pelayanan.html" aria-label="Kembali ke Pelayanan">← Kembali ke Pelayanan</a>';
+    wrap.innerHTML = '<a class="service-back-link" href="pelayanan.html" aria-label="Kembali ke Pelayanan">← Kembali ke Pelayanan</a>';
     container.insertBefore(wrap, container.firstElementChild);
+  }
+
+  function normalizeReferenceSections() {
+    const details = document.querySelectorAll('details');
+    details.forEach(detail => {
+      const summary = detail.querySelector(':scope > summary');
+      if (!summary) return;
+      const text = summary.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
+      if (text.includes('dasar hukum') || text.includes('referensi')) {
+        detail.classList.add('references-section');
+      }
+    });
   }
 
   function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
@@ -124,10 +149,11 @@ ${cta}`;
       body.content-protected, body.content-protected * { -webkit-user-select:none !important; -moz-user-select:none !important; user-select:none !important; }
       body.content-protected input, body.content-protected textarea, body.content-protected select, body.content-protected [contenteditable="true"], body.content-protected [contenteditable=""] { -webkit-user-select:text !important; -moz-user-select:text !important; user-select:text !important; }
       body.content-protected img, body.content-protected video { -webkit-user-drag:none !important; user-drag:none !important; }
-      .source-list li, .source-list li strong, .refs li, .refs li strong { font-weight: 500 !important; }
+      .source-list li, .source-list li strong, .refs li, .refs li strong,
+      .references-section li, .references-section li strong { font-weight: 500 !important; }
       .service-backbar { margin: 0 0 18px; }
-      .service-backbar a { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:999px; background:#eef7f4; color:#0b5d49; border:1px solid #d8ebe5; font-size:.82rem; font-weight:800; text-decoration:none; }
-      .service-backbar a:hover { background:#dff0ea; }
+      .service-backbar a, .service-back-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:999px; background:#eef7f4; color:#0b5d49; border:1px solid #d8ebe5; font-size:.82rem; font-weight:800; text-decoration:none; }
+      .service-backbar a:hover, .service-back-link:hover { background:#dff0ea; }
     `;
     document.head.appendChild(style);
     document.body.classList.add('content-protected');
@@ -150,6 +176,7 @@ ${cta}`;
     normalizePrimaryNavigation();
     installStyle();
     wireNavigationGuard();
+    normalizeReferenceSections();
     requestAnimationFrame(verifyPrimaryNavigation);
     setTimeout(verifyPrimaryNavigation, 120);
     ensureServiceBackLink();
