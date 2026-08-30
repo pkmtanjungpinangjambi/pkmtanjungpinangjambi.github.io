@@ -1,0 +1,82 @@
+name: One-off fix Klaster 1 navigation
+
+on:
+  push:
+    branches:
+      - fix/klaster1-navigation-2026-08-31
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[oneoff-klaster1]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Normalize static navbar and add back link
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path('manajemen-puskesmas.html')
+          text = path.read_text(encoding='utf-8')
+
+          canonical = '''<nav class="nav" aria-label="Navigasi utama">
+          <a href="index.html">Beranda</a>
+          <div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div>
+          <div class="nav-item-dropdown"><a class="active" href="pelayanan.html">Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
+          <div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
+          <a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a>
+          </nav>'''
+
+          nav_pattern = re.compile(r'<nav class="nav" aria-label="Navigasi utama">.*?</nav>', re.S)
+          text, nav_count = nav_pattern.subn(canonical, text, count=1)
+          if nav_count != 1:
+              raise SystemExit(f'Expected exactly one nav block, found {nav_count}')
+
+          if 'class="back-link"' not in text:
+              marker = '<section class="page-hero">'
+              back = '<div class="container"><a class="back-link" href="pelayanan.html">← Kembali ke Pelayanan</a></div>\n'
+              if marker not in text:
+                  raise SystemExit('page-hero marker not found')
+              text = text.replace(marker, back + marker, 1)
+
+          path.write_text(text, encoding='utf-8')
+          print('Klaster 1 navigation patch complete.')
+
+      - name: Validate
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          text = Path('manajemen-puskesmas.html').read_text(encoding='utf-8')
+          nav = re.search(r'<nav class="nav" aria-label="Navigasi utama">(.*?)</nav>', text, re.S)
+          if not nav:
+              raise SystemExit('Navbar not found')
+          block = nav.group(1)
+          if 'Manajemen Puskesmas' in block:
+              raise SystemExit('Legacy Manajemen Puskesmas remains in navbar')
+          if block.count('nav-item-dropdown') != 3:
+              raise SystemExit('Expected exactly 3 dropdown groups')
+          for href in ['pelayanan.html#klaster-1','pelayanan.html#klaster-2','pelayanan.html#klaster-3','pelayanan.html#klaster-4','pelayanan.html#klaster-5']:
+              if href not in block:
+                  raise SystemExit(f'Missing {href}')
+          if '<a class="back-link" href="pelayanan.html">← Kembali ke Pelayanan</a>' not in text:
+              raise SystemExit('Back link missing')
+          print('Klaster 1 navigation validation PASS.')
+
+      - name: Remove one-off workflow and commit
+        shell: bash
+        run: |
+          rm -f .github/workflows/oneoff-fix-klaster1-navigation.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add manajemen-puskesmas.html .github/workflows/oneoff-fix-klaster1-navigation.yml
+          git commit -m 'fix: normalize klaster 1 navigation [oneoff-klaster1]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
