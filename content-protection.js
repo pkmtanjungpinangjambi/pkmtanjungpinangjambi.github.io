@@ -94,7 +94,7 @@ ${cta}`;
     const wrap = document.createElement('div');
     wrap.id = 'service-back-to-hub';
     wrap.className = 'service-backbar';
-    wrap.innerHTML = '<a href="pelayanan.html#klaster-1" aria-label="Kembali ke Pelayanan semua klaster">← Kembali ke Pelayanan · Semua Klaster</a>';
+    wrap.innerHTML = '<a href="pelayanan.html" aria-label="Kembali ke Pelayanan semua klaster">← Kembali ke Pelayanan · Semua Klaster</a>';
     container.insertBefore(wrap, container.firstElementChild);
   }
 
