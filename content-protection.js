@@ -8,7 +8,7 @@
 
   const editableSelector = 'input, textarea, select, [contenteditable="true"], [contenteditable=""]';
   const isEditable = target => !!(target && target.closest && target.closest(editableSelector));
-  const NAV_VERSION = '2026-08-30';
+  const NAV_VERSION = '2026-08-30-v3';
 
   function normalizePrimaryNavigation() {
     const nav = document.querySelector('.nav');
@@ -82,6 +82,19 @@ ${cta}`;
     observer.observe(nav, { childList: true, subtree: true });
   }
 
+  function ensureManagementBackLink() {
+    if (!window.location.pathname.toLowerCase().endsWith('manajemen-puskesmas.html')) return;
+    if (document.getElementById('management-back-to-services')) return;
+    const anchor = document.querySelector('.management-intro') || document.querySelector('.page-content .container');
+    if (!anchor || !anchor.parentNode) return;
+
+    const wrap = document.createElement('div');
+    wrap.id = 'management-back-to-services';
+    wrap.className = 'management-backbar';
+    wrap.innerHTML = '<a href="pelayanan.html#klaster-1" aria-label="Kembali ke Pelayanan semua klaster">← Kembali ke Pelayanan · Semua Klaster</a>';
+    anchor.parentNode.insertBefore(wrap, anchor);
+  }
+
   function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
     if (!window.location.pathname.endsWith('pelayanan.html')) return;
     const cluster = document.querySelector(clusterSelector);
@@ -109,6 +122,9 @@ ${cta}`;
       body.content-protected input, body.content-protected textarea, body.content-protected select, body.content-protected [contenteditable="true"], body.content-protected [contenteditable=""] { -webkit-user-select:text !important; -moz-user-select:text !important; user-select:text !important; }
       body.content-protected img, body.content-protected video { -webkit-user-drag:none !important; user-drag:none !important; }
       .source-list li, .source-list li strong, .refs li, .refs li strong { font-weight: 500 !important; }
+      .management-backbar { margin: 0 0 18px; }
+      .management-backbar a { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:999px; background:#eef7f4; color:#0b5d49; border:1px solid #d8ebe5; font-size:.82rem; font-weight:800; text-decoration:none; }
+      .management-backbar a:hover { background:#dff0ea; }
     `;
     document.head.appendChild(style);
     document.body.classList.add('content-protected');
@@ -133,6 +149,7 @@ ${cta}`;
     wireNavigationGuard();
     requestAnimationFrame(verifyPrimaryNavigation);
     setTimeout(verifyPrimaryNavigation, 120);
+    ensureManagementBackLink();
     wireServiceLink('details.cluster-2', 'Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas', 'pelayanan-ibu-hamil-bersalin-nifas.html', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
     wireServiceLink('details.cluster-2', 'Pelayanan Anak', 'pelayanan-anak.html', 'Buka Pelayanan Anak');
     wireServiceLink('details.cluster-2', 'Pelayanan Imunisasi', 'pelayanan-imunisasi.html', 'Buka Pelayanan Imunisasi');
