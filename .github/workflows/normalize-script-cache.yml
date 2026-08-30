@@ -1,0 +1,44 @@
+name: Normalize script cache version
+on:
+  push:
+    branches:
+      - fix/script-cache-refresh-2026-08-30
+permissions:
+  contents: write
+jobs:
+  normalize:
+    if: ${{ !contains(github.event.head_commit.message, '[script-cache-autopatch]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+      - name: Refresh script cache version in HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION='20260831-nav1'
+          changed=0
+          while IFS= read -r -d '' file; do
+            if grep -qE 'script\.js\?v=' "$file"; then
+              before=$(sha256sum "$file" | cut -d' ' -f1)
+              python3 - "$file" "$VERSION" <<'PY'
+import pathlib, re, sys
+p = pathlib.Path(sys.argv[1])
+v = sys.argv[2]
+s = p.read_text(encoding='utf-8')
+n = re.sub(r'script\.js\?v=[^"\']+', f'script.js?v={v}', s)
+if n != s:
+    p.write_text(n, encoding='utf-8')
+PY
+              after=$(sha256sum "$file" | cut -d' ' -f1)
+              if [ "$before" != "$after" ]; then changed=1; fi
+            fi
+          done < <(find . -type f -name '*.html' -not -path './.git/*' -print0)
+          if [ "$changed" -eq 0 ]; then echo 'No changes needed.'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html'
+          git commit -m 'fix: refresh script.js cache version [script-cache-autopatch]'
+          git push origin "HEAD:${{ github.ref_name }}"
