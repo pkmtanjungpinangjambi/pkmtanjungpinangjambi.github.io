@@ -1,0 +1,74 @@
+name: One-off fix pelayanan visual
+
+on:
+  push:
+    branches:
+      - fix/pelayanan-visual-mobile-2026-08-31
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[oneoff-visual]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Improve cluster header responsiveness
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('pelayanan.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_desktop = ".cluster summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#fff,#f7fbf9);font-weight:900}"
+          new_desktop = ".cluster summary{list-style:none;cursor:pointer;padding:18px 20px;display:grid;grid-template-columns:minmax(260px,520px) minmax(0,1fr) 34px;align-items:center;gap:18px;background:linear-gradient(135deg,#fff,#f7fbf9);font-weight:900}"
+          if old_desktop not in text:
+              raise SystemExit('Expected desktop cluster summary rule not found')
+          text = text.replace(old_desktop, new_desktop, 1)
+
+          old_banner = ".cluster-banner{width:100%;max-width:640px;display:block;border-radius:14px;cursor:pointer;transition:transform .2s}"
+          new_banner = ".cluster-banner{width:100%;max-width:520px;display:block;border-radius:14px;cursor:pointer;transition:transform .2s}"
+          if old_banner not in text:
+              raise SystemExit('Expected cluster banner rule not found')
+          text = text.replace(old_banner, new_banner, 1)
+
+          old_mobile = "@media(max-width:760px){.service-grid{grid-template-columns:1fr}.cluster-body{padding:0 18px 18px}.cluster summary{padding:16px}.support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cluster-title strong{font-size:.92rem}.cluster-title small{font-size:.74rem}}"
+          new_mobile = "@media(max-width:760px){.service-grid{grid-template-columns:1fr}.cluster-body{padding:0 18px 18px}.cluster summary{grid-template-columns:1fr;gap:10px;padding:16px 56px 16px 16px;position:relative;align-items:start}.cluster-banner{max-width:none;width:100%;height:auto}.cluster-title{padding:0}.cluster summary::after{position:absolute;right:16px;top:16px;margin-left:0}.support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cluster-title strong{font-size:.92rem}.cluster-title small{font-size:.74rem}}"
+          if old_mobile not in text:
+              raise SystemExit('Expected mobile cluster rule not found')
+          text = text.replace(old_mobile, new_mobile, 1)
+
+          path.write_text(text, encoding='utf-8')
+          print('Pelayanan visual patch applied.')
+
+      - name: Validate
+        shell: python
+        run: |
+          from pathlib import Path
+          text = Path('pelayanan.html').read_text(encoding='utf-8')
+          checks = [
+              'grid-template-columns:minmax(260px,520px) minmax(0,1fr) 34px',
+              'max-width:520px',
+              'grid-template-columns:1fr;gap:10px;padding:16px 56px 16px 16px;position:relative',
+              'position:absolute;right:16px;top:16px;margin-left:0'
+          ]
+          for check in checks:
+              if check not in text:
+                  raise SystemExit(f'Missing visual rule: {check}')
+          print('Visual CSS validation PASS.')
+
+      - name: Remove one-off workflow and commit
+        shell: bash
+        run: |
+          rm -f .github/workflows/oneoff-fix-pelayanan-visual.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pelayanan.html .github/workflows/oneoff-fix-pelayanan-visual.yml
+          git commit -m 'fix: improve pelayanan cluster responsive layout [oneoff-visual]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
