@@ -8,7 +8,7 @@ Website UPTD Puskesmas Tanjung Pinang Kota Jambi
 
 ## Baseline Produksi
 - Branch produksi: `main`
-- Commit baseline terakhir sebelum milestone ini: `6e68f81b01c396c3edeebdf3e1fe5f8c4e7352ef`
+- Commit baseline terbaru: `e1afa3c2c0a00667f348c48594abbbae1c500a97`
 - Produksi utama: Vercel (`pkmtanjungpinangjambi.vercel.app`), canonical resmi.
 
 ## Milestone Navigasi & Pelayanan
@@ -17,16 +17,30 @@ Website UPTD Puskesmas Tanjung Pinang Kota Jambi
 - `Manajemen Puskesmas` bukan item navbar tersendiri.
 - Semua halaman layanan/detail Klaster 1–5 menggunakan pola `← Kembali ke Pelayanan` menuju `pelayanan.html`.
 - Navigasi terpusat menggunakan `script.js` sebagai bootstrap dan mempertahankan logika lama pada `script-original.js`.
-- Checkpoint navigasi service-back v7 sudah tercatat.
-- Vercel untuk baseline navigasi terakhir berstatus SUCCESS.
+- Blok `Dasar Hukum & Referensi` sudah dinormalisasi ke satu standar tipografi melalui kontrol terpusat.
 
-## Audit Pelayanan v1
+## Audit Hub Pelayanan
 - Hub `pelayanan.html` memiliki 5 klaster: Manajemen; Ibu & Anak; Dewasa & Lansia; Penanggulangan Penyakit Menular; Lintas Klaster.
 - Kartu layanan Klaster 1–5 pada hub diarahkan ke halaman atau bagian layanan yang relevan.
 - Informasi pendukung per klaster mencakup jadwal, tarif, persyaratan, alur, dan layanan online.
-- Ditemukan markup navbar statis lama pada beberapa HTML; normalisasi runtime sudah menangani struktur tersebut, tetapi cache-busting script perlu diperhatikan agar browser tidak memakai `script.js` lama.
-- Ditemukan dua pengendali navigasi (`script.js` dan `content-protection.js`); baseline saat ini tetap berjalan, namun arsitektur ideal berikutnya adalah satu sumber kontrol navigasi.
-- Tidak ada perubahan konten klinis pada milestone navigasi.
+- Header klaster menggunakan layout responsive: proporsional pada desktop dan vertikal pada mobile agar judul tidak terjepit.
+- Tombol `+ / −` tetap berada pada posisi yang jelas di header klaster saat mobile.
+- Tidak mengubah konten klinis pada milestone visual ini.
+
+## Status QC
+- [x] Struktur navbar 4 menu
+- [x] Dropdown Pelayanan Klaster 1–5
+- [x] Penghapusan Manajemen Puskesmas sebagai item navbar tersendiri
+- [x] Navigasi kembali ke Pelayanan pada halaman layanan
+- [x] Script lama dipreservasi sebagai `script-original.js`
+- [x] Audit awal hub Pelayanan
+- [x] Normalisasi Dasar Hukum & Referensi
+- [x] Responsive layout header Klaster 1–5
+- [ ] Konsolidasi penuh pengendali navigasi agar satu sumber saja
+- [ ] Audit konsistensi setiap kartu layanan Klaster 1–5 secara menyeluruh
+- [ ] Review cache-busting semua HTML agar versi `script.js` selalu terbaru
+- [ ] QC visual final Pelayanan pada production/mobile live
+- [ ] Setelah Pelayanan stabil, lanjut QC Beranda
 
 ## Aturan Kerja
 1. `main` diperlakukan sebagai branch produksi dan tidak diedit langsung.
@@ -37,20 +51,5 @@ Website UPTD Puskesmas Tanjung Pinang Kota Jambi
 6. Update checkpoint setelah milestone penting.
 7. Jangan menyimpan data pasien, kredensial, API key, token, atau rahasia lain di repository publik.
 
-## Status
-- [x] Audit repository
-- [x] Struktur navbar 4 menu
-- [x] Dropdown Pelayanan Klaster 1–5
-- [x] Penghapusan Manajemen Puskesmas sebagai item navbar tersendiri
-- [x] Navigasi kembali ke Pelayanan pada halaman layanan
-- [x] Script lama dipreservasi sebagai `script-original.js`
-- [x] Audit awal hub Pelayanan
-- [ ] Konsolidasi penuh pengendali navigasi agar satu sumber saja
-- [ ] Audit visual hub Pelayanan desktop/mobile
-- [ ] Audit konsistensi setiap kartu layanan Klaster 1–5
-- [ ] Audit dan standardisasi `Dasar Hukum & Referensi`
-- [ ] Review cache-busting semua HTML agar versi `script.js` selalu terbaru
-- [ ] Setelah Pelayanan stabil, lanjut QC Beranda
-
 ## Next Step
-Fokus berikutnya: **QC visual dan UX hub Pelayanan (`pelayanan.html`)**, dilanjutkan audit satu per satu Klaster 1–5 tanpa mengubah isi klinis yang sudah tervalidasi.
+Fokus berikutnya: **QC detail layanan Klaster 1–5**, dimulai dari Klaster 1, tanpa mengubah isi klinis yang sudah tervalidasi. Setelah seluruh detail konsisten, lakukan QC visual production terakhir lalu lanjut ke Beranda.
