@@ -8,6 +8,7 @@
 
   const editableSelector = 'input, textarea, select, [contenteditable="true"], [contenteditable=""]';
   const isEditable = target => !!(target && target.closest && target.closest(editableSelector));
+  const NAV_VERSION = '2026-08-30';
 
   function normalizePrimaryNavigation() {
     const nav = document.querySelector('.nav');
@@ -15,7 +16,7 @@
 
     const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
     let active = 'informasi';
-    if (file === 'index.html') active = 'home';
+    if (file === 'index.html' || file === '') active = 'home';
     else if (file.startsWith('profil') || file === 'struktur.html') active = 'profil';
     else if (file === 'pelayanan.html' || file.startsWith('pelayanan-') || file === 'manajemen-puskesmas.html' || file === 'jadwal.html' || file === 'tarif.html') active = 'pelayanan';
 
@@ -29,6 +30,8 @@
 <div class="nav-item-dropdown"><a href="pelayanan.html"${linkClass('pelayanan')}>Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="manajemen-puskesmas.html">Manajemen Puskesmas</a><a href="pelayanan-klaster-2-ibu-anak.html">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
 <div class="nav-item-dropdown"><a href="informasi.html"${linkClass('informasi')}>Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
 ${cta}`;
+
+    nav.dataset.primaryNavigationVersion = NAV_VERSION;
 
     nav.querySelectorAll('.dropdown-caret-btn').forEach(btn => {
       btn.addEventListener('click', event => {
@@ -47,6 +50,36 @@ ${cta}`;
         }
       });
     });
+  }
+
+  function verifyPrimaryNavigation() {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    const topLevel = Array.from(nav.children);
+    const labels = topLevel.map(item => {
+      const link = item.matches('a') ? item : item.querySelector(':scope > a');
+      return link ? link.textContent.trim() : '';
+    }).filter(Boolean);
+    const valid = labels.slice(0, 5).join('|');
+    if (nav.dataset.primaryNavigationVersion !== NAV_VERSION || /Manajemen Utama/i.test(valid) || /Manajemen Puskesmas/i.test(valid)) {
+      normalizePrimaryNavigation();
+    }
+  }
+
+  function wireNavigationGuard() {
+    const nav = document.querySelector('.nav');
+    if (!nav || nav.dataset.primaryNavigationGuard === '1') return;
+    nav.dataset.primaryNavigationGuard = '1';
+    let scheduled = false;
+    const observer = new MutationObserver(() => {
+      if (scheduled) return;
+      scheduled = true;
+      queueMicrotask(() => {
+        scheduled = false;
+        verifyPrimaryNavigation();
+      });
+    });
+    observer.observe(nav, { childList: true, subtree: true });
   }
 
   function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
@@ -75,6 +108,7 @@ ${cta}`;
       body.content-protected, body.content-protected * { -webkit-user-select:none !important; -moz-user-select:none !important; user-select:none !important; }
       body.content-protected input, body.content-protected textarea, body.content-protected select, body.content-protected [contenteditable="true"], body.content-protected [contenteditable=""] { -webkit-user-select:text !important; -moz-user-select:text !important; user-select:text !important; }
       body.content-protected img, body.content-protected video { -webkit-user-drag:none !important; user-drag:none !important; }
+      .source-list li, .source-list li strong, .refs li, .refs li strong { font-weight: 500 !important; }
     `;
     document.head.appendChild(style);
     document.body.classList.add('content-protected');
@@ -96,6 +130,9 @@ ${cta}`;
   function init() {
     normalizePrimaryNavigation();
     installStyle();
+    wireNavigationGuard();
+    requestAnimationFrame(verifyPrimaryNavigation);
+    setTimeout(verifyPrimaryNavigation, 120);
     wireServiceLink('details.cluster-2', 'Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas', 'pelayanan-ibu-hamil-bersalin-nifas.html', 'Buka Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas');
     wireServiceLink('details.cluster-2', 'Pelayanan Anak', 'pelayanan-anak.html', 'Buka Pelayanan Anak');
     wireServiceLink('details.cluster-2', 'Pelayanan Imunisasi', 'pelayanan-imunisasi.html', 'Buka Pelayanan Imunisasi');
