@@ -1,0 +1,1 @@
+QC Klaster 3 regulatory refresh telah dibuat di branch fix/klaster3-regulatory-2026-08-31. Perubahan inti: integrasi CKG 2026, pembaruan dasar reproduksi Permenkes 2/2025, serta pembaruan kerangka UBM PP 28/2024 dan Perda Kota Jambi 3/2017.
