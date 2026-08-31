@@ -222,7 +222,7 @@
     };
     const colors=["#D94841","#F39C12","#2E86DE","#8E44AD","#27AE60"];
     const map=L.map(el,{zoomControl:true,scrollWheelZoom:true,doubleClickZoom:true}).setView([-1.606,103.63],13);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.webp",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
     let geoLayer=null,selectedLayer=null;
     const buttonWrap=document.getElementById('characteristic-villages');
     function featureName(f){const p=f.properties||{};return p.WADMKD||p.wadmkd||p.NAMKEL||p.nama_kelurahan||p.NAMA_KELURAHAN||p.NAMOBJ||p.namobj||'';}
