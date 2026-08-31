@@ -1,0 +1,86 @@
+name: Apply Information Audit Fixes
+
+on:
+  push:
+    branches:
+      - work/audit-informasi-p0-p1-2026-08-31
+
+permissions:
+  contents: write
+
+jobs:
+  audit-fixes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply safe P0/P1 corrections
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          changed = []
+
+          # P0: make #foto and #video real DOM targets while retaining the
+          # existing JS hash-filter behavior.
+          p = Path('informasi.html')
+          s = p.read_text(encoding='utf-8')
+          ns = s.replace(
+              '<button class="galeri-filter active" data-galeri-filter="semua">Semua</button>\n<button class="galeri-filter" data-galeri-filter="foto">Foto</button>\n<button class="galeri-filter" data-galeri-filter="video">Video</button>',
+              '<button class="galeri-filter active" data-galeri-filter="semua">Semua</button>\n<button id="foto" class="galeri-filter" data-galeri-filter="foto">Foto</button>\n<button id="video" class="galeri-filter" data-galeri-filter="video">Video</button>'
+          )
+          if ns != s:
+              p.write_text(ns, encoding='utf-8')
+              changed.append('informasi.html')
+
+          # P1: align Program & Inovasi with the canonical 5-cluster service
+          # structure. Keep the page informational; pelayanan.html remains
+          # the canonical service architecture.
+          p = Path('program.html')
+          s = p.read_text(encoding='utf-8')
+          ns = s.replace(
+              'Pelayanan terpadu dalam 5 klaster: manajemen, umum &amp; gawat darurat, kesehatan ibu-anak &amp; KB, gizi, dan penyakit menular.',
+              'Pelayanan terintegrasi dalam 5 klaster sesuai struktur pelayanan UPTD Puskesmas Tanjung Pinang: Klaster 1 Manajemen, Klaster 2 Ibu &amp; Anak, Klaster 3 Usia Dewasa &amp; Lansia, Klaster 4 Penanggulangan Penyakit Menular, dan Klaster 5 Lintas Klaster.'
+          )
+          ns = ns.replace('href="profil.html#klaster1">Lihat hasil →</a>', 'href="index.html#pengumuman">Lihat hasil IKM →</a>')
+          if ns != s:
+              p.write_text(ns, encoding='utf-8')
+              changed.append('program.html')
+
+          print('Changed:', ', '.join(changed) if changed else 'none')
+          PY
+
+      - name: Validate P0/P1 targets and cluster wording
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          info = Path('informasi.html').read_text(encoding='utf-8')
+          program = Path('program.html').read_text(encoding='utf-8')
+          checks = {
+              'foto target': 'id="foto"' in info,
+              'video target': 'id="video"' in info,
+              'canonical cluster wording': 'Klaster 3 Usia Dewasa &amp; Lansia' in program,
+              'IKM no stale cluster anchor': 'href="profil.html#klaster1"' not in program,
+          }
+          for k,v in checks.items(): print(('PASS' if v else 'FAIL') + ' - ' + k)
+          if not all(checks.values()): sys.exit(1)
+          PY
+
+      - name: Commit corrections
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add informasi.html program.html
+          if git diff --cached --quiet; then
+            echo "No audit corrections required."
+            exit 0
+          fi
+          git commit -m "fix: align information menu content with canonical clusters"
+          git push origin HEAD:work/audit-informasi-p0-p1-2026-08-31
