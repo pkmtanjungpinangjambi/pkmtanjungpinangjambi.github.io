@@ -1,0 +1,66 @@
+name: One-off Klaster 1 references patch
+
+on:
+  push:
+    branches:
+      - fix/klaster1-references-2026-08-31
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, 'chore: apply Klaster 1 references') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Add Dasar Hukum & Referensi section
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('manajemen-puskesmas.html')
+          text = path.read_text(encoding='utf-8')
+
+          marker = '<section class="management-section" id="standar-klaster-1">'
+          if 'id="dasar-hukum-referensi"' in text:
+              print('Section already present; no content insertion needed.')
+          elif marker not in text:
+              raise SystemExit('Target marker for Klaster 1 references not found')
+          else:
+              section = '''\n<section class="management-section management-preservation-added" id="dasar-hukum-referensi">\n  <h2>Dasar Hukum &amp; Referensi</h2>\n  <p>Rujukan regulasi dan dokumen yang digunakan untuk menjelaskan penyelenggaraan Manajemen Puskesmas sebagai Klaster 1.</p>\n  <div class="management-grid">\n    <article class="management-card">\n      <h3>Dasar Hukum</h3>\n      <div style="color:#62706c;font-size:.88rem;line-height:1.7;font-weight:500">\n        <p>Peraturan Menteri Kesehatan Nomor 19 Tahun 2024 tentang Penyelenggaraan Pusat Kesehatan Masyarakat.</p>\n        <p>Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik.</p>\n      </div>\n    </article>\n    <article class="management-card">\n      <h3>Referensi</h3>\n      <div style="color:#62706c;font-size:.88rem;line-height:1.7;font-weight:500">\n        <p>Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan pembaruan struktur manajemen 2026.</p>\n        <p>Dokumen standar pelayanan dan informasi manajemen yang digunakan pada halaman Klaster 1.</p>\n        <p><a href="https://jdih.kemkes.go.id/documents/peraturan-menteri-kesehatan-nomor-19-tahun-2024" target="_blank" rel="noopener noreferrer">Lihat Permenkes 19 Tahun 2024 di JDIH Kemenkes →</a></p>\n      </div>\n    </article>\n  </div>\n  <div class="admin-ref">Penyajian referensi menggunakan satu standar tipografi; judul bagian tegas, sedangkan isi daftar referensi menggunakan bobot regular/medium.</div>\n</section>\n\n'''
+              path.write_text(text.replace(marker, section + marker, 1), encoding='utf-8')
+              print('Inserted Dasar Hukum & Referensi section.')
+
+      - name: Validate HTML and reference consistency
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path('manajemen-puskesmas.html').read_text(encoding='utf-8')
+          checks = {
+              'reference section': 'id="dasar-hukum-referensi"' in html,
+              'reference heading': 'Dasar Hukum &amp; Referensi' in html,
+              'Permenkes 19/2024': 'Peraturan Menteri Kesehatan Nomor 19 Tahun 2024' in html,
+              'SK 39/2026': 'Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026' in html,
+              'canonical back link': '← Kembali ke Pelayanan' in html,
+              'legacy main nav removed': 'href="manajemen-puskesmas.html">Manajemen Puskesmas</a>' not in html,
+          }
+          failed = [name for name, ok in checks.items() if not ok]
+          for name, ok in checks.items():
+              print(('PASS' if ok else 'FAIL') + ': ' + name)
+          if failed:
+              raise SystemExit('Validation failed: ' + ', '.join(failed))
+          PY
+
+      - name: Remove one-off workflow and commit
+        shell: bash
+        run: |
+          rm -f .github/workflows/oneoff-klaster1-reference.yml
+          git config user.name "UPTD Puskesmas Tanjung Pinang Kota Jambi"
+          git config user.email "313901015+pkmtanjungpinangjambi@users.noreply.github.com"
+          git add manajemen-puskesmas.html .github/workflows/oneoff-klaster1-reference.yml
+          git commit -m "chore: apply Klaster 1 references" || exit 0
+          git push
