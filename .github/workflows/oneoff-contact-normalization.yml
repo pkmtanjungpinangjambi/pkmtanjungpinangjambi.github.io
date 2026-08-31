@@ -1,0 +1,67 @@
+name: One-off site contact normalization
+
+on:
+  push:
+    branches:
+      - fix/site-contact-qc-2026-08-31
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: ${{ !contains(github.event.head_commit.message, '[contact-normalized]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+
+      - name: Add centralized contact normalization
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path('content-protection.js')
+          text = path.read_text(encoding='utf-8')
+          if 'function normalizeContactBar()' not in text:
+              marker = '  function normalizeReferenceSections() {'
+              func = '''  function normalizeContactBar() {
+    const topbar = document.querySelector('.topbar .topbar-inner');
+    if (!topbar) return;
+    const spans = topbar.querySelectorAll(':scope > span');
+    if (spans.length < 2) return;
+    spans[0].textContent = '📍 Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Kec. Jambi Timur, Kota Jambi';
+    spans[1].innerHTML = '<a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email resmi</a>';
+  }
+
+'''
+              if marker not in text: raise SystemExit('Reference marker not found')
+              text = text.replace(marker, func + marker, 1)
+          marker = '  function init() {\n    normalizePrimaryNavigation();'
+          if 'normalizeContactBar();' not in text:
+              if marker not in text: raise SystemExit('init marker not found')
+              text = text.replace(marker, '  function init() {\n    normalizePrimaryNavigation();\n    normalizeContactBar();', 1)
+          path.write_text(text, encoding='utf-8')
+
+      - name: Validate
+        shell: bash
+        run: |
+          node --check content-protection.js
+          grep -q 'function normalizeContactBar()' content-protection.js
+          grep -q 'Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Kec. Jambi Timur, Kota Jambi' content-protection.js
+          grep -q '07417555394' content-protection.js
+          grep -q 'pkmtanjungpinang18jambi@gmail.com' content-protection.js
+          grep -q 'normalizeContactBar();' content-protection.js
+
+      - name: Remove one-off workflow and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/oneoff-contact-normalization.yml
+          git config user.name 'UPTD Puskesmas Tanjung Pinang Kota Jambi'
+          git config user.email '313901015+pkmtanjungpinangjambi@users.noreply.github.com'
+          git add content-protection.js .github/workflows/oneoff-contact-normalization.yml
+          git commit -m 'fix: normalize site contact bar [contact-normalized]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
