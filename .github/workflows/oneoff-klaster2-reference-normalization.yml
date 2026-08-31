@@ -1,0 +1,103 @@
+name: One-off Klaster 2 reference normalization
+
+on:
+  push:
+    branches:
+      - fix/klaster2-qc-2026-08-31
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: ${{ !contains(github.event.head_commit.message, '[klaster2-reference-normalized]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+
+      - name: Normalize reference sections in content-protection.js
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path('content-protection.js')
+          text = path.read_text(encoding='utf-8')
+
+          pattern = re.compile(
+              r"  function normalizeReferenceSections\(\) \{.*?\n  \}\n\n  function ensureKlaster1References",
+              re.S,
+          )
+
+          replacement = '''  function normalizeReferenceSections() {
+    const candidates = document.querySelectorAll('section, details');
+    candidates.forEach(container => {
+      const headings = container.matches('details')
+        ? [container.querySelector(':scope > summary')]
+        : [container.querySelector(':scope > h2'), container.querySelector(':scope > h3')];
+      const heading = headings.find(Boolean);
+      if (!heading) return;
+
+      const raw = heading.textContent.replace(/\\s+/g, ' ').trim();
+      const lower = raw.toLowerCase();
+      if (!(lower.includes('dasar hukum') || lower.includes('dasar &') || lower.includes('referensi'))) return;
+
+      container.classList.add('references-section');
+
+      if (heading.matches('h2, h3')) {
+        const prefixMatch = raw.match(/^\\s*(\\d+\\s*[·.)-]\\s*)/);
+        const prefix = prefixMatch ? prefixMatch[1] : '';
+        heading.textContent = `${prefix}Dasar Hukum & Referensi`;
+      }
+    });
+  }
+
+  function ensureKlaster1References'''
+
+          new_text, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit('normalizeReferenceSections target block not found')
+
+          css_old = ".references-section li, .references-section li strong { font-weight: 500 !important; }"
+          css_new = ".references-section li, .references-section li strong, .references-section ol li, .references-section ol li strong { font-weight: 500 !important; }"
+          if css_old in new_text:
+              new_text = new_text.replace(css_old, css_new, 1)
+          elif css_new not in new_text:
+              raise SystemExit('Reference CSS target not found')
+
+          path.write_text(new_text, encoding='utf-8')
+          print('Reference normalization updated.')
+
+      - name: Validate
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('content-protection.js').read_text(encoding='utf-8')
+          checks = {
+              'section heading normalization': 'Dasar Hukum & Referensi' in text,
+              'supports legacy title': "lower.includes('dasar &')" in text,
+              'references class': "container.classList.add('references-section')" in text,
+              'regular list typography': '.references-section ol li strong' in text,
+              'Klaster 1 reference injector preserved': 'function ensureKlaster1References()' in text,
+          }
+          failed = [k for k, v in checks.items() if not v]
+          for k, v in checks.items():
+              print(('PASS' if v else 'FAIL') + ': ' + k)
+          if failed:
+              raise SystemExit('Validation failed: ' + ', '.join(failed))
+          PY
+
+      - name: Remove one-off workflow and commit
+        shell: bash
+        run: |
+          rm -f .github/workflows/oneoff-klaster2-reference-normalization.yml
+          git config user.name 'UPTD Puskesmas Tanjung Pinang Kota Jambi'
+          git config user.email '313901015+pkmtanjungpinangjambi@users.noreply.github.com'
+          git add content-protection.js .github/workflows/oneoff-klaster2-reference-normalization.yml
+          git commit -m 'fix: normalize Klaster 2 references [klaster2-reference-normalized]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
