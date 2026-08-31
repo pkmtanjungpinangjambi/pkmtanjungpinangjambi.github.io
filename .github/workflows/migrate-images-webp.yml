@@ -4,113 +4,83 @@ on:
   push:
     branches:
       - work/audit-informasi-p0-p1-2026-08-31
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   webp-migration:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
+
+      - name: Install WebP tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
 
       - name: Convert local raster images to WebP
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import subprocess, sys
-          try:
-              from PIL import Image
-          except ImportError:
-              subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--quiet', 'Pillow'])
-              from PIL import Image
-
-          root = Path('.')
-          skip_dirs = {'.git', 'node_modules', '.venv'}
-          exts = {'.jpg', '.jpeg', '.png'}
-          converted = []
-          for p in root.rglob('*'):
-              if not p.is_file() or p.suffix.lower() not in exts:
-                  continue
-              if any(part in skip_dirs for part in p.parts):
-                  continue
-              out = p.with_suffix('.webp')
-              if out.exists():
-                  continue
-              with Image.open(p) as im:
-                  if im.mode not in ('RGB', 'RGBA'):
-                      im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
-                  im.save(out, 'WEBP', quality=85, method=6)
-              converted.append((str(p), str(out)))
-          print(f'Converted {len(converted)} image(s)')
-          for src, dst in converted:
-              print(f'{src} -> {dst}')
-          PY
+          set -euo pipefail
+          converted=0
+          while IFS= read -r -d '' p; do
+            out="${p%.*}.webp"
+            [ -f "$out" ] && continue
+            case "${p##*.}" in
+              jpg|JPG|jpeg|JPEG) cwebp -quiet -q 85 "$p" -o "$out" ;;
+              png|PNG) cwebp -quiet -lossless "$p" -o "$out" ;;
+            esac
+            converted=$((converted + 1))
+          done < <(find . -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -not -path './.git/*' -print0)
+          echo "Converted $converted image(s)"
 
       - name: Update local image references
         shell: bash
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           from pathlib import Path
           import re
-          root = Path('.')
-          skip_dirs = {'.git', 'node_modules', '.venv'}
-          text_exts = {'.html', '.htm', '.css', '.js', '.json', '.md', '.xml', '.txt'}
-          pattern = re.compile(r'(?<![A-Za-z0-9_./:-])(\S+?)\.(jpg|jpeg|png)(?=["\'\)\s>#?,]|$)', re.I)
-          changed = []
+          root=Path('.')
+          skip={'.git','node_modules','.venv'}
+          exts={'.html','.htm','.css','.js','.json','.md','.xml','.txt'}
+          pat=re.compile(r'(?<![A-Za-z0-9_./:-])(\S+?)\.(jpg|jpeg|png)(?=["\'\)\s>#?,]|$)',re.I)
           for p in root.rglob('*'):
-              if not p.is_file() or p.suffix.lower() not in text_exts:
-                  continue
-              if any(part in skip_dirs for part in p.parts):
-                  continue
-              try:
-                  s = p.read_text(encoding='utf-8')
-              except UnicodeDecodeError:
-                  continue
+              if not p.is_file() or p.suffix.lower() not in exts or any(x in skip for x in p.parts): continue
+              try: s=p.read_text(encoding='utf-8')
+              except UnicodeDecodeError: continue
               def repl(m):
-                  token = m.group(1)
-                  ext = m.group(2)
-                  if token.startswith(('http://', 'https://', '//', 'data:')):
-                      return m.group(0)
-                  return token + '.webp'
-              ns = pattern.sub(repl, s)
-              if ns != s:
-                  p.write_text(ns, encoding='utf-8')
-                  changed.append(str(p))
-          print(f'Updated references in {len(changed)} file(s)')
-          for x in changed:
-              print(x)
+                  token=m.group(1)
+                  if token.startswith(('http://','https://','//','data:')): return m.group(0)
+                  return token+'.webp'
+              ns=pat.sub(repl,s)
+              if ns!=s: p.write_text(ns,encoding='utf-8')
           PY
 
-      - name: Validate local WebP references
+      - name: Validate WebP references
         shell: bash
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           from pathlib import Path
-          import re, sys
-          root = Path('.')
-          skip_dirs = {'.git', 'node_modules', '.venv'}
-          text_exts = {'.html', '.htm', '.css', '.js', '.json', '.md', '.xml', '.txt'}
-          bad = []
-          pat = re.compile(r'(?<![A-Za-z0-9_./:-])([^\s"\'\)<>#?,]+\.webp)(?=["\'\)\s<>#?,]|$)', re.I)
+          import re,sys
+          root=Path('.')
+          skip={'.git','node_modules','.venv'}
+          exts={'.html','.htm','.css','.js','.json','.md','.xml','.txt'}
+          pat=re.compile(r'(?<![A-Za-z0-9_./:-])([^\s"\'\)<>#?,]+\.webp)(?=["\'\)\s<>#?,]|$)',re.I)
+          bad=[]
           for p in root.rglob('*'):
-              if not p.is_file() or p.suffix.lower() not in text_exts or any(part in skip_dirs for part in p.parts):
-                  continue
-              try: s = p.read_text(encoding='utf-8')
+              if not p.is_file() or p.suffix.lower() not in exts or any(x in skip for x in p.parts): continue
+              try: s=p.read_text(encoding='utf-8')
               except UnicodeDecodeError: continue
               for ref in pat.findall(s):
                   if ref.startswith(('http://','https://','//','data:')): continue
-                  target = (p.parent / ref.split('?',1)[0].split('#',1)[0]).resolve()
-                  if not target.exists():
-                      target = (root / ref.split('?',1)[0].split('#',1)[0]).resolve()
-                  if not target.exists(): bad.append(f'{p}: {ref}')
-          if bad:
-              print('\n'.join(bad))
-              sys.exit(1)
+                  clean=ref.split('?',1)[0].split('#',1)[0]
+                  if not ((p.parent/clean).exists() or (root/clean).exists()): bad.append(f'{p}: {ref}')
+          if bad: print('\n'.join(bad)); sys.exit(1)
           print('PASS: all local WebP references resolve')
           PY
 
@@ -120,9 +90,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          if git diff --cached --quiet; then
-            echo "No image migration changes required."
-            exit 0
-          fi
+          if git diff --cached --quiet; then echo "No image migration changes required."; exit 0; fi
           git commit -m "perf: migrate local images to webp"
           git push origin HEAD:work/audit-informasi-p0-p1-2026-08-31
