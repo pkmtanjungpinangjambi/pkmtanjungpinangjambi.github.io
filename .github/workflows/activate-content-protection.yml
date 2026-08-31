@@ -27,24 +27,6 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 1
 
-      - name: Add Klaster 1 reference section
-        shell: python
-        run: |
-          from pathlib import Path
-
-          path = Path('manajemen-puskesmas.html')
-          text = path.read_text(encoding='utf-8')
-          marker = '<section class="management-section" id="standar-klaster-1">'
-
-          if 'id="dasar-hukum-referensi"' in text:
-              print('Klaster 1 reference section already present.')
-          elif marker not in text:
-              raise SystemExit('Target marker for Klaster 1 references not found')
-          else:
-              section = '''\n<section class="management-section management-preservation-added" id="dasar-hukum-referensi">\n  <h2>Dasar Hukum &amp; Referensi</h2>\n  <p>Rujukan regulasi dan dokumen yang digunakan untuk menjelaskan penyelenggaraan Manajemen Puskesmas sebagai Klaster 1.</p>\n  <div class="management-grid">\n    <article class="management-card">\n      <h3>Dasar Hukum</h3>\n      <div style="color:#62706c;font-size:.88rem;line-height:1.7;font-weight:500">\n        <p>Peraturan Menteri Kesehatan Nomor 19 Tahun 2024 tentang Penyelenggaraan Pusat Kesehatan Masyarakat.</p>\n        <p>Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik.</p>\n      </div>\n    </article>\n    <article class="management-card">\n      <h3>Referensi</h3>\n      <div style="color:#62706c;font-size:.88rem;line-height:1.7;font-weight:500">\n        <p>Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan pembaruan struktur manajemen 2026.</p>\n        <p>Dokumen standar pelayanan dan informasi manajemen yang digunakan pada halaman Klaster 1.</p>\n        <p><a href="https://jdih.kemkes.go.id/documents/peraturan-menteri-kesehatan-nomor-19-tahun-2024" target="_blank" rel="noopener noreferrer">Lihat Permenkes 19 Tahun 2024 di JDIH Kemenkes →</a></p>\n      </div>\n    </article>\n  </div>\n  <div class="admin-ref">Penyajian referensi menggunakan satu standar tipografi; judul bagian tegas, sedangkan isi daftar referensi menggunakan bobot regular/medium.</div>\n</section>\n\n'''
-              path.write_text(text.replace(marker, section + marker, 1), encoding='utf-8')
-              print('Inserted Klaster 1 reference section.')
-
       - name: Inject protection script into HTML entry points
         shell: bash
         run: |
@@ -71,13 +53,13 @@ PY
             fi
           done < <(find . -type f -name '*.html' -not -path './.git/*' -print0)
 
-          if [ "$changed" -eq 0 ] && git diff --quiet; then
-            echo 'No HTML changes required.'
+          if [ "$changed" -eq 0 ]; then
+            echo 'All HTML files already load content-protection.js.'
             exit 0
           fi
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- '*.html'
-          git commit -m 'security: apply Klaster 1 references [content-protection-autopatch]'
+          git commit -m 'security: activate content protection on HTML pages [content-protection-autopatch]'
           git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
