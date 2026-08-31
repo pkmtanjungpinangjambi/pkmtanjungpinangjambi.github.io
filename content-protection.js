@@ -123,6 +123,52 @@ ${cta}`;
     });
   }
 
+  function ensureKlaster1References() {
+    const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    if (file !== 'manajemen-puskesmas.html') return;
+    if (document.getElementById('dasar-hukum-referensi')) return;
+
+    const target = document.getElementById('standar-klaster-1');
+    if (!target || !target.parentNode) return;
+
+    const section = document.createElement('section');
+    section.id = 'dasar-hukum-referensi';
+    section.className = 'management-section management-preservation-added';
+    section.innerHTML = `
+      <h2>Dasar Hukum &amp; Referensi</h2>
+      <p>Rujukan regulasi dan dokumen yang digunakan untuk menjelaskan penyelenggaraan Manajemen Puskesmas sebagai Klaster 1.</p>
+      <div class="management-grid">
+        <article class="management-card">
+          <h3>Dasar Hukum</h3>
+          <div class="management-reference-body">
+            <p>Peraturan Menteri Kesehatan Nomor 19 Tahun 2024 tentang Penyelenggaraan Pusat Kesehatan Masyarakat.</p>
+            <p>Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik.</p>
+          </div>
+        </article>
+        <article class="management-card">
+          <h3>Referensi</h3>
+          <div class="management-reference-body">
+            <p>Profil UPTD Puskesmas Tanjung Pinang Kota Jambi Tahun 2025 dan pembaruan struktur manajemen 2026.</p>
+            <p>Dokumen standar pelayanan dan informasi manajemen yang digunakan pada halaman Klaster 1.</p>
+            <p><a href="https://jdih.kemkes.go.id/documents/peraturan-menteri-kesehatan-nomor-19-tahun-2024" target="_blank" rel="noopener noreferrer">Lihat Permenkes 19 Tahun 2024 di JDIH Kemenkes →</a></p>
+          </div>
+        </article>
+      </div>
+      <div class="admin-ref">Judul bagian dibuat tegas, sedangkan isi referensi menggunakan bobot regular/medium agar konsisten dengan standar referensi website.</div>
+    `;
+
+    const style = document.createElement('style');
+    style.dataset.klaster1References = '1';
+    style.textContent = `
+      #dasar-hukum-referensi .management-reference-body { color:#62706c; font-size:.88rem; line-height:1.7; font-weight:500; }
+      #dasar-hukum-referensi .management-reference-body p { margin:0 0 10px; }
+      #dasar-hukum-referensi .management-reference-body p:last-child { margin-bottom:0; }
+      #dasar-hukum-referensi .management-reference-body a { font-weight:500; }
+    `;
+    document.head.appendChild(style);
+    target.parentNode.insertBefore(section, target);
+  }
+
   function wireServiceLink(clusterSelector, targetText, href, ariaLabel) {
     if (!window.location.pathname.endsWith('pelayanan.html')) return;
     const cluster = document.querySelector(clusterSelector);
@@ -177,6 +223,7 @@ ${cta}`;
     installStyle();
     wireNavigationGuard();
     normalizeReferenceSections();
+    ensureKlaster1References();
     requestAnimationFrame(verifyPrimaryNavigation);
     setTimeout(verifyPrimaryNavigation, 120);
     ensureServiceBackLink();
