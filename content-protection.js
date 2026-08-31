@@ -112,13 +112,24 @@ ${cta}`;
   }
 
   function normalizeReferenceSections() {
-    const details = document.querySelectorAll('details');
-    details.forEach(detail => {
-      const summary = detail.querySelector(':scope > summary');
-      if (!summary) return;
-      const text = summary.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
-      if (text.includes('dasar hukum') || text.includes('referensi')) {
-        detail.classList.add('references-section');
+    const candidates = document.querySelectorAll('section, details');
+    candidates.forEach(container => {
+      const heading = container.matches('details')
+        ? container.querySelector(':scope > summary')
+        : (container.querySelector(':scope > h2') || container.querySelector(':scope > h3'));
+      if (!heading) return;
+
+      const raw = heading.textContent.replace(/\s+/g, ' ').trim();
+      const lower = raw.toLowerCase();
+      const isReference = lower.includes('dasar hukum') || lower.includes('dasar &') || lower.includes('referensi');
+      if (!isReference) return;
+
+      container.classList.add('references-section');
+
+      if (heading.matches('h2, h3')) {
+        const prefixMatch = raw.match(/^\s*(\d+\s*[·.)-]\s*)/);
+        const prefix = prefixMatch ? prefixMatch[1] : '';
+        heading.textContent = `${prefix}Dasar Hukum & Referensi`;
       }
     });
   }
@@ -196,7 +207,9 @@ ${cta}`;
       body.content-protected input, body.content-protected textarea, body.content-protected select, body.content-protected [contenteditable="true"], body.content-protected [contenteditable=""] { -webkit-user-select:text !important; -moz-user-select:text !important; user-select:text !important; }
       body.content-protected img, body.content-protected video { -webkit-user-drag:none !important; user-drag:none !important; }
       .source-list li, .source-list li strong, .refs li, .refs li strong,
-      .references-section li, .references-section li strong { font-weight: 500 !important; }
+      .references-section li, .references-section li strong,
+      .references-section ol li, .references-section ol li strong,
+      .references-section .source-list li, .references-section .source-list li strong { font-weight: 500 !important; }
       .service-backbar { margin: 0 0 18px; }
       .service-backbar a, .service-back-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:999px; background:#eef7f4; color:#0b5d49; border:1px solid #d8ebe5; font-size:.82rem; font-weight:800; text-decoration:none; }
       .service-backbar a:hover, .service-back-link:hover { background:#dff0ea; }
