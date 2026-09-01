@@ -1,0 +1,86 @@
+name: Normalize Service Static Navigation Once
+
+on:
+  push:
+    branches:
+      - work/service-static-nav-fix-2026-09-01
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: ${{ !contains(github.event.head_commit.message, '[svcnav]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize service page navigation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          canonical = '''
+          <a href="index.html">Beranda</a>
+          <div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div>
+          <div class="nav-item-dropdown"><a class="active" href="pelayanan.html">Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
+          <div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
+          <a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a>'''.strip()
+
+          files = sorted(Path('.').glob('pelayanan-*.html')) + [Path('manajemen-puskesmas.html')]
+          changed = []
+          for path in files:
+              text = path.read_text(encoding='utf-8')
+              matches = list(re.finditer(r'<nav class="nav"[^>]*>(.*?)</nav>', text, flags=re.S))
+              if not matches:
+                  print(f'SKIP_NO_NAV: {path}')
+                  continue
+              # Replace only the first main navigation element.
+              m = matches[0]
+              new_text = text[:m.start(1)] + canonical + text[m.end(1):]
+              if new_text != text:
+                  path.write_text(new_text, encoding='utf-8')
+                  changed.append(str(path))
+
+          print(f'CHANGED_COUNT: {len(changed)}')
+          for item in changed:
+              print('CHANGED:', item)
+          PY
+      - name: Validate HTML navigation replacements
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          files = sorted(Path('.').glob('pelayanan-*.html')) + [Path('manajemen-puskesmas.html')]
+          errors = []
+          for path in files:
+              text = path.read_text(encoding='utf-8')
+              nav = re.search(r'<nav class="nav"[^>]*>(.*?)</nav>', text, flags=re.S)
+              if not nav:
+                  errors.append(f'NAV_MISSING:{path}')
+                  continue
+              body = nav.group(1)
+              if 'Manajemen Puskesmas</a>' in body and 'nav-item-dropdown' in body:
+                  # Canonical dropdown is allowed to link to the management page as Klaster 1.
+                  pass
+              if body.count('>Beranda</a>') != 1 or body.count('>Profil</a>') != 1 or body.count('>Pelayanan</a>') != 1 or body.count('>Informasi</a>') != 1:
+                  errors.append(f'PRIMARY_MENU_ERROR:{path}')
+          if errors:
+              raise SystemExit('\n'.join(errors))
+          print('SERVICE_NAV_VALIDATION_PASS')
+          PY
+      - name: Commit normalization
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add pelayanan-*.html manajemen-puskesmas.html
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m "fix: normalize service static navigation [svcnav]"
+          git push
