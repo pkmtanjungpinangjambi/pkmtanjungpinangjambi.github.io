@@ -8,7 +8,7 @@
 
   const editableSelector = 'input, textarea, select, [contenteditable="true"], [contenteditable=""]';
   const isEditable = target => !!(target && target.closest && target.closest(editableSelector));
-  const NAV_VERSION = '2026-08-31-v6';
+  const NAV_VERSION = '2026-09-01-v7';
 
   function normalizePrimaryNavigation() {
     const nav = document.querySelector('.nav');
@@ -130,6 +130,12 @@ ${cta}`;
         const prefixMatch = raw.match(/^\s*(\d+\s*[·.)-]\s*)/);
         const prefix = prefixMatch ? prefixMatch[1] : '';
         heading.textContent = `${prefix}Dasar Hukum & Referensi`;
+      } else if (container.matches('details')) {
+        const number = heading.querySelector('.service-number, .adult-number, .child-number, .admin-index');
+        const numberClone = number ? number.cloneNode(true) : null;
+        heading.textContent = '';
+        if (numberClone) heading.appendChild(numberClone);
+        heading.appendChild(document.createTextNode('Dasar Hukum & Referensi'));
       }
     });
   }
