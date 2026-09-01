@@ -1,3 +1,4 @@
+# Canonical read-only audit: intentionally has no commit/push side effects.
 name: Final WebP + Information Audit
 
 on:
