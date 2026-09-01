@@ -1,0 +1,49 @@
+name: Normalize Cluster 5 References
+
+on:
+  push:
+    branches:
+      - work/cluster5-reference-2026-09-01
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add specific Cluster 5 legal references
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          changes = {
+              'pelayanan-laboratorium.html': (
+                  '<li><strong>Peraturan Menteri Kesehatan Nomor 13 Tahun 2025</strong> tentang Pengelolaan Sumber Daya Manusia Kesehatan.</li>',
+                  '<li><strong>Peraturan Menteri Kesehatan Nomor 37 Tahun 2012</strong> tentang Penyelenggaraan Laboratorium Pusat Kesehatan Masyarakat.</li><li><strong>Peraturan Menteri Kesehatan Nomor 13 Tahun 2025</strong> tentang Pengelolaan Sumber Daya Manusia Kesehatan.</li>'
+              ),
+              'pelayanan-resep-obat.html': (
+                  '<li><strong>Peraturan Menteri Kesehatan Nomor 13 Tahun 2025</strong> tentang Pengelolaan Sumber Daya Manusia Kesehatan.</li>',
+                  '<li><strong>Peraturan Menteri Kesehatan Nomor 74 Tahun 2016</strong> tentang Standar Pelayanan Kefarmasian di Puskesmas.</li><li><strong>Peraturan Menteri Kesehatan Nomor 13 Tahun 2025</strong> tentang Pengelolaan Sumber Daya Manusia Kesehatan.</li>'
+              ),
+          }
+          for name, (old, new) in changes.items():
+              p = Path(name)
+              s = p.read_text(encoding='utf-8')
+              if old not in s:
+                  raise SystemExit(f'TARGET_NOT_FOUND:{name}')
+              p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Validate
+        run: |
+          grep -F 'Peraturan Menteri Kesehatan Nomor 37 Tahun 2012' pelayanan-laboratorium.html
+          grep -F 'Peraturan Menteri Kesehatan Nomor 74 Tahun 2016' pelayanan-resep-obat.html
+          echo CLUSTER5_REFERENCE_VALIDATION_PASS
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pelayanan-laboratorium.html pelayanan-resep-obat.html
+          git commit -m 'ref: add specific laboratory and pharmacy legal bases'
+          git push
