@@ -60,6 +60,32 @@ ${cta}`;
     }, true);
   }
 
+  function normalizeManagementContent() {
+    if (file !== 'manajemen-puskesmas.html') return;
+
+    const intro = document.querySelector('.management-intro');
+    const introText = intro?.querySelector('p');
+    if (introText) {
+      introText.textContent = introText.textContent.replace(
+        'sedangkan menu Pelayanan berfokus pada Klaster 2–5.',
+        'sedangkan menu Pelayanan mencakup Klaster 1–5.'
+      );
+    }
+
+    document.querySelectorAll('.management-section .admin-ref').forEach(ref => {
+      const firstStrong = ref.querySelector('strong');
+      if (firstStrong && firstStrong.textContent.trim() === 'Rujukan utama:') {
+        firstStrong.textContent = 'Dasar Hukum & Referensi:';
+      }
+      if (firstStrong && firstStrong.textContent.trim() === 'Dasar konten:') {
+        firstStrong.textContent = 'Dasar Hukum & Referensi:';
+      }
+      ref.querySelectorAll('strong').forEach(strong => {
+        if (strong.textContent.trim() === 'Sumber:') strong.textContent = 'Referensi:';
+      });
+    });
+  }
+
   function ensureServiceBackLink() {
     if (!isServicePage || document.getElementById('service-back-to-hub')) return;
 
@@ -120,6 +146,7 @@ ${cta}`;
 
   canonicalNavigation();
   bindDropdownCaretControls();
+  normalizeManagementContent();
   installNavigationStyle();
   ensureServiceBackLink();
   loadOriginalScript();
