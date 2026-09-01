@@ -1,0 +1,115 @@
+# Canonical read-only audit: intentionally has no commit/push side effects.
+name: Final WebP + Information Audit
+
+on:
+  push:
+    branches:
+      - work/information-webp-final-2026-09-01
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  final-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Validate Information P0/P1 fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import sys
+
+          root = Path('.')
+          info = root / 'informasi.html'
+          program = root / 'program.html'
+          checks = {
+              'informasi.html exists': info.is_file(),
+              'program.html exists': program.is_file(),
+          }
+          if info.is_file():
+              info_text = info.read_text(encoding='utf-8')
+              checks.update({
+                  'foto anchor': 'id="foto"' in info_text,
+                  'video anchor': 'id="video"' in info_text,
+              })
+          if program.is_file():
+              program_text = program.read_text(encoding='utf-8')
+              checks.update({
+                  'canonical 5-cluster wording': 'Klaster 3 Usia Dewasa &amp; Lansia' in program_text,
+                  'stale IKM anchor removed': 'href="profil.html#klaster1"' not in program_text,
+              })
+
+          failed = False
+          for name, ok in checks.items():
+              print(('PASS' if ok else 'FAIL') + ' - ' + name)
+              failed = failed or not ok
+          if failed:
+              sys.exit(1)
+          PY
+
+      - name: Validate local image references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, sys
+
+          root = Path('.')
+          text_exts = {'.html', '.htm', '.css', '.js', '.json', '.md', '.xml', '.txt'}
+          skip = {'.git', 'node_modules', '.venv'}
+          ref_pat = re.compile(r'(?<![A-Za-z0-9_./:-])([^\s"\'\)<>#?,]+\.(?:jpg|jpeg|png|webp))(?=["\'\)\s<>#?,]|$)', re.I)
+          raster_exts = {'.jpg', '.jpeg', '.png'}
+          local_raster_refs = []
+          broken_webp_refs = []
+
+          for p in root.rglob('*'):
+              if not p.is_file() or p.suffix.lower() not in text_exts or any(part in skip for part in p.parts):
+                  continue
+              try:
+                  text = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+
+              for ref in ref_pat.findall(text):
+                  if ref.startswith(('http://', 'https://', '//', 'data:')):
+                      continue
+                  clean = ref.split('?', 1)[0].split('#', 1)[0]
+                  suffix = Path(clean).suffix.lower()
+                  if suffix in raster_exts:
+                      local_raster_refs.append(f'{p}: {ref}')
+                  elif suffix == '.webp' and not ((p.parent / clean).exists() or (root / clean).exists()):
+                      broken_webp_refs.append(f'{p}: {ref}')
+
+          if local_raster_refs:
+              print('FAIL - local raster references remain:')
+              print('\n'.join(local_raster_refs))
+              sys.exit(1)
+          print('PASS - no local JPG/JPEG/PNG references remain in text assets')
+
+          if broken_webp_refs:
+              print('FAIL - broken local WebP references:')
+              print('\n'.join(broken_webp_refs))
+              sys.exit(1)
+
+          webp_count = sum(1 for p in root.rglob('*.webp') if p.is_file() and not any(part in skip for part in p.parts))
+          print(f'PASS - all local WebP references resolve; {webp_count} WebP file(s) present')
+          PY
+
+      - name: Validate repository basics
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f informasi.html
+          test -f program.html
+          test -f script.js
+          echo 'PASS - core entry files are present'

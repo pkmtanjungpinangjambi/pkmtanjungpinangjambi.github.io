@@ -94,7 +94,7 @@
 @media(max-width:700px){.achievement-grid{grid-template-columns:1fr}}
 
 /* FINAL: Logo Kota Jambi seragam pada seluruh header halaman */
-.brand-mark{background-color:#fff;background-image:url("./logo-kota-jambi.png");background-repeat:no-repeat;background-position:center;background-size:contain;border:1px solid var(--line);color:transparent;font-size:0;box-shadow:0 8px 20px rgba(0,59,45,.12)}
+.brand-mark{background-color:#fff;background-image:url("./logo-kota-jambi.webp");background-repeat:no-repeat;background-position:center;background-size:contain;border:1px solid var(--line);color:transparent;font-size:0;box-shadow:0 8px 20px rgba(0,59,45,.12)}
 .brand-mark::before,.brand-mark::after{content:none}
 
 /* Header brand seragam semua halaman */
