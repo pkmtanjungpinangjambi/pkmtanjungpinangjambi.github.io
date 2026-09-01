@@ -86,6 +86,96 @@ ${cta}`;
     });
   }
 
+  function normalizeInformationContent() {
+    const infoPages = new Set(['informasi.html', 'edukasi.html', 'program.html', 'download.html']);
+    if (!infoPages.has(file)) return;
+
+    const topbarAddress = document.querySelector('.topbar-inner span:first-child');
+    if (topbarAddress) {
+      topbarAddress.textContent = '📍 Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Kec. Jambi Timur, Kota Jambi';
+    }
+
+    if (!document.getElementById('information-correlation-style')) {
+      const style = document.createElement('style');
+      style.id = 'information-correlation-style';
+      style.textContent = `
+        .info-correlation-box{margin:22px 0;padding:18px;border:1px solid #dbe8e3;border-radius:16px;background:#f7fbf9}
+        .info-correlation-box h2{margin:0 0 7px;color:#0b5d49;font-size:1.15rem}
+        .info-correlation-box p{margin:0;color:#60706b;font-size:.86rem;line-height:1.65}
+        .info-correlation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+        .info-correlation-item{display:block;padding:13px 14px;border:1px solid #dfe9e5;border-radius:12px;background:#fff;text-decoration:none;color:inherit}
+        .info-correlation-item strong{display:block;color:#0b5d49;font-size:.88rem;margin-bottom:4px}
+        .info-correlation-item span{display:block;color:#68756f;font-size:.78rem;line-height:1.55}
+        .info-correlation-tag{display:inline-flex;margin-top:10px;padding:5px 9px;border-radius:999px;background:#eef7f4;color:#0b5d49;border:1px solid #d8ebe5;font-size:.72rem;font-weight:800}
+        @media(max-width:760px){.info-correlation-grid{grid-template-columns:1fr}}
+      `;
+      document.head.appendChild(style);
+    }
+
+    const addTag = (card, text) => {
+      if (!card || card.querySelector('.info-correlation-tag')) return;
+      const tag = document.createElement('span');
+      tag.className = 'info-correlation-tag';
+      tag.textContent = text;
+      card.appendChild(tag);
+    };
+
+    if (file === 'edukasi.html') {
+      const cards = document.querySelectorAll('.cards .card');
+      addTag(cards[0], 'Korelasi: Klaster 4 — Penanggulangan Penyakit Menular');
+      addTag(cards[1], 'Korelasi: lintas siklus hidup → tindak lanjut sesuai hasil pemeriksaan');
+      addTag(cards[2], 'Korelasi: dokumentasi & edukasi seluruh klaster');
+      addTag(cards[3], 'Korelasi: komunikasi & edukasi seluruh klaster');
+    }
+
+    if (file === 'program.html') {
+      const cards = document.querySelectorAll('.cards .card');
+      addTag(cards[0], 'Korelasi: struktur Pelayanan Klaster 1–5');
+      addTag(cards[1], 'Korelasi: Profil → Motto & Tata Nilai');
+      addTag(cards[2], 'Korelasi: Beranda → ILP & seluruh klaster');
+      addTag(cards[3], 'Korelasi: Manajemen → mutu, evaluasi & perbaikan');
+    }
+
+    if (file === 'download.html' && !document.getElementById('download-correlation')) {
+      const list = document.querySelector('.page-content .container ul');
+      if (list) {
+        const box = document.createElement('section');
+        box.id = 'download-correlation';
+        box.className = 'info-correlation-box';
+        box.innerHTML = `
+          <h2>Korelasi Dokumen dengan Pelayanan</h2>
+          <p>Dokumen unduhan menjadi bukti pendukung tata kelola dan mutu pelayanan. Sebagian besar terkait langsung dengan Klaster 1 — Manajemen, sementara penggunaannya mendukung seluruh klaster pelayanan.</p>
+          <div class="info-correlation-grid">
+            <a class="info-correlation-item" href="pelayanan.html#klaster-1"><strong>Klaster 1 — Manajemen</strong><span>Standar pelayanan, maklumat, struktur, dan pengelolaan mutu.</span></a>
+            <a class="info-correlation-item" href="kontak.html"><strong>Pengaduan &amp; Kontak</strong><span>Mekanisme konsultasi/pengaduan dan kanal komunikasi masyarakat.</span></a>
+            <a class="info-correlation-item" href="index.html#ilp"><strong>ILP &amp; Pelayanan</strong><span>Dokumen dan informasi pendukung dalam kerangka pelayanan primer terintegrasi.</span></a>
+          </div>`;
+        list.insertAdjacentElement('beforebegin', box);
+      }
+    }
+
+    if (file === 'informasi.html' && !document.getElementById('information-correlation')) {
+      const toolbar = document.querySelector('.galeri-toolbar');
+      if (toolbar) {
+        const box = document.createElement('section');
+        box.id = 'information-correlation';
+        box.className = 'info-correlation-box';
+        box.innerHTML = `
+          <h2>Peta Korelasi Informasi</h2>
+          <p>Menu Informasi bukan berdiri sendiri. Setiap bagian mengarahkan masyarakat dari informasi umum menuju edukasi, program, layanan ILP, dokumen resmi, dan kanal komunikasi.</p>
+          <div class="info-correlation-grid">
+            <a class="info-correlation-item" href="index.html#pengumuman"><strong>Pengumuman</strong><span>Informasi resmi dan pemberitahuan terbaru.</span></a>
+            <a class="info-correlation-item" href="index.html#berita"><strong>Berita &amp; Kegiatan</strong><span>Aktivitas dan capaian Puskesmas yang dapat didokumentasikan di galeri.</span></a>
+            <a class="info-correlation-item" href="edukasi.html"><strong>Edukasi Kesehatan</strong><span>Materi kesehatan yang dikaitkan dengan kebutuhan siklus hidup dan klaster layanan.</span></a>
+            <a class="info-correlation-item" href="program.html"><strong>Program &amp; Inovasi</strong><span>Hubungan program, ILP, budaya pelayanan, dan mutu.</span></a>
+            <a class="info-correlation-item" href="index.html#ilp"><strong>Informasi ILP</strong><span>Kerangka lima klaster sebagai struktur utama pelayanan.</span></a>
+            <a class="info-correlation-item" href="download.html"><strong>Download</strong><span>Dokumen pendukung, standar pelayanan, dan bukti mutu.</span></a>
+          </div>`;
+        toolbar.insertAdjacentElement('afterend', box);
+      }
+    }
+  }
+
   function ensureServiceBackLink() {
     if (!isServicePage || document.getElementById('service-back-to-hub')) return;
 
@@ -147,6 +237,7 @@ ${cta}`;
   canonicalNavigation();
   bindDropdownCaretControls();
   normalizeManagementContent();
+  normalizeInformationContent();
   installNavigationStyle();
   ensureServiceBackLink();
   loadOriginalScript();
