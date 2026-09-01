@@ -176,6 +176,64 @@ ${cta}`;
     }
   }
 
+  function normalizeKlaster2Content() {
+    if (file === 'pelayanan-klaster-2-ibu-anak.html') {
+      const sasaranNote = document.querySelector('#sasaran > p');
+      if (sasaranNote) {
+        sasaranNote.textContent = 'Dalam kerangka ILP, sasaran Klaster 2 mencakup ibu hamil, ibu bersalin, ibu nifas, bayi, balita/anak prasekolah, anak usia sekolah, dan remaja. Lima kartu di bawah merupakan pengelompokan tampilan agar mudah dipahami.';
+      }
+
+      if (!document.getElementById('klaster2-correlation-style')) {
+        const style = document.createElement('style');
+        style.id = 'klaster2-correlation-style';
+        style.textContent = `
+          .klaster2-correlation{margin-top:18px;padding:18px;border:1px solid #dbe8e3;border-radius:16px;background:#f7fbf9}
+          .klaster2-correlation h3{margin:0 0 7px;color:#0b5d49;font-size:1rem}
+          .klaster2-correlation p{margin:0;color:#60706b;font-size:.82rem;line-height:1.6}
+          .klaster2-correlation-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:13px}
+          .klaster2-correlation-item{display:block;padding:12px;border:1px solid #dfe9e5;border-radius:12px;background:#fff;text-decoration:none}
+          .klaster2-correlation-item strong{display:block;color:#0b5d49;font-size:.79rem;line-height:1.4}
+          .klaster2-correlation-item span{display:block;margin-top:5px;color:#68756f;font-size:.72rem;line-height:1.5}
+          @media(max-width:900px){.klaster2-correlation-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+          @media(max-width:560px){.klaster2-correlation-grid{grid-template-columns:1fr 1fr}}
+        `;
+        document.head.appendChild(style);
+      }
+
+      if (!document.getElementById('klaster2-correlation')) {
+        const layanan = document.getElementById('layanan');
+        if (layanan) {
+          const box = document.createElement('div');
+          box.id = 'klaster2-correlation';
+          box.className = 'klaster2-correlation';
+          box.innerHTML = `
+            <h3>Korelasi Utama Klaster 2</h3>
+            <p>Hubungan layanan dibuat eksplisit: sasaran → layanan inti → layanan lintas klaster → tindak lanjut → data dan mutu. Korelasi ini adalah peta layanan, bukan pengganti SOP klinis.</p>
+            <div class="klaster2-correlation-grid">
+              <a class="klaster2-correlation-item" href="pelayanan-klaster-2-anc-triple-eliminasi.html"><strong>🤰 Ibu</strong><span>ANC · Triple Eliminasi · SIHEPI → tindak lanjut ibu/bayi.</span></a>
+              <a class="klaster2-correlation-item" href="pelayanan-anak.html"><strong>👶 Anak</strong><span>Pelayanan anak dan MTBS sesuai kebutuhan.</span></a>
+              <a class="klaster2-correlation-item" href="pelayanan-imunisasi.html"><strong>💉 Pencegahan</strong><span>Imunisasi sebagai bagian kesinambungan perlindungan anak.</span></a>
+              <a class="klaster2-correlation-item" href="pelayanan-tumbuh-kembang-anak.html"><strong>📈 Tumbuh Kembang</strong><span>Antropometri, perkembangan, edukasi, dan rujukan.</span></a>
+              <a class="klaster2-correlation-item" href="#ukp-ukm"><strong>🔗 Lintas &amp; Manajemen</strong><span>Laboratorium, farmasi, jejaring, PWS, Monev, mutu, dan risiko.</span></a>
+            </div>`;
+          layanan.appendChild(box);
+        }
+      }
+    }
+
+    if (file === 'pelayanan-klaster-2-anc-triple-eliminasi.html') {
+      const warning = document.querySelector('.callout.warning');
+      if (warning) {
+        warning.innerHTML = '<strong>Catatan regulasi 2026:</strong> Permenkes 52 Tahun 2017 telah dicabut/digantikan dalam kerangka Permenkes 3 Tahun 2026 tentang Penanggulangan Penyakit, dengan ketentuan tertentu yang masih dinyatakan berlaku. Karena itu, untuk status regulasi 2026 website menggunakan Permenkes 3 Tahun 2026 sebagai rujukan terbaru dan Permenkes 6 Tahun 2024 sebagai salah satu dasar teknis SPM kesehatan ibu hamil.';
+      }
+      document.querySelectorAll('#referensi .source-list li').forEach(item => {
+        if (item.textContent.includes('Permenkes Nomor 3 Tahun 2026')) {
+          item.textContent = 'Permenkes Nomor 3 Tahun 2026 tentang Penanggulangan Penyakit, sebagai rujukan regulasi terbaru bidang penanggulangan penyakit dan status ketentuan tertentu dari regulasi sebelumnya.';
+        }
+      });
+    }
+  }
+
   function ensureServiceBackLink() {
     if (!isServicePage || document.getElementById('service-back-to-hub')) return;
 
@@ -238,6 +296,7 @@ ${cta}`;
   bindDropdownCaretControls();
   normalizeManagementContent();
   normalizeInformationContent();
+  normalizeKlaster2Content();
   installNavigationStyle();
   ensureServiceBackLink();
   loadOriginalScript();
