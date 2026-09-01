@@ -1,0 +1,100 @@
+name: Temporary Finalize WebP + Information P0/P1
+
+on:
+  push:
+    branches:
+      - work/information-webp-final-2026-09-01
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: ${{ !contains(github.event.head_commit.message, '[finalize-autopatch]') }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Install WebP tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+
+      - name: Apply final WebP migration and P0/P1 fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+          skip = {'.git', 'node_modules', '.venv'}
+          exts = {'.html', '.htm', '.css', '.js', '.json', '.md', '.xml', '.txt'}
+          pat = re.compile(r'(?<![A-Za-z0-9_./:-])(\S+?)\.(jpg|jpeg|png)(?=["\'\)\s>#?,]|$)', re.I)
+
+          for p in root.rglob('*'):
+              if not p.is_file() or p.suffix.lower() not in exts or any(x in skip for x in p.parts):
+                  continue
+              try:
+                  text = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              def repl(m):
+                  token = m.group(1)
+                  if token.startswith(('http://', 'https://', '//', 'data:')):
+                      return m.group(0)
+                  return token + '.webp'
+              new_text = pat.sub(repl, text)
+              if new_text != text:
+                  p.write_text(new_text, encoding='utf-8')
+
+          info = root / 'informasi.html'
+          text = info.read_text(encoding='utf-8')
+          text = text.replace(
+              '<button class="galeri-filter active" data-galeri-filter="semua">Semua</button>\n<button class="galeri-filter" data-galeri-filter="foto">Foto</button>\n<button class="galeri-filter" data-galeri-filter="video">Video</button>',
+              '<button class="galeri-filter active" data-galeri-filter="semua">Semua</button>\n<button id="foto" class="galeri-filter" data-galeri-filter="foto">Foto</button>\n<button id="video" class="galeri-filter" data-galeri-filter="video">Video</button>',
+              1,
+          )
+          info.write_text(text, encoding='utf-8')
+
+          program = root / 'program.html'
+          text = program.read_text(encoding='utf-8')
+          text = text.replace(
+              'Pelayanan terpadu dalam 5 klaster: manajemen, umum &amp; gawat darurat, kesehatan ibu-anak &amp; KB, gizi, dan penyakit menular.',
+              'Pelayanan terintegrasi dalam 5 klaster sesuai struktur pelayanan UPTD Puskesmas Tanjung Pinang: Klaster 1 Manajemen, Klaster 2 Ibu &amp; Anak, Klaster 3 Usia Dewasa &amp; Lansia, Klaster 4 Penanggulangan Penyakit Menular, dan Klaster 5 Lintas Klaster.',
+              1,
+          )
+          text = text.replace('href="profil.html#klaster1">Lihat hasil →</a>', 'href="index.html#pengumuman">Lihat hasil IKM →</a>', 1)
+          program.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Convert raster images to WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' p; do
+            out="${p%.*}.webp"
+            if [ -f "$out" ]; then continue; fi
+            case "${p##*.}" in
+              jpg|JPG|jpeg|JPEG) cwebp -quiet -q 85 "$p" -o "$out" ;;
+              png|PNG) cwebp -quiet -lossless "$p" -o "$out" ;;
+            esac
+          done < <(find . -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -not -path './.git/*' -print0)
+
+      - name: Commit autopatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No autopatch changes required."
+            exit 0
+          fi
+          git commit -m "fix: finalize webp and information P0/P1 [finalize-autopatch]"
+          git push origin "HEAD:${{ github.ref_name }}"
