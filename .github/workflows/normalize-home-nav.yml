@@ -1,0 +1,44 @@
+name: Normalize Home Navigation
+
+on:
+  push:
+    branches:
+      - work/home-nav-final-2026-09-01
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize home navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          canonical = '''<nav class="nav" aria-label="Navigasi utama"><a class="active" href="index.html">Beranda</a><div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div><div class="nav-item-dropdown"><a href="pelayanan.html">Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div><div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div><a class="nav-cta nav-daftar" href="jadwal.html"><span class="cal">📅</span><span class="tx"><strong>Pendaftaran</strong><small>Mobile JKN &amp; Onsite</small></span></a></nav>'''
+          new, n = re.subn(r'<nav class="nav" aria-label="Navigasi utama">.*?</nav>', canonical, s, count=1, flags=re.S)
+          if n != 1:
+              raise SystemExit('HOME_NAV_NOT_FOUND')
+          p.write_text(new, encoding='utf-8')
+          PY
+      - name: Validate
+        run: |
+          grep -F 'Klaster 1 — Manajemen' index.html >/dev/null
+          grep -F 'Klaster 5 — Lintas Klaster' index.html >/dev/null
+          ! grep -F 'Manajemen Puskesmas</a>' index.html >/dev/null || exit 1
+          ! grep -F 'Tarif Pelayanan</a>' index.html >/dev/null || exit 1
+          ! grep -F 'menu-group' index.html >/dev/null || exit 1
+          echo HOME_NAV_VALIDATION_PASS
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: normalize static navigation on home page'
+          git push
