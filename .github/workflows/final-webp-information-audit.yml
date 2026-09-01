@@ -1,10 +1,13 @@
 name: Final WebP + Information Audit
 
 on:
+  push:
+    branches:
+      - work/information-webp-final-2026-09-01
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   final-audit:
@@ -13,140 +16,99 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Install WebP tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y webp
-
-      - name: Convert raster images to WebP
-        shell: bash
-        run: |
-          set -euo pipefail
-          converted=0
-          while IFS= read -r -d '' p; do
-            out="${p%.*}.webp"
-            if [ -f "$out" ]; then
-              continue
-            fi
-            case "${p##*.}" in
-              jpg|JPG|jpeg|JPEG) cwebp -quiet -q 85 "$p" -o "$out" ;;
-              png|PNG) cwebp -quiet -lossless "$p" -o "$out" ;;
-            esac
-            converted=$((converted + 1))
-          done < <(find . -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -not -path './.git/*' -print0)
-          echo "Converted $converted new raster image(s) to WebP."
-
-      - name: Update local image references
+      - name: Validate Information P0/P1 fixes
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import re
+          import sys
+
           root = Path('.')
-          skip = {'.git', 'node_modules', '.venv'}
-          exts = {'.html', '.htm', '.css', '.js', '.json', '.md', '.xml', '.txt'}
-          pat = re.compile(r'(?<![A-Za-z0-9_./:-])(\S+?)\.(jpg|jpeg|png)(?=["\'\)\s>#?,]|$)', re.I)
-          changed = []
-          for p in root.rglob('*'):
-              if not p.is_file() or p.suffix.lower() not in exts or any(x in skip for x in p.parts):
-                  continue
-              try:
-                  s = p.read_text(encoding='utf-8')
-              except UnicodeDecodeError:
-                  continue
-              def repl(m):
-                  token = m.group(1)
-                  if token.startswith(('http://', 'https://', '//', 'data:')):
-                      return m.group(0)
-                  return token + '.webp'
-              ns = pat.sub(repl, s)
-              if ns != s:
-                  p.write_text(ns, encoding='utf-8')
-                  changed.append(str(p))
-          print(f'Updated references in {len(changed)} file(s)')
-          for p in changed:
-              print(p)
+          info = root / 'informasi.html'
+          program = root / 'program.html'
+          checks = {
+              'informasi.html exists': info.is_file(),
+              'program.html exists': program.is_file(),
+          }
+          if info.is_file():
+              info_text = info.read_text(encoding='utf-8')
+              checks.update({
+                  'foto anchor': 'id="foto"' in info_text,
+                  'video anchor': 'id="video"' in info_text,
+              })
+          if program.is_file():
+              program_text = program.read_text(encoding='utf-8')
+              checks.update({
+                  'canonical 5-cluster wording': 'Klaster 3 Usia Dewasa &amp; Lansia' in program_text,
+                  'stale IKM anchor removed': 'href="profil.html#klaster1"' not in program_text,
+              })
+
+          failed = False
+          for name, ok in checks.items():
+              print(('PASS' if ok else 'FAIL') + ' - ' + name)
+              failed = failed or not ok
+          if failed:
+              sys.exit(1)
           PY
 
-      - name: Apply Information P0/P1 fixes
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          info = Path('informasi.html')
-          s = info.read_text(encoding='utf-8')
-          old = '<button class="galeri-filter active" data-galeri-filter="semua">Semua</button>\n<button class="galeri-filter" data-galeri-filter="foto">Foto</button>\n<button class="galeri-filter" data-galeri-filter="video">Video</button>'
-          new = '<button class="galeri-filter active" data-galeri-filter="semua">Semua</button>\n<button id="foto" class="galeri-filter" data-galeri-filter="foto">Foto</button>\n<button id="video" class="galeri-filter" data-galeri-filter="video">Video</button>'
-          if old in s:
-              s = s.replace(old, new, 1)
-              info.write_text(s, encoding='utf-8')
-
-          program = Path('program.html')
-          s = program.read_text(encoding='utf-8')
-          old_text = 'Pelayanan terpadu dalam 5 klaster: manajemen, umum &amp; gawat darurat, kesehatan ibu-anak &amp; KB, gizi, dan penyakit menular.'
-          new_text = 'Pelayanan terintegrasi dalam 5 klaster sesuai struktur pelayanan UPTD Puskesmas Tanjung Pinang: Klaster 1 Manajemen, Klaster 2 Ibu &amp; Anak, Klaster 3 Usia Dewasa &amp; Lansia, Klaster 4 Penanggulangan Penyakit Menular, dan Klaster 5 Lintas Klaster.'
-          s = s.replace(old_text, new_text, 1)
-          s = s.replace('href="profil.html#klaster1">Lihat hasil →</a>', 'href="index.html#pengumuman">Lihat hasil IKM →</a>', 1)
-          program.write_text(s, encoding='utf-8')
-          PY
-
-      - name: Validate migration and information fixes
+      - name: Validate local image references
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
           import re, sys
-          root = Path('.')
-          info = Path('informasi.html').read_text(encoding='utf-8')
-          program = Path('program.html').read_text(encoding='utf-8')
-          checks = {
-              'foto anchor': 'id="foto"' in info,
-              'video anchor': 'id="video"' in info,
-              'canonical 5-cluster wording': 'Klaster 3 Usia Dewasa &amp; Lansia' in program,
-              'stale IKM anchor removed': 'href="profil.html#klaster1"' not in program,
-          }
-          for k, v in checks.items():
-              print(('PASS' if v else 'FAIL') + ' - ' + k)
-          if not all(checks.values()):
-              sys.exit(1)
 
-          pat = re.compile(r'(?<![A-Za-z0-9_./:-])([^\s"\'\)<>#?,]+\.webp)(?=["\'\)\s<>#?,]|$)', re.I)
-          bad = []
+          root = Path('.')
+          text_exts = {'.html', '.htm', '.css', '.js', '.json', '.md', '.xml', '.txt'}
+          skip = {'.git', 'node_modules', '.venv'}
+          ref_pat = re.compile(r'(?<![A-Za-z0-9_./:-])([^\s"\'\)<>#?,]+\.(?:jpg|jpeg|png|webp))(?=["\'\)\s<>#?,]|$)', re.I)
+          raster_exts = {'.jpg', '.jpeg', '.png'}
+          local_raster_refs = []
+          broken_webp_refs = []
+
           for p in root.rglob('*'):
-              if not p.is_file() or p.suffix.lower() not in {'.html','.htm','.css','.js','.json','.md','.xml','.txt'} or '.git' in p.parts:
+              if not p.is_file() or p.suffix.lower() not in text_exts or any(part in skip for part in p.parts):
                   continue
               try:
                   text = p.read_text(encoding='utf-8')
               except UnicodeDecodeError:
                   continue
-              for ref in pat.findall(text):
-                  if ref.startswith(('http://','https://','//','data:')):
+
+              for ref in ref_pat.findall(text):
+                  if ref.startswith(('http://', 'https://', '//', 'data:')):
                       continue
-                  clean = ref.split('?',1)[0].split('#',1)[0]
-                  if not ((p.parent / clean).exists() or (root / clean).exists()):
-                      bad.append(f'{p}: {ref}')
-          if bad:
-              print('\n'.join(bad))
+                  clean = ref.split('?', 1)[0].split('#', 1)[0]
+                  suffix = Path(clean).suffix.lower()
+                  if suffix in raster_exts:
+                      local_raster_refs.append(f'{p}: {ref}')
+                  elif suffix == '.webp' and not ((p.parent / clean).exists() or (root / clean).exists()):
+                      broken_webp_refs.append(f'{p}: {ref}')
+
+          if local_raster_refs:
+              print('FAIL - local raster references remain:')
+              print('\n'.join(local_raster_refs))
               sys.exit(1)
-          webp_count = sum(1 for p in root.rglob('*.webp') if p.is_file() and '.git' not in p.parts)
-          print(f'PASS - local WebP references resolve; {webp_count} WebP file(s) present')
+          print('PASS - no local JPG/JPEG/PNG references remain in text assets')
+
+          if broken_webp_refs:
+              print('FAIL - broken local WebP references:')
+              print('\n'.join(broken_webp_refs))
+              sys.exit(1)
+
+          webp_count = sum(1 for p in root.rglob('*.webp') if p.is_file() and not any(part in skip for part in p.parts))
+          print(f'PASS - all local WebP references resolve; {webp_count} WebP file(s) present')
           PY
 
-      - name: Commit final changes
+      - name: Validate repository basics
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No final changes required."
-            exit 0
-          fi
-          git commit -m "feat: finalize webp and information audit"
-          git push origin HEAD:work/information-webp-final-2026-09-01
+          test -f index.html
+          test -f informasi.html
+          test -f program.html
+          test -f script.js
+          echo 'PASS - core entry files are present'
