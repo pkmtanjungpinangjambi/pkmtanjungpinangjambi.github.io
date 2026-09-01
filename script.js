@@ -77,8 +77,19 @@ ${cta}`;
     document.head.appendChild(script);
   }
 
+  function loadSocialChannelsScript() {
+    if (file !== 'informasi.html') return;
+    if (window.__PKM_SOCIAL_CHANNELS_SCRIPT_LOADED) return;
+    window.__PKM_SOCIAL_CHANNELS_SCRIPT_LOADED = true;
+    const script = document.createElement('script');
+    script.src = 'social-channels.js?v=20260901-social1';
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   canonicalNavigation();
   installNavigationStyle();
   ensureServiceBackLink();
   loadOriginalScript();
+  loadSocialChannelsScript();
 })();
