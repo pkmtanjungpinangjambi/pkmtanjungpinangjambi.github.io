@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Lambang Puskesmas</title>
+  <desc id="desc">Lambang Puskesmas berbentuk heksagonal dengan simbol palang kesehatan berwarna hijau.</desc>
+  <polygon points="60,5 111,34 111,86 60,115 9,86 9,34" fill="#fff" stroke="#0b7a3c" stroke-width="8" stroke-linejoin="round"/>
+  <g fill="#0b7a3c">
+    <rect x="48" y="22" width="24" height="76" rx="3"/>
+    <rect x="22" y="48" width="76" height="24" rx="3"/>
+  </g>
+  <path d="M45 66c8-15 18-23 31-25-4 7-4 14 2 20-10-1-19 3-27 12-4 4-7 2-6-7Z" fill="#fff"/>
+  <circle cx="71" cy="47" r="4" fill="#0b7a3c"/>
+</svg>
