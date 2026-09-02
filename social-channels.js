@@ -41,13 +41,13 @@
       </div>
       <div class="social-channels-grid">
         <a class="social-channel-card" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer" aria-label="Hubungi Puskesmas Tanjung Pinang Jambi melalui WhatsApp">
-          <img src="assets/social/wa.webp?v=20260902-2" alt="WhatsApp Puskesmas Tanjung Pinang Jambi" loading="lazy">
+          <img src="assets/social/wa.webp?v=20260902-3" alt="WhatsApp Puskesmas Tanjung Pinang Jambi" loading="lazy" width="750" height="380">
         </a>
         <a class="social-channel-card" href="https://web.facebook.com/kiki.ayu.98229" target="_blank" rel="noopener noreferrer" aria-label="Ikuti Puskesmas Tanjung Pinang Jambi di Facebook">
-          <img src="assets/social/fb.webp?v=20260902-2" alt="Facebook Puskesmas Tanjung Pinang Jambi" loading="lazy">
+          <img src="assets/social/fb.webp?v=20260902-3" alt="Facebook Puskesmas Tanjung Pinang Jambi" loading="lazy" width="750" height="383">
         </a>
         <a class="social-channel-card" href="https://www.youtube.com/@puskesmastanjungpinangkota7276" target="_blank" rel="noopener noreferrer" aria-label="Ikuti Puskesmas Tanjung Pinang Jambi di YouTube">
-          <img src="assets/social/yutu.webp?v=20260902-2" alt="YouTube Puskesmas Tanjung Pinang Jambi" loading="lazy">
+          <img src="assets/social/yutu.webp?v=20260902-3" alt="YouTube Puskesmas Tanjung Pinang Jambi" loading="lazy" width="748" height="399">
         </a>
       </div>
     `;
