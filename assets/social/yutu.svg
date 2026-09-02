@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 748 399" role="img" aria-labelledby="title desc">
+<title id="title">YouTube — Puskesmas Tanjung Pinang Jambi</title>
+<desc id="desc">Kartu YouTube resmi Puskesmas Tanjung Pinang Jambi.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3b30"/><stop offset="1" stop-color="#b00600"/></linearGradient>
+ <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff0ef"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".24"/></filter>
+</defs>
+<g filter="url(#shadow)">
+ <rect x="24" y="65" width="252" height="252" rx="62" fill="url(#bg)" stroke="#ffd7d4" stroke-width="10"/>
+ <path d="M112 126c0-13 14-21 25-14l96 58c11 7 11 23 0 30l-96 58c-11 7-25-1-25-14z" fill="#fff"/>
+ <rect x="309" y="53" width="380" height="68" rx="34" fill="#d61f17" stroke="#ffd2cf" stroke-width="6"/>
+ <text x="355" y="98" font-family="Arial,Helvetica,sans-serif" font-size="35" font-weight="800" fill="#fff">Subscribe</text>
+ <text x="309" y="220" font-family="Arial,Helvetica,sans-serif" font-size="66" font-weight="900" fill="#fff">YouTube</text>
+ <rect x="270" y="264" width="458" height="74" rx="30" fill="url(#bar)" stroke="#cf2118" stroke-width="7"/>
+ <circle cx="310" cy="301" r="25" fill="#cf2118"/>
+ <path d="M300 286c0-3 3-5 6-3l15 9c3 2 3 5 0 7l-15 9c-3 2-6 0-6-3z" fill="#fff"/>
+ <text x="348" y="314" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800" fill="#35110f">Puskesmas Tanjung Pinang Jambi</text>
+</g>
+</svg>
