@@ -292,6 +292,16 @@ ${cta}`;
     document.head.appendChild(script);
   }
 
+  function loadKlasterDataUI() {
+    if (file !== 'pelayanan.html') return;
+    if (window.__PKM_KLASTER_DATA_UI_LOADED) return;
+    window.__PKM_KLASTER_DATA_UI_LOADED = true;
+    const script = document.createElement('script');
+    script.src = 'klaster-data-ui.js?v=20260904';
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   canonicalNavigation();
   bindDropdownCaretControls();
   normalizeManagementContent();
@@ -301,4 +311,5 @@ ${cta}`;
   ensureServiceBackLink();
   loadOriginalScript();
   loadSocialChannelsScript();
+  loadKlasterDataUI();
 })();
