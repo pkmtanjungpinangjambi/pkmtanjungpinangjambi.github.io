@@ -20,8 +20,9 @@ Tanggal: 4 September 2026
 - Klaster 1 secara eksplisit memuat `Manajemen Jejaring` serta `Posyandu & UKBM`.
 - `data/jadwal-public.js` menggunakan relasi `managementClusterId` dan `serviceClusterIds` untuk jejaring/kegiatan.
 - `data/jejaring-public.js` menjadi kontrak publik untuk Posyandu dan Pustu tanpa PII/PHI.
-- `home-klaster-dashboard.js` menampilkan ringkasan lima klaster, jadwal/kegiatan, serta jejaring pada Beranda.
-- `klaster-data-ui.js` menampilkan Pusat Data Klaster di halaman Pelayanan.
+- `home-klaster-dashboard.js` menampilkan ringkasan lima klaster, jadwal/kegiatan, serta jejaring pada Beranda dan menunggu ketiga sumber data tersedia sebelum render.
+- `klaster-data-ui.js` menampilkan Pusat Data Klaster di halaman Pelayanan dan pintasan ke halaman Jejaring.
+- `jejaring-puskesmas.html` menjadi rumah informasi publik untuk Posyandu/Pustu.
 - Dashboard dan UI klaster hanya membaca metadata publik; data individual tidak dirender.
 
 ## Prinsip jadwal
@@ -34,7 +35,12 @@ Tanggal: 4 September 2026
 - Repository publik tidak menyimpan pasien, NIK, nomor rekam medis, hasil pemeriksaan individual, identitas kader, atau PHI/PII.
 - Database operasional nantinya harus berada pada backend terautentikasi/terotorisasi dengan role-based access control, audit log, validasi input, dan pemisahan data sensitif.
 
+## Verifikasi
+- Validasi sintaks/runtime lokal belum dapat dilakukan karena lingkungan eksekusi tidak dapat menyelesaikan DNS GitHub.
+- GitHub Actions belum mengembalikan workflow run untuk commit terbaru pada saat checkpoint ini dibuat.
+- Vercel menunjukkan deployment preview sedang dalam proses build pada komentar PR; akses live deployment dari konektor Vercel memerlukan otorisasi ulang scope tim.
+
 ## Arah tahap berikutnya
 - Hubungkan halaman Jadwal secara langsung ke sumber jadwal publik.
-- Pastikan Beranda, Pelayanan, dan detail layanan membaca struktur klaster yang sama.
+- Pastikan Beranda, Pelayanan, halaman Jejaring, dan detail layanan membaca struktur klaster yang sama.
 - Bangun modul database operasional terproteksi untuk kebutuhan internal, kemudian sambungkan PWS/Monev dan indikator agregat tanpa mengekspos data individual.
