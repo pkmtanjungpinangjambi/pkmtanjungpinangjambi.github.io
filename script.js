@@ -297,7 +297,7 @@ ${cta}`;
     if (window.__PKM_HOME_KLASTER_DASHBOARD_LOADED) return;
     window.__PKM_HOME_KLASTER_DASHBOARD_LOADED = true;
     const script = document.createElement('script');
-    script.src = 'home-klaster-dashboard.js?v=20260904';
+    script.src = 'home-klaster-dashboard.js?v=20260904-v4';
     script.defer = true;
     document.head.appendChild(script);
   }
