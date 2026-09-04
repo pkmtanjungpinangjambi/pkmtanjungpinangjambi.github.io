@@ -1,44 +1,137 @@
-name: Normalize script cache version
+name: Apply sitewide Bakti Husada header
+
 on:
   push:
     branches:
-      - fix/script-cache-refresh-2026-08-30
+      - chore/social-home-information-2026-09-01
+
 permissions:
   contents: write
+
 jobs:
-  normalize:
-    if: ${{ !contains(github.event.head_commit.message, '[script-cache-autopatch]') }}
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[header-bakti-husada-autofix]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 1
-      - name: Refresh script cache version in HTML
+
+      - name: Download and optimize official Bakti Husada emblem
         shell: bash
         run: |
           set -euo pipefail
-          VERSION='20260831-nav1'
-          changed=0
-          while IFS= read -r -d '' file; do
-            if grep -qE 'script\.js\?v=' "$file"; then
-              before=$(sha256sum "$file" | cut -d' ' -f1)
-              python3 - "$file" "$VERSION" <<'PY'
-import pathlib, re, sys
-p = pathlib.Path(sys.argv[1])
-v = sys.argv[2]
-s = p.read_text(encoding='utf-8')
-n = re.sub(r'script\.js\?v=[^"\']+', f'script.js?v={v}', s)
-if n != s:
-    p.write_text(n, encoding='utf-8')
-PY
-              after=$(sha256sum "$file" | cut -d' ' -f1)
-              if [ "$before" != "$after" ]; then changed=1; fi
-            fi
-          done < <(find . -type f -name '*.html' -not -path './.git/*' -print0)
-          if [ "$changed" -eq 0 ]; then echo 'No changes needed.'; exit 0; fi
+          mkdir -p assets/identity
+          curl -L --fail --retry 4 --retry-delay 2 \
+            'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lambang_Kemkes.png' \
+            -o /tmp/bakti-husada.png
+          test -s /tmp/bakti-husada.png
+
+          if command -v magick >/dev/null 2>&1; then
+            magick /tmp/bakti-husada.png -strip -resize 160x220 -quality 90 assets/identity/bakti-husada.webp
+          elif command -v convert >/dev/null 2>&1; then
+            convert /tmp/bakti-husada.png -strip -resize 160x220 -quality 90 assets/identity/bakti-husada.webp
+          else
+            echo 'ImageMagick is required to optimize the logo.' >&2
+            exit 1
+          fi
+          test -s assets/identity/bakti-husada.webp
+          rm -f /tmp/bakti-husada.png
+
+      - name: Create shared header identity stylesheet
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > header-identity-v1.css <<'CSS'
+/* Unified institutional identity header — UPTD Puskesmas Tanjung Pinang Kota Jambi */
+.site-header .brand{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;max-width:min(560px,46vw)!important;text-decoration:none!important}
+.site-header .brand .brand-copy{display:flex;flex-direction:column;justify-content:center;min-width:0;gap:2px}
+.site-header .brand .brand-main{display:flex;align-items:center;min-width:0;gap:9px}
+.site-header .brand .brand-main strong{display:block;color:var(--green-900,#063d2f);font-size:.82rem;line-height:1.1;letter-spacing:.01em;white-space:nowrap}
+.site-header .brand .brand-copy small{display:block;color:var(--muted,#60706b);font-size:.67rem;line-height:1.2;white-space:nowrap}
+.site-header .brand .brand-bakti-husada{display:block;flex:0 0 auto;width:auto;height:46px;max-width:34px;object-fit:contain}
+.site-header .brand .brand-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;display:block}
+@media(max-width:1180px){
+  .site-header .brand{max-width:430px!important}
+  .site-header .brand .brand-main strong{font-size:.74rem}
+  .site-header .brand .brand-bakti-husada{height:40px;max-width:30px}
+}
+@media(max-width:900px){
+  .site-header .brand{max-width:none!important;flex:1 1 auto}
+  .site-header .brand .brand-main strong{font-size:.72rem;line-height:1.08;white-space:normal}
+  .site-header .brand .brand-copy small{font-size:.59rem}
+  .site-header .brand .brand-bakti-husada{height:36px;max-width:27px}
+}
+@media(max-width:600px){
+  .site-header .brand{gap:7px!important}
+  .site-header .brand .brand-main{gap:6px}
+  .site-header .brand .brand-main strong{font-size:.67rem}
+  .site-header .brand .brand-copy small{font-size:.55rem}
+  .site-header .brand .brand-bakti-husada{height:31px;max-width:23px}
+}
+CSS
+
+      - name: Replace header identity across all HTML pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          brand = '''<a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang Kota Jambi">
+          <span class="brand-mark"><img src="logo-kota-jambi.webp" alt="Lambang Kota Jambi" width="44" height="44"></span>
+          <span class="brand-copy">
+          <span class="brand-main"><strong>UPTD PUSKESMAS TANJUNG PINANG JAMBI</strong><img class="brand-bakti-husada" src="assets/identity/bakti-husada.webp" alt="Lambang Bakti Husada" width="34" height="46" decoding="async"></span>
+          <small>Dinas Kesehatan Kota Jambi</small>
+          </span>
+          </a>'''
+
+          pattern = re.compile(r'<a\s+class=["\']brand["\'][\s\S]*?</a>', re.I)
+          changed = []
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts:
+                  continue
+              text = path.read_text(encoding='utf-8')
+              new_text, count = pattern.subn(brand, text, count=1)
+              if not count:
+                  continue
+              if 'header-identity-v1.css' not in new_text:
+                  new_text = new_text.replace('</head>', '  <link rel="stylesheet" href="header-identity-v1.css?v=20260904-brand1">\n</head>', 1)
+              if new_text != text:
+                  path.write_text(new_text, encoding='utf-8')
+                  changed.append(str(path))
+
+          # Remove the temporary checkpoint permission-test marker added earlier.
+          cp = Path('CHECKPOINT.md')
+          if cp.exists():
+              text = cp.read_text(encoding='utf-8')
+              text = text.replace('\n<!-- header patch permission test -->\n', '\n')
+              cp.write_text(text, encoding='utf-8')
+
+          print(f'Updated {len(changed)} HTML pages')
+          for item in changed:
+              print(item)
+          if not changed:
+              raise SystemExit('No HTML brand blocks were updated.')
+          PY
+
+      - name: Validate header asset and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f assets/identity/bakti-husada.webp
+          grep -R 'assets/identity/bakti-husada.webp' --include='*.html' . >/dev/null
+          node --check script.js
+
+      - name: Remove temporary workflow and commit final header
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/normalize-script-cache.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- '*.html'
-          git commit -m 'fix: refresh script.js cache version [script-cache-autopatch]'
+          git add -- '*.html' 'header-identity-v1.css' 'assets/identity/bakti-husada.webp' '.github/workflows/normalize-script-cache.yml' 'CHECKPOINT.md'
+          git commit -m 'feat: standardize sitewide header with Bakti Husada [header-bakti-husada-autofix]'
           git push origin "HEAD:${{ github.ref_name }}"
