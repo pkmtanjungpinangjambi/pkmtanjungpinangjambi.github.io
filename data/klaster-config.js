@@ -38,3 +38,15 @@ window.KLASTER_CONFIG = Object.freeze([
     operationalModules: ['Jadwal', 'Rujukan/Koordinasi', 'Monev', 'Indikator', 'Evidence']
   }
 ]);
+
+/* Home-only culture bootstrap: this data file is already loaded by the public dashboard. */
+(function(){
+  if (!document || !document.head) return;
+  if (window.__PKM_HOME_CULTURE_BOOTSTRAPPED) return;
+  if (!/\/index\.html$|\/$/.test(window.location.pathname)) return;
+  window.__PKM_HOME_CULTURE_BOOTSTRAPPED = true;
+  var s = document.createElement('script');
+  s.src = 'home-culture-v4.js?v=20260904-asset1';
+  s.defer = true;
+  document.head.appendChild(s);
+})();
