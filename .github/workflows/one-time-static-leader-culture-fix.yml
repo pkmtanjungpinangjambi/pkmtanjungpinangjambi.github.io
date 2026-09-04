@@ -1,0 +1,46 @@
+name: One-time static leader culture fix
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  create-fix-pr:
+    if: ${{ !contains(github.event.head_commit.message, '[leader-culture-autofix]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Replace legacy badge in index.html
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '<div class="leader-badges"><span>💚 SEHATI</span><span>😊 5S</span></div>'
+          new = '<div class="leader-badges"><a class="culture-badge-link" href="profil.html#motto-tata-nilai">💚 BerAKHLAK</a><a class="culture-badge-link" href="profil.html#motto-tata-nilai">😊 5S</a></div>'
+          if old not in s:
+              print('Legacy badge not found; exiting cleanly.')
+              raise SystemExit(0)
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Create fix branch and PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH="bot/static-leader-culture-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add index.html
+          git commit -m 'fix: replace static SEHATI badge [leader-culture-autofix]'
+          git push origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" --title 'fix: replace static SEHATI badge' --body 'Make index.html itself consistent with the BerAKHLAK + 5S culture decision. Runtime fallback from PR #200 is retained.'
