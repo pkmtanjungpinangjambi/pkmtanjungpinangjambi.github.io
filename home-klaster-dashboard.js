@@ -16,13 +16,13 @@
   };
 
   const loadSources = (done) => {
-    const ready = () => Array.isArray(window.KLASTER_CONFIG);
+    const ready = () => Array.isArray(window.KLASTER_CONFIG) && !!window.JADWAL_PUBLIC && !!window.JEJARING_PUBLIC;
     const finish = () => {
       if (!ready()) return false;
       done({
         config: window.KLASTER_CONFIG,
-        schedule: window.JADWAL_PUBLIC || null,
-        network: window.JEJARING_PUBLIC || null
+        schedule: window.JADWAL_PUBLIC,
+        network: window.JEJARING_PUBLIC
       });
       return true;
     };
@@ -31,12 +31,12 @@
     let attempts = 0;
     const timer = window.setInterval(() => {
       attempts += 1;
-      if (finish() || attempts >= 40) window.clearInterval(timer);
+      if (finish() || attempts >= 50) window.clearInterval(timer);
     }, 100);
 
     loadScript('data/klaster-config.js?v=20260904', finish, '[PKM] Konfigurasi klaster gagal dimuat.');
-    loadScript('data/jadwal-public.js?v=20260904', () => !!window.JADWAL_PUBLIC, '[PKM] Sumber jadwal gagal dimuat.');
-    loadScript('data/jejaring-public.js?v=20260904', () => !!window.JEJARING_PUBLIC, '[PKM] Sumber jejaring gagal dimuat.');
+    loadScript('data/jadwal-public.js?v=20260904', finish, '[PKM] Sumber jadwal gagal dimuat.');
+    loadScript('data/jejaring-public.js?v=20260904', finish, '[PKM] Sumber jejaring gagal dimuat.');
   };
 
   const safe = (value) => String(value ?? '');
