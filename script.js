@@ -24,7 +24,7 @@
     nav.innerHTML = `
 <a href="index.html"${cls('home')}>Beranda</a>
 <div class="nav-item-dropdown"><a href="profil.html"${cls('profil')}>Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div>
-<div class="nav-item-dropdown"><a href="pelayanan.html"${cls('pelayanan')}>Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan-klaster-2-ibu-anak.html">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
+<div class="nav-item-dropdown"><a href="pelayanan.html"${cls('pelayanan')}>Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
 <div class="nav-item-dropdown"><a href="informasi.html"${cls('informasi')}>Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
 ${cta}`;
   }
@@ -292,6 +292,16 @@ ${cta}`;
     document.head.appendChild(script);
   }
 
+  function loadHomeKlasterDashboard() {
+    if (file !== 'index.html' && file !== '') return;
+    if (window.__PKM_HOME_KLASTER_DASHBOARD_LOADED) return;
+    window.__PKM_HOME_KLASTER_DASHBOARD_LOADED = true;
+    const script = document.createElement('script');
+    script.src = 'home-klaster-dashboard.js?v=20260904-v4';
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   canonicalNavigation();
   bindDropdownCaretControls();
   normalizeManagementContent();
@@ -301,4 +311,5 @@ ${cta}`;
   ensureServiceBackLink();
   loadOriginalScript();
   loadSocialChannelsScript();
+  loadHomeKlasterDashboard();
 })();
