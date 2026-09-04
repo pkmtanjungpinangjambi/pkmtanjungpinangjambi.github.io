@@ -2,17 +2,22 @@
 Tanggal: 4 September 2026
 
 ## Keputusan visual
-- Beranda tidak lagi menampilkan SEHATI sebagai tata nilai pada kartu pimpinan.
 - Identitas budaya pelayanan pada Beranda menggunakan **BerAKHLAK** dan **5S**.
-- BerAKHLAK dan 5S harus menjadi tautan langsung ke `Profil → Motto & Tata Nilai`.
-- Aset Library bertema BerAKHLAK + 5S menjadi acuan visual untuk panel budaya pelayanan.
+- BerAKHLAK dan 5S menjadi tautan langsung ke `Profil → Motto & Tata Nilai`.
+- Visual menggunakan aset existing dari Library, bukan membuat artwork baru dari nol.
 
-## Implementasi
-- Dashboard Beranda V4 menormalisasi badge pimpinan menjadi BerAKHLAK dan 5S.
-- Ditambahkan panel "Budaya Pelayanan" dengan visual 3D-inspired yang ringan dan responsif.
-- Tidak menghapus fungsi dashboard 5 klaster, jadwal, atau jejaring.
+## Implementasi final
+- Panel `home-culture-v4` menampilkan aset `assets/culture/berakhlak-5s.svg`.
+- Visual utama dan dua kartu teks mengarah ke `profil.html#motto-tata-nilai`.
+- Badge budaya pada kartu pimpinan dinormalisasi menjadi tautan **BerAKHLAK** dan **5S**.
+- Dashboard lima klaster, jadwal, dan jejaring tetap dipertahankan.
 - Backend Supabase/RLS tetap pending sesuai checkpoint sebelumnya.
 
-## Catatan sumber
-- Profil Puskesmas yang menjadi rujukan memuat Tata Nilai BerAKHLAK dan Motto 5S.
-- Aset Library `ChatGPT Image 25 Agu 2026, 23.19.39.png` digunakan sebagai acuan visual BerAKHLAK + 5S.
+## Hardening
+- Modul budaya hanya aktif di Beranda.
+- Konten teks dirender melalui DOM API; tidak menerima input pengguna.
+- Asset berada di repository sebagai SVG yang membungkus visual WebP existing.
+
+## Sumber
+- Profil Puskesmas: Tata Nilai BerAKHLAK dan Motto 5S.
+- Aset visual: Library, `ChatGPT Image 25 Agu 2026, 23.19.39.png`.
