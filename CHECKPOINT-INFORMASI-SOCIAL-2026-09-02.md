@@ -1,14 +1,14 @@
 # CHECKPOINT — INFORMASI SOCIAL MEDIA 2026-09-04
 
 ## Status
-Perbaikan blok media sosial pada `informasi.html` dilanjutkan agar mengikuti acuan visual 3D glossy dari Library dan tetap dapat dirender tanpa ketergantungan CDN.
+Perbaikan blok media sosial pada `informasi.html` dilanjutkan agar mengikuti acuan visual 3D glossy dari Library dan dapat dirender stabil tanpa ketergantungan pada raster WebP.
 
-## Implementasi
-- `informasi.html` memuat `social-channels.js` dengan cache-busting terbaru `v=20260904-2`.
+## Implementasi terbaru
+- `informasi.html` memuat `social-channels.js` dengan cache-busting terbaru.
 - Empat kanal ditampilkan: Instagram, WhatsApp, Facebook, YouTube.
-- WhatsApp, Facebook, dan YouTube menggunakan asset 3D WebP yang sudah dipulihkan dan tersedia di repository.
-- Instagram menggunakan asset SVG lokal bergaya glossy sebagai fallback karena PNG Instagram dari Library belum tersedia sebagai file binary di repository.
-- Semua kartu menggunakan link kanal resmi yang sudah ditetapkan pada pekerjaan sebelumnya.
+- Keempat kartu sekarang menggunakan asset SVG lokal agar seluruh kanal memakai format yang sama dan dapat dirender konsisten.
+- Asset: `assets/social/ig.svg`, `assets/social/wa.svg`, `assets/social/fb.svg`, `assets/social/yutu.svg`.
+- Semua kartu menggunakan link kanal yang sudah ditetapkan pada pekerjaan sebelumnya.
 - Layout responsif: 4 kolom desktop, 2 tablet, 1 mobile.
 
 ## Acuan Visual
@@ -23,13 +23,12 @@ Library `Media Sosial Puskesmas Tanjung Pinang.png` dan `UPTD Puskesmas Social M
 ## QC
 - Branch: `feat/informasi-logo-2026-09-02`
 - `main` tidak diubah langsung.
-- Script sosial menggunakan asset lokal; tidak bergantung CDN.
-- Asset 3D `wa.webp`, `fb.webp`, `yutu.webp` tersedia di `assets/social/`.
-- `ig.svg` tersedia di `assets/social/`.
-- `informasi.html` sudah dibump cache agar browser tidak memakai versi lama `social-channels.js`.
+- Script sosial menggunakan asset lokal SVG; tidak bergantung CDN.
+- Cache-busting `informasi.html` diperbarui ke `20260904-3`.
+- Kartu dirender secara data-driven dari satu array kanal sehingga urutan dan struktur konsisten.
 
 ## Catatan
-Visual Instagram saat ini adalah rekreasi SVG lokal, bukan salinan pixel-per-pixel dari PNG Library. Asset PNG asli tetap menjadi acuan desain.
+Visual Instagram tetap menjadi rekreasi SVG berbasis acuan Library, bukan salinan pixel-per-pixel dari PNG asli.
 
 ## Next
-Review visual pada preview/production. Setelah tampilan disetujui, baru merge PR #186.
+Tunggu deployment/preview selesai, lalu QC visual akhir pada `informasi.html` sebelum merge PR #186.
