@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 380" role="img" aria-labelledby="title desc">
+  <title id="title">YouTube UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
+  <desc id="desc">Kartu media sosial YouTube bergaya glossy untuk UPTD Puskesmas Tanjung Pinang Kota Jambi.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4848"/>
+      <stop offset=".52" stop-color="#f00000"/>
+      <stop offset="1" stop-color="#a90000"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity=".42"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#680000" flood-opacity=".30"/>
+    </filter>
+  </defs>
+  <rect x="6" y="6" width="738" height="368" rx="36" fill="url(#bg)"/>
+  <path d="M6 70c160-80 330 40 480-4 95-28 172-52 258-2v-58H6Z" fill="url(#shine)" opacity=".72"/>
+  <circle cx="687" cy="78" r="54" fill="#fff" opacity=".09"/>
+  <circle cx="628" cy="315" r="92" fill="#fff" opacity=".07"/>
+  <g filter="url(#shadow)">
+    <rect x="54" y="74" width="198" height="198" rx="46" fill="#fff" fill-opacity=".18" stroke="#fff" stroke-opacity=".55" stroke-width="3"/>
+    <rect x="85" y="117" width="136" height="112" rx="31" fill="#fff"/>
+    <path d="m141 142 50 31-50 31Z" fill="#d90000"/>
+  </g>
+  <g fill="#fff" opacity=".9">
+    <path d="M292 102c0-20 28-30 42-11 14-19 42-9 42 11 0 23-42 48-42 48s-42-25-42-48Z"/>
+    <path d="M626 128c0-15 21-23 32-9 10-14 31-6 31 9 0 18-31 35-31 35s-32-17-32-35Z" opacity=".7"/>
+    <circle cx="354" cy="276" r="9"/>
+    <circle cx="386" cy="290" r="6" opacity=".7"/>
+  </g>
+  <text x="294" y="176" fill="#fff" font-family="Georgia,serif" font-size="42" font-style="italic" font-weight="700">Watch Us</text>
+  <text x="294" y="225" fill="#fff" font-family="Arial,sans-serif" font-size="34" font-weight="800">YouTube</text>
+  <text x="294" y="256" fill="#fff" opacity=".92" font-family="Arial,sans-serif" font-size="18" font-weight="600">Video edukasi dan dokumentasi</text>
+  <rect x="54" y="298" width="642" height="50" rx="25" fill="#680000" fill-opacity=".38" stroke="#fff" stroke-opacity=".18"/>
+  <text x="80" y="331" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="800">UPTD Puskesmas Tanjung Pinang · Kota Jambi</text>
+  <circle cx="684" cy="323" r="20" fill="#fff" fill-opacity=".2" stroke="#fff" stroke-opacity=".55"/>
+  <path d="M676 323h12m-5-5 5 5-5 5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
