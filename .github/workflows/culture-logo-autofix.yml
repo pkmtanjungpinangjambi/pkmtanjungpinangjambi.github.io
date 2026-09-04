@@ -1,0 +1,59 @@
+name: Apply culture logo badge update
+
+on:
+  push:
+    branches:
+      - fix/culture-logo-badges-20260904
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[culture-logo-autofix]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+
+      - name: Replace homepage culture badge with the existing logo asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '<div class="leader-badges"><a class="culture-badge-link" href="profil.html#motto-tata-nilai">💚 BerAKHLAK</a><a class="culture-badge-link" href="profil.html#motto-tata-nilai">😊 5S</a></div>'
+          new = '<div class="leader-badges"><a class="culture-badge-link culture-logo-link" href="profil.html#motto-tata-nilai" aria-label="BerAKHLAK dan 5S — Motto & Tata Nilai"><img src="assets/culture/berakhlak-5s.svg" alt="BerAKHLAK dan 5S" loading="eager" width="64" height="52"></a></div>'
+          if old not in s:
+              raise SystemExit('Expected homepage culture badge markup was not found.')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+
+          p = Path('social-feed.js')
+          s = p.read_text(encoding='utf-8')
+          old_items = """    const items=[\n      {icon:'💚',label:'BerAKHLAK'},\n      {icon:'😊',label:'5S'}\n    ];\n\n    const fragment=document.createDocumentFragment();\n    items.forEach(function(item){\n      const link=document.createElement('a');\n      link.className='culture-badge-link';\n      link.href='profil.html#motto-tata-nilai';\n      link.setAttribute('aria-label',item.label+' — Motto & Tata Nilai');\n      link.textContent=item.icon+' '+item.label;\n      fragment.appendChild(link);\n    });\n\n    badges.replaceChildren(fragment);"""
+          new_items = """    const link=document.createElement('a');\n    link.className='culture-badge-link culture-logo-link';\n    link.href='profil.html#motto-tata-nilai';\n    link.setAttribute('aria-label','BerAKHLAK dan 5S — Motto & Tata Nilai');\n    const img=document.createElement('img');\n    img.src='assets/culture/berakhlak-5s.svg';\n    img.alt='BerAKHLAK dan 5S';\n    img.loading='eager';\n    img.width=64;\n    img.height=52;\n    link.appendChild(img);\n    badges.replaceChildren(link);"""
+          if old_items not in s:
+              raise SystemExit('Expected runtime culture badge block was not found.')
+          s = s.replace(old_items, new_items, 1)
+          css_old = ".leader-badges .culture-badge-link:hover,.leader-badges .culture-badge-link:focus-visible{transform:translateY(-1px);border-color:var(--green-500);box-shadow:0 6px 14px rgba(0,59,45,.10);outline:none}"
+          css_new = css_old + "\n        .leader-badges .culture-logo-link{padding:2px 5px;background:transparent;border-color:transparent;box-shadow:none}\n        .leader-badges .culture-logo-link:hover,.leader-badges .culture-logo-link:focus-visible{background:transparent;border-color:transparent;box-shadow:none}\n        .leader-badges .culture-logo-link img{display:block;width:auto;height:48px;max-width:84px;object-fit:contain}"
+          if css_old not in s:
+              raise SystemExit('Expected culture badge style block was not found.')
+          s = s.replace(css_old, css_new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html social-feed.js
+          git commit -m 'fix: use BerAKHLAK and 5S logo asset [culture-logo-autofix]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
