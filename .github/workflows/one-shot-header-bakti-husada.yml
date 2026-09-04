@@ -1,20 +1,23 @@
 name: One-shot Header Bakti Husada
 
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
     branches:
-      - fix/header-bakti-husada-clean-20260904
+      - main
 
 permissions:
   contents: write
 
 jobs:
   normalize-header:
-    if: ${{ !contains(github.event.head_commit.message, '[header-normalized]') }}
+    if: ${{ !contains(github.event.pull_request.head.sha, 'header-normalized-marker') && !contains(github.event.head_commit.message, '[header-normalized]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Download official Bakti Husada emblem
         shell: bash
@@ -43,7 +46,7 @@ jobs:
 @media(max-width:600px){.site-header .brand{gap:7px!important}.site-header .brand strong{gap:6px!important}.site-header .brand strong::before{font-size:.66rem}.site-header .brand strong::after{width:23px;height:30px}.site-header .brand small{font-size:.55rem!important}}
 CSS
 
-      - name: Verify no prohibited header substitutions
+      - name: Verify header assets and text
         shell: bash
         run: |
           set -euo pipefail
@@ -63,6 +66,4 @@ CSS
             exit 0
           fi
           git commit -m 'fix: standardize institutional header with Bakti Husada [header-normalized]'
-          git push
-
-# Trigger comment: intentionally no-op; keeps workflow content stable while forcing a new push event.
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${{ github.event.pull_request.head.ref }}
