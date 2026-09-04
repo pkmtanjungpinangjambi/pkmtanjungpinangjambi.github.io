@@ -1,0 +1,27 @@
+name: temp-rebase-info
+on:
+  push:
+    paths:
+      - .github/trigger-info-rebase.txt
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: refactor/informasi-pengumuman-berita-galeri-v2-20260904
+      - name: Apply information refactor from prior branch
+        run: |
+          git config user.name "UPTD Puskesmas Tanjung Pinang Kota Jambi"
+          git config user.email "313901015+pkmtanjungpinangjambi@users.noreply.github.com"
+          git remote add prior https://github.com/pkmtanjungpinangjambi/pkmtanjungpinangjambi.github.io.git || true
+          git fetch prior refactor/informasi-pengumuman-berita-galeri-20260904
+          git diff 49e94c1703f3120ea3015493ea043c909eef1a82 FETCH_HEAD > /tmp/info.patch
+          git apply --3way /tmp/info.patch
+          rm -f .github/workflows/temp-info-refactor.yml .github/trigger-info-refactor.txt
+          git add -A
+          git commit -m "refactor(informasi): apply Pengumuman, Berita & Galeri to latest main" || exit 0
+          git push origin HEAD:refactor/informasi-pengumuman-berita-galeri-v2-20260904
