@@ -24,11 +24,11 @@
     if(!document.getElementById('leader-culture-badge-style')){
       const style=document.createElement('style');
       style.id='leader-culture-badge-style';
-      style.textContent='''
+      style.textContent=`
         .leader-badges{display:flex;gap:8px;flex-wrap:wrap}
         .leader-badges .culture-badge-link{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:.74rem;font-weight:900;color:var(--green-800);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
         .leader-badges .culture-badge-link:hover,.leader-badges .culture-badge-link:focus-visible{transform:translateY(-1px);border-color:var(--green-500);box-shadow:0 6px 14px rgba(0,59,45,.10);outline:none}
-      ''';
+      `;
       document.head.appendChild(style);
     }
 
