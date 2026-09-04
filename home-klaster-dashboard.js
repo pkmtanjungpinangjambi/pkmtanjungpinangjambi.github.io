@@ -1,4 +1,4 @@
-/* Public dashboard: five service clusters + schedule + referral network. No patient/PHI data. */
+/* Public home dashboard v3 — five clusters, quick actions, schedule and network. No patient/PHI data. */
 (function () {
   'use strict';
 
@@ -6,185 +6,186 @@
   if (file !== 'index.html' && file !== '') return;
 
   const loadScript = (src, ready, failMessage) => {
-    if (ready()) return true;
-    const existing = document.querySelector(`script[data-pkm-source="${src}"]`);
-    const script = existing || document.createElement('script');
-    if (!existing) {
-      script.src = src;
-      script.defer = true;
-      script.dataset.pkmSource = src;
-      document.head.appendChild(script);
-    }
-    script.addEventListener('load', () => ready(), { once: true });
-    script.addEventListener('error', () => console.warn(failMessage), { once: true });
-    return false;
+    if (ready()) return;
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    script.onload = () => ready();
+    script.onerror = () => console.warn(failMessage);
+    document.head.appendChild(script);
   };
 
-  const loadAllSources = (done) => {
-    let attempts = 0;
-    const ready = () => Array.isArray(window.KLASTER_CONFIG) && !!window.JADWAL_PUBLIC && !!window.JEJARING_PUBLIC;
+  const loadSources = (done) => {
+    const ready = () => Array.isArray(window.KLASTER_CONFIG);
     const finish = () => {
       if (!ready()) return false;
-      done({ config: window.KLASTER_CONFIG, schedule: window.JADWAL_PUBLIC, network: window.JEJARING_PUBLIC });
+      done({
+        config: window.KLASTER_CONFIG,
+        schedule: window.JADWAL_PUBLIC || null,
+        network: window.JEJARING_PUBLIC || null
+      });
       return true;
     };
 
-    if (!ready()) {
-      loadScript('data/klaster-config.js?v=20260904', finish, '[PKM] Konfigurasi klaster gagal dimuat.');
-      loadScript('data/jadwal-public.js?v=20260904', finish, '[PKM] Sumber jadwal publik gagal dimuat.');
-      loadScript('data/jejaring-public.js?v=20260904', finish, '[PKM] Sumber jejaring publik gagal dimuat.');
-      const interval = window.setInterval(() => {
-        attempts += 1;
-        if (finish() || attempts >= 50) window.clearInterval(interval);
-      }, 100);
-    } else {
-      finish();
-    }
+    if (finish()) return;
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+      attempts += 1;
+      if (finish() || attempts >= 40) window.clearInterval(timer);
+    }, 100);
+
+    loadScript('data/klaster-config.js?v=20260904', finish, '[PKM] Konfigurasi klaster gagal dimuat.');
+    loadScript('data/jadwal-public.js?v=20260904', () => !!window.JADWAL_PUBLIC, '[PKM] Sumber jadwal gagal dimuat.');
+    loadScript('data/jejaring-public.js?v=20260904', () => !!window.JEJARING_PUBLIC, '[PKM] Sumber jejaring gagal dimuat.');
   };
 
-  function style() {
-    if (document.getElementById('home-klaster-dashboard-style')) return;
-    const s = document.createElement('style');
-    s.id = 'home-klaster-dashboard-style';
-    s.textContent = `
-      .home-klaster-dashboard{margin:34px auto 0;padding:24px;border:1px solid #dbe9e3;border-radius:22px;background:linear-gradient(180deg,#fbfefd,#f2f8f5);box-shadow:0 10px 30px rgba(0,59,45,.07)}
-      .home-klaster-head{text-align:center;max-width:780px;margin:0 auto 18px}
-      .home-klaster-kicker{margin:0;color:#0b5d49;font-size:.74rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
-      .home-klaster-title{margin:5px 0 7px;color:#183b33;font-size:clamp(1.3rem,2.8vw,1.9rem);font-weight:900}
-      .home-klaster-intro{margin:0;color:#64736d;font-size:.86rem;line-height:1.7}
-      .home-klaster-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-      .home-klaster-card{display:block;padding:16px 14px;border:1px solid #dfeae6;border-radius:16px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 6px 16px rgba(0,59,45,.05);transition:transform .2s,box-shadow .2s,border-color .2s}
-      .home-klaster-card:hover{transform:translateY(-4px);border-color:#0b5d49;box-shadow:0 12px 24px rgba(0,59,45,.10)}
-      .home-klaster-code{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#eef7f4;color:#0b5d49;font-weight:900;font-size:.78rem}
-      .home-klaster-card h3{margin:10px 0 5px;color:#183b33;font-size:.92rem;line-height:1.3}
-      .home-klaster-card p{margin:0;color:#6c7772;font-size:.75rem;line-height:1.5}
-      .home-klaster-modules{margin-top:9px;color:#0b5d49;font-size:.7rem;font-weight:800;line-height:1.45}
-      .home-klaster-panels{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:14px}
-      .home-klaster-panel{padding:15px;border:1px solid #dfe9e5;border-radius:16px;background:#fff}
-      .home-klaster-panel h3{margin:0 0 4px;color:#183b33;font-size:.95rem}
-      .home-klaster-panel-note{margin:0 0 10px;color:#718078;font-size:.72rem;line-height:1.5}
-      .home-klaster-schedule{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-      .home-klaster-schedule-card{padding:11px;border:1px solid #e2ebe7;border-radius:12px;background:#f8fbfa}
-      .home-klaster-schedule-card strong{display:block;color:#0b5d49;font-size:.76rem}
-      .home-klaster-schedule-card span{display:block;margin-top:4px;color:#68756f;font-size:.72rem;line-height:1.45}
-      .home-klaster-activity{display:block;padding:11px;border:1px solid #e2ebe7;border-radius:12px;text-decoration:none;color:inherit;background:#fff;margin-top:8px}
-      .home-klaster-activity strong{display:block;color:#0b5d49;font-size:.77rem}
-      .home-klaster-activity span{display:block;margin-top:4px;color:#68756f;font-size:.71rem;line-height:1.5}
-      .home-klaster-badge{display:inline-flex;margin-top:6px;padding:4px 7px;border-radius:999px;background:#eef7f4;color:#0b5d49;border:1px solid #d8ebe5;font-size:.65rem;font-weight:800}
-      .home-klaster-network{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-      .home-klaster-network-card{padding:12px;border:1px solid #e2ebe7;border-radius:12px;background:#f8fbfa}
-      .home-klaster-network-card strong{display:block;color:#0b5d49;font-size:.78rem}
-      .home-klaster-network-card span{display:block;margin-top:4px;color:#68756f;font-size:.71rem;line-height:1.5}
-      .home-klaster-foot{display:flex;justify-content:center;margin-top:17px}
-      .home-klaster-cta{display:inline-flex;align-items:center;gap:7px;padding:10px 15px;border-radius:999px;background:#0b5d49;color:#fff;text-decoration:none;font-size:.8rem;font-weight:900}
-      @media(max-width:1050px){.home-klaster-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.home-klaster-panels{grid-template-columns:1fr}}
-      @media(max-width:650px){.home-klaster-dashboard{padding:18px 14px}.home-klaster-grid{grid-template-columns:1fr 1fr}.home-klaster-schedule{grid-template-columns:1fr}.home-klaster-network{grid-template-columns:1fr}.home-klaster-card{padding:14px 12px}}
-      @media(max-width:420px){.home-klaster-grid{grid-template-columns:1fr}}
+  const safe = (v) => String(v ?? '');
+  const clusterUrl = (id) => `pelayanan.html#${encodeURIComponent(id)}`;
+
+  function installStyle() {
+    if (document.getElementById('home-dashboard-v3-style')) return;
+    const style = document.createElement('style');
+    style.id = 'home-dashboard-v3-style';
+    style.textContent = `
+      .home-v3{margin:30px auto 10px}
+      .home-v3-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:16px}
+      .home-v3-kicker{margin:0 0 4px;color:#0b5d49;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+      .home-v3-title{margin:0;color:#183b33;font-size:clamp(1.35rem,3vw,2rem);font-weight:950;letter-spacing:-.02em}
+      .home-v3-sub{margin:5px 0 0;color:#687770;font-size:.82rem;line-height:1.55;max-width:720px}
+      .home-v3-more{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #cfe4dc;border-radius:999px;background:#fff;color:#0b5d49;text-decoration:none;font-size:.75rem;font-weight:900;white-space:nowrap}
+      .home-v3-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+      .home-v3-action{display:flex;align-items:center;gap:10px;min-height:58px;padding:11px 12px;border-radius:15px;background:#fff;border:1px solid #dfeae6;box-shadow:0 6px 18px rgba(0,59,45,.055);text-decoration:none;color:inherit}
+      .home-v3-action:hover{transform:translateY(-2px);border-color:#0b5d49;box-shadow:0 10px 24px rgba(0,59,45,.09)}
+      .home-v3-action-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;background:#eef7f4;font-size:1rem}
+      .home-v3-action strong{display:block;color:#183b33;font-size:.78rem;line-height:1.25}
+      .home-v3-action span{display:block;margin-top:2px;color:#738079;font-size:.67rem;line-height:1.35}
+      .home-v3-clusters{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+      .home-v3-cluster{position:relative;display:block;min-height:152px;padding:16px 14px 13px;border:1px solid #dfeae6;border-radius:17px;background:#fff;color:inherit;text-decoration:none;overflow:hidden;box-shadow:0 7px 20px rgba(0,59,45,.055);transition:transform .2s,box-shadow .2s,border-color .2s}
+      .home-v3-cluster:hover{transform:translateY(-4px);border-color:#0b5d49;box-shadow:0 14px 28px rgba(0,59,45,.11)}
+      .home-v3-cluster::after{content:'';position:absolute;right:-22px;bottom:-28px;width:86px;height:86px;border-radius:50%;background:#f1f8f5}
+      .home-v3-code{position:relative;z-index:1;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#0b5d49;color:#fff;font-size:.72rem;font-weight:950}
+      .home-v3-cluster h3{position:relative;z-index:1;margin:12px 0 5px;color:#183b33;font-size:.88rem;line-height:1.3}
+      .home-v3-cluster p{position:relative;z-index:1;margin:0;color:#6b7772;font-size:.69rem;line-height:1.45}
+      .home-v3-module{position:relative;z-index:1;margin-top:8px;color:#0b5d49;font-size:.65rem;font-weight:900;line-height:1.4}
+      .home-v3-panels{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:12px}
+      .home-v3-panel{background:#fff;border:1px solid #dfeae6;border-radius:17px;padding:16px;box-shadow:0 7px 20px rgba(0,59,45,.05)}
+      .home-v3-panel-head{display:flex;align-items:start;justify-content:space-between;gap:10px;margin-bottom:10px}
+      .home-v3-panel-head h3{margin:0;color:#183b33;font-size:.95rem}
+      .home-v3-panel-head span{color:#718079;font-size:.68rem}
+      .home-v3-schedule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+      .home-v3-hours{padding:10px;border:1px solid #e4ece9;border-radius:12px;background:#f8fbfa}
+      .home-v3-hours strong{display:block;color:#0b5d49;font-size:.72rem}
+      .home-v3-hours span{display:block;margin-top:3px;color:#69756f;font-size:.68rem;line-height:1.4}
+      .home-v3-event{display:block;padding:10px;border:1px solid #e4ece9;border-radius:12px;background:#f8fbfa;text-decoration:none;margin-top:8px}
+      .home-v3-event strong{display:block;color:#0b5d49;font-size:.73rem}
+      .home-v3-event span{display:block;margin-top:3px;color:#69756f;font-size:.67rem;line-height:1.4}
+      .home-v3-network-card{padding:11px;border:1px solid #e4ece9;border-radius:12px;background:#f8fbfa;margin-top:8px}
+      .home-v3-network-card:first-child{margin-top:0}
+      .home-v3-network-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+      .home-v3-network-top strong{color:#0b5d49;font-size:.75rem}
+      .home-v3-network-count{padding:4px 7px;border-radius:999px;background:#fff;border:1px solid #d8ebe5;color:#0b5d49;font-size:.62rem;font-weight:900}
+      .home-v3-network-card span{display:block;margin-top:4px;color:#69756f;font-size:.67rem;line-height:1.45}
+      .home-v3-note{margin-top:10px;padding:9px 10px;border-left:3px solid #0b5d49;background:#f4f9f7;border-radius:0 9px 9px 0;color:#68766f;font-size:.65rem;line-height:1.5}
+      @media(max-width:1050px){.home-v3-clusters{grid-template-columns:repeat(3,minmax(0,1fr))}.home-v3-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.home-v3-panels{grid-template-columns:1fr}}
+      @media(max-width:650px){.home-v3{margin-top:22px}.home-v3-head{display:block}.home-v3-more{margin-top:10px}.home-v3-actions{grid-template-columns:1fr 1fr}.home-v3-clusters{grid-template-columns:1fr 1fr}.home-v3-schedule-grid{grid-template-columns:1fr}.home-v3-cluster{min-height:138px}}
+      @media(max-width:420px){.home-v3-actions,.home-v3-clusters{grid-template-columns:1fr}}
     `;
-    document.head.appendChild(s);
+    document.head.appendChild(style);
   }
 
-  const text = (value) => String(value ?? '');
-
   function render({ config, schedule, network }) {
-    if (document.getElementById('home-klaster-dashboard')) return;
+    if (document.getElementById('home-v3')) return;
     const main = document.querySelector('main');
     if (!main) return;
 
-    const anchor = main.querySelector('.hero-home') || main.firstElementChild;
     const section = document.createElement('section');
-    section.id = 'home-klaster-dashboard';
-    section.className = 'home-klaster-dashboard';
+    section.id = 'home-v3';
+    section.className = 'container home-v3';
 
     const head = document.createElement('div');
-    head.className = 'home-klaster-head';
-    head.innerHTML = '<p class="home-klaster-kicker">PUSKESMAS · 5 KLASTER</p><h2 class="home-klaster-title">Pelayanan Terintegrasi dalam Satu Pintu</h2><p class="home-klaster-intro">Pilih klaster sesuai kebutuhan. Informasi pelayanan, jadwal, skrining, tindak lanjut, jejaring, dan mutu mengikuti struktur layanan masing-masing.</p>';
+    head.className = 'home-v3-head';
+    head.innerHTML = `
+      <div><p class="home-v3-kicker">PUSKESMAS TANJUNG PINANG · ILP</p>
+      <h2 class="home-v3-title">Temukan Layanan dengan Cepat</h2>
+      <p class="home-v3-sub">Lima klaster adalah struktur utama pelayanan. Pilih kebutuhan Anda, lalu masuk ke detail layanan, jadwal, dan informasi yang relevan.</p></div>
+      <a class="home-v3-more" href="pelayanan.html">Semua pelayanan →</a>`;
 
-    const grid = document.createElement('div');
-    grid.className = 'home-klaster-grid';
+    const actions = document.createElement('div');
+    actions.className = 'home-v3-actions';
+    const actionItems = [
+      ['📅', 'Jadwal Pelayanan', 'Jam & kegiatan terbaru', 'jadwal.html'],
+      ['💉', 'Imunisasi', 'Bagian Klaster 2', 'pelayanan-imunisasi.html'],
+      ['🤝', 'Posyandu & Pustu', 'Jejaring Klaster 1', 'jejaring-puskesmas.html'],
+      ['📝', 'Pendaftaran', 'Mobile JKN & onsite', 'jadwal.html']
+    ];
+    actionItems.forEach(([icon, title, desc, href]) => {
+      const a = document.createElement('a'); a.className = 'home-v3-action'; a.href = href;
+      const i = document.createElement('span'); i.className = 'home-v3-action-icon'; i.textContent = icon;
+      const wrap = document.createElement('div'); wrap.innerHTML = `<strong>${title}</strong><span>${desc}</span>`;
+      a.append(i, wrap); actions.appendChild(a);
+    });
+
+    const clusters = document.createElement('div');
+    clusters.className = 'home-v3-clusters';
     config.forEach((cluster) => {
-      const a = document.createElement('a');
-      a.className = 'home-klaster-card';
-      a.href = `pelayanan.html#${encodeURIComponent(cluster.id)}`;
-      a.setAttribute('aria-label', `Buka ${cluster.code} ${cluster.name}`);
-
-      const code = document.createElement('span');
-      code.className = 'home-klaster-code';
-      code.textContent = text(cluster.code);
-      const h = document.createElement('h3');
-      h.textContent = text(cluster.name);
-      const p = document.createElement('p');
-      p.textContent = text(cluster.scope);
-      const modules = document.createElement('div');
-      modules.className = 'home-klaster-modules';
-      const dataModules = Array.isArray(cluster.dataModules) ? cluster.dataModules : [];
-      modules.textContent = dataModules.slice(0, 3).join(' · ') + (dataModules.length > 3 ? ' …' : '');
-      a.append(code, h, p, modules);
-      grid.appendChild(a);
+      const a = document.createElement('a'); a.className = 'home-v3-cluster'; a.href = clusterUrl(cluster.id);
+      const code = document.createElement('span'); code.className = 'home-v3-code'; code.textContent = safe(cluster.code);
+      const h = document.createElement('h3'); h.textContent = safe(cluster.name);
+      const p = document.createElement('p'); p.textContent = safe(cluster.scope);
+      const m = document.createElement('div'); m.className = 'home-v3-module';
+      const mods = Array.isArray(cluster.dataModules) ? cluster.dataModules : [];
+      m.textContent = mods.slice(0, 3).join(' · ') + (mods.length > 3 ? ' …' : '');
+      a.append(code, h, p, m); clusters.appendChild(a);
     });
 
-    const panels = document.createElement('div');
-    panels.className = 'home-klaster-panels';
+    const panels = document.createElement('div'); panels.className = 'home-v3-panels';
 
-    const schedulePanel = document.createElement('section');
-    schedulePanel.className = 'home-klaster-panel';
-    schedulePanel.innerHTML = '<h3>🗓️ Jadwal & Kegiatan</h3><p class="home-klaster-panel-note">Ringkasan berasal dari sumber jadwal publik yang sama untuk menjaga konsistensi.</p>';
-    const scheduleGrid = document.createElement('div');
-    scheduleGrid.className = 'home-klaster-schedule';
-    (Array.isArray(schedule.serviceHours) ? schedule.serviceHours : []).slice(0, 3).forEach((item) => {
-      const card = document.createElement('div');
-      card.className = 'home-klaster-schedule-card';
-      const strong = document.createElement('strong'); strong.textContent = text(item.day);
-      const span = document.createElement('span'); span.textContent = text(item.time);
-      card.append(strong, span); scheduleGrid.appendChild(card);
+    const schedulePanel = document.createElement('section'); schedulePanel.className = 'home-v3-panel';
+    const scheduleHead = document.createElement('div'); scheduleHead.className = 'home-v3-panel-head';
+    scheduleHead.innerHTML = '<div><h3>🗓️ Jadwal & Kegiatan</h3><span>Satu sumber data untuk Beranda dan halaman Jadwal</span></div><a class="home-v3-more" href="jadwal.html">Lihat →</a>';
+    schedulePanel.appendChild(scheduleHead);
+    const hoursGrid = document.createElement('div'); hoursGrid.className = 'home-v3-schedule-grid';
+    const hours = Array.isArray(schedule?.serviceHours) ? schedule.serviceHours : [];
+    hours.slice(0, 3).forEach((item) => {
+      const card = document.createElement('div'); card.className = 'home-v3-hours';
+      card.innerHTML = `<strong>${safe(item.day)}</strong><span>${safe(item.time)}</span>`;
+      hoursGrid.appendChild(card);
     });
-    schedulePanel.appendChild(scheduleGrid);
-    (Array.isArray(schedule.activities) ? schedule.activities : []).slice(0, 3).forEach((activity) => {
-      const a = document.createElement('a');
-      a.className = 'home-klaster-activity';
-      a.href = activity.detailUrl || 'jadwal.html';
-      const strong = document.createElement('strong'); strong.textContent = text(activity.title);
-      const span = document.createElement('span'); span.textContent = text(activity.schedule);
-      const badge = document.createElement('span'); badge.className = 'home-klaster-badge';
-      badge.textContent = activity.managementClusterId === 'klaster-1' ? 'Dikelola: Klaster 1' : 'Kegiatan Puskesmas';
-      a.append(strong, span, badge); schedulePanel.appendChild(a);
+    schedulePanel.appendChild(hoursGrid);
+    const activities = Array.isArray(schedule?.activities) ? schedule.activities : [];
+    activities.slice(0, 2).forEach((activity) => {
+      const a = document.createElement('a'); a.className = 'home-v3-event'; a.href = activity.detailUrl || 'jadwal.html';
+      const owner = activity.managementClusterId === 'klaster-1' ? 'Dikelola Klaster 1' : 'Kegiatan Puskesmas';
+      a.innerHTML = `<strong>${safe(activity.title)}</strong><span>${safe(activity.schedule)} · ${owner}</span>`;
+      schedulePanel.appendChild(a);
     });
 
-    const networkPanel = document.createElement('section');
-    networkPanel.className = 'home-klaster-panel';
-    networkPanel.innerHTML = '<h3>🤝 Jejaring Pelayanan</h3><p class="home-klaster-panel-note">Jejaring bukan klaster. Pengelolaan jejaring berada pada fungsi Klaster 1, sedangkan layanan mengikuti sasaran klaster terkait.</p>';
-    const networkGrid = document.createElement('div');
-    networkGrid.className = 'home-klaster-network';
-    (Array.isArray(network.networks) ? network.networks : []).forEach((entry) => {
-      const card = document.createElement('article');
-      card.className = 'home-klaster-network-card';
-      const strong = document.createElement('strong'); strong.textContent = text(entry.type);
-      const span = document.createElement('span');
-      const serviceIds = Array.isArray(entry.serviceClusterIds) ? entry.serviceClusterIds : [];
-      const targets = serviceIds.map((id) => id === 'klaster-2' ? 'K2 Ibu & Anak' : id === 'klaster-3' ? 'K3 Dewasa & Lansia' : id).join(' · ');
-      span.textContent = entry.countLabel
-        ? `${text(entry.countLabel)}${targets ? ` · Sasaran: ${targets}` : ''}`
-        : (targets ? `Dikelola K1 · Sasaran: ${targets}` : 'Dikelola melalui Manajemen Jejaring K1');
-      card.append(strong, span); networkGrid.appendChild(card);
+    const networkPanel = document.createElement('section'); networkPanel.className = 'home-v3-panel';
+    const networkHead = document.createElement('div'); networkHead.className = 'home-v3-panel-head';
+    networkHead.innerHTML = '<div><h3>🤝 Jejaring</h3><span>Bagian dari Manajemen Klaster 1</span></div><a class="home-v3-more" href="jejaring-puskesmas.html">Detail →</a>';
+    networkPanel.appendChild(networkHead);
+    const networks = Array.isArray(network?.networks) ? network.networks : [];
+    networks.forEach((item) => {
+      const card = document.createElement('article'); card.className = 'home-v3-network-card';
+      const targets = (Array.isArray(item.serviceClusterIds) ? item.serviceClusterIds : []).map((id) => ({'klaster-2':'K2 Ibu & Anak','klaster-3':'K3 Dewasa & Lansia','klaster-4':'K4 Penyakit Menular','klaster-5':'K5 Lintas Klaster'}[id] || id));
+      card.innerHTML = `<div class="home-v3-network-top"><strong>${safe(item.type)}</strong><span class="home-v3-network-count">${safe(item.countLabel || '')}</span></div><span>Dikelola K1 · ${targets.length ? `sasaran ${targets.join(' · ')}` : 'Manajemen Jejaring'}</span>`;
+      networkPanel.appendChild(card);
     });
-    networkPanel.appendChild(networkGrid);
-    const networkLink = document.createElement('a');
-    networkLink.className = 'home-klaster-cta';
-    networkLink.href = 'jejaring-puskesmas.html';
-    networkLink.style.marginTop = '10px';
-    networkLink.textContent = 'Buka Jejaring Posyandu & Pustu →';
-    networkPanel.appendChild(networkLink);
+    const note = document.createElement('p'); note.className = 'home-v3-note';
+    note.textContent = 'Data publik hanya metadata. Data pasien dan data klinis individual tidak ditampilkan di Beranda.';
+    networkPanel.appendChild(note);
 
     panels.append(schedulePanel, networkPanel);
-    const foot = document.createElement('div');
-    foot.className = 'home-klaster-foot';
-    foot.innerHTML = '<a class="home-klaster-cta" href="pelayanan.html">Lihat Seluruh Pelayanan →</a>';
+    section.append(head, actions, clusters, panels);
 
-    section.append(head, grid, panels, foot);
-    if (anchor?.classList.contains('hero-home')) anchor.insertAdjacentElement('afterend', section);
-    else main.prepend(section);
+    const infoBar = main.querySelector('.info-bar');
+    const firstInjected = main.querySelector('#home-klaster-dashboard');
+    if (firstInjected) {
+      firstInjected.remove();
+    }
+    if (infoBar) infoBar.insertAdjacentElement('afterend', section);
+    else main.insertBefore(section, main.firstElementChild);
   }
 
-  style();
-  loadAllSources(render);
+  loadSources((sources) => { installStyle(); render(sources); });
 })();
