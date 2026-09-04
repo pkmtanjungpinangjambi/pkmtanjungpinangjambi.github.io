@@ -37,6 +37,9 @@
       .klaster-data-chip::before{content:'•';font-size:.9rem;line-height:1}
       .klaster-data-chip.ops{background:#f7f8f4;border-color:#e7ead9;color:#59611d}
       .klaster-data-foot{margin:11px 0 0;padding-top:10px;border-top:1px dashed #d9e6e1;color:#6c7772;font-size:.72rem;line-height:1.55}
+      .klaster-data-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+      .klaster-data-action{display:inline-flex;align-items:center;padding:8px 11px;border-radius:999px;background:#eef7f4;color:#0b5d49;border:1px solid #d8ebe5;font-size:.72rem;font-weight:800;text-decoration:none}
+      .klaster-data-action:hover{background:#dff0ea}
       @media(max-width:700px){.klaster-data-head{display:block}.klaster-data-note{text-align:left;margin-top:5px}.klaster-data-groups{grid-template-columns:1fr}}
     `;
     document.head.appendChild(style);
@@ -107,6 +110,19 @@
       foot.textContent = `${cluster.scope}. Struktur ini menjadi kontrak navigasi dan pengelompokan data; database operasional terautentikasi akan diintegrasikan terpisah.`;
 
       hub.append(head, groups, foot);
+
+      if (cluster.id === 'klaster-1') {
+        const actions = document.createElement('div');
+        actions.className = 'klaster-data-actions';
+        const networkLink = document.createElement('a');
+        networkLink.className = 'klaster-data-action';
+        networkLink.href = 'jejaring-puskesmas.html';
+        networkLink.textContent = '🤝 Buka Data Jejaring Posyandu & Pustu →';
+        networkLink.setAttribute('aria-label', 'Buka Data Jejaring Posyandu dan Puskesmas Pembantu');
+        actions.appendChild(networkLink);
+        hub.appendChild(actions);
+      }
+
       body.appendChild(hub);
     });
   }
