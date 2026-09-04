@@ -6,43 +6,39 @@
   if (file !== 'index.html' && file !== '') return;
 
   const loadScript = (src, ready, failMessage) => {
-    if (ready()) return;
-    const script = document.createElement('script');
-    script.src = src;
-    script.defer = true;
-    script.onload = () => ready() || undefined;
-    script.onerror = () => console.warn(failMessage);
-    document.head.appendChild(script);
+    if (ready()) return true;
+    const existing = document.querySelector(`script[data-pkm-source="${src}"]`);
+    const script = existing || document.createElement('script');
+    if (!existing) {
+      script.src = src;
+      script.defer = true;
+      script.dataset.pkmSource = src;
+      document.head.appendChild(script);
+    }
+    script.addEventListener('load', () => ready(), { once: true });
+    script.addEventListener('error', () => console.warn(failMessage), { once: true });
+    return false;
   };
 
   const loadAllSources = (done) => {
-    const tryDone = () => {
-      if (Array.isArray(window.KLASTER_CONFIG)) {
-        done({
-          config: window.KLASTER_CONFIG,
-          schedule: window.JADWAL_PUBLIC || null,
-          network: window.JEJARING_PUBLIC || null
-        });
-        return true;
-      }
-      return false;
+    let attempts = 0;
+    const ready = () => Array.isArray(window.KLASTER_CONFIG) && !!window.JADWAL_PUBLIC && !!window.JEJARING_PUBLIC;
+    const finish = () => {
+      if (!ready()) return false;
+      done({ config: window.KLASTER_CONFIG, schedule: window.JADWAL_PUBLIC, network: window.JEJARING_PUBLIC });
+      return true;
     };
 
-    if (tryDone()) return;
-    let attempts = 0;
-    const interval = window.setInterval(() => {
-      attempts += 1;
-      if (tryDone() || attempts >= 30) window.clearInterval(interval);
-    }, 100);
-
-    if (!Array.isArray(window.KLASTER_CONFIG)) {
-      loadScript('data/klaster-config.js?v=20260904', tryDone, '[PKM] Konfigurasi klaster gagal dimuat.');
-    }
-    if (!window.JADWAL_PUBLIC) {
-      loadScript('data/jadwal-public.js?v=20260904', () => !!window.JADWAL_PUBLIC, '[PKM] Sumber jadwal publik gagal dimuat.');
-    }
-    if (!window.JEJARING_PUBLIC) {
-      loadScript('data/jejaring-public.js?v=20260904', () => !!window.JEJARING_PUBLIC, '[PKM] Sumber jejaring publik gagal dimuat.');
+    if (!ready()) {
+      loadScript('data/klaster-config.js?v=20260904', finish, '[PKM] Konfigurasi klaster gagal dimuat.');
+      loadScript('data/jadwal-public.js?v=20260904', finish, '[PKM] Sumber jadwal publik gagal dimuat.');
+      loadScript('data/jejaring-public.js?v=20260904', finish, '[PKM] Sumber jejaring publik gagal dimuat.');
+      const interval = window.setInterval(() => {
+        attempts += 1;
+        if (finish() || attempts >= 50) window.clearInterval(interval);
+      }, 100);
+    } else {
+      finish();
     }
   };
 
@@ -123,7 +119,6 @@
       modules.className = 'home-klaster-modules';
       const dataModules = Array.isArray(cluster.dataModules) ? cluster.dataModules : [];
       modules.textContent = dataModules.slice(0, 3).join(' · ') + (dataModules.length > 3 ? ' …' : '');
-
       a.append(code, h, p, modules);
       grid.appendChild(a);
     });
@@ -133,11 +128,10 @@
 
     const schedulePanel = document.createElement('section');
     schedulePanel.className = 'home-klaster-panel';
-    schedulePanel.innerHTML = '<h3>🗓️ Jadwal & Kegiatan</h3><p class="home-klaster-panel-note">Ringkasan jadwal berasal dari satu sumber publik yang sama untuk menjaga konsistensi.</p>';
+    schedulePanel.innerHTML = '<h3>🗓️ Jadwal & Kegiatan</h3><p class="home-klaster-panel-note">Ringkasan berasal dari sumber jadwal publik yang sama untuk menjaga konsistensi.</p>';
     const scheduleGrid = document.createElement('div');
     scheduleGrid.className = 'home-klaster-schedule';
-    const hours = Array.isArray(schedule?.serviceHours) ? schedule.serviceHours : [];
-    hours.slice(0, 3).forEach((item) => {
+    (Array.isArray(schedule.serviceHours) ? schedule.serviceHours : []).slice(0, 3).forEach((item) => {
       const card = document.createElement('div');
       card.className = 'home-klaster-schedule-card';
       const strong = document.createElement('strong'); strong.textContent = text(item.day);
@@ -145,21 +139,15 @@
       card.append(strong, span); scheduleGrid.appendChild(card);
     });
     schedulePanel.appendChild(scheduleGrid);
-
-    const activities = Array.isArray(schedule?.activities) ? schedule.activities : [];
-    activities.slice(0, 3).forEach((activity) => {
+    (Array.isArray(schedule.activities) ? schedule.activities : []).slice(0, 3).forEach((activity) => {
       const a = document.createElement('a');
       a.className = 'home-klaster-activity';
       a.href = activity.detailUrl || 'jadwal.html';
       const strong = document.createElement('strong'); strong.textContent = text(activity.title);
       const span = document.createElement('span'); span.textContent = text(activity.schedule);
-      const badge = document.createElement('span');
-      badge.className = 'home-klaster-badge';
-      badge.textContent = activity.managementClusterId === 'klaster-1'
-        ? 'Dikelola: Klaster 1'
-        : 'Kegiatan Puskesmas';
-      a.append(strong, span, badge);
-      schedulePanel.appendChild(a);
+      const badge = document.createElement('span'); badge.className = 'home-klaster-badge';
+      badge.textContent = activity.managementClusterId === 'klaster-1' ? 'Dikelola: Klaster 1' : 'Kegiatan Puskesmas';
+      a.append(strong, span, badge); schedulePanel.appendChild(a);
     });
 
     const networkPanel = document.createElement('section');
@@ -167,19 +155,25 @@
     networkPanel.innerHTML = '<h3>🤝 Jejaring Pelayanan</h3><p class="home-klaster-panel-note">Jejaring bukan klaster. Pengelolaan jejaring berada pada fungsi Klaster 1, sedangkan layanan mengikuti sasaran klaster terkait.</p>';
     const networkGrid = document.createElement('div');
     networkGrid.className = 'home-klaster-network';
-    const networks = Array.isArray(network?.networks) ? network.networks : [];
-    networks.forEach((item) => {
+    (Array.isArray(network.networks) ? network.networks : []).forEach((entry) => {
       const card = document.createElement('article');
       card.className = 'home-klaster-network-card';
-      const strong = document.createElement('strong'); strong.textContent = text(item.type);
+      const strong = document.createElement('strong'); strong.textContent = text(entry.type);
       const span = document.createElement('span');
-      const serviceIds = Array.isArray(item.serviceClusterIds) ? item.serviceClusterIds : [];
+      const serviceIds = Array.isArray(entry.serviceClusterIds) ? entry.serviceClusterIds : [];
       const targets = serviceIds.map((id) => id === 'klaster-2' ? 'K2 Ibu & Anak' : id === 'klaster-3' ? 'K3 Dewasa & Lansia' : id).join(' · ');
-      span.textContent = targets ? `Dikelola K1 · Sasaran: ${targets}` : 'Dikelola melalui Manajemen Jejaring K1';
-      card.append(strong, span);
-      networkGrid.appendChild(card);
+      span.textContent = entry.countLabel
+        ? `${text(entry.countLabel)}${targets ? ` · Sasaran: ${targets}` : ''}`
+        : (targets ? `Dikelola K1 · Sasaran: ${targets}` : 'Dikelola melalui Manajemen Jejaring K1');
+      card.append(strong, span); networkGrid.appendChild(card);
     });
     networkPanel.appendChild(networkGrid);
+    const networkLink = document.createElement('a');
+    networkLink.className = 'home-klaster-cta';
+    networkLink.href = 'jejaring-puskesmas.html';
+    networkLink.style.marginTop = '10px';
+    networkLink.textContent = 'Buka Jejaring Posyandu & Pustu →';
+    networkPanel.appendChild(networkLink);
 
     panels.append(schedulePanel, networkPanel);
     const foot = document.createElement('div');
@@ -191,8 +185,6 @@
     else main.prepend(section);
   }
 
-  loadAllSources((sources) => {
-    style();
-    render(sources);
-  });
+  style();
+  loadAllSources(render);
 })();
