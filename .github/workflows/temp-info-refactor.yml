@@ -1,0 +1,47 @@
+name: temp-info-refactor
+on:
+  push:
+    paths:
+      - 'temp/trigger-info-refactor.txt'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: refactor/informasi-pengumuman-berita-galeri-20260904
+          fetch-depth: 0
+      - name: Patch information links and gallery footer
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text()
+          s=s.replace('href="index.html#pengumuman"','href="pengumuman.html"')
+          s=s.replace('href="index.html#berita"','href="berita.html"')
+          s=s.replace('<div class="panel-head"><h3>📢 Pengumuman</h3></div>', '<div class="panel-head"><h3>📢 Pengumuman</h3><a href="pengumuman.html">Lihat semua ›</a></div>')
+          s=s.replace('<div class="panel-head"><h3>📰 Berita Kesehatan</h3><a href="https://www.instagram.com/pkm.tanjungpinang.jambi" target="_blank" rel="noopener noreferrer">Lihat semua ›</a></div>', '<div class="panel-head"><h3>📰 Berita &amp; Kegiatan</h3><a href="berita.html">Lihat semua ›</a></div>')
+          p.write_text(s)
+
+          p=Path('informasi.html'); s=p.read_text()
+          marker='<link rel="stylesheet" href="galeri.css?v=20260824-1">'
+          if marker in s and 'informasi-hub.css?v=20260904-1' not in s:
+              s=s.replace(marker, marker+'\n<link rel="stylesheet" href="informasi-hub.css?v=20260904-1">\n<link rel="stylesheet" href="footer-3d-v2.css?v=20260904-v2">')
+          s=s.replace('href="index.html#pengumuman"','href="pengumuman.html"')
+          s=s.replace('href="index.html#berita"','href="berita.html"')
+          s=s.replace('<a href="informasi.html">Galeri Foto &amp; Video</a>', '<a class="active" href="informasi.html">Galeri Foto &amp; Video</a>')
+          old='<footer class="footer"><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer>'
+          new='''<footer class="footer-3d"><div class="footer-grid3"><div class="footer-col footer-brandcol"><img class="footer-logo" src="logo-kota-jambi.webp" alt="Lambang Kota Jambi"><div><h4>UPTD Puskesmas Tanjung Pinang</h4><small>Dinas Kesehatan Kota Jambi</small></div></div><div class="footer-col"><ul class="footer-links"><li><a href="profil.html">Profil Puskesmas</a></li><li><a href="pelayanan.html">Jenis Layanan</a></li><li><a href="jadwal.html">Jadwal Pelayanan</a></li><li><a href="tarif.html">Tarif Pelayanan</a></li><li><a href="informasi.html">Galeri Foto &amp; Video</a></li><li><a href="kontak.html">Kontak &amp; Lokasi</a></li></ul><p class="footer-jammini">🕐 Senin–Kamis 07.15–13.45 · Jumat 07.15–10.30 · Sabtu 07.15–13.30 WIB</p></div><div class="footer-col"><p class="footer-kontakline">📍 Jl. Taruma Negara No. 50, RT. 12, Jambi Timur, Kota Jambi<br>📞 (0741) 7555394 · ✉️ pkmtanjungpinang18jambi@gmail.com</p><div class="footer-qrrow"><img src="qr-website.webp" alt="QR aplikasi layanan" loading="lazy"><a class="footer-mapslink" href="https://www.google.com/maps/dir/?api=1&amp;destination=UPTD%20Puskesmas%20Tanjung%20Pinang%20Kota%20Jambi" target="_blank" rel="noopener noreferrer">🧭 Buka Google Maps</a></div></div></div><div class="footer-bottomline">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi · Dinas Kesehatan Kota Jambi</div></footer>'''
+          s=s.replace(old,new)
+          p.write_text(s)
+          PY
+
+          rm -f temp/trigger-info-refactor.txt .github/workflows/temp-info-refactor.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html informasi.html
+          git rm -f temp/trigger-info-refactor.txt .github/workflows/temp-info-refactor.yml 2>/dev/null || true
+          git commit -m 'refactor(informasi): hubungkan arsip pengumuman berita dan galeri' || exit 0
+          git push origin HEAD:refactor/informasi-pengumuman-berita-galeri-20260904
