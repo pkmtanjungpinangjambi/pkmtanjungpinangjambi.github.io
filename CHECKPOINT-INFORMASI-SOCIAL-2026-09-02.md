@@ -4,7 +4,7 @@
 Perbaikan blok media sosial pada `informasi.html` dilanjutkan agar mengikuti acuan visual 3D glossy dari Library dan tetap dapat dirender tanpa ketergantungan CDN.
 
 ## Implementasi
-- `informasi.html` memuat `social-channels.js` dengan cache-busting.
+- `informasi.html` memuat `social-channels.js` dengan cache-busting terbaru `v=20260904-2`.
 - Empat kanal ditampilkan: Instagram, WhatsApp, Facebook, YouTube.
 - WhatsApp, Facebook, dan YouTube menggunakan asset 3D WebP yang sudah dipulihkan dan tersedia di repository.
 - Instagram menggunakan asset SVG lokal bergaya glossy sebagai fallback karena PNG Instagram dari Library belum tersedia sebagai file binary di repository.
@@ -25,7 +25,8 @@ Library `Media Sosial Puskesmas Tanjung Pinang.png` dan `UPTD Puskesmas Social M
 - `main` tidak diubah langsung.
 - Script sosial menggunakan asset lokal; tidak bergantung CDN.
 - Asset 3D `wa.webp`, `fb.webp`, `yutu.webp` tersedia di `assets/social/`.
-- Instagram lokal diberi cache-busting pada `social-channels.js`.
+- `ig.svg` tersedia di `assets/social/`.
+- `informasi.html` sudah dibump cache agar browser tidak memakai versi lama `social-channels.js`.
 
 ## Catatan
 Visual Instagram saat ini adalah rekreasi SVG lokal, bukan salinan pixel-per-pixel dari PNG Library. Asset PNG asli tetap menjadi acuan desain.
