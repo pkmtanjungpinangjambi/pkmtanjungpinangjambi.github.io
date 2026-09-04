@@ -76,3 +76,5 @@ Website UPTD Puskesmas Tanjung Pinang Kota Jambi
 
 ## Next Step
 Fokus berikutnya: **QC detail layanan Klaster 2**, kemudian Klaster 3–5, tanpa mengubah isi klinis yang sudah tervalidasi. Setelah seluruh detail konsisten, lakukan QC visual production terakhir lalu finalisasi Beranda.
+
+<!-- header patch permission test -->
