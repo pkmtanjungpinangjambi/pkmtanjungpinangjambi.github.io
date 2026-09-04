@@ -1,48 +1,12 @@
-/* Social media cards — informasi.html only */
+/* Social media cards — informasi.html */
 (function () {
   'use strict';
 
   const channels = [
-    {
-      key: 'instagram',
-      label: 'Instagram',
-      title: 'Follow Us',
-      subtitle: 'Lihat kegiatan dan informasi terbaru',
-      button: 'Ikuti Kami',
-      href: 'https://www.instagram.com/pkm.tanjungpinang.jambi',
-      src: 'assets/social/ig.svg?v=20260904-1',
-      alt: 'Instagram UPTD Puskesmas Tanjung Pinang Kota Jambi'
-    },
-    {
-      key: 'whatsapp',
-      label: 'WhatsApp',
-      title: 'Chat with Us',
-      subtitle: 'Konsultasi dan informasi layanan',
-      button: 'Chat Sekarang',
-      href: 'https://wa.me/6282180622274',
-      src: 'assets/social/wa.webp?v=20260904-1',
-      alt: 'WhatsApp UPTD Puskesmas Tanjung Pinang Kota Jambi'
-    },
-    {
-      key: 'facebook',
-      label: 'Facebook',
-      title: 'Follow Us',
-      subtitle: 'Berita dan pengumuman resmi',
-      button: 'Ikuti Kami',
-      href: 'https://web.facebook.com/kiki.ayu.98229',
-      src: 'assets/social/fb.webp?v=20260904-1',
-      alt: 'Facebook UPTD Puskesmas Tanjung Pinang Kota Jambi'
-    },
-    {
-      key: 'youtube',
-      label: 'YouTube',
-      title: 'Watch Us',
-      subtitle: 'Video edukasi dan dokumentasi',
-      button: 'Tonton Sekarang',
-      href: 'https://www.youtube.com/@puskesmastanjungpinangkota7276',
-      src: 'assets/social/yutu.webp?v=20260904-1',
-      alt: 'YouTube UPTD Puskesmas Tanjung Pinang Kota Jambi'
-    }
+    { key:'instagram', label:'Instagram', title:'Follow Us', subtitle:'Lihat kegiatan dan informasi terbaru', button:'Ikuti Kami', href:'https://www.instagram.com/pkm.tanjungpinang.jambi', src:'assets/social/ig.svg?v=20260904-4', alt:'Instagram UPTD Puskesmas Tanjung Pinang Kota Jambi' },
+    { key:'whatsapp', label:'WhatsApp', title:'Chat with Us', subtitle:'Konsultasi dan informasi layanan', button:'Chat Sekarang', href:'https://wa.me/6282180622274', src:'assets/social/wa.svg?v=20260904-4', alt:'WhatsApp UPTD Puskesmas Tanjung Pinang Kota Jambi' },
+    { key:'facebook', label:'Facebook', title:'Follow Us', subtitle:'Berita dan pengumuman resmi', button:'Ikuti Kami', href:'https://web.facebook.com/kiki.ayu.98229', src:'assets/social/fb.svg?v=20260904-4', alt:'Facebook UPTD Puskesmas Tanjung Pinang Kota Jambi' },
+    { key:'youtube', label:'YouTube', title:'Watch Us', subtitle:'Video edukasi dan dokumentasi', button:'Tonton Sekarang', href:'https://www.youtube.com/@puskesmastanjungpinangkota7276', src:'assets/social/yutu.svg?v=20260904-4', alt:'YouTube UPTD Puskesmas Tanjung Pinang Kota Jambi' }
   ];
 
   function installStyle() {
@@ -59,7 +23,7 @@
       .social-channel-card{display:flex;flex-direction:column;overflow:hidden;min-width:0;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 10px 24px rgba(0,0,0,.10);text-decoration:none;transition:transform .22s ease,box-shadow .22s ease}
       .social-channel-card:hover,.social-channel-card:focus-visible{transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.16)}
       .social-channel-card:focus-visible{outline:3px solid rgba(20,116,91,.28);outline-offset:3px}
-      .social-channel-media{display:block;width:100%;aspect-ratio:750/390;overflow:hidden;background:#eef5f1}
+      .social-channel-media{display:block;width:100%;aspect-ratio:750/380;overflow:hidden;background:#eef5f1}
       .social-channel-media img{display:block;width:100%;height:100%;object-fit:cover}
       .social-channel-copy{display:flex;flex:1;flex-direction:column;padding:15px 16px 16px}
       .social-channel-label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
@@ -73,7 +37,7 @@
       .social-channel-card.facebook .social-channel-button{background:linear-gradient(135deg,#1877f2,#1458b8)}
       .social-channel-card.youtube .social-channel-button{background:linear-gradient(135deg,#ff3838,#d70000)}
       @media(max-width:1000px){.social-channels-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-      @media(max-width:600px){.social-channels{padding:18px 14px;border-radius:16px}.social-channels-grid{grid-template-columns:1fr;gap:12px}.social-channel-media{aspect-ratio:750/390}.social-channel-copy{padding:13px 14px 14px}}
+      @media(max-width:600px){.social-channels{padding:18px 14px;border-radius:16px}.social-channels-grid{grid-template-columns:1fr;gap:12px}.social-channel-copy{padding:13px 14px 14px}}
     `;
     document.head.appendChild(style);
   }
@@ -97,9 +61,7 @@
       <div class="social-channels-grid">
         ${channels.map(channel => `
           <a class="social-channel-card ${channel.key}" href="${channel.href}" target="_blank" rel="noopener noreferrer" aria-label="${channel.button} ${channel.label} UPTD Puskesmas Tanjung Pinang Kota Jambi">
-            <span class="social-channel-media">
-              <img src="${channel.src}" alt="${channel.alt}" loading="lazy" width="750" height="390">
-            </span>
+            <span class="social-channel-media"><img src="${channel.src}" alt="${channel.alt}" loading="eager" decoding="async" fetchpriority="high" width="750" height="380"></span>
             <span class="social-channel-copy">
               <span class="social-channel-label"><strong>${channel.label}</strong><span>${channel.title}</span></span>
               <p>${channel.subtitle}</p>
