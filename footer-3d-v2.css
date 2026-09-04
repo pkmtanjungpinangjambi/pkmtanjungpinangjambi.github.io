@@ -1,0 +1,206 @@
+/* Footer 3D V2 — UPTD Puskesmas Tanjung Pinang */
+.footer-3d{
+  position:relative;
+  overflow:hidden;
+  margin-top:60px;
+  padding:42px 20px 18px;
+  color:#eaf8f3;
+  background:
+    radial-gradient(circle at 8% 0%,rgba(44,190,140,.18),transparent 26%),
+    radial-gradient(circle at 92% 10%,rgba(255,255,255,.08),transparent 23%),
+    linear-gradient(145deg,#002b21 0%,#003b2d 42%,#00563f 100%);
+  box-shadow:0 -18px 55px rgba(0,59,45,.16),inset 0 1px rgba(255,255,255,.10);
+}
+.footer-3d::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:4px;
+  background:linear-gradient(90deg,#c62828 0 33.33%,#fff 33.33% 66.66%,#0b7a4b 66.66% 100%);
+  box-shadow:0 0 22px rgba(255,255,255,.16);
+}
+.footer-3d::after{
+  content:"";
+  position:absolute;
+  width:420px;height:420px;
+  right:-190px;bottom:-230px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.018),0 0 0 58px rgba(255,255,255,.012);
+  pointer-events:none;
+}
+.footer-3d .footer-grid3{
+  position:relative;
+  z-index:1;
+  width:min(1180px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.05fr 1fr 1.25fr;
+  gap:18px;
+  align-items:stretch;
+}
+.footer-3d .footer-col{
+  position:relative;
+  min-width:0;
+  padding:20px 18px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:22px;
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.035));
+  box-shadow:
+    0 20px 36px rgba(0,0,0,.20),
+    inset 0 1px rgba(255,255,255,.12),
+    inset 0 -1px rgba(0,0,0,.10);
+  backdrop-filter:blur(10px);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.footer-3d .footer-col::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:21px;
+  background:linear-gradient(135deg,rgba(255,255,255,.06),transparent 40%);
+  pointer-events:none;
+}
+.footer-3d .footer-col:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,.18);
+  box-shadow:
+    0 26px 46px rgba(0,0,0,.25),
+    inset 0 1px rgba(255,255,255,.14),
+    inset 0 -1px rgba(0,0,0,.10);
+}
+.footer-3d .footer-brandcol{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:linear-gradient(145deg,rgba(12,142,101,.30),rgba(255,255,255,.045));
+}
+.footer-3d .footer-logo{
+  flex:0 0 auto;
+  width:54px;height:54px;
+  object-fit:contain;
+  margin:0;
+  padding:5px;
+  border-radius:15px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 10px 24px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.8);
+}
+.footer-3d .footer-brandcol h4{
+  margin:0 0 3px;
+  color:#fff;
+  font-size:1rem;
+  line-height:1.3;
+}
+.footer-3d .footer-brandcol small{
+  color:#bfe6d8;
+  font-size:.72rem;
+}
+.footer-3d .footer-links{
+  display:grid;
+  gap:6px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.footer-3d .footer-links li{
+  margin:0;
+}
+.footer-3d .footer-links a{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  width:100%;
+  padding:7px 9px;
+  border-radius:11px;
+  color:#eaf8f3;
+  text-decoration:none;
+  font-size:.78rem;
+  font-weight:700;
+  background:rgba(255,255,255,.025);
+  border:1px solid transparent;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease,color .18s ease;
+}
+.footer-3d .footer-links a::before{
+  content:"›";
+  color:#7de0be;
+  font-weight:900;
+}
+.footer-3d .footer-links a:hover{
+  transform:translateX(3px);
+  background:rgba(255,255,255,.085);
+  border-color:rgba(255,255,255,.10);
+  color:#fff;
+}
+.footer-3d .footer-jammini,
+.footer-3d .footer-kontakline{
+  color:#cfe9df;
+  font-size:.70rem;
+  line-height:1.55;
+}
+.footer-3d .footer-jammini{
+  margin:12px 0 0;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.footer-3d .footer-kontakline{
+  margin:0;
+}
+.footer-3d .footer-qrrow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.footer-3d .footer-qrrow img{
+  width:54px;height:54px;
+  padding:3px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 9px 22px rgba(0,0,0,.20);
+}
+.footer-3d .footer-mapslink{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:8px 11px;
+  border-radius:999px;
+  color:#dff7ee;
+  background:linear-gradient(145deg,#0b7a4b,#075a42);
+  border:1px solid rgba(255,255,255,.10);
+  text-decoration:none;
+  font-size:.70rem;
+  font-weight:900;
+  box-shadow:0 9px 20px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.16);
+}
+.footer-3d .footer-mapslink:hover{
+  transform:translateY(-2px);
+  color:#fff;
+}
+.footer-3d .footer-bottomline{
+  position:relative;
+  z-index:1;
+  width:min(1180px,100%);
+  margin:18px auto 0;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.10);
+  text-align:center;
+  color:#9fc2b7;
+  font-size:.66rem;
+}
+@media(max-width:900px){
+  .footer-3d .footer-grid3{grid-template-columns:1fr 1fr;}
+  .footer-3d .footer-brandcol{grid-column:1/-1;}
+}
+@media(max-width:600px){
+  .footer-3d{padding:34px 14px 16px;}
+  .footer-3d .footer-grid3{grid-template-columns:1fr;gap:12px;}
+  .footer-3d .footer-col,
+  .footer-3d .footer-brandcol{grid-column:auto;padding:17px 15px;}
+  .footer-3d .footer-col:hover{transform:none;}
+  .footer-3d .footer-bottomline{font-size:.62rem;line-height:1.5;}
+}
+@media(prefers-reduced-motion:reduce){
+  .footer-3d .footer-col,.footer-3d .footer-links a,.footer-3d .footer-mapslink{transition:none!important;}
+}
