@@ -8,11 +8,21 @@ Tanggal: 4 September 2026
 - Data publik hanya memuat metadata/modul layanan.
 - Data pasien, NIK, rekam medis, dan PHI/PII tidak boleh dimasukkan ke repository publik.
 
+## Posyandu dan jejaring
+- Posyandu **bukan klaster Puskesmas**.
+- Fungsi pengelolaan/pembinaan jejaring Posyandu ditempatkan pada **Klaster 1 — Manajemen Jejaring**.
+- Kegiatan Posyandu dapat terhubung ke **Klaster 2 — Ibu & Anak** dan **Klaster 3 — Dewasa & Lansia** sesuai sasaran siklus hidup.
+- Pustu/jejaring lain mengikuti pola yang sama: dikelola sebagai jejaring dan ditautkan ke klaster layanan yang relevan.
+- Konsep ini mengikuti Juknis ILP KMK HK.01.07/MENKES/2015/2023 dan kerangka penyelenggaraan Puskesmas pada Permenkes 19 Tahun 2024.
+
 ## Implementasi tahap 2
 - `data/klaster-config.js` menjadi kontrak metadata lima klaster.
-- `klaster-data-ui.js` menampilkan Pusat Data Klaster secara aman di `pelayanan.html`.
-- `script.js` memuat UI tersebut hanya pada `pelayanan.html`.
-- Tampilan memisahkan `Domain data` dan `Operasional & mutu`.
+- Klaster 1 sekarang secara eksplisit memuat `Manajemen Jejaring` serta `Posyandu & UKBM`.
+- `data/jadwal-public.js` menggunakan relasi `managementClusterId` dan `serviceClusterIds` untuk jejaring/kegiatan.
+- `data/jejaring-public.js` menjadi kontrak publik untuk Posyandu dan Pustu tanpa PII/PHI.
+- `jadwal-ui.js` memisahkan label "Dikelola" dan "Sasaran" agar Posyandu tidak disalahartikan sebagai klaster.
 
-## Arah tahap berikutnya
-Beranda akan mengambil ringkasan lintas klaster dari sumber data publik yang terkurasi, sedangkan database operasional nantinya harus berada di backend terautentikasi dengan otorisasi, audit log, dan pemisahan data sensitif.
+## Arah berikutnya
+- Hubungkan UI Pusat Data Klaster ke `klaster-config.js` secara konsisten di halaman Pelayanan.
+- Hubungkan Beranda dan Jadwal ke satu sumber jadwal publik.
+- Bangun modul database operasional secara terpisah di backend terautentikasi dengan otorisasi berbasis peran, audit log, dan pemisahan data sensitif.
