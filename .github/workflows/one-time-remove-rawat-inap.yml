@@ -1,0 +1,65 @@
+name: One-time remove inpatient tariff items
+
+on:
+  push:
+    branches:
+      - 'fix/imunisasi-priority-local-20260906'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-tariff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch tariff.html
+        shell: python
+        run: |
+          from pathlib import Path
+          import subprocess
+
+          path = Path('tarif.html')
+          text = path.read_text(encoding='utf-8')
+          expected = [
+              '["Rawat Inap","Rp 200.000","Pasien/Hari"]',
+              '["Kamar Perawatan","Rp 50.000","Pasien"]',
+              '["Makan Pasien","Rp 80.000","Pasien"]',
+              '["Jasa Pelayanan Pasien","Rp 40.000","Pasien"]',
+              '["Visit Dokter/Dokter Gigi","Rp 30.000","Pasien"]',
+              '["Perawatan Bayi","Rp 30.000","Hari"]',
+              '["Penggunaan Inkubator","Rp 90.000","Hari"]',
+          ]
+          if any(item not in text for item in expected):
+              raise SystemExit('Expected inpatient tariff rows not found.')
+          text = text.replace('1. Pelayanan Medik Dasar & Rawat Inap', '1. Pelayanan Medik Dasar', 1)
+          for item in expected:
+              text = text.replace('    ' + item + ',\n', '', 1)
+          for item in expected:
+              if item in text:
+                  raise SystemExit(f'Inpatient row remains: {item}')
+          for item in [
+              '["Rawat Jalan","Rp 5.000","Pasien"]',
+              '["Pelayanan UGD","Rp 25.000","Pasien"]',
+          ]:
+              if item not in text:
+                  raise SystemExit(f'Non-inpatient row unexpectedly missing: {item}')
+          path.write_text(text, encoding='utf-8')
+
+          # Remove one-time workflow and temporary trigger file in the same commit.
+          wf = Path('.github/workflows/one-time-remove-rawat-inap.yml')
+          if wf.exists():
+              wf.unlink()
+          tmp = Path('noop')
+          if tmp.exists():
+              tmp.unlink()
+
+          subprocess.run(['git', 'config', 'user.name', 'github-actions[bot]'], check=True)
+          subprocess.run(['git', 'config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com'], check=True)
+          subprocess.run(['git', 'add', 'tarif.html', '.github/workflows/one-time-remove-rawat-inap.yml', 'noop'], check=True)
+          subprocess.run(['git', 'commit', '-m', 'fix: hapus jasa pelayanan terkait rawat inap'], check=True)
+          subprocess.run(['git', 'push'], check=True)
