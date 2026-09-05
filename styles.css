@@ -5,7 +5,7 @@
 .site-header .brand strong{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;margin:0!important;padding:0!important;font-size:0!important;line-height:1!important;color:transparent!important;white-space:nowrap!important;overflow:visible!important}
 .site-header .brand strong::before{content:"UPTD PUSKESMAS TANJUNG PINANG JAMBI";display:inline-block;color:var(--green-900)!important;font-size:.88rem;font-weight:900;letter-spacing:.01em;white-space:nowrap}
 
-/* Kembali ke komposisi yang sudah stabil di main: Kota Jambi kiri + emblem kesehatan kanan */
+/* Kota Jambi hanya sekali di kiri; emblem kesehatan utuh di kanan */
 .site-header .brand .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex:0 0 40px!important;border-radius:12px!important;display:grid!important;place-items:center!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
 .site-header .brand strong::after{content:"";display:block!important;flex:0 0 56px!important;width:56px!important;height:56px!important;margin:-4px 0!important;background-image:url("./assets/logo-kesehatan-kanan.png")!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
 .site-header .brand small{display:block!important;margin:0!important;color:var(--muted)!important;font-size:.68rem!important;line-height:1.2!important;white-space:nowrap}
