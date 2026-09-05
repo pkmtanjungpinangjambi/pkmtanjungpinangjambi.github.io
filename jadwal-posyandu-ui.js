@@ -43,7 +43,7 @@
       tanggal: Number(formatDateId(row.start_at)),
       jam: formatTimeId(row.start_at),
       rtPosyandu: text(row.location).replace(/^RT\s*/i, ''),
-      wilayahKerja: '',
+      wilayahKerja: text(row.coverage_text),
       _networkType: text(row.network_type),
       _rawId: text(row.id)
     };
@@ -60,7 +60,7 @@
     const endpoint = new URL('/rest/v1/public_schedule', SUPABASE_URL);
     endpoint.searchParams.set(
       'select',
-      'id,title,category,location,start_at,end_at,recurrence_text,cluster_code,cluster_name,network_type,network_name,region_name,module_code,module_name'
+      'id,title,category,location,start_at,end_at,recurrence_text,cluster_code,cluster_name,network_type,network_name,region_name,coverage_text,module_code,module_name'
     );
     endpoint.searchParams.set('category', 'eq.POSYANDU');
     endpoint.searchParams.append('start_at', 'gte.2026-09-01T00:00:00+07:00');
