@@ -16,45 +16,42 @@
     }
   }
 
-  function escapeText(value) {
+  function text(value) {
     return String(value ?? '');
   }
 
   function formatDateId(dateIso) {
-    const formatter = new Intl.DateTimeFormat('id-ID', {
+    return new Intl.DateTimeFormat('id-ID', {
       timeZone: 'Asia/Jakarta',
       day: 'numeric'
-    });
-    return formatter.format(new Date(dateIso));
+    }).format(new Date(dateIso));
   }
 
   function formatTimeId(dateIso) {
-    const formatter = new Intl.DateTimeFormat('id-ID', {
+    return new Intl.DateTimeFormat('id-ID', {
       timeZone: 'Asia/Jakarta',
       hour: '2-digit',
       minute: '2-digit',
       hour12: false
-    });
-    return formatter.format(new Date(dateIso));
+    }).format(new Date(dateIso));
   }
 
   function apiRowToPublicRow(row) {
     return {
-      kelurahan: row.cluster_name ? String(row.network_name ? row.cluster_name === row.network_name ? '' : row.cluster_name : '') : '',
-      posyandu: String(row.network_name ?? '').replace(/^Posyandu\s+/i, ''),
+      kelurahan: text(row.region_name),
+      posyandu: text(row.network_name).replace(/^Posyandu\s+/i, ''),
       tanggal: Number(formatDateId(row.start_at)),
       jam: formatTimeId(row.start_at),
-      rtPosyandu: String(row.location ?? '').replace(/^RT\s*/i, ''),
+      rtPosyandu: text(row.location).replace(/^RT\s*/i, ''),
       wilayahKerja: '',
-      _networkType: String(row.network_type ?? ''),
-      _clusterName: String(row.cluster_name ?? ''),
-      _rawId: String(row.id ?? '')
+      _networkType: text(row.network_type),
+      _rawId: text(row.id)
     };
   }
 
-  function createText(tag, text, className) {
+  function createText(tag, value, className) {
     const el = document.createElement(tag);
-    el.textContent = escapeText(text);
+    el.textContent = text(value);
     if (className) el.className = className;
     return el;
   }
@@ -63,11 +60,11 @@
     const endpoint = new URL('/rest/v1/public_schedule', SUPABASE_URL);
     endpoint.searchParams.set(
       'select',
-      'id,title,category,location,start_at,end_at,recurrence_text,cluster_code,cluster_name,network_type,network_name,module_code,module_name'
+      'id,title,category,location,start_at,end_at,recurrence_text,cluster_code,cluster_name,network_type,network_name,region_name,module_code,module_name'
     );
     endpoint.searchParams.set('category', 'eq.POSYANDU');
-    endpoint.searchParams.set('start_at', 'gte.2026-09-01T00:00:00+07:00');
-    endpoint.searchParams.set('start_at', 'lt.2026-10-01T00:00:00+07:00');
+    endpoint.searchParams.append('start_at', 'gte.2026-09-01T00:00:00+07:00');
+    endpoint.searchParams.append('start_at', 'lt.2026-10-01T00:00:00+07:00');
     endpoint.searchParams.set('order', 'start_at.asc');
 
     const controller = new AbortController();
@@ -86,17 +83,13 @@
         signal: controller.signal
       });
 
-      if (!response.ok) {
-        throw new Error(`Supabase HTTP ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Supabase HTTP ${response.status}`);
 
       const rows = await response.json();
-      if (!Array.isArray(rows)) {
-        throw new Error('Format respons Supabase tidak valid');
-      }
+      if (!Array.isArray(rows)) throw new Error('Format respons Supabase tidak valid');
 
       return rows
-        .filter((row) => row && row.network_type === 'POSYANDU' && row.network_name && row.start_at)
+        .filter((row) => row && row.network_type === 'POSYANDU' && row.network_name && row.start_at && row.region_name)
         .map(apiRowToPublicRow);
     } finally {
       window.clearTimeout(timeout);
@@ -125,7 +118,6 @@
       .public-schedule th{background:#f6faf8;color:var(--green-900);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;z-index:1}
       .public-schedule tr:last-child td{border-bottom:0}
       .posyandu-name{font-weight:900;color:var(--ink)}
-      .posyandu-meta{display:block;margin-top:3px;color:var(--muted);font-size:.74rem}
       .date-pill{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e9f7f0;border:1px solid #cdeade;color:var(--green-900);font-weight:900}
       .schedule-empty{padding:24px;text-align:center;color:var(--muted);font-size:.86rem}
       .schedule-note{margin:13px 0 0;color:var(--muted);font-size:.73rem;line-height:1.6}
@@ -135,8 +127,6 @@
     document.head.appendChild(style);
 
     const sourceRows = [];
-    let usingLiveData = false;
-
     const shell = document.createElement('div');
     shell.className = 'public-schedule';
 
@@ -179,7 +169,6 @@
     const note = createText('p', 'Catatan: tanggal pada dataset master dicatat sebagai tanggal pelaksanaan bulanan. Konfirmasi perubahan jadwal sebelum datang melalui kanal resmi Puskesmas.', 'schedule-note');
     note.id = 'schedule-note';
     const sourceNote = createText('div', '◷ Memuat jadwal dari server publik Puskesmas…', 'schedule-source');
-
     shell.append(head, toolbar, wrap, note, sourceNote);
     root.replaceChildren(shell);
 
@@ -189,7 +178,7 @@
       allKel.value = '';
       kelSelect.appendChild(allKel);
       [...new Set(sourceRows.map((item) => item.kelurahan).filter(Boolean))]
-        .sort((a, b) => String(a).localeCompare(String(b), 'id'))
+        .sort((a, b) => a.localeCompare(b, 'id'))
         .forEach((kel) => {
           const option = createText('option', kel);
           option.value = kel;
@@ -214,11 +203,10 @@
       const day = daySelect.value;
       const filtered = sourceRows
         .filter((item) => (!kel || item.kelurahan === kel) && (!day || String(item.tanggal) === day))
-        .sort((a, b) => Number(a.tanggal) - Number(b.tanggal) || String(a.kelurahan).localeCompare(String(b.kelurahan), 'id') || String(a.posyandu).localeCompare(String(b.posyandu), 'id'));
+        .sort((a, b) => Number(a.tanggal) - Number(b.tanggal) || a.kelurahan.localeCompare(b.kelurahan, 'id') || a.posyandu.localeCompare(b.posyandu, 'id'));
 
       count.textContent = String(filtered.length);
       tbody.replaceChildren();
-
       if (!filtered.length) {
         const row = document.createElement('tr');
         const cell = createText('td', 'Belum ada jadwal yang cocok dengan filter.', 'schedule-empty');
@@ -260,14 +248,12 @@
       .then((liveRows) => {
         if (liveRows.length === 0) throw new Error('Supabase mengembalikan 0 jadwal');
         sourceRows.splice(0, sourceRows.length, ...liveRows);
-        usingLiveData = true;
         setOptions();
         render();
         sourceNote.textContent = '● Sumber aktif: Supabase public API Puskesmas';
       })
       .catch((error) => {
-        usingLiveData = false;
-        sourceNote.textContent = '◷ Sumber cadangan: dataset repository; sinkronisasi server belum tersedia.';
+        sourceNote.textContent = '◷ Sumber cadangan: dataset repository; server publik belum dapat dihubungi.';
         console.warn('Public schedule API fallback:', error);
       });
   });
