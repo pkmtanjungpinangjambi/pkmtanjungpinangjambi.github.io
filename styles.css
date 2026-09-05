@@ -1,14 +1,33 @@
 @import url("./styles-core.css");
 
-/* SITEWIDE INSTITUTIONAL HEADER — Kota Jambi + Puskesmas + health emblem */
-.site-header .brand{align-items:center!important;gap:10px!important;max-width:min(720px,60vw)!important;overflow:visible!important}
-.site-header .brand strong{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;margin:0!important;padding:0!important;font-size:0!important;line-height:1!important;color:transparent!important;white-space:nowrap!important;overflow:visible!important}
-.site-header .brand strong::before{content:"UPTD PUSKESMAS TANJUNG PINANG JAMBI";display:inline-block;color:var(--green-900)!important;font-size:.88rem;font-weight:900;letter-spacing:.01em;white-space:nowrap}
+/* HEADER INSTITUSIONAL — komposisi stabil: Kota Jambi | Identitas Puskesmas | Dinas Kesehatan */
+.site-header .brand{align-items:center!important;gap:10px!important;min-width:0!important;max-width:min(520px,62vw)!important;overflow:visible!important}
+.site-header .brand .brand-mark{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;flex:0 0 44px!important;padding:3px!important;border-radius:12px!important;display:grid!important;place-items:center!important;background:#fff!important;border:1px solid var(--line)!important;box-shadow:0 6px 16px rgba(0,59,45,.10)!important;overflow:hidden!important}
+.site-header .brand .brand-mark img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;display:block!important}
+.site-header .brand>span:last-child{min-width:0!important;flex:1 1 auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important;line-height:1.2!important}
+.site-header .brand strong{display:block!important;margin:0!important;padding:0!important;font-size:.86rem!important;font-weight:900!important;line-height:1.15!important;letter-spacing:.01em!important;color:var(--green-900)!important;white-space:normal!important;overflow:visible!important}
+.site-header .brand small{display:block!important;margin:2px 0 0!important;color:var(--muted)!important;font-size:.68rem!important;line-height:1.15!important;white-space:nowrap!important}
 
-/* Kota Jambi hanya sekali di kiri; emblem kesehatan utuh di kanan */
-.site-header .brand .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex:0 0 40px!important;border-radius:12px!important;display:grid!important;place-items:center!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
-.site-header .brand strong::after{content:"";display:block!important;flex:0 0 56px!important;width:56px!important;height:56px!important;margin:-4px 0!important;background-image:url("./assets/logo-kesehatan-kanan.png")!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
-.site-header .brand small{display:block!important;margin:0!important;color:var(--muted)!important;font-size:.68rem!important;line-height:1.2!important;white-space:nowrap}
-@media(max-width:1180px){.site-header .brand{max-width:500px!important}.site-header .brand strong::before{font-size:.76rem}.site-header .brand .brand-mark{width:40px!important;height:40px!important;flex-basis:40px!important}.site-header .brand strong::after{width:52px!important;height:52px!important;flex-basis:52px!important;margin:-4px 0!important}}
-@media(max-width:900px){.site-header .brand{max-width:none!important;flex:1 1 auto}.site-header .brand strong{white-space:normal!important;flex-wrap:wrap!important}.site-header .brand strong::before{font-size:.72rem;white-space:normal}.site-header .brand .brand-mark{width:40px!important;height:40px!important;flex-basis:40px!important}.site-header .brand strong::after{width:47px!important;height:47px!important;flex-basis:47px!important;margin:-3px 0!important}.site-header .brand small{font-size:.60rem!important}}
-@media(max-width:600px){.site-header .brand{gap:7px!important}.site-header .brand strong{gap:6px!important}.site-header .brand strong::before{font-size:.66rem}.site-header .brand .brand-mark{width:36px!important;height:36px!important;flex-basis:36px!important}.site-header .brand strong::after{width:43px!important;height:43px!important;flex-basis:43px!important;margin:-3px 0!important}.site-header .brand small{font-size:.55rem!important}}
+/* Logo Dinas Kesehatan: elemen terpisah dari teks agar tidak terpotong/menimpa */
+.site-header .brand::after{content:"";display:block!important;flex:0 0 44px!important;width:44px!important;height:44px!important;padding:3px!important;border-radius:12px!important;background:#fff url("./assets/logo-kesehatan-kanan.png") center/contain no-repeat!important;border:1px solid var(--line)!important;box-shadow:0 6px 16px rgba(0,59,45,.10)!important;overflow:hidden!important}
+
+@media(max-width:1180px){
+  .site-header .brand{max-width:500px!important}
+  .site-header .brand .brand-mark{width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;flex-basis:42px!important}
+  .site-header .brand::after{width:42px!important;height:42px!important;flex-basis:42px!important}
+  .site-header .brand strong{font-size:.80rem!important}
+}
+@media(max-width:900px){
+  .site-header .brand{max-width:none!important;flex:1 1 auto!important;gap:8px!important}
+  .site-header .brand .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex-basis:40px!important}
+  .site-header .brand::after{width:40px!important;height:40px!important;flex-basis:40px!important}
+  .site-header .brand strong{font-size:.72rem!important}
+  .site-header .brand small{font-size:.60rem!important}
+}
+@media(max-width:600px){
+  .site-header .brand{gap:6px!important}
+  .site-header .brand .brand-mark{width:36px!important;height:36px!important;min-width:36px!important;max-width:36px!important;flex-basis:36px!important;padding:2px!important}
+  .site-header .brand::after{width:36px!important;height:36px!important;flex-basis:36px!important;padding:2px!important}
+  .site-header .brand strong{font-size:.64rem!important;line-height:1.12!important}
+  .site-header .brand small{font-size:.54rem!important;line-height:1.1!important}
+}
