@@ -1,10 +1,10 @@
 @import url("./styles-core.css");
 
-/* SITEWIDE INSTITUTIONAL HEADER — Bakti Husada */
+/* SITEWIDE INSTITUTIONAL HEADER — Logo Dinas Kesehatan Kota Jambi */
 .site-header .brand{align-items:center!important;gap:10px!important;max-width:min(720px,60vw)!important}
 .site-header .brand strong{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;margin:0!important;padding:0!important;font-size:0!important;line-height:1.1!important;color:transparent!important;white-space:nowrap!important}
 .site-header .brand strong::before{content:"UPTD PUSKESMAS TANJUNG PINANG JAMBI";display:inline-block;color:var(--green-900)!important;font-size:.88rem;font-weight:900;letter-spacing:.01em;white-space:nowrap}
-.site-header .brand strong::after{content:"";display:inline-block;flex:0 0 auto;width:34px;height:42px;background:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Lambang_Kemkes.png") center/contain no-repeat}
+.site-header .brand strong::after{content:"";display:inline-block;flex:0 0 auto;width:34px;height:42px;background:url("https://dinkes.jambikota.go.id/assets/upload/image/LOGO_DINAS_KESEHATAN_KOTA_JAMBI.png") center/contain no-repeat}
 .site-header .brand small{display:block!important;margin:0!important;color:var(--muted)!important;font-size:.68rem!important;line-height:1.2!important;white-space:nowrap}
 /* Slightly smaller Kota Jambi emblem; higher specificity intentionally overrides page-level inline sizing. */
 .site-header.site-header .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex:0 0 40px!important}
