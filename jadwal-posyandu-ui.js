@@ -113,10 +113,11 @@
       .schedule-toolbar select:focus{border-color:var(--green-500);box-shadow:0 0 0 3px rgba(14,122,90,.1)}
       .schedule-reset{align-self:end;padding:11px 15px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--green-800);font-weight:800;cursor:pointer}
       .schedule-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}
-      .public-schedule table{width:100%;border-collapse:collapse;min-width:720px}
+      .public-schedule table{width:100%;border-collapse:collapse;min-width:760px}
       .public-schedule th,.public-schedule td{padding:13px 14px;text-align:left;border-bottom:1px solid #edf2ef;font-size:.82rem;vertical-align:top}
       .public-schedule th{background:#f6faf8;color:var(--green-900);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;z-index:1}
       .public-schedule tr:last-child td{border-bottom:0}
+      .schedule-no{width:58px;text-align:center!important;color:var(--muted);font-weight:900}
       .posyandu-name{font-weight:900;color:var(--ink)}
       .date-pill{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e9f7f0;border:1px solid #cdeade;color:var(--green-900);font-weight:900}
       .schedule-empty{padding:24px;text-align:center;color:var(--muted);font-size:.86rem}
@@ -160,7 +161,7 @@
     table.setAttribute('aria-describedby', 'schedule-note');
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    ['Posyandu', 'Kelurahan', 'Tanggal', 'Jam', 'RT Lokasi', 'Wilayah Kerja'].forEach((label) => headRow.appendChild(createText('th', label)));
+    ['No.', 'Posyandu', 'Kelurahan', 'Tanggal', 'Jam', 'RT Lokasi', 'Wilayah Kerja'].forEach((label) => headRow.appendChild(createText('th', label, label === 'No.' ? 'schedule-no' : '')));
     thead.appendChild(headRow);
     const tbody = document.createElement('tbody');
     table.append(thead, tbody);
@@ -210,14 +211,15 @@
       if (!filtered.length) {
         const row = document.createElement('tr');
         const cell = createText('td', 'Belum ada jadwal yang cocok dengan filter.', 'schedule-empty');
-        cell.colSpan = 6;
+        cell.colSpan = 7;
         row.appendChild(cell);
         tbody.appendChild(row);
         return;
       }
 
-      filtered.forEach((item) => {
+      filtered.forEach((item, index) => {
         const row = document.createElement('tr');
+        row.appendChild(createText('td', String(index + 1), 'schedule-no'));
         const nameCell = document.createElement('td');
         nameCell.appendChild(createText('span', item.posyandu, 'posyandu-name'));
         row.appendChild(nameCell);
