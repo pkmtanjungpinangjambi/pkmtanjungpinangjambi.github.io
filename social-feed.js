@@ -29,7 +29,7 @@
         .leader-badges .culture-badge-link{display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 6px;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
         .leader-badges .culture-logo-link{background:transparent;border-color:transparent;box-shadow:none;padding:0}
         .leader-badges .culture-logo-link:hover,.leader-badges .culture-logo-link:focus-visible{transform:translateY(-1px);border-color:transparent;box-shadow:none;outline:none}
-        .leader-badges .culture-logo-link img{display:block;width:auto;height:48px;max-width:84px;object-fit:contain}
+        .leader-badges .culture-logo-link img{display:block;width:auto;height:64px;max-width:104px;object-fit:contain}
       `;
       document.head.appendChild(style);
     }
@@ -43,8 +43,8 @@
     img.src='assets/culture/berakhlak-5s.svg';
     img.alt='BerAKHLAK dan 5S';
     img.loading='eager';
-    img.width=64;
-    img.height=52;
+    img.width=80;
+    img.height=64;
 
     link.appendChild(img);
     badges.replaceChildren(link);
