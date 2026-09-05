@@ -1,16 +1,44 @@
 @import url("./styles-core.css");
 
 /* SITEWIDE INSTITUTIONAL HEADER — Bakti Husada */
-.site-header .brand{align-items:center!important;gap:10px!important;max-width:min(720px,60vw)!important}
-.site-header .brand strong{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;margin:0!important;padding:0!important;font-size:0!important;line-height:1.1!important;color:transparent!important;white-space:nowrap!important}
+.site-header .brand{align-items:center!important;gap:10px!important;max-width:min(720px,60vw)!important;overflow:visible!important}
+.site-header .brand strong{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;margin:0!important;padding:0!important;font-size:0!important;line-height:1!important;color:transparent!important;white-space:nowrap!important;overflow:visible!important}
 .site-header .brand strong::before{content:"UPTD PUSKESMAS TANJUNG PINANG JAMBI";display:inline-block;color:var(--green-900)!important;font-size:.88rem;font-weight:900;letter-spacing:.01em;white-space:nowrap}
 
-/* KUNCI AREA LOGO — tinggi sama, visual Bakti Husada lebih besar */
-.site-header .brand .brand-mark,
-.site-header .brand strong::after{width:48px!important;height:48px!important;flex:0 0 48px!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
-.site-header .brand .brand-mark{border-radius:12px!important;display:grid!important;place-items:center!important}
-.site-header .brand strong::after{content:"";display:block!important;width:56px!important;height:56px!important;flex-basis:56px!important;margin-top:-4px!important;margin-bottom:-4px!important;background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Lambang_Kemkes.png")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+/* KUNCI AREA LOGO — Kota Jambi tetap stabil, Bakti Husada diperbesar tanpa clipping */
+.site-header .brand .brand-mark{
+  width:48px!important;height:48px!important;flex:0 0 48px!important;
+  border-radius:12px!important;display:grid!important;place-items:center!important;
+  background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important;
+}
+.site-header .brand strong::after{
+  content:"";display:block!important;flex:0 0 56px!important;
+  width:56px!important;height:56px!important;
+  margin:-4px 0!important;
+  background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Lambang_Kemkes.png")!important;
+  background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important;
+}
 .site-header .brand small{display:block!important;margin:0!important;color:var(--muted)!important;font-size:.68rem!important;line-height:1.2!important;white-space:nowrap}
-@media(max-width:1180px){.site-header .brand{max-width:500px!important}.site-header .brand strong::before{font-size:.76rem}.site-header .brand .brand-mark{width:44px!important;height:44px!important;flex-basis:44px!important}.site-header .brand strong::after{width:51px!important;height:51px!important;flex-basis:51px!important;margin-top:-3px!important;margin-bottom:-3px!important}}
-@media(max-width:900px){.site-header .brand{max-width:none!important;flex:1 1 auto}.site-header .brand strong{white-space:normal!important;flex-wrap:wrap!important}.site-header .brand strong::before{font-size:.72rem;white-space:normal}.site-header .brand .brand-mark{width:40px!important;height:40px!important;flex-basis:40px!important}.site-header .brand strong::after{width:46px!important;height:46px!important;flex-basis:46px!important;margin-top:-3px!important;margin-bottom:-3px!important}.site-header .brand small{font-size:.60rem!important}}
-@media(max-width:600px){.site-header .brand{gap:7px!important}.site-header .brand strong{gap:6px!important}.site-header .brand strong::before{font-size:.66rem}.site-header .brand .brand-mark{width:36px!important;height:36px!important;flex-basis:36px!important}.site-header .brand strong::after{width:42px!important;height:42px!important;flex-basis:42px!important;margin-top:-3px!important;margin-bottom:-3px!important}.site-header .brand small{font-size:.55rem!important}}
+
+@media(max-width:1180px){
+  .site-header .brand{max-width:500px!important}
+  .site-header .brand strong::before{font-size:.76rem}
+  .site-header .brand .brand-mark{width:44px!important;height:44px!important;flex-basis:44px!important}
+  .site-header .brand strong::after{width:52px!important;height:52px!important;flex-basis:52px!important;margin:-4px 0!important}
+}
+@media(max-width:900px){
+  .site-header .brand{max-width:none!important;flex:1 1 auto}
+  .site-header .brand strong{white-space:normal!important;flex-wrap:wrap!important}
+  .site-header .brand strong::before{font-size:.72rem;white-space:normal}
+  .site-header .brand .brand-mark{width:40px!important;height:40px!important;flex-basis:40px!important}
+  .site-header .brand strong::after{width:47px!important;height:47px!important;flex-basis:47px!important;margin:-3px 0!important}
+  .site-header .brand small{font-size:.60rem!important}
+}
+@media(max-width:600px){
+  .site-header .brand{gap:7px!important}
+  .site-header .brand strong{gap:6px!important}
+  .site-header .brand strong::before{font-size:.66rem}
+  .site-header .brand .brand-mark{width:36px!important;height:36px!important;flex-basis:36px!important}
+  .site-header .brand strong::after{width:43px!important;height:43px!important;flex-basis:43px!important;margin:-3px 0!important}
+  .site-header .brand small{font-size:.55rem!important}
+}
