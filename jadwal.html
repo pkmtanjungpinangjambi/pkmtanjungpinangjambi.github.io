@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jadwal Pelayanan | UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
-<meta name="description" content="Jadwal pelayanan Puskesmas, jam operasional, batas pendaftaran, dan jadwal Posyandu wilayah UPTD Puskesmas Tanjung Pinang Kota Jambi.">
+<meta name="description" content="Jadwal pelayanan Puskesmas, jam operasional, jadwal imunisasi program, dan jadwal Posyandu wilayah UPTD Puskesmas Tanjung Pinang Kota Jambi.">
 <link rel="canonical" href="https://pkmtanjungpinangjambi.vercel.app/jadwal.html">
 <link rel="stylesheet" href="styles.css?v=20260824-info1">
 <style>
@@ -16,7 +16,22 @@
 .schedule-public-note{padding:18px;border-radius:18px;background:linear-gradient(135deg,#eaf7f0,#f8fcfa);border:1px solid #d7ebe2}
 .schedule-public-note strong{display:block;color:var(--green-950);margin-bottom:6px}
 .schedule-public-note p{margin:0;color:#50645e;font-size:.82rem;line-height:1.6}
-@media(max-width:900px){.schedule-hero-grid{grid-template-columns:1fr}.schedule-summary{grid-template-columns:1fr}}
+.imm-schedule-wrap{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 10px 28px rgba(0,59,45,.06)}
+.imm-schedule-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.imm-schedule-head h2{margin:4px 0 0;color:var(--green-900);font-size:clamp(1.45rem,3vw,2rem)}
+.imm-schedule-head p{margin:4px 0 0;color:var(--muted);font-size:.82rem;max-width:720px}
+.imm-schedule-table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff}
+.imm-schedule-table th,.imm-schedule-table td{padding:12px 13px;text-align:left;border-bottom:1px solid var(--line);font-size:.84rem;vertical-align:top}
+.imm-schedule-table th{background:var(--green-100);color:var(--green-900);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+.imm-schedule-table tr:last-child td{border-bottom:0}
+.imm-schedule-table td:first-child{font-weight:800;color:var(--ink);width:30%}
+.imm-note{margin-top:14px;padding:14px 16px;border-radius:14px;background:#f5faf7;border:1px solid #dcece5;color:#50645e;font-size:.78rem;line-height:1.6}
+.imm-note strong{color:var(--green-900)}
+.imm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.imm-actions a{display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border-radius:10px;text-decoration:none;font-size:.8rem;font-weight:800;border:1px solid var(--line)}
+.imm-actions .primary{background:var(--green-900);color:#fff;border-color:var(--green-900)}
+.imm-actions .secondary{background:#fff;color:var(--green-900)}
+@media(max-width:900px){.schedule-hero-grid{grid-template-columns:1fr}.schedule-summary{grid-template-columns:1fr}.imm-schedule-table{display:block;overflow-x:auto;white-space:nowrap}.imm-schedule-table th,.imm-schedule-table td{white-space:normal;min-width:150px}}
 </style>
 </head>
 <body>
@@ -31,7 +46,7 @@
 <div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pengumuman.html">Pengumuman</a><a href="berita.html">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
 <a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer">WhatsApp</a>
 </nav></div></header>
-<section class="page-hero"><div class="container"><span class="eyebrow">Informasi Kunjungan Puskesmas</span><h1>Jadwal Pelayanan UPTD Puskesmas Tanjung Pinang</h1><p>Temukan jam pelayanan Puskesmas dan jadwal Posyandu wilayah kerja dalam satu halaman yang lebih mudah dicari.</p></div></section>
+<section class="page-hero"><div class="container"><span class="eyebrow">Informasi Kunjungan Puskesmas</span><h1>Jadwal Pelayanan UPTD Puskesmas Tanjung Pinang</h1><p>Temukan jam pelayanan Puskesmas, jadwal imunisasi program, dan jadwal Posyandu wilayah kerja dalam satu halaman yang lebih mudah dicari.</p></div></section>
 <main class="page-content"><div class="container">
 <section class="schedule-hero-grid">
 <div>
@@ -40,6 +55,28 @@
 </div>
 <aside class="schedule-public-note"><strong>📅 Satu pintu jadwal publik</strong><p>Bagian Posyandu di bawah menampilkan informasi operasional saja. Data pasien individual tidak dipublikasikan.</p><p style="margin-top:9px">Sebelum datang, periksa kembali perubahan jadwal melalui kanal resmi Puskesmas.</p></aside>
 </section>
+
+<section class="imm-schedule-wrap" id="jadwal-imunisasi">
+<div class="imm-schedule-head"><div><span class="kicker">Klaster 2 · Ibu &amp; Anak</span><h2>💉 Jadwal Imunisasi Program</h2><p>Jadwal sasaran imunisasi bayi dan imunisasi lanjutan berdasarkan ketentuan program nasional. Pelaksanaan di Puskesmas tetap menyesuaikan sasaran, ketersediaan vaksin, dan arahan petugas.</p></div></div>
+<table class="imm-schedule-table"><thead><tr><th>Usia / Sasaran</th><th>Imunisasi</th></tr></thead><tbody>
+<tr><td>&lt; 24 jam</td><td>HB 0</td></tr>
+<tr><td>1 bulan</td><td>BCG, bOPV 1</td></tr>
+<tr><td>2 bulan</td><td>DPT-HB-Hib 1, bOPV 2, PCV 1, RV 1</td></tr>
+<tr><td>3 bulan</td><td>DPT-HB-Hib 2, bOPV 3, PCV 2, RV 2</td></tr>
+<tr><td>4 bulan</td><td>DPT-HB-Hib 3, bOPV 4, IPV 1, RV 3</td></tr>
+<tr><td>9 bulan</td><td>MR, IPV 2</td></tr>
+<tr><td>10 bulan</td><td>JE* </td></tr>
+<tr><td>12 bulan</td><td>PCV 3</td></tr>
+<tr><td>18 bulan</td><td>MR, DPT-HB-Hib</td></tr>
+<tr><td>Kelas 1 SD / 7 tahun</td><td>MR, DT</td></tr>
+<tr><td>Kelas 2 SD / 8 tahun</td><td>Td</td></tr>
+<tr><td>Kelas 5 SD / 11 tahun</td><td>Td, HPV</td></tr>
+<tr><td>Wanita Usia Subur (15–39 tahun)</td><td>Td sesuai status imunisasi</td></tr>
+</tbody></table>
+<div class="imm-note"><strong>* JE:</strong> diberikan hanya di daerah yang ditetapkan endemis Japanese Encephalitis. Jenis dan jadwal di atas mengacu pada <strong>KMK No. HK.01.07/MENKES/35/2025</strong> yang berstatus berlaku di JDIH Kementerian Kesehatan. citeturn855498search0turn316683search12</div>
+<div class="imm-actions"><a class="primary" href="pelayanan-imunisasi.html">💉 Detail Pelayanan Imunisasi</a><a class="secondary" href="https://jdih.kemkes.go.id/documents/keputusan-menteri-kesehatan-nomor-hk0107menkes352025" target="_blank" rel="noopener noreferrer">📄 Referensi Kemenkes</a></div>
+</section>
+
 <section class="section" style="padding-top:26px;padding-bottom:10px"><div class="section-head"><div><span class="kicker">Layanan berbasis wilayah</span><h2>Jadwal Posyandu 2026</h2><p>Cari berdasarkan kelurahan atau tanggal pelaksanaan.</p></div></div><div id="posyandu-public"></div></section>
 <section class="section" style="padding-bottom:10px"><div class="section-head"><div><span class="kicker">Datang lebih siap</span><h2>Persiapan kunjungan</h2><p>Siapkan identitas dan kartu jaminan kesehatan bila tersedia. Persyaratan layanan tertentu dapat berbeda.</p></div></div><div class="cards"><div class="card"><div class="card-icon">🪪</div><h3>Identitas</h3><p>KTP/KK sesuai kebutuhan pelayanan.</p></div><div class="card"><div class="card-icon">💳</div><h3>BPJS/KIS</h3><p>Bawa kartu jaminan kesehatan bila tersedia.</p></div><div class="card"><div class="card-icon">📱</div><h3>Mobile JKN</h3><p>Laporkan nomor antrean online kepada petugas saat tiba.</p></div></div></section>
 </div></main>
