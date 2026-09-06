@@ -1,5 +1,5 @@
 /*
- * Beranda — 10 ikon menu utama.
+ * Beranda — navigasi utama dan layanan yang paling dicari.
  * Ikon berasal dari aset Library yang telah dipaketkan menjadi sprite WebP.
  * Modul hanya berjalan di homepage dan tidak menyentuh header.
  */
@@ -29,6 +29,14 @@
     { title: 'Kontak', href: 'kontak.html', x: 4, y: 1, alt: 'Menu Kontak' }
   ];
 
+  const mostSearchedItems = [
+    { title: 'Jadwal Pelayanan', href: 'jadwal.html', icon: '🗓️', note: 'Jam layanan & jadwal Posyandu', alt: 'Lihat jadwal pelayanan' },
+    { title: 'Tarif Pelayanan', href: 'tarif.html', icon: '💰', note: 'Informasi tarif resmi', alt: 'Lihat tarif pelayanan' },
+    { title: 'Persyaratan', href: 'jadwal.html', icon: '📋', note: 'Siapkan dokumen sebelum datang', alt: 'Lihat persiapan dan persyaratan kunjungan' },
+    { title: 'Pendaftaran', href: 'jadwal.html', icon: '📱', note: 'Mobile JKN & pendaftaran langsung', alt: 'Lihat informasi pendaftaran' },
+    { title: 'Lokasi & Kontak', href: 'kontak.html', icon: '📍', note: 'Alamat, telepon & petunjuk arah', alt: 'Lihat lokasi dan kontak Puskesmas' }
+  ];
+
   function addStyles() {
     if (document.getElementById('home-menu10-style')) return;
 
@@ -51,8 +59,44 @@
       #home-menu10 .home-menu10-label{color:var(--green-900);font-size:.9rem;font-weight:900;text-align:center;line-height:1.25}
       #home-menu10 .home-menu10-note{display:block;margin-top:4px;font-size:.69rem;color:var(--muted);text-align:center;line-height:1.35}
       #home-menu10 .home-menu10-loading{grid-column:1/-1;text-align:center;padding:24px;color:var(--muted);font-size:.84rem}
-      @media(max-width:980px){#home-menu10 .home-menu10-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-      @media(max-width:620px){#home-menu10{padding:34px 0 40px}#home-menu10 .home-menu10-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}#home-menu10 .home-menu10-card{min-height:148px;padding:12px 8px}#home-menu10 .home-menu10-icon{width:78px;height:78px;flex-basis:78px;background-size:390px 156px}#home-menu10 .home-menu10-custom-icon{width:96px;height:108px;flex-basis:108px;margin:-3px 0 0}#home-menu10 .home-menu10-note{display:none}}
+
+      #home-most-searched{padding:34px 0 38px;background:linear-gradient(180deg,#f8fcfa,#fff)}
+      #home-most-searched .most-searched-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:18px}
+      #home-most-searched .most-searched-kicker{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:var(--green-100);color:var(--green-900);font-size:.72rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+      #home-most-searched h2{margin:9px 0 5px;color:var(--green-950);font-size:clamp(1.45rem,3vw,2rem);line-height:1.15}
+      #home-most-searched .most-searched-sub{margin:0;color:var(--muted);font-size:.84rem;line-height:1.5}
+      #home-most-searched .most-searched-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
+      #home-most-searched .most-searched-card{display:flex;align-items:center;gap:12px;min-height:88px;padding:14px 13px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 8px 22px rgba(0,59,45,.055);text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+      #home-most-searched .most-searched-card:hover,#home-most-searched .most-searched-card:focus-visible{transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,59,45,.1);border-color:#b9ddd1;outline:none}
+      #home-most-searched .most-searched-icon{width:44px;height:44px;flex:0 0 44px;border-radius:13px;display:grid;place-items:center;background:var(--green-100);font-size:1.3rem}
+      #home-most-searched .most-searched-card strong{display:block;color:var(--green-950);font-size:.84rem;line-height:1.25}
+      #home-most-searched .most-searched-card span{display:block;margin-top:4px;color:var(--muted);font-size:.67rem;line-height:1.35}
+
+      .home-news-head{max-width:760px;margin:0 auto 18px;text-align:center}
+      .home-news-head .home-news-kicker{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:var(--green-100);color:var(--green-900);font-size:.72rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+      .home-news-head h2{margin:9px 0 5px;color:var(--green-950);font-size:clamp(1.45rem,3vw,2rem);line-height:1.15}
+      .home-news-head p{margin:0;color:var(--muted);font-size:.84rem;line-height:1.5}
+      .home-tri.home-tri--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+      @media(max-width:1100px){
+        #home-most-searched .most-searched-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      }
+      @media(max-width:980px){
+        #home-menu10 .home-menu10-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      }
+      @media(max-width:760px){
+        #home-most-searched .most-searched-head{display:block}
+        #home-most-searched .most-searched-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+        .home-tri.home-tri--two{grid-template-columns:1fr}
+      }
+      @media(max-width:620px){
+        #home-menu10{padding:34px 0 40px}
+        #home-menu10 .home-menu10-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+        #home-menu10 .home-menu10-card{min-height:148px;padding:12px 8px}
+        #home-menu10 .home-menu10-icon{width:78px;height:78px;flex-basis:78px;background-size:390px 156px}
+        #home-menu10 .home-menu10-custom-icon{width:96px;height:108px;flex-basis:108px;margin:-3px 0 0}
+        #home-menu10 .home-menu10-note{display:none}
+      }
     `;
     document.head.appendChild(style);
   }
@@ -61,6 +105,9 @@
     const berAkhlak = Array.from(document.querySelectorAll('.leader-badges .culture-badge-link'))
       .find(function (link) { return (link.textContent || '').includes('BerAKHLAK'); });
     if (berAkhlak) berAkhlak.remove();
+
+    const infoBar = document.querySelector('.info-bar');
+    if (infoBar) infoBar.remove();
 
     const latestGalleryPanel = Array.from(document.querySelectorAll('.home-tri-section .panel'))
       .find(function (panel) {
@@ -89,6 +136,45 @@
         </div>
       </div>`;
     return section;
+  }
+
+  function buildMostSearchedSection() {
+    const section = document.createElement('section');
+    section.id = 'home-most-searched';
+    section.setAttribute('aria-labelledby', 'home-most-searched-title');
+    section.innerHTML = `
+      <div class="container">
+        <div class="most-searched-head">
+          <div>
+            <span class="most-searched-kicker">Layanan favorit masyarakat</span>
+            <h2 id="home-most-searched-title">Paling Dicari Masyarakat</h2>
+            <p class="most-searched-sub">Lima informasi penting sebelum datang ke Puskesmas.</p>
+          </div>
+        </div>
+        <div class="most-searched-grid">
+          ${mostSearchedItems.map(function (item) {
+            return '<a class="most-searched-card" href="' + item.href + '" aria-label="' + item.alt + '"><span class="most-searched-icon" aria-hidden="true">' + item.icon + '</span><span><strong>' + item.title + '</strong><span>' + item.note + '</span></span></a>';
+          }).join('')}
+        </div>
+      </div>`;
+    return section;
+  }
+
+  function enhanceNewsSection() {
+    const newsSection = document.querySelector('.home-tri-section');
+    if (!newsSection || newsSection.querySelector('.home-news-head')) return;
+
+    const grid = newsSection.querySelector('.home-tri');
+    if (!grid) return;
+
+    grid.classList.add('home-tri--two');
+    const head = document.createElement('div');
+    head.className = 'home-news-head';
+    head.innerHTML = `
+      <span class="home-news-kicker">Informasi terbaru</span>
+      <h2>Pengumuman &amp; Berita</h2>
+      <p>Informasi resmi dan kabar terbaru dari UPTD Puskesmas Tanjung Pinang.</p>`;
+    newsSection.insertBefore(head, grid);
   }
 
   function render(section, spriteBase64, pelayananBase64) {
@@ -174,9 +260,14 @@
 
     cleanupHomeContent();
     addStyles();
-    const section = buildSection();
-    hero.insertAdjacentElement('afterend', section);
-    loadAssets(section);
+
+    const menuSection = buildSection();
+    const mostSearchedSection = buildMostSearchedSection();
+    hero.insertAdjacentElement('afterend', menuSection);
+    menuSection.insertAdjacentElement('afterend', mostSearchedSection);
+
+    enhanceNewsSection();
+    loadAssets(menuSection);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
