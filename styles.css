@@ -103,3 +103,101 @@
     height:67px!important;
   }
 }
+
+/* INFORMASI — normalisasi header agar memakai standar Profil/Beranda.
+   Halaman Informasi memiliki wrapper .brand-marks lama sehingga selector
+   direct-child di atas tidak bekerja. Wrapper tetap, tetapi hanya banner
+   master pertama yang ditampilkan dan elemen kedua disembunyikan. */
+.site-header .brand .brand-marks{
+  display:block!important;
+  width:384px!important;
+  height:91px!important;
+  flex:0 0 384px!important;
+  align-self:center!important;
+  overflow:visible!important;
+}
+.site-header .brand .brand-marks .brand-mark{
+  display:block!important;
+  width:384px!important;
+  height:91px!important;
+  min-width:384px!important;
+  max-width:384px!important;
+  flex:0 0 384px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.site-header .brand .brand-marks .brand-mark:first-child img{
+  content:url("./LOGO-KOTA-DINAS.PNG?v=20260906-master-full3")!important;
+  display:block!important;
+  width:384px!important;
+  height:91px!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+}
+.site-header .brand .brand-marks .brand-mark:nth-child(2){display:none!important}
+.site-header .brand .brand-marks + span{display:none!important}
+
+@media(max-width:1180px){
+  .site-header .brand .brand-marks{
+    width:360px!important;
+    height:86px!important;
+    flex-basis:360px!important;
+  }
+  .site-header .brand .brand-marks .brand-mark{
+    width:360px!important;
+    height:86px!important;
+    min-width:360px!important;
+    max-width:360px!important;
+    flex-basis:360px!important;
+  }
+  .site-header .brand .brand-marks .brand-mark:first-child img{
+    width:360px!important;
+    height:86px!important;
+  }
+}
+
+@media(max-width:900px){
+  .site-header .brand .brand-marks{
+    width:324px!important;
+    height:77px!important;
+    flex-basis:324px!important;
+  }
+  .site-header .brand .brand-marks .brand-mark{
+    width:324px!important;
+    height:77px!important;
+    min-width:324px!important;
+    max-width:324px!important;
+    flex-basis:324px!important;
+  }
+  .site-header .brand .brand-marks .brand-mark:first-child img{
+    width:324px!important;
+    height:77px!important;
+  }
+}
+
+@media(max-width:600px){
+  .site-header .brand .brand-marks{
+    width:282px!important;
+    height:67px!important;
+    flex-basis:282px!important;
+  }
+  .site-header .brand .brand-marks .brand-mark{
+    width:282px!important;
+    height:67px!important;
+    min-width:282px!important;
+    max-width:282px!important;
+    flex-basis:282px!important;
+  }
+  .site-header .brand .brand-marks .brand-mark:first-child img{
+    width:282px!important;
+    height:67px!important;
+  }
+}
