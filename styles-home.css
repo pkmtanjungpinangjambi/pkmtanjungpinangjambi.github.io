@@ -374,3 +374,19 @@ body{background:#f7faf8}
 .info-bar-inner{grid-template-columns:1fr}
 .cards-svc{grid-template-columns:1fr 1fr}
 }
+
+/* Ikon layanan utama diseragamkan dengan ikon Tautan Terkait */
+.cards-svc .svc-imgcard{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.cards-svc .svc-imgcard img{
+  width:90px;
+  height:64px;
+  max-width:90px;
+  max-height:64px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto;
+}
