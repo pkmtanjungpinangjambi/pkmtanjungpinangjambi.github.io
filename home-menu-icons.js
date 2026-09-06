@@ -52,6 +52,22 @@
     document.head.appendChild(style);
   }
 
+  function cleanupHomeContent() {
+    const berAkhlak = Array.from(document.querySelectorAll('.leader-badges .culture-badge-link'))
+      .find(function (link) { return (link.textContent || '').includes('BerAKHLAK'); });
+    if (berAkhlak) berAkhlak.remove();
+
+    const latestGalleryPanel = Array.from(document.querySelectorAll('.home-tri-section .panel'))
+      .find(function (panel) {
+        const heading = panel.querySelector('.panel-head h3');
+        return heading && (heading.textContent || '').includes('Galeri Terbaru');
+      });
+    if (latestGalleryPanel) latestGalleryPanel.remove();
+
+    const videoGallery = document.getElementById('video-galeri');
+    if (videoGallery) videoGallery.remove();
+  }
+
   function buildSection() {
     const section = document.createElement('section');
     section.id = 'home-menu10';
@@ -106,7 +122,6 @@
 
     const mobileStyle = document.getElementById('home-menu10-style');
     if (mobileStyle) {
-      /* Background coordinates need to follow the scaled mobile sprite. */
       mobileStyle.textContent += `\n@media(max-width:620px){#home-menu10 .home-menu10-icon{background-position:calc(var(--bg-x) * .928571) calc(var(--bg-y) * .928571)}}`;
     }
   }
@@ -133,6 +148,7 @@
     const hero = document.querySelector('.hero-home');
     if (!hero) return;
 
+    cleanupHomeContent();
     addStyles();
     const section = buildSection();
     hero.insertAdjacentElement('afterend', section);
