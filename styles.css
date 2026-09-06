@@ -201,3 +201,110 @@
     height:67px!important;
   }
 }
+
+/* BERANDA — paksa standar header Profil setelah styles-home.css memuat aturan legacy.
+   Selector hanya aktif pada halaman yang memiliki .hero-home sehingga Profil/Informasi
+   tidak ikut berubah. */
+body:has(.hero-home) .site-header .nav-wrap .brand{
+  align-items:center!important;
+  align-self:center!important;
+  gap:0!important;
+  width:384px!important;
+  max-width:384px!important;
+  min-width:0!important;
+  height:91px!important;
+  flex:0 0 384px!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark{
+  width:384px!important;
+  height:91px!important;
+  min-width:384px!important;
+  max-width:384px!important;
+  flex:0 0 384px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  display:block!important;
+}
+body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark > img{
+  content:url("./LOGO-KOTA-DINAS.PNG?v=20260906-home-master")!important;
+  display:block!important;
+  width:384px!important;
+  height:91px!important;
+  min-width:384px!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+}
+body:has(.hero-home) .site-header .nav-wrap .brand > span:not(.brand-mark){display:none!important}
+
+@media(max-width:1180px){
+  body:has(.hero-home) .site-header .nav-wrap .brand{
+    width:360px!important;
+    max-width:360px!important;
+    height:86px!important;
+    flex-basis:360px!important;
+  }
+  body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark{
+    width:360px!important;
+    height:86px!important;
+    min-width:360px!important;
+    max-width:360px!important;
+    flex-basis:360px!important;
+  }
+  body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark > img{
+    width:360px!important;
+    height:86px!important;
+    min-width:360px!important;
+  }
+}
+
+@media(max-width:900px){
+  body:has(.hero-home) .site-header .nav-wrap .brand{
+    width:324px!important;
+    max-width:324px!important;
+    height:77px!important;
+    flex-basis:324px!important;
+  }
+  body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark{
+    width:324px!important;
+    height:77px!important;
+    min-width:324px!important;
+    max-width:324px!important;
+    flex-basis:324px!important;
+  }
+  body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark > img{
+    width:324px!important;
+    height:77px!important;
+    min-width:324px!important;
+  }
+}
+
+@media(max-width:600px){
+  body:has(.hero-home) .site-header .nav-wrap .brand{
+    width:282px!important;
+    max-width:282px!important;
+    height:67px!important;
+    flex-basis:282px!important;
+  }
+  body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark{
+    width:282px!important;
+    height:67px!important;
+    min-width:282px!important;
+    max-width:282px!important;
+    flex-basis:282px!important;
+  }
+  body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark > img{
+    width:282px!important;
+    height:67px!important;
+    min-width:282px!important;
+  }
+}
