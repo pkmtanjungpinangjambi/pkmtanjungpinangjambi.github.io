@@ -1,28 +1,28 @@
 @import url("./styles-core.css");
 
-/* HEADER FINAL — satu banner identitas utuh, diperbesar dan disejajarkan */
+/* HEADER FINAL — satu banner identitas utuh, diperbesar 20% */
 .site-header .brand{
   align-items:center!important;
   align-self:center!important;
   gap:0!important;
-  width:320px!important;
-  max-width:320px!important;
+  width:384px!important;
+  max-width:384px!important;
   min-width:0!important;
-  height:76px!important;
-  flex:0 0 320px!important;
+  height:91px!important;
+  flex:0 0 384px!important;
   overflow:visible!important;
 }
 
 /* Hilangkan logo lama + teks header terpisah. Identitas sudah lengkap di banner. */
 .site-header .brand > span:not(.brand-mark){display:none!important}
 
-/* Banner master utuh: lebih besar, tinggi pas dengan header, tanpa crop. */
+/* Banner master utuh: skala +20%, tanpa crop. */
 .site-header .brand > .brand-mark{
-  width:320px!important;
-  height:76px!important;
-  min-width:320px!important;
-  max-width:320px!important;
-  flex:0 0 320px!important;
+  width:384px!important;
+  height:91px!important;
+  min-width:384px!important;
+  max-width:384px!important;
+  flex:0 0 384px!important;
   align-self:center!important;
   padding:0!important;
   margin:0!important;
@@ -34,10 +34,10 @@
   display:block!important;
 }
 .site-header .brand > .brand-mark > img{
-  content:url("./LOGO-KOTA-DINAS.PNG?v=20260906-master-full2")!important;
+  content:url("./LOGO-KOTA-DINAS.PNG?v=20260906-master-full3")!important;
   display:block!important;
-  width:320px!important;
-  height:76px!important;
+  width:384px!important;
+  height:91px!important;
   max-width:none!important;
   max-height:none!important;
   object-fit:contain!important;
@@ -47,59 +47,59 @@
 
 @media(max-width:1180px){
   .site-header .brand{
-    width:300px!important;
-    max-width:300px!important;
-    flex-basis:300px!important;
+    width:360px!important;
+    max-width:360px!important;
+    flex-basis:360px!important;
   }
   .site-header .brand > .brand-mark{
-    width:300px!important;
-    height:72px!important;
-    min-width:300px!important;
-    max-width:300px!important;
-    flex-basis:300px!important;
+    width:360px!important;
+    height:86px!important;
+    min-width:360px!important;
+    max-width:360px!important;
+    flex-basis:360px!important;
   }
   .site-header .brand > .brand-mark > img{
-    width:300px!important;
-    height:72px!important;
+    width:360px!important;
+    height:86px!important;
   }
 }
 
 @media(max-width:900px){
   .site-header .brand{
-    width:270px!important;
-    max-width:270px!important;
-    height:64px!important;
-    flex-basis:270px!important;
+    width:324px!important;
+    max-width:324px!important;
+    height:77px!important;
+    flex-basis:324px!important;
   }
   .site-header .brand > .brand-mark{
-    width:270px!important;
-    height:64px!important;
-    min-width:270px!important;
-    max-width:270px!important;
-    flex-basis:270px!important;
+    width:324px!important;
+    height:77px!important;
+    min-width:324px!important;
+    max-width:324px!important;
+    flex-basis:324px!important;
   }
   .site-header .brand > .brand-mark > img{
-    width:270px!important;
-    height:64px!important;
+    width:324px!important;
+    height:77px!important;
   }
 }
 
 @media(max-width:600px){
   .site-header .brand{
-    width:235px!important;
-    max-width:235px!important;
-    height:56px!important;
-    flex-basis:235px!important;
+    width:282px!important;
+    max-width:282px!important;
+    height:67px!important;
+    flex-basis:282px!important;
   }
   .site-header .brand > .brand-mark{
-    width:235px!important;
-    height:56px!important;
-    min-width:235px!important;
-    max-width:235px!important;
-    flex-basis:235px!important;
+    width:282px!important;
+    height:67px!important;
+    min-width:282px!important;
+    max-width:282px!important;
+    flex-basis:282px!important;
   }
   .site-header .brand > .brand-mark > img{
-    width:235px!important;
-    height:56px!important;
+    width:282px!important;
+    height:67px!important;
   }
 }
