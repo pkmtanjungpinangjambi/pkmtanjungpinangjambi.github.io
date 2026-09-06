@@ -1,49 +1,38 @@
-(function(){
-  const grid=document.getElementById('social-feed-grid');
-  const status=document.getElementById('social-feed-status');
-  if(!grid) return;
+/* Social feed disabled in favor of icon-only official channels. */
+(function () {
+  'use strict';
 
-  const INSTAGRAM_URL='https://www.instagram.com/pkm.tanjungpinang.jambi';
-  const FACEBOOK_URL='https://web.facebook.com/kiki.ayu.98229';
-  const YOUTUBE_URL='https://www.youtube.com/@puskesmastanjungpinangkota7276';
+  const channels = [
+    { key:'instagram', label:'Instagram', href:'https://www.instagram.com/pkm.tanjungpinang.jambi', src:'assets/social/ig.svg?v=20260906-1' },
+    { key:'facebook', label:'Facebook', href:'https://web.facebook.com/kiki.ayu.98229', src:'assets/social/fb.svg?v=20260906-1' },
+    { key:'youtube', label:'YouTube', href:'https://www.youtube.com/@puskesmastanjungpinangkota7276', src:'assets/social/yutu.svg?v=20260906-1' },
+    { key:'whatsapp', label:'WhatsApp', href:'https://wa.me/6282180622274', src:'assets/social/wa.svg?v=20260906-1' }
+  ];
 
-  function esc(value){
-    return String(value||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  }
-  function dateText(value){
-    try{return new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(value));}
-    catch(e){return '';}
-  }
-  function card(item){
-    const image=item.image?`<div class="social-card-media"><img src="${esc(item.image)}" alt="Konten Instagram UPTD Puskesmas Tanjung Pinang" loading="lazy"></div>`:'';
-    return `<article class="social-card">${image}<div class="social-card-body"><div class="social-card-meta"><span class="social-badge">📷 Instagram</span><time datetime="${esc(item.created_time)}">${dateText(item.created_time)}</time></div><p class="social-card-text">${esc(item.text)||'Informasi terbaru dari UPTD Puskesmas Tanjung Pinang.'}</p><a class="social-card-link" href="${esc(item.permalink)}" target="_blank" rel="noopener noreferrer">Lihat di Instagram →</a></div></article>`;
-  }
+  const grid = document.getElementById('social-feed-grid');
+  if (!grid) return;
 
-  function addOfficialLinks(){
-    const section=grid.closest('section');
-    if(!section || section.querySelector('.social-official-links')) return;
-    const head=section.querySelector('.section-head');
-    if(!head) return;
-    const box=document.createElement('div');
-    box.className='social-official-links';
-    box.style.cssText='display:flex;flex-wrap:wrap;gap:10px;margin-top:14px';
-    box.innerHTML=`<a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-green" aria-label="Buka Instagram resmi Puskesmas Tanjung Pinang">📷 Instagram Resmi</a><a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" aria-label="Buka Facebook resmi Puskesmas Tanjung Pinang">🔵 Facebook Resmi</a><a href="${YOUTUBE_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" aria-label="Buka YouTube resmi Puskesmas Tanjung Pinang">▶️ YouTube Resmi</a>`;
-    head.appendChild(box);
-  }
+  const host = grid.parentElement || grid;
+  const style = document.createElement('style');
+  style.textContent = `
+    .social-icon-only-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px}
+    .social-icon-only-link{display:inline-grid;place-items:center;width:42px;height:42px;padding:8px;border:1px solid var(--line,#dbe8e3);border-radius:12px;background:#fff;box-shadow:0 6px 16px rgba(0,59,45,.08);text-decoration:none}
+    .social-icon-only-link img{display:block;width:100%;height:100%;object-fit:contain}
+    .social-icon-only-link:focus-visible{outline:3px solid rgba(20,116,91,.22);outline-offset:2px}
+  `;
+  document.head.appendChild(style);
 
-  addOfficialLinks();
+  grid.replaceChildren();
+  const links = document.createElement('div');
+  links.className = 'social-icon-only-links';
+  links.setAttribute('aria-label','Kanal resmi Puskesmas');
+  links.innerHTML = channels.map(c => `
+    <a class="social-icon-only-link ${c.key}" href="${c.href}" target="_blank" rel="noopener noreferrer" aria-label="Buka ${c.label} resmi" title="${c.label}">
+      <img src="${c.src}" alt="${c.label} resmi" width="24" height="24" loading="lazy">
+    </a>
+  `).join('');
+  host.appendChild(links);
 
-  fetch('/api/social-feed',{headers:{Accept:'application/json'}})
-    .then(response=>response.json().then(data=>({ok:response.ok,data})))
-    .then(result=>{
-      if(!result.ok||!result.data.ok) throw new Error(result.data.message||'Feed Instagram belum tersedia');
-      const items=Array.isArray(result.data.items)?result.data.items.slice(0,5):[];
-      grid.innerHTML=items.length?items.map(card).join(''):'<div class="social-empty">Belum ada posting Instagram yang dapat ditampilkan.</div>';
-      if(status){status.textContent='5 posting terbaru dari Instagram resmi @pkm.tanjungpinang.jambi.';status.classList.remove('error');}
-    })
-    .catch(error=>{
-      grid.innerHTML='<div class="social-empty">Posting Instagram belum dapat dimuat saat ini.</div>';
-      if(status){status.textContent='Feed Instagram belum aktif. Website tetap berjalan normal.';status.classList.add('error');}
-      console.warn('Instagram feed:',error);
-    });
+  const status = document.getElementById('social-feed-status');
+  if (status) status.textContent = 'Kanal resmi tersedia melalui ikon.';
 })();
