@@ -1,14 +1,100 @@
 @import url("./styles-core.css");
 
-/* SITEWIDE INSTITUTIONAL HEADER — Kota Jambi + Puskesmas + health emblem */
-.site-header .brand{align-items:center!important;gap:10px!important;max-width:min(720px,60vw)!important;overflow:visible!important}
-.site-header .brand strong{display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important;margin:0!important;padding:0!important;font-size:0!important;line-height:1!important;color:transparent!important;white-space:nowrap!important;overflow:visible!important}
-.site-header .brand strong::before{content:"UPTD PUSKESMAS TANJUNG PINANG JAMBI";display:inline-block;color:var(--green-900)!important;font-size:.88rem;font-weight:900;letter-spacing:.01em;white-space:nowrap}
+/* FINAL HEADER — gunakan satu banner identitas utuh */
+.site-header .brand{
+  align-items:center!important;
+  gap:0!important;
+  width:280px!important;
+  max-width:280px!important;
+  min-width:0!important;
+  flex:0 0 280px!important;
+  overflow:visible!important;
+}
 
-/* Kota Jambi hanya sekali di kiri; emblem kesehatan utuh di kanan */
-.site-header .brand .brand-mark{width:40px!important;height:40px!important;min-width:40px!important;max-width:40px!important;flex:0 0 40px!important;border-radius:12px!important;display:grid!important;place-items:center!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
-.site-header .brand strong::after{content:"";display:block!important;flex:0 0 56px!important;width:56px!important;height:56px!important;margin:-4px 0!important;background-image:url("./assets/logo-kesehatan-kanan.png")!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}
-.site-header .brand small{display:block!important;margin:0!important;color:var(--muted)!important;font-size:.68rem!important;line-height:1.2!important;white-space:nowrap}
-@media(max-width:1180px){.site-header .brand{max-width:500px!important}.site-header .brand strong::before{font-size:.76rem}.site-header .brand .brand-mark{width:40px!important;height:40px!important;flex-basis:40px!important}.site-header .brand strong::after{width:52px!important;height:52px!important;flex-basis:52px!important;margin:-4px 0!important}}
-@media(max-width:900px){.site-header .brand{max-width:none!important;flex:1 1 auto}.site-header .brand strong{white-space:normal!important;flex-wrap:wrap!important}.site-header .brand strong::before{font-size:.72rem;white-space:normal}.site-header .brand .brand-mark{width:40px!important;height:40px!important;flex-basis:40px!important}.site-header .brand strong::after{width:47px!important;height:47px!important;flex-basis:47px!important;margin:-3px 0!important}.site-header .brand small{font-size:.60rem!important}}
-@media(max-width:600px){.site-header .brand{gap:7px!important}.site-header .brand strong{gap:6px!important}.site-header .brand strong::before{font-size:.66rem}.site-header .brand .brand-mark{width:36px!important;height:36px!important;flex-basis:36px!important}.site-header .brand strong::after{width:43px!important;height:43px!important;flex-basis:43px!important;margin:-3px 0!important}.site-header .brand small{font-size:.55rem!important}}
+/* Hilangkan logo lama + teks header terpisah. Identitas sudah lengkap di banner. */
+.site-header .brand > span:not(.brand-mark){display:none!important}
+
+/* Tampilkan seluruh master banner tanpa crop, tanpa redraw, tanpa komposisi tambahan. */
+.site-header .brand > .brand-mark{
+  width:280px!important;
+  height:69px!important;
+  min-width:280px!important;
+  max-width:280px!important;
+  flex:0 0 280px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  display:block!important;
+}
+.site-header .brand > .brand-mark > img{
+  content:url("./LOGO-KOTA-DINAS.PNG?v=20260906-master-full")!important;
+  display:block!important;
+  width:280px!important;
+  height:69px!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+}
+
+@media(max-width:1180px){
+  .site-header .brand{
+    width:250px!important;
+    max-width:250px!important;
+    flex-basis:250px!important;
+  }
+  .site-header .brand > .brand-mark{
+    width:250px!important;
+    height:61px!important;
+    min-width:250px!important;
+    max-width:250px!important;
+    flex-basis:250px!important;
+  }
+  .site-header .brand > .brand-mark > img{
+    width:250px!important;
+    height:61px!important;
+  }
+}
+
+@media(max-width:900px){
+  .site-header .brand{
+    width:230px!important;
+    max-width:230px!important;
+    flex-basis:230px!important;
+  }
+  .site-header .brand > .brand-mark{
+    width:230px!important;
+    height:57px!important;
+    min-width:230px!important;
+    max-width:230px!important;
+    flex-basis:230px!important;
+  }
+  .site-header .brand > .brand-mark > img{
+    width:230px!important;
+    height:57px!important;
+  }
+}
+
+@media(max-width:600px){
+  .site-header .brand{
+    width:205px!important;
+    max-width:205px!important;
+    flex-basis:205px!important;
+  }
+  .site-header .brand > .brand-mark{
+    width:205px!important;
+    height:50px!important;
+    min-width:205px!important;
+    max-width:205px!important;
+    flex-basis:205px!important;
+  }
+  .site-header .brand > .brand-mark > img{
+    width:205px!important;
+    height:50px!important;
+  }
+}
