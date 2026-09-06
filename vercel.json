@@ -3,6 +3,14 @@
     {
       "source": "/gedung-puskesmas.webp",
       "destination": "/gedung-puskesmas.JPG"
+    },
+    {
+      "source": "/assets/home-menu/sprite-56-part-01.txt",
+      "destination": "/assets/home-menu/sprite-hq-part-01.txt"
+    },
+    {
+      "source": "/assets/home-menu/sprite-56-part-02.txt",
+      "destination": "/assets/home-menu/sprite-hq-part-02.txt"
     }
   ]
 }
