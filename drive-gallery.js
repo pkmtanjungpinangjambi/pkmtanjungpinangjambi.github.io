@@ -94,3 +94,15 @@ const DRIVE_API_URL = 'https://script.google.com/macros/s/AKfycbxI6dxAOs7Hq47xEa
     });
   });
 })();
+
+/* Beranda — loader modul 10 ikon menu. Guarded to homepage only. */
+(function () {
+  const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  if (file !== 'index.html' && file !== '') return;
+  if (document.querySelector('script[data-home-menu-icons="1"]')) return;
+  const script = document.createElement('script');
+  script.src = './home-menu-icons.js?v=20260906-icons1';
+  script.defer = true;
+  script.dataset.homeMenuIcons = '1';
+  document.head.appendChild(script);
+})();
