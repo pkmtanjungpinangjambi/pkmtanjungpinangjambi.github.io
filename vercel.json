@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/gedung-puskesmas.webp",
+      "destination": "/gedung-puskesmas.JPG"
+    }
+  ]
+}
