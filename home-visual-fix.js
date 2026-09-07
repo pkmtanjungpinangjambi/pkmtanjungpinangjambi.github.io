@@ -140,7 +140,7 @@
 
     const image = document.createElement('img');
     image.className = 'leader-5s-image';
-    image.src = './assets/culture/5s.png';
+    image.src = './assets/culture/5s-final.webp';
     image.alt = 'Motto pelayanan 5S: Senyum, Sapa, Salam, Sopan, Santun';
     image.loading = 'eager';
     image.decoding = 'async';
@@ -169,7 +169,7 @@
 
     const image = document.createElement('img');
     image.className = 'hero-culture-mark';
-    image.src = './assets/culture/akhlak.png';
+    image.src = './assets/culture/akhlak-final.webp';
     image.alt = 'Nilai budaya pelayanan BerAKHLAK';
     image.loading = 'eager';
     image.decoding = 'async';
