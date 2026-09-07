@@ -30,6 +30,16 @@ This means GitHub `main` and the Vercel production deployment may temporarily be
 - `CONTRIBUTING.md` — branch, PR, validation, commit, and deployment discipline.
 - `.github/pull_request_template.md` — scope guard and deployment checklist.
 
+## Legacy automation removed
+
+The following one-time write-capable workflows were removed from the hardening branch because they could mutate branches automatically:
+
+- `.github/workflows/activate-content-protection.yml`
+- `.github/workflows/manual-activate-content-protection.yml`
+- `.github/workflows/normalize-script-cache.yml`
+
+The consolidated Quality workflow now verifies the resulting state in read-only mode.
+
 ## Next hardening step
 
 Configure a `main` branch ruleset requiring pull requests and the Quality workflow to pass before merge, while preserving the owner's emergency administrative override for genuine production incidents.
