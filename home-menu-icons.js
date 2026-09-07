@@ -6,22 +6,22 @@
   'use strict';
 
   var visualFix = document.createElement('script');
-  visualFix.src = './home-visual-fix.js?v=20260907-3';
+  visualFix.src = './home-visual-fix.js?v=20260907-4';
   visualFix.onload = loadCore;
   visualFix.onerror = loadCore;
   document.head.appendChild(visualFix);
 
   function loadCore() {
     var core = document.createElement('script');
-    core.src = './home-menu-icons-core.js?v=20260907-3';
+    core.src = './home-menu-icons-core.js?v=20260907-4';
     core.onload = function () {
       var relevant = document.createElement('script');
-      relevant.src = './home-relevant.js?v=20260907-3';
+      relevant.src = './home-relevant.js?v=20260907-4';
       document.head.appendChild(relevant);
     };
     core.onerror = function () {
       var fallback = document.createElement('script');
-      fallback.src = './home-relevant.js?v=20260907-3';
+      fallback.src = './home-relevant.js?v=20260907-4';
       document.head.appendChild(fallback);
     };
     document.head.appendChild(core);
