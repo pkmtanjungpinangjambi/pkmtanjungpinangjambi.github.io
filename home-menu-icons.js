@@ -47,6 +47,10 @@
     document.head.appendChild(script);
   }
 
+  function loadRescue() {
+    loadScript('./home-visual-rescue.js?v=20260907-3');
+  }
+
   installLegacyGuardStyles();
   suppressLegacyMarkup();
 
@@ -62,18 +66,24 @@
       loadScript(
         './home-menu-icons-core.js?v=20260907-5',
         function () {
-          loadScript('./home-relevant.js?v=20260907-5');
+          loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
         },
         function () {
-          loadScript('./home-relevant.js?v=20260907-5');
+          loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
         }
       );
     },
     function () {
       // Keep the homepage functional even if the visual compatibility layer fails.
-      loadScript('./home-menu-icons-core.js?v=20260907-5', function () {
-        loadScript('./home-relevant.js?v=20260907-5');
-      });
+      loadScript(
+        './home-menu-icons-core.js?v=20260907-5',
+        function () {
+          loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
+        },
+        function () {
+          loadRescue();
+        }
+      );
     }
   );
 })();
