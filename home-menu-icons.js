@@ -48,7 +48,7 @@
   }
 
   function loadRescue() {
-    loadScript('./home-visual-rescue.js?v=20260907-3');
+    loadScript('./home-visual-rescue.js?v=20260907-6');
   }
 
   installLegacyGuardStyles();
