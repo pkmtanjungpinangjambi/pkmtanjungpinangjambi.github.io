@@ -34,7 +34,9 @@ jobs:
         run: |
           import json
           import os
+          import re
           import subprocess
+          import urllib.error
           import urllib.request
           from pathlib import PurePosixPath
 
@@ -52,9 +54,7 @@ jobs:
               parts = line.split('\t')
               if not parts:
                   continue
-              status = parts[0]
-              paths = parts[1:]
-              for raw_path in paths:
+              for raw_path in parts[1:]:
                   path = raw_path.strip()
                   if not path.lower().endswith('.html'):
                       continue
@@ -68,16 +68,16 @@ jobs:
               print('No changed root HTML pages to submit.')
               raise SystemExit(0)
 
-          with urllib.request.urlopen(os.environ['SITEMAP_URL'], timeout=20) as response:
-              sitemap_text = response.read().decode('utf-8')
+          try:
+              with urllib.request.urlopen(os.environ['SITEMAP_URL'], timeout=20) as response:
+                  sitemap_text = response.read().decode('utf-8')
+          except Exception as exc:
+              raise SystemExit(f'Unable to read sitemap.xml: {exc}')
 
-          import re
           locs = re.findall(r'<loc>\s*([^<]+?)\s*</loc>', sitemap_text)
           if not locs:
               raise SystemExit('Could not determine canonical host from sitemap.xml')
           origin = locs[0].rstrip('/')
-          if origin.endswith('/'):
-              origin = origin[:-1]
           if not origin.startswith('https://'):
               raise SystemExit(f'Sitemap origin is not HTTPS: {origin}')
 
