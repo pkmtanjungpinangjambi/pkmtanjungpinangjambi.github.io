@@ -1,37 +1,79 @@
 /*
- * Bootstrap homepage scripts without changing the public HTML structure.
- * The original 10-icon module is preserved in home-menu-icons-core.js.
+ * Beranda — orchestrator for the homepage visual/menu modules.
+ * Legacy culture markup is suppressed before the visual fixer runs so the old
+ * 2029 feature icons and leader badges cannot flash during initialization.
  */
 (function () {
   'use strict';
 
-  var visualFix = document.createElement('script');
-  visualFix.src = './home-visual-fix.js?v=20260907-7';
-  visualFix.onload = loadCore;
-  visualFix.onerror = loadCore;
-  document.head.appendChild(visualFix);
+  const legacySelectors = [
+    '#home-culture-v4',
+    '#home-culture',
+    '.hero-home .hero-copy > .feat-grid',
+    '.leader-card-v2 > .leader-badges',
+    '.leader-card-v2 > .leader-script'
+  ];
 
-  function loadCore() {
-    var core = document.createElement('script');
-    core.src = './home-menu-icons-core.js?v=20260907-7';
-    core.onload = loadRelevant;
-    core.onerror = loadRelevant;
-    document.head.appendChild(core);
+  function suppressLegacyMarkup() {
+    legacySelectors.forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (element) {
+        element.remove();
+      });
+    });
   }
 
-  function loadRelevant() {
-    var relevant = document.createElement('script');
-    relevant.src = './home-relevant.js?v=20260907-7';
-    relevant.onload = loadRescue;
-    relevant.onerror = loadRescue;
-    document.head.appendChild(relevant);
+  function installLegacyGuardStyles() {
+    if (document.getElementById('home-legacy-culture-guard')) return;
+
+    const style = document.createElement('style');
+    style.id = 'home-legacy-culture-guard';
+    style.textContent = `
+      #home-culture-v4,
+      #home-culture,
+      .hero-home .hero-copy > .feat-grid,
+      .leader-card-v2 > .leader-badges,
+      .leader-card-v2 > .leader-script {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
   }
 
-  function loadRescue() {
-    if (document.getElementById('home-visual-rescue-script')) return;
-    var rescue = document.createElement('script');
-    rescue.id = 'home-visual-rescue-script';
-    rescue.src = './home-visual-rescue.js?v=20260907-3';
-    document.head.appendChild(rescue);
+  function loadScript(src, onload, onerror) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = onload;
+    script.onerror = onerror || function () {};
+    document.head.appendChild(script);
   }
+
+  installLegacyGuardStyles();
+  suppressLegacyMarkup();
+
+  // Protect against any obsolete module being injected after initialization.
+  const observer = new MutationObserver(function () {
+    suppressLegacyMarkup();
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+
+  loadScript(
+    './home-visual-fix.js?v=20260907-5',
+    function () {
+      loadScript(
+        './home-menu-icons-core.js?v=20260907-5',
+        function () {
+          loadScript('./home-relevant.js?v=20260907-5');
+        },
+        function () {
+          loadScript('./home-relevant.js?v=20260907-5');
+        }
+      );
+    },
+    function () {
+      // Keep the homepage functional even if the visual compatibility layer fails.
+      loadScript('./home-menu-icons-core.js?v=20260907-5', function () {
+        loadScript('./home-relevant.js?v=20260907-5');
+      });
+    }
+  );
 })();
