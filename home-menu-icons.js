@@ -6,14 +6,14 @@
   'use strict';
 
   var visualFix = document.createElement('script');
-  visualFix.src = './home-visual-fix.js?v=20260907-5';
+  visualFix.src = './home-visual-fix.js?v=20260907-6';
   visualFix.onload = loadCore;
   visualFix.onerror = loadCore;
   document.head.appendChild(visualFix);
 
   function loadCore() {
     var core = document.createElement('script');
-    core.src = './home-menu-icons-core.js?v=20260907-5';
+    core.src = './home-menu-icons-core.js?v=20260907-6';
     core.onload = loadRelevant;
     core.onerror = loadRelevant;
     document.head.appendChild(core);
@@ -21,7 +21,7 @@
 
   function loadRelevant() {
     var relevant = document.createElement('script');
-    relevant.src = './home-relevant.js?v=20260907-5';
+    relevant.src = './home-relevant.js?v=20260907-6';
     relevant.onload = loadRescue;
     relevant.onerror = loadRescue;
     document.head.appendChild(relevant);
@@ -31,7 +31,7 @@
     if (document.getElementById('home-visual-rescue-script')) return;
     var rescue = document.createElement('script');
     rescue.id = 'home-visual-rescue-script';
-    rescue.src = './home-visual-rescue.js?v=20260907-1';
+    rescue.src = './home-visual-rescue.js?v=20260907-2';
     document.head.appendChild(rescue);
   }
 })();
