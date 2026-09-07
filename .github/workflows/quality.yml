@@ -1,0 +1,140 @@
+name: Repository Quality
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate site and scripts
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: false
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' files < <(find . -type f -name '*.js' -not -path './.git/*' -not -path './node_modules/*' -print0)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo 'No JavaScript files found.'
+            exit 0
+          fi
+          for file in "${files[@]}"; do
+            node --check "$file"
+          done
+          echo "PASS - JavaScript syntax checked: ${#files[@]} file(s)"
+
+      - name: Validate HTML structure and local assets
+        shell: python
+        run: |
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          import sys
+
+          root = Path('.')
+          html_files = sorted(root.glob('*.html'))
+          required = [root / 'index.html', root / 'informasi.html', root / 'program.html', root / 'script.js']
+          failures = []
+
+          for path in required:
+              if not path.exists():
+                  failures.append(f'Missing required file: {path}')
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.html_count = 0
+                  self.body_count = 0
+                  self.refs = []
+
+              def handle_starttag(self, tag, attrs):
+                  if tag == 'html':
+                      self.html_count += 1
+                  elif tag == 'body':
+                      self.body_count += 1
+                  attrs = dict(attrs)
+                  for key in ('src', 'href'):
+                      value = attrs.get(key)
+                      if value:
+                          self.refs.append(value)
+
+          allowed_external = ('http://', 'https://', '//', 'mailto:', 'tel:', 'javascript:', 'data:')
+          skipped_prefixes = ('#',)
+
+          for path in html_files:
+              text = path.read_text(encoding='utf-8')
+              parser = Parser()
+              try:
+                  parser.feed(text)
+                  parser.close()
+              except Exception as exc:
+                  failures.append(f'{path}: HTML parser error: {exc}')
+                  continue
+
+              if parser.html_count != 1:
+                  failures.append(f'{path}: expected exactly one <html>, found {parser.html_count}')
+              if parser.body_count != 1:
+                  failures.append(f'{path}: expected exactly one <body>, found {parser.body_count}')
+
+              protection_count = text.lower().count('content-protection.js')
+              if protection_count != 1:
+                  failures.append(f'{path}: expected exactly one content-protection.js reference, found {protection_count}')
+
+              for ref in parser.refs:
+                  ref = ref.strip()
+                  if not ref or ref.startswith(skipped_prefixes) or ref.startswith(allowed_external):
+                      continue
+                  parsed = urlsplit(ref)
+                  if parsed.scheme or parsed.netloc:
+                      continue
+                  clean = parsed.path.lstrip('/')
+                  if not clean:
+                      continue
+                  candidate = (root / clean).resolve()
+                  try:
+                      candidate.relative_to(root.resolve())
+                  except ValueError:
+                      continue
+                  if not candidate.exists():
+                      failures.append(f'{path}: broken local reference: {ref}')
+
+          if failures:
+              print('VALIDATION FAILED')
+              print('\n'.join(f'- {item}' for item in failures))
+              sys.exit(1)
+
+          print(f'PASS - HTML structure checked: {len(html_files)} root page(s)')
+          print('PASS - local HTML references resolve')
+          print('PASS - content protection is present exactly once per root HTML page')
+
+      - name: Check for whitespace errors
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --check; then
+            echo 'PASS - git diff --check'
+          fi
