@@ -1,89 +1,108 @@
 /*
- * Beranda — orchestrator for the homepage visual/menu modules.
- * Legacy culture markup is suppressed before the visual fixer runs so the old
- * 2029 feature icons and leader badges cannot flash during initialization.
+ * Beranda — lightweight orchestrator for homepage visual/menu modules.
+ * Culture visuals are static in index.html. The menu core keeps its existing
+ * behavior, but its legacy sprite requests are redirected to the HQ sprite so
+ * the homepage performs one sprite fetch instead of core + rescue double fetches.
  */
 (function () {
   'use strict';
 
-  const legacySelectors = [
-    '#home-culture-v4',
-    '#home-culture',
-    '.hero-home .hero-copy > .feat-grid',
-    '.leader-card-v2 > .leader-badges',
-    '.leader-card-v2 > .leader-script'
-  ];
+  var file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  if (file !== 'index.html' && file !== '') return;
 
-  function suppressLegacyMarkup() {
-    legacySelectors.forEach(function (selector) {
-      document.querySelectorAll(selector).forEach(function (element) {
-        element.remove();
+  function installHqSpriteRouting() {
+    if (window.__pkmHqSpriteRoutingInstalled) return;
+    window.__pkmHqSpriteRoutingInstalled = true;
+
+    var originalFetch = window.fetch.bind(window);
+    var legacyToHq = {
+      'sprite-56-part-01.txt': './assets/home-menu/sprite-hq-part-01.txt?v=20260907-rescue-5',
+      'sprite-56-part-02.txt': './assets/home-menu/sprite-hq-part-02.txt?v=20260907-rescue-5',
+      'pelayanan-custom.webp.txt': './assets/home-menu/pelayanan-custom.webp.txt?v=20260907-rescue-5'
+    };
+
+    window.fetch = function (input, init) {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      var replacement = null;
+
+      Object.keys(legacyToHq).some(function (legacyName) {
+        if (url.indexOf(legacyName) === -1) return false;
+        replacement = legacyToHq[legacyName];
+        return true;
       });
-    });
+
+      if (!replacement) return originalFetch(input, init);
+      return originalFetch(replacement, init);
+    };
   }
 
-  function installLegacyGuardStyles() {
-    if (document.getElementById('home-legacy-culture-guard')) return;
+  function installHqSpriteStyles() {
+    if (document.getElementById('home-hq-sprite-style')) return;
 
-    const style = document.createElement('style');
-    style.id = 'home-legacy-culture-guard';
-    style.textContent = `
-      #home-culture-v4,
-      #home-culture,
-      .hero-home .hero-copy > .feat-grid,
-      .leader-card-v2 > .leader-badges,
-      .leader-card-v2 > .leader-script {
-        display: none !important;
+    var style = document.createElement('style');
+    style.id = 'home-hq-sprite-style';
+    style.textContent = '
+      #home-menu10 .home-menu10-icon {
+        width:128px!important;
+        height:128px!important;
+        flex:0 0 128px!important;
+        background-repeat:no-repeat!important;
+        background-size:640px 256px!important;
+        background-attachment:scroll!important;
+        image-rendering:auto!important;
       }
-    `;
+      #home-menu10 .home-menu10-card:nth-child(2) .home-menu10-icon{background-position:0 0!important}
+      #home-menu10 .home-menu10-card:nth-child(3) .home-menu10-icon{background-position:-128px 0!important}
+      #home-menu10 .home-menu10-card:nth-child(4) .home-menu10-icon{background-position:-256px 0!important}
+      #home-menu10 .home-menu10-card:nth-child(5) .home-menu10-icon{background-position:-384px 0!important}
+      #home-menu10 .home-menu10-card:nth-child(6) .home-menu10-icon{background-position:-512px 0!important}
+      #home-menu10 .home-menu10-card:nth-child(7) .home-menu10-icon{background-position:0 -128px!important}
+      #home-menu10 .home-menu10-card:nth-child(8) .home-menu10-icon{background-position:-128px -128px!important}
+      #home-menu10 .home-menu10-card:nth-child(9) .home-menu10-icon{background-position:-256px -128px!important}
+      #home-menu10 .home-menu10-card:nth-child(10) .home-menu10-icon{background-position:-384px -128px!important}
+      @media(max-width:620px){
+        #home-menu10 .home-menu10-icon{
+          width:96px!important;
+          height:96px!important;
+          flex-basis:96px!important;
+          background-size:480px 192px!important;
+        }
+        #home-menu10 .home-menu10-card:nth-child(2) .home-menu10-icon{background-position:0 0!important}
+        #home-menu10 .home-menu10-card:nth-child(3) .home-menu10-icon{background-position:-96px 0!important}
+        #home-menu10 .home-menu10-card:nth-child(4) .home-menu10-icon{background-position:-192px 0!important}
+        #home-menu10 .home-menu10-card:nth-child(5) .home-menu10-icon{background-position:-288px 0!important}
+        #home-menu10 .home-menu10-card:nth-child(6) .home-menu10-icon{background-position:-384px 0!important}
+        #home-menu10 .home-menu10-card:nth-child(7) .home-menu10-icon{background-position:0 -96px!important}
+        #home-menu10 .home-menu10-card:nth-child(8) .home-menu10-icon{background-position:-96px -96px!important}
+        #home-menu10 .home-menu10-card:nth-child(9) .home-menu10-icon{background-position:-192px -96px!important}
+        #home-menu10 .home-menu10-card:nth-child(10) .home-menu10-icon{background-position:-288px -96px!important}
+      }
+    ';
     document.head.appendChild(style);
   }
 
   function loadScript(src, onload, onerror) {
-    const script = document.createElement('script');
+    var script = document.createElement('script');
     script.src = src;
     script.onload = onload;
     script.onerror = onerror || function () {};
     document.head.appendChild(script);
   }
 
-  function loadRescue() {
-    loadScript('./home-visual-rescue.js?v=20260907-6');
+  function loadCore() {
+    loadScript('./home-menu-icons-core.js?v=20260907-hq', function () {
+      installHqSpriteStyles();
+      loadScript('./home-relevant.js?v=20260907-5');
+    }, function () {
+      loadScript('./home-relevant.js?v=20260907-5');
+    });
   }
 
-  installLegacyGuardStyles();
-  suppressLegacyMarkup();
-
-  // Protect against any obsolete module being injected after initialization.
-  const observer = new MutationObserver(function () {
-    suppressLegacyMarkup();
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  installHqSpriteRouting();
 
   loadScript(
     './home-visual-fix.js?v=20260907-5',
-    function () {
-      loadScript(
-        './home-menu-icons-core.js?v=20260907-5',
-        function () {
-          loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
-        },
-        function () {
-          loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
-        }
-      );
-    },
-    function () {
-      // Keep the homepage functional even if the visual compatibility layer fails.
-      loadScript(
-        './home-menu-icons-core.js?v=20260907-5',
-        function () {
-          loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
-        },
-        function () {
-          loadRescue();
-        }
-      );
-    }
+    loadCore,
+    loadCore
   );
 })();
