@@ -10,12 +10,22 @@
   core.onload = function () {
     var relevant = document.createElement('script');
     relevant.src = './home-relevant.js?v=20260907-1';
+    relevant.onload = function () {
+      var layout = document.createElement('script');
+      layout.src = './home-layout-polish.js?v=20260907-1';
+      document.head.appendChild(layout);
+    };
     document.head.appendChild(relevant);
   };
   core.onerror = function () {
-    var fallback = document.createElement('script');
-    fallback.src = './home-relevant.js?v=20260907-1';
-    document.head.appendChild(fallback);
+    var relevant = document.createElement('script');
+    relevant.src = './home-relevant.js?v=20260907-1';
+    relevant.onload = function () {
+      var layout = document.createElement('script');
+      layout.src = './home-layout-polish.js?v=20260907-1';
+      document.head.appendChild(layout);
+    };
+    document.head.appendChild(relevant);
   };
   document.head.appendChild(core);
 })();
