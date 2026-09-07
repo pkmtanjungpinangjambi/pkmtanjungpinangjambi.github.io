@@ -1,0 +1,1 @@
+Source visual assets for the homepage culture-value marks are derived from the Library file `berakhlak.png` provided for the UPTD Puskesmas Tanjung Pinang project. The homepage uses separate BerAKHLAK and 5S crops from that source artwork.
