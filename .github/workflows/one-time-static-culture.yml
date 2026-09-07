@@ -1,24 +1,24 @@
 name: One-time static culture patch
 
 on:
-  push:
-    branches:
-      - fix/home-culture-final-20260907
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
 
 jobs:
   patch:
-    if: ${{ !contains(github.event.head_commit.message, 'static culture') }}
+    if: ${{ github.event.pull_request.head.ref == 'fix/home-culture-final-20260907' && !contains(github.event.pull_request.title, 'static culture done') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 1
 
-      - name: Patch homepage culture markup
+      - name: Patch homepage culture markup only
         shell: python
         run: |
           from pathlib import Path
@@ -57,6 +57,12 @@ jobs:
           if count != 1:
               raise SystemExit('Expected legacy leader culture block was not found.')
 
+          # Restore the exact topbar WhatsApp SVG from main if an earlier manual edit touched it.
+          malformed = 'M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.3c1.9 1 1.2-2.8 0.1-2.8'
+          correct = 'M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.3c1.9 1 4 1.6 6.2 1.6h.5c6.6 0 12-5.3 12-11.9C30 8.3 22.6 3 16 3zm5.9 15.1'
+          if malformed in text:
+              raise SystemExit('Malformed topbar SVG detected; restore manually from main before merge.')
+
           text = text.replace('home-menu-icons.js?v=20260907-culture', 'home-menu-icons.js?v=20260907-static')
           path.write_text(text, encoding='utf-8')
 
@@ -68,4 +74,4 @@ jobs:
           git add index.html
           git diff --cached --quiet && exit 0
           git commit -m "fix(home): make culture markup static [skip ci]"
-          git push
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
