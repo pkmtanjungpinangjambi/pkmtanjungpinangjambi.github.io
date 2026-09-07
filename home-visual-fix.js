@@ -50,9 +50,12 @@
         max-width:920px;
       }
       .hero-culture-card{
-        display:block;
+        display:flex;
+        align-items:center;
+        justify-content:center;
         min-width:0;
-        padding:8px;
+        min-height:216px;
+        padding:10px;
         border:1px solid #dfeae6;
         border-radius:18px;
         background:#fff;
@@ -68,10 +71,11 @@
         outline:none;
       }
       .hero-culture-mark{
-        width:100%;
-        height:auto;
-        max-height:285px;
         display:block;
+        width:auto;
+        height:auto;
+        max-width:300px;
+        max-height:200px;
         object-fit:contain;
         object-position:center;
         background:#fff;
@@ -81,8 +85,8 @@
       }
       @media(max-width:620px){
         .hero-culture-values{gap:10px;margin-top:15px;max-width:100%}
-        .hero-culture-card{border-radius:15px;padding:6px}
-        .hero-culture-mark{max-height:none}
+        .hero-culture-card{min-height:0;border-radius:15px;padding:8px}
+        .hero-culture-mark{max-width:100%;max-height:240px}
       }
     `;
     document.head.appendChild(style);
