@@ -1,4 +1,4 @@
-/* Homepage visual compatibility layer — tablet grid and Hero culture values. */
+/* Homepage visual compatibility layer — tablet grid, Hero culture values, and unified header. */
 (function () {
   'use strict';
 
@@ -31,6 +31,86 @@
     style.textContent = `
       @media (min-width:621px) and (max-width:980px){
         #home-menu10 .home-menu10-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function installUnifiedHeaderStyles() {
+    if (document.getElementById('home-unified-header-style')) return;
+    const style = document.createElement('style');
+    style.id = 'home-unified-header-style';
+    style.textContent = `
+      /* HEADER UNIFIED — Beranda mengikuti master header seluruh menu */
+      .site-header .nav-wrap .brand{
+        align-items:center!important;
+        align-self:center!important;
+        gap:0!important;
+        width:384px!important;
+        max-width:384px!important;
+        min-width:0!important;
+        height:91px!important;
+        flex:0 0 384px!important;
+        overflow:visible!important;
+      }
+      .site-header .nav-wrap .brand > span:not(.brand-mark){display:none!important}
+      .site-header .nav-wrap .brand .brand-mark{
+        width:384px!important;
+        height:91px!important;
+        min-width:384px!important;
+        max-width:384px!important;
+        flex:0 0 384px!important;
+        padding:0!important;
+        margin:0!important;
+        border:0!important;
+        border-radius:0!important;
+        background:transparent!important;
+        box-shadow:none!important;
+        overflow:visible!important;
+        display:block!important;
+      }
+      .site-header .nav-wrap .brand .brand-mark img{
+        content:url("./LOGO-KOTA-DINAS.PNG?v=20260907-header-unified")!important;
+        display:block!important;
+        width:384px!important;
+        height:91px!important;
+        min-width:384px!important;
+        max-width:none!important;
+        max-height:none!important;
+        object-fit:contain!important;
+        object-position:center!important;
+        margin:0!important;
+      }
+      .site-header .nav-wrap .nav{display:flex!important;align-items:center!important;gap:4px!important}
+      .site-header .nav-wrap .nav a{
+        padding:10px 13px!important;
+        border-radius:10px!important;
+        font-size:.9rem!important;
+        font-weight:700!important;
+        color:#3d514b!important;
+        background:transparent!important;
+        text-decoration:none!important;
+      }
+      .site-header .nav-wrap .nav a:hover,.site-header .nav-wrap .nav a.active{background:var(--green-100)!important;color:var(--green-900)!important}
+      .site-header .nav-wrap .nav .nav-cta{background:var(--green-900)!important;color:#fff!important;border:1px solid var(--green-900)!important}
+      .site-header .nav-wrap .nav .nav-cta:hover{background:var(--green-700)!important;color:#fff!important;border-color:var(--green-700)!important}
+      .site-header .nav-wrap .dropdown-caret-btn{background:transparent!important;color:#3d514b!important;border:0!important}
+      .site-header .nav-wrap .dropdown-caret-btn:hover{background:var(--green-100)!important;color:var(--green-900)!important}
+      @media(max-width:1180px){
+        .site-header .nav-wrap .brand{width:360px!important;max-width:360px!important;height:86px!important;flex-basis:360px!important}
+        .site-header .nav-wrap .brand .brand-mark{width:360px!important;height:86px!important;min-width:360px!important;max-width:360px!important;flex-basis:360px!important}
+        .site-header .nav-wrap .brand .brand-mark img{width:360px!important;height:86px!important;min-width:360px!important}
+        .site-header .nav-wrap .nav a{padding:9px 10px!important;font-size:.85rem!important}
+      }
+      @media(max-width:1024px){
+        .site-header .nav-wrap .nav-toggle{display:block!important}
+        .site-header .nav-wrap .nav{display:none!important;position:absolute!important;left:18px!important;right:18px!important;top:70px!important;background:#fff!important;border:1px solid var(--line)!important;border-radius:15px!important;padding:8px!important;box-shadow:var(--shadow)!important;flex-direction:column!important;align-items:stretch!important;z-index:70!important}
+        .site-header .nav-wrap .nav.open{display:flex!important}
+      }
+      @media(max-width:600px){
+        .site-header .nav-wrap .brand{width:282px!important;max-width:282px!important;height:67px!important;flex-basis:282px!important}
+        .site-header .nav-wrap .brand .brand-mark{width:282px!important;height:67px!important;min-width:282px!important;max-width:282px!important;flex-basis:282px!important}
+        .site-header .nav-wrap .brand .brand-mark img{width:282px!important;height:67px!important;min-width:282px!important}
       }
     `;
     document.head.appendChild(style);
@@ -149,6 +229,7 @@
   }
 
   function initVisualFix() {
+    installUnifiedHeaderStyles();
     installTabletGrid();
     installHeroCultureStyles();
     removeStandaloneCulture();
