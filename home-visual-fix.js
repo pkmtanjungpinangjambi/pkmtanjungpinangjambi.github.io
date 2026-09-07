@@ -1,4 +1,4 @@
-/* Homepage visual compatibility layer — tablet grid, sprite fallback, and Hero culture values. */
+/* Homepage visual compatibility layer — tablet grid and Hero culture values. */
 (function () {
   'use strict';
 
@@ -43,14 +43,14 @@
     style.textContent = `
       .hero-culture-values{
         display:grid;
-        grid-template-columns:repeat(2,minmax(0,170px));
+        grid-template-columns:repeat(2,minmax(0,210px));
         gap:14px;
         margin:18px 0 0;
       }
       .hero-culture-card{
         display:block;
         min-width:0;
-        padding:0;
+        padding:8px;
         border:1px solid #dfeae6;
         border-radius:18px;
         background:#fff;
@@ -69,16 +69,13 @@
         width:100%;
         height:170px;
         display:block;
-        background-color:#fff;
-        background-image:url('./assets/culture/berakhlak-5s.svg');
-        background-repeat:no-repeat;
-        background-size:200% auto;
+        object-fit:contain;
+        object-position:center;
+        background:#fff;
       }
-      .hero-culture-mark--berakhlak{background-position:left center}
-      .hero-culture-mark--5s{background-position:right center}
       @media(max-width:620px){
         .hero-culture-values{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}
-        .hero-culture-card{border-radius:15px}
+        .hero-culture-card{border-radius:15px;padding:6px}
         .hero-culture-mark{height:145px}
       }
       @media(max-width:380px){
@@ -113,25 +110,27 @@
     section.className = 'hero-culture-values';
     section.setAttribute('aria-label', 'Identitas budaya pelayanan');
 
-    const berakhlak = document.createElement('a');
-    berakhlak.className = 'hero-culture-card';
-    berakhlak.href = 'profil.html#motto-tata-nilai';
-    berakhlak.setAttribute('aria-label', 'Lihat tata nilai BerAKHLAK');
-    const berakhlakMark = document.createElement('span');
-    berakhlakMark.className = 'hero-culture-mark hero-culture-mark--berakhlak';
-    berakhlakMark.setAttribute('aria-hidden', 'true');
-    berakhlak.appendChild(berakhlakMark);
+    const createCultureCard = (src, alt, ariaLabel) => {
+      const card = document.createElement('a');
+      card.className = 'hero-culture-card';
+      card.href = 'profil.html#motto-tata-nilai';
+      card.setAttribute('aria-label', ariaLabel);
 
-    const fiveS = document.createElement('a');
-    fiveS.className = 'hero-culture-card';
-    fiveS.href = 'profil.html#motto-tata-nilai';
-    fiveS.setAttribute('aria-label', 'Lihat motto pelayanan 5S');
-    const fiveSMark = document.createElement('span');
-    fiveSMark.className = 'hero-culture-mark hero-culture-mark--5s';
-    fiveSMark.setAttribute('aria-hidden', 'true');
-    fiveS.appendChild(fiveSMark);
+      const image = document.createElement('img');
+      image.className = 'hero-culture-mark';
+      image.src = src;
+      image.alt = alt;
+      image.loading = 'eager';
+      image.decoding = 'async';
+      card.appendChild(image);
+      return card;
+    };
 
-    section.append(berakhlak, fiveS);
+    section.append(
+      createCultureCard('./assets/culture/akhlak.png', 'Nilai budaya pelayanan BerAKHLAK', 'Lihat tata nilai BerAKHLAK'),
+      createCultureCard('./assets/culture/5s.png', 'Motto pelayanan 5S: Senyum, Sapa, Salam, Sopan, Santun', 'Lihat motto pelayanan 5S')
+    );
+
     tagline.insertAdjacentElement('afterend', section);
     if (oldFeatures) oldFeatures.remove();
   }
