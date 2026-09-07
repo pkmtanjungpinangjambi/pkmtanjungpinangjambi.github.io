@@ -171,7 +171,11 @@ jobs:
             p.write_text(text, encoding='utf-8')
 
           root = ET.Element('urlset', {'xmlns':'http://www.sitemaps.org/schemas/sitemap/0.9'})
-          public_pages = sorted(p.name for p in Path('.').glob('*.html') if p.name != '404.html' and not p.name.startswith('_'))
+          excluded = {'404.html', 'profil-2.html', 'struktur.html'}
+          public_pages = sorted(
+            p.name for p in Path('.').glob('*.html')
+            if p.name not in excluded and not p.name.startswith('_') and not p.name.startswith('preview-')
+          )
           for name in public_pages:
             u = ORIGIN + ('/' if name == 'index.html' else '/' + name)
             ET.SubElement(ET.SubElement(root,'url'),'loc').text = u
