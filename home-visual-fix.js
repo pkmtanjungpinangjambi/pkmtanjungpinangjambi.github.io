@@ -43,9 +43,11 @@
     style.textContent = `
       .hero-culture-values{
         display:grid;
-        grid-template-columns:repeat(2,minmax(0,210px));
+        grid-template-columns:minmax(0,460px);
         gap:14px;
         margin:18px 0 0;
+        width:100%;
+        max-width:460px;
       }
       .hero-culture-card{
         display:block;
@@ -67,19 +69,45 @@
       }
       .hero-culture-mark{
         width:100%;
-        height:170px;
+        height:auto;
+        max-height:285px;
         display:block;
         object-fit:contain;
         object-position:center;
         background:#fff;
       }
-      @media(max-width:620px){
-        .hero-culture-values{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}
-        .hero-culture-card{border-radius:15px;padding:6px}
-        .hero-culture-mark{height:145px}
+      .leader-5s-link{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin:8px auto 0;
+        padding:4px 6px;
+        border-radius:16px;
+        text-decoration:none;
+        background:#fff;
+        border:1px solid #dfeae6;
+        box-shadow:0 6px 18px rgba(0,59,45,.06);
+        width:100%;
+        max-width:220px;
       }
-      @media(max-width:380px){
-        .hero-culture-mark{height:132px}
+      .leader-5s-link:hover,.leader-5s-link:focus-visible{
+        border-color:#b9ddd1;
+        box-shadow:0 10px 24px rgba(0,59,45,.1);
+        outline:none;
+      }
+      .leader-5s-image{
+        display:block;
+        width:100%;
+        max-width:180px;
+        height:auto;
+        object-fit:contain;
+      }
+      @media(max-width:620px){
+        .hero-culture-values{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:15px;max-width:100%}
+        .hero-culture-card{border-radius:15px;padding:6px}
+        .hero-culture-mark{max-height:none}
+        .leader-5s-link{max-width:195px}
+        .leader-5s-image{max-width:165px}
       }
     `;
     document.head.appendChild(style);
@@ -91,10 +119,34 @@
     });
   }
 
-  function removeLeaderCulture() {
-    document.querySelectorAll('.leader-badges').forEach(function (element) {
+  function normalizeLeaderCulture() {
+    const leaderCard = document.querySelector('.leader-card-v2');
+    if (!leaderCard) return;
+
+    leaderCard.querySelectorAll('.leader-badges, .leader-script').forEach(function (element) {
       element.remove();
     });
+
+    if (leaderCard.querySelector('#leader-5s-visual')) return;
+
+    const period = leaderCard.querySelector('.periode-text');
+    if (!period) return;
+
+    const link = document.createElement('a');
+    link.id = 'leader-5s-visual';
+    link.className = 'leader-5s-link';
+    link.href = 'profil.html#motto-tata-nilai';
+    link.setAttribute('aria-label', 'Lihat motto pelayanan 5S');
+
+    const image = document.createElement('img');
+    image.className = 'leader-5s-image';
+    image.src = './assets/culture/5s.png';
+    image.alt = 'Motto pelayanan 5S: Senyum, Sapa, Salam, Sopan, Santun';
+    image.loading = 'eager';
+    image.decoding = 'async';
+
+    link.appendChild(image);
+    period.insertAdjacentElement('afterend', link);
   }
 
   function installHeroCulture() {
@@ -110,26 +162,20 @@
     section.className = 'hero-culture-values';
     section.setAttribute('aria-label', 'Identitas budaya pelayanan');
 
-    const createCultureCard = (src, alt, ariaLabel) => {
-      const card = document.createElement('a');
-      card.className = 'hero-culture-card';
-      card.href = 'profil.html#motto-tata-nilai';
-      card.setAttribute('aria-label', ariaLabel);
+    const card = document.createElement('a');
+    card.className = 'hero-culture-card';
+    card.href = 'profil.html#motto-tata-nilai';
+    card.setAttribute('aria-label', 'Lihat tata nilai BerAKHLAK');
 
-      const image = document.createElement('img');
-      image.className = 'hero-culture-mark';
-      image.src = src;
-      image.alt = alt;
-      image.loading = 'eager';
-      image.decoding = 'async';
-      card.appendChild(image);
-      return card;
-    };
+    const image = document.createElement('img');
+    image.className = 'hero-culture-mark';
+    image.src = './assets/culture/akhlak.png';
+    image.alt = 'Nilai budaya pelayanan BerAKHLAK';
+    image.loading = 'eager';
+    image.decoding = 'async';
 
-    section.append(
-      createCultureCard('./assets/culture/akhlak.png', 'Nilai budaya pelayanan BerAKHLAK', 'Lihat tata nilai BerAKHLAK'),
-      createCultureCard('./assets/culture/5s.png', 'Motto pelayanan 5S: Senyum, Sapa, Salam, Sopan, Santun', 'Lihat motto pelayanan 5S')
-    );
+    card.appendChild(image);
+    section.appendChild(card);
 
     tagline.insertAdjacentElement('afterend', section);
     if (oldFeatures) oldFeatures.remove();
@@ -139,7 +185,7 @@
     installTabletGrid();
     installHeroCultureStyles();
     removeStandaloneCulture();
-    removeLeaderCulture();
+    normalizeLeaderCulture();
     installHeroCulture();
   }
 
