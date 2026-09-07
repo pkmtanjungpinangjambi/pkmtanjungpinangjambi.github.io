@@ -137,12 +137,4 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
-
-  var attempts = 0;
-  var timer = setInterval(function () {
-    attempts += 1;
-    init();
-    if (document.querySelectorAll('#home-menu10 .home-menu10-icon').length === 9 && document.querySelector('.custom-pelayanan')) clearInterval(timer);
-    if (attempts >= 12) clearInterval(timer);
-  }, 500);
 })();
