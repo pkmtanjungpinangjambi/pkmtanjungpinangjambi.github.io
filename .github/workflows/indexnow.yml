@@ -1,0 +1,115 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    name: Submit changed pages to IndexNow
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+
+      - name: Submit changed HTML URLs
+        shell: python
+        env:
+          INDEXNOW_KEY: c1cbf2cf615a622178735c37d863ddd5
+          INDEXNOW_KEY_LOCATION: https://pkmtanjungpinangjambi.vercel.app/indexnow-c1cbf2cf615a622178735c37d863ddd5.txt
+          SITEMAP_URL: https://pkmtanjungpinangjambi.vercel.app/sitemap.xml
+          GITHUB_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          import json
+          import os
+          import re
+          import subprocess
+          import urllib.error
+          import urllib.request
+          from pathlib import PurePosixPath
+
+          def run_git(*args):
+              return subprocess.check_output(['git', *args], text=True, stderr=subprocess.STDOUT)
+
+          before = os.environ.get('GITHUB_BEFORE') or ''
+          after = os.environ['GITHUB_SHA']
+          if not before or set(before) == {'0'}:
+              before = f'{after}^'
+
+          diff = run_git('diff', '--name-status', before, after).splitlines()
+          changed = []
+          for line in diff:
+              parts = line.split('\t')
+              if not parts:
+                  continue
+              for raw_path in parts[1:]:
+                  path = raw_path.strip()
+                  if not path.lower().endswith('.html'):
+                      continue
+                  name = PurePosixPath(path).name
+                  if '/' in path or name == '404.html':
+                      continue
+                  changed.append(name)
+
+          changed = sorted(set(changed))
+          if not changed:
+              print('No changed root HTML pages to submit.')
+              raise SystemExit(0)
+
+          try:
+              with urllib.request.urlopen(os.environ['SITEMAP_URL'], timeout=20) as response:
+                  sitemap_text = response.read().decode('utf-8')
+          except Exception as exc:
+              raise SystemExit(f'Unable to read sitemap.xml: {exc}')
+
+          locs = re.findall(r'<loc>\s*([^<]+?)\s*</loc>', sitemap_text)
+          if not locs:
+              raise SystemExit('Could not determine canonical host from sitemap.xml')
+          origin = locs[0].rstrip('/')
+          if not origin.startswith('https://'):
+              raise SystemExit(f'Sitemap origin is not HTTPS: {origin}')
+
+          urls = [origin + ('/' if name == 'index.html' else '/' + name) for name in changed]
+          payload = {
+              'host': origin.removeprefix('https://'),
+              'key': os.environ['INDEXNOW_KEY'],
+              'keyLocation': os.environ['INDEXNOW_KEY_LOCATION'],
+              'urlList': urls,
+          }
+          body = json.dumps(payload).encode('utf-8')
+
+          request = urllib.request.Request(
+              'https://api.indexnow.org/indexnow',
+              data=body,
+              method='POST',
+              headers={'Content-Type': 'application/json; charset=utf-8'},
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  status = response.status
+                  response_body = response.read().decode('utf-8', errors='replace')
+          except urllib.error.HTTPError as exc:
+              status = exc.code
+              response_body = exc.read().decode('utf-8', errors='replace')
+
+          print('Submitted URLs:')
+          for url in urls:
+              print(f'  {url}')
+          print(f'IndexNow response: HTTP {status}')
+          if response_body:
+              print(response_body[:1000])
+
+          if status not in (200, 202):
+              raise SystemExit(f'IndexNow submission failed with HTTP {status}')
