@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const originalFetch = window.fetch.bind(window.fetch);
+  const originalFetch = window.fetch.bind(window);
   window.fetch = function (input, init) {
     try {
       const url = typeof input === 'string' ? input : input && input.url;
