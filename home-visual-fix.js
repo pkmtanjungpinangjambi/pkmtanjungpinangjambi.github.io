@@ -1,4 +1,4 @@
-/* Homepage visual compatibility layer — tablet grid and Hero culture values. */
+/* Homepage visual compatibility layer — tablet grid, Hero culture values, and unified header. */
 (function () {
   'use strict';
 
@@ -41,7 +41,6 @@
     const style = document.createElement('style');
     style.id = 'home-unified-header-style';
     style.textContent = `
-      /* HEADER UNIFIED — Beranda mengikuti master header seluruh menu */
       .site-header .nav-wrap .brand{
         align-items:center!important;
         align-self:center!important;
