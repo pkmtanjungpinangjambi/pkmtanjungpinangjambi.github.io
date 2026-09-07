@@ -1,0 +1,203 @@
+name: SEO Audit
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Audit SEO foundations
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Validate SEO foundations
+        shell: python
+        run: |
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          import re
+          import sys
+          import xml.etree.ElementTree as ET
+
+          ROOT = Path('.')
+          EXCLUDED = {'404.html', 'preview-klaster-2-ibu.html', 'profil-2.html', 'struktur.html'}
+          FLAGSHIP = {'index.html', 'profil.html', 'pelayanan.html', 'jadwal.html', 'kontak.html'}
+          failures = []
+          warnings = []
+
+          class PageParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.lang = None
+                  self.title = ''
+                  self.description = ''
+                  self.robots = ''
+                  self.canonical = []
+                  self.h1_count = 0
+                  self.in_title = False
+
+              def handle_starttag(self, tag, attrs):
+                  attrs_dict = dict(attrs)
+                  if tag == 'html':
+                      self.lang = attrs_dict.get('lang')
+                  elif tag == 'title':
+                      self.in_title = True
+                  elif tag == 'h1':
+                      self.h1_count += 1
+                  elif tag == 'meta':
+                      name = (attrs_dict.get('name') or '').lower()
+                      if name == 'description':
+                          self.description = attrs_dict.get('content') or ''
+                      elif name == 'robots':
+                          self.robots = attrs_dict.get('content') or ''
+                  elif tag == 'link' and (attrs_dict.get('rel') or '').lower() == 'canonical':
+                      href = attrs_dict.get('href')
+                      if href:
+                          self.canonical.append(href.strip())
+
+              def handle_endtag(self, tag):
+                  if tag == 'title':
+                      self.in_title = False
+
+              def handle_data(self, data):
+                  if self.in_title:
+                      self.title += data
+
+          def add_issue(page, message, hard=False):
+              if hard or page.name in FLAGSHIP:
+                  failures.append(f'{page.name}: {message}')
+              else:
+                  warnings.append(f'{page.name}: {message}')
+
+          html_files = sorted(ROOT.glob('*.html'))
+          index = ROOT / 'index.html'
+          if not index.is_file():
+              failures.append('index.html is missing')
+              canonical_origin = None
+          else:
+              parser = PageParser()
+              parser.feed(index.read_text(encoding='utf-8'))
+              parser.close()
+              if len(parser.canonical) != 1:
+                  failures.append(f'index.html: expected exactly one canonical URL, found {len(parser.canonical)}')
+                  canonical_origin = None
+              else:
+                  parsed = urlsplit(parser.canonical[0])
+                  if parsed.scheme != 'https' or not parsed.netloc:
+                      failures.append(f'index.html: canonical must be absolute HTTPS: {parser.canonical[0]}')
+                      canonical_origin = None
+                  else:
+                      canonical_origin = f'{parsed.scheme}://{parsed.netloc}'
+
+          canonical_map = {}
+          for path in html_files:
+              if path.name in EXCLUDED:
+                  continue
+              parser = PageParser()
+              try:
+                  parser.feed(path.read_text(encoding='utf-8'))
+                  parser.close()
+              except Exception as exc:
+                  add_issue(path, f'HTML parsing failed: {exc}', hard=True)
+                  continue
+
+              title = ' '.join(parser.title.split())
+              description = ' '.join(parser.description.split())
+              if not title:
+                  add_issue(path, 'missing <title>')
+              if not description:
+                  add_issue(path, 'missing meta description')
+              if parser.lang != 'id':
+                  warnings.append(f'{path.name}: html lang is {parser.lang!r}, expected id')
+              if len(parser.canonical) != 1:
+                  add_issue(path, f'expected exactly one canonical URL, found {len(parser.canonical)}')
+              if re.search(r'(^|,)\s*noindex\b', parser.robots, re.I):
+                  add_issue(path, 'robots directive contains noindex', hard=True)
+              if parser.h1_count == 0:
+                  warnings.append(f'{path.name}: no H1 found')
+              if len(title) > 70:
+                  warnings.append(f'{path.name}: title is {len(title)} chars')
+              if len(description) > 170:
+                  warnings.append(f'{path.name}: description is {len(description)} chars')
+
+              if parser.canonical:
+                  canonical = parser.canonical[0]
+                  canonical_map.setdefault(canonical, []).append(path.name)
+                  parsed = urlsplit(canonical)
+                  if parsed.scheme != 'https' or not parsed.netloc:
+                      add_issue(path, f'canonical must be absolute HTTPS: {canonical}')
+                  elif canonical_origin and f'{parsed.scheme}://{parsed.netloc}' != canonical_origin:
+                      add_issue(path, f'canonical origin differs from homepage: {canonical}')
+
+          for canonical, pages in canonical_map.items():
+              if len(pages) > 1:
+                  failures.append(f'duplicate canonical URL {canonical} used by: {", ".join(pages)}')
+
+          robots = ROOT / 'robots.txt'
+          if not robots.is_file():
+              failures.append('robots.txt is missing')
+          else:
+              robots_text = robots.read_text(encoding='utf-8').lower()
+              if 'allow: /' not in robots_text:
+                  failures.append('robots.txt does not explicitly allow /')
+              if 'sitemap:' not in robots_text:
+                  failures.append('robots.txt does not advertise a sitemap')
+
+          sitemap = ROOT / 'sitemap.xml'
+          sitemap_urls = []
+          if not sitemap.is_file():
+              failures.append('sitemap.xml is missing')
+          else:
+              try:
+                  tree = ET.parse(sitemap)
+                  ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+                  sitemap_urls = [loc.text.strip() for loc in tree.getroot().findall('sm:url/sm:loc', ns) if loc.text and loc.text.strip()]
+                  if not sitemap_urls:
+                      failures.append('sitemap.xml contains no <loc> URLs')
+              except Exception as exc:
+                  failures.append(f'sitemap.xml is invalid XML: {exc}')
+
+          sitemap_seen = set()
+          for url in sitemap_urls:
+              parsed = urlsplit(url)
+              if canonical_origin and f'{parsed.scheme}://{parsed.netloc}' != canonical_origin:
+                  failures.append(f'sitemap.xml contains non-canonical origin: {url}')
+              if parsed.query or parsed.fragment:
+                  failures.append(f'sitemap.xml URL should not contain query/fragment: {url}')
+              if url in sitemap_seen:
+                  failures.append(f'sitemap.xml contains duplicate URL: {url}')
+              sitemap_seen.add(url)
+              path = parsed.path.strip('/') or 'index.html'
+              local = ROOT / path
+              if not local.is_file():
+                  failures.append(f'sitemap.xml references missing file: {path}')
+              if path in EXCLUDED:
+                  failures.append(f'sitemap.xml must not include excluded page: {path}')
+
+          print(f'HTML pages found: {len(html_files)}')
+          print(f'Indexable pages audited: {len([p for p in html_files if p.name not in EXCLUDED])}')
+          print(f'Sitemap URLs: {len(sitemap_urls)}')
+          print(f'Warnings: {len(warnings)}')
+          for item in warnings:
+              print(f'WARN - {item}')
+          if failures:
+              print('SEO AUDIT FAILED')
+              for item in failures:
+                  print(f'FAIL - {item}')
+              sys.exit(1)
+          print('SEO AUDIT PASSED')
