@@ -1,13 +1,13 @@
-/* Homepage visual rescue — native HQ sprite tiles + fresh culture assets. */
+/* Homepage visual rescue — render native 5x2 HQ sprite deterministically. */
 (function () {
   'use strict';
 
   var STYLE_ID = 'home-visual-rescue-style';
   var SPRITE_PARTS = [
-    './assets/home-menu/sprite-hq-part-01.txt?v=20260907-rescue-4',
-    './assets/home-menu/sprite-hq-part-02.txt?v=20260907-rescue-4'
+    './assets/home-menu/sprite-hq-part-01.txt?v=20260907-rescue-5',
+    './assets/home-menu/sprite-hq-part-02.txt?v=20260907-rescue-5'
   ];
-  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260907-rescue-4';
+  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260907-rescue-5';
   var MENU_ITEMS = [
     { title: 'Pelayanan', href: 'pelayanan.html', x: 0, y: 0, alt: 'Menu Pelayanan', custom: true },
     { title: 'Profil', href: 'profil.html', x: 1, y: 0, alt: 'Menu Profil' },
@@ -25,15 +25,17 @@
     if (document.getElementById(STYLE_ID)) return;
     var style = document.createElement('style');
     style.id = STYLE_ID;
-    style.textContent = '.hero-culture-mark,.leader-5s-image{filter:none!important;opacity:1!important;mix-blend-mode:normal!important;image-rendering:auto!important}.hero-culture-mark,.leader-5s-image{backface-visibility:hidden}#home-menu10 .home-menu10-icon{width:120px!important;height:120px!important;flex:0 0 120px!important;background-repeat:no-repeat!important;background-size:600px 240px!important;background-attachment:scroll!important;image-rendering:auto!important}@media(max-width:620px){#home-menu10 .home-menu10-icon{width:92px!important;height:92px!important;flex-basis:92px!important;background-size:460px 184px!important;background-position:var(--rescue-x-mobile) var(--rescue-y-mobile)!important}}';
+    style.textContent = '.hero-culture-mark,.leader-5s-image{filter:none!important;opacity:1!important;mix-blend-mode:normal!important;image-rendering:auto!important}.hero-culture-mark,.leader-5s-image{backface-visibility:hidden}#home-menu10 .home-menu10-icon{width:128px!important;height:128px!important;flex:0 0 128px!important;background-repeat:no-repeat!important;background-size:640px 256px!important;background-attachment:scroll!important;image-rendering:auto!important}@media(max-width:620px){#home-menu10 .home-menu10-icon{width:96px!important;height:96px!important;flex-basis:96px!important;background-size:480px 192px!important;background-position:var(--rescue-x-mobile) var(--rescue-y-mobile)!important}}';
     document.head.appendChild(style);
   }
 
   function bustCultureAssets() {
-    var stamp = '20260907-color-final-4';
+    var stamp = '20260907-color-final-5';
     document.querySelectorAll('.hero-culture-mark,.leader-5s-image').forEach(function (img) {
       var src = img.getAttribute('src') || '';
-      if (/assets\/culture\/(akhlak|5s)\.png(?:\?|$)/.test(src) && src.indexOf(stamp) === -1) img.src = src.split('?')[0] + '?v=' + stamp;
+      if (/assets\/culture\/(akhlak|5s)\.png(?:\?|$)/.test(src) && src.indexOf(stamp) === -1) {
+        img.src = src.split('?')[0] + '?v=' + stamp;
+      }
     });
   }
 
@@ -55,8 +57,8 @@
       icon.className = 'home-menu10-icon';
       icon.setAttribute('aria-hidden', 'true');
       icon.style.backgroundImage = spriteBackground;
-      icon.style.setProperty('--bg-x', (-84 * item.x) + 'px');
-      icon.style.setProperty('--bg-y', (-84 * item.y) + 'px');
+      icon.style.setProperty('--bg-x', (-128 * item.x) + 'px');
+      icon.style.setProperty('--bg-y', (-128 * item.y) + 'px');
       link.appendChild(icon);
     }
 
@@ -81,20 +83,19 @@
   function applySprite(spriteBase64) {
     var icons = Array.from(document.querySelectorAll('#home-menu10 .home-menu10-icon'));
     if (icons.length !== 9) return false;
-    var desktopTile = 120;
-    var mobileTile = 92;
+    var desktopTile = 128;
+    var mobileTile = 96;
     var background = 'url("data:image/webp;base64,' + spriteBase64 + '")';
     icons.forEach(function (icon, index) {
-      var x = MENU_ITEMS[index + 1].x;
-      var y = MENU_ITEMS[index + 1].y;
+      var item = MENU_ITEMS[index + 1];
       icon.style.backgroundImage = background;
-      icon.style.backgroundSize = '600px 240px';
-      icon.style.backgroundPosition = (-desktopTile * x) + 'px ' + (-desktopTile * y) + 'px';
+      icon.style.backgroundSize = '640px 256px';
+      icon.style.backgroundPosition = (-desktopTile * item.x) + 'px ' + (-desktopTile * item.y) + 'px';
       icon.style.width = desktopTile + 'px';
       icon.style.height = desktopTile + 'px';
       icon.style.flexBasis = desktopTile + 'px';
-      icon.style.setProperty('--rescue-x-mobile', (-mobileTile * x) + 'px');
-      icon.style.setProperty('--rescue-y-mobile', (-mobileTile * y) + 'px');
+      icon.style.setProperty('--rescue-x-mobile', (-mobileTile * item.x) + 'px');
+      icon.style.setProperty('--rescue-y-mobile', (-mobileTile * item.y) + 'px');
     });
     return true;
   }
@@ -117,14 +118,14 @@
         return response.text();
       })
     ]).then(function (results) {
-      var sprite = results[0].join('').trim();
-      var pelayanan = results[1].trim();
+      var sprite = results[0].join('').replace(/\s+/g, '');
+      var pelayanan = results[1].replace(/\s+/g, '').trim();
       if (!/^UklGR/.test(sprite)) throw new Error('Invalid HQ sprite');
       if (!/^UklGR/.test(pelayanan)) pelayanan = '';
       ensureAllCards(grid, sprite, pelayanan);
       applySprite(sprite);
     }).catch(function () {
-      /* The original loader remains the primary source of truth. */
+      /* Keep the core homepage loader untouched as fallback. */
     });
   }
 
