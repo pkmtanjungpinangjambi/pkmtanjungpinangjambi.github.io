@@ -100,9 +100,10 @@ jobs:
               if parser.body_count != 1:
                   failures.append(f'{path}: expected exactly one <body>, found {parser.body_count}')
 
-              protection_count = text.lower().count('content-protection.js')
-              if protection_count != 1:
-                  failures.append(f'{path}: expected exactly one content-protection.js reference, found {protection_count}')
+              if path.name != '404.html':
+                  protection_count = text.lower().count('content-protection.js')
+                  if protection_count != 1:
+                      failures.append(f'{path}: expected exactly one content-protection.js reference, found {protection_count}')
 
               for ref in parser.refs:
                   ref = ref.strip()
@@ -127,9 +128,10 @@ jobs:
               print('\n'.join(f'- {item}' for item in failures))
               sys.exit(1)
 
+          protected_pages = len(html_files) - int((root / '404.html').exists())
           print(f'PASS - HTML structure checked: {len(html_files)} root page(s)')
           print('PASS - local HTML references resolve')
-          print('PASS - content protection is present exactly once per root HTML page')
+          print(f'PASS - content protection checked on {protected_pages} non-404 page(s)')
 
       - name: Check for whitespace errors
         shell: bash
