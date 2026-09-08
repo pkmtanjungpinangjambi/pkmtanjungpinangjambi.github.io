@@ -1,8 +1,7 @@
 /*
- * Beranda — lightweight orchestrator for homepage visual/menu modules.
- * Culture visuals are static in index.html. The menu core keeps its existing
- * behavior, while the rescue renderer provides a deterministic fallback for
- * the nine sprite-based quick-access logos.
+ * Beranda — homepage visual orchestrator.
+ * The core renderer owns menu creation; rescue only runs when the rendered
+ * 10-card grid is incomplete, so the two paths never fight over the DOM.
  */
 (function () {
   'use strict';
@@ -10,37 +9,23 @@
   var file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   if (file !== 'index.html' && file !== '') return;
 
-  function installHqSpriteRouting() {
-    if (window.__pkmHqSpriteRoutingInstalled) return;
-    window.__pkmHqSpriteRoutingInstalled = true;
+  var CORE_SRC = './home-menu-icons-core.js?v=20260908-sprite-stable';
+  var RELEVANT_SRC = './home-relevant.js?v=20260907-5';
+  var RESCUE_SRC = './home-visual-rescue.js?v=20260908-rescue-4';
 
-    var originalFetch = window.fetch.bind(window);
-    var legacyToHq = {
-      'sprite-56-part-01.txt': './assets/home-menu/sprite-hq-part-01.txt?v=20260908-rescue-1',
-      'sprite-56-part-02.txt': './assets/home-menu/sprite-hq-part-02.txt?v=20260908-rescue-1',
-      'pelayanan-custom.webp.txt': './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-rescue-1'
-    };
-
-    window.fetch = function (input, init) {
-      var url = typeof input === 'string' ? input : (input && input.url) || '';
-      var replacement = null;
-
-      Object.keys(legacyToHq).some(function (legacyName) {
-        if (url.indexOf(legacyName) === -1) return false;
-        replacement = legacyToHq[legacyName];
-        return true;
-      });
-
-      if (!replacement) return originalFetch(input, init);
-      return originalFetch(replacement, init);
-    };
+  function loadScript(src, onload, onerror) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.onload = onload || function () {};
+    script.onerror = onerror || function () {};
+    document.head.appendChild(script);
   }
 
-  function installHqSpriteStyles() {
-    if (document.getElementById('home-hq-sprite-style')) return;
+  function installSpriteStyles() {
+    if (document.getElementById('home-sprite-style')) return;
 
     var style = document.createElement('style');
-    style.id = 'home-hq-sprite-style';
+    style.id = 'home-sprite-style';
     style.textContent = `
       #home-menu10 .home-menu10-icon {
         width:128px!important;
@@ -87,37 +72,37 @@
     });
   }
 
-  function loadScript(src, onload, onerror) {
-    var script = document.createElement('script');
-    script.src = src;
-    script.onload = onload;
-    script.onerror = onerror || function () {};
-    document.head.appendChild(script);
+  function hasCompleteMenu() {
+    var section = document.getElementById('home-menu10');
+    if (!section) return false;
+
+    var cards = section.querySelectorAll('.home-menu10-card');
+    var icons = section.querySelectorAll('.home-menu10-icon');
+    var pelayanan = section.querySelector('.custom-pelayanan .home-menu10-custom-icon');
+    if (cards.length !== 10 || icons.length !== 9 || !pelayanan) return false;
+    if (!pelayanan.getAttribute('src')) return false;
+
+    return Array.from(icons).every(function (icon) {
+      var background = getComputedStyle(icon).backgroundImage;
+      return background && background !== 'none';
+    });
   }
 
-  function loadRescue() {
-    loadScript('./home-visual-rescue.js?v=20260908-rescue-1');
+  function loadRescueWhenNeeded() {
+    window.setTimeout(function () {
+      if (!hasCompleteMenu()) loadScript(RESCUE_SRC);
+    }, 1200);
   }
 
   function loadRelevantThenRescue() {
-    loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
+    loadScript(RELEVANT_SRC, loadRescueWhenNeeded, loadRescueWhenNeeded);
   }
 
   function loadCore() {
     removeBerakhlakVisual();
-    loadScript('./home-menu-icons-core.js?v=20260908-hq', function () {
-      installHqSpriteStyles();
-      loadRelevantThenRescue();
-    }, function () {
-      loadRelevantThenRescue();
-    });
+    installSpriteStyles();
+    loadScript(CORE_SRC, loadRelevantThenRescue, loadRelevantThenRescue);
   }
 
-  installHqSpriteRouting();
-
-  loadScript(
-    './home-visual-fix.js?v=20260907-5',
-    loadCore,
-    loadCore
-  );
+  loadScript('./home-visual-fix.js?v=20260907-5', loadCore, loadCore);
 })();

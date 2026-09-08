@@ -1,13 +1,15 @@
-/* Homepage visual rescue — render native 5x2 HQ sprite deterministically. */
+/* Homepage visual rescue — single-owner fallback for the 10 quick-access cards. */
 (function () {
   'use strict';
 
   var STYLE_ID = 'home-visual-rescue-style';
+  var CANONICAL_SPRITE_WIDTH = 640;
+  var CANONICAL_SPRITE_HEIGHT = 256;
   var SPRITE_PARTS = [
-    './assets/home-menu/sprite-hq-part-01.txt?v=20260907-rescue-5',
-    './assets/home-menu/sprite-hq-part-02.txt?v=20260907-rescue-5'
+    './assets/home-menu/sprite-56-part-01.txt?v=20260908-sprite-stable',
+    './assets/home-menu/sprite-56-part-02.txt?v=20260908-sprite-stable'
   ];
-  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260907-rescue-5';
+  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-sprite-stable';
   var MENU_ITEMS = [
     { title: 'Pelayanan', href: 'pelayanan.html', x: 0, y: 0, alt: 'Menu Pelayanan', custom: true },
     { title: 'Profil', href: 'profil.html', x: 1, y: 0, alt: 'Menu Profil' },
@@ -36,6 +38,53 @@
       if (/assets\/culture\/(akhlak|5s)\.png(?:\?|$)/.test(src) && src.indexOf(stamp) === -1) {
         img.src = src.split('?')[0] + '?v=' + stamp;
       }
+    });
+  }
+
+  function normalizeBase64(value) {
+    return String(value || '').replace(/\s+/g, '').replace(/^data:image\/webp;base64,/i, '');
+  }
+
+  function getWebpInfo(value) {
+    var base64 = normalizeBase64(value);
+    if (!/^UklGR/.test(base64)) return null;
+
+    try {
+      var binary = atob(base64.slice(0, 40));
+      if (binary.slice(0, 4) !== 'RIFF' || binary.slice(8, 12) !== 'WEBP') return null;
+
+      var info = { width: null, height: null, chunk: binary.slice(12, 16) };
+      if (info.chunk === 'VP8X' && binary.length >= 30) {
+        info.width = 1 + binary.charCodeAt(24) + (binary.charCodeAt(25) << 8) + (binary.charCodeAt(26) << 16);
+        info.height = 1 + binary.charCodeAt(27) + (binary.charCodeAt(28) << 8) + (binary.charCodeAt(29) << 16);
+      }
+      return info;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function isCanonicalSprite(value) {
+    var base64 = normalizeBase64(value);
+    if (base64.length < 20000) return false;
+    var info = getWebpInfo(base64);
+    return !!info && info.chunk === 'VP8X' && info.width === CANONICAL_SPRITE_WIDTH && info.height === CANONICAL_SPRITE_HEIGHT;
+  }
+
+  function isWebp(value) {
+    return !!getWebpInfo(value);
+  }
+
+  function isAlreadyRendered(grid) {
+    var cards = grid.querySelectorAll('.home-menu10-card');
+    var icons = grid.querySelectorAll('.home-menu10-icon');
+    var pelayanan = grid.querySelector('.custom-pelayanan .home-menu10-custom-icon');
+    if (cards.length !== 10 || icons.length !== 9 || !pelayanan) return false;
+    if (!pelayanan.getAttribute('src')) return false;
+
+    return Array.from(icons).every(function (icon) {
+      var background = getComputedStyle(icon).backgroundImage;
+      return background && background !== 'none';
     });
   }
 
@@ -74,58 +123,63 @@
   }
 
   function ensureAllCards(grid, spriteBase64, pelayananBase64) {
-    if (grid.querySelectorAll('.home-menu10-icon').length === 9 && grid.querySelector('.custom-pelayanan')) return;
-    var background = spriteBase64 ? 'url("data:image/webp;base64,' + spriteBase64 + '")' : '';
+    if (isAlreadyRendered(grid)) return false;
+
+    var background = spriteBase64 ? 'url(\"data:image/webp;base64,' + spriteBase64 + '\")' : '';
     grid.textContent = '';
-    MENU_ITEMS.forEach(function (item) { grid.appendChild(buildMenuCard(item, background, pelayananBase64)); });
+    MENU_ITEMS.forEach(function (item) {
+      grid.appendChild(buildMenuCard(item, background, pelayananBase64));
+    });
+    return true;
   }
 
   function applySprite(spriteBase64) {
     var icons = Array.from(document.querySelectorAll('#home-menu10 .home-menu10-icon'));
     if (icons.length !== 9) return false;
-    var desktopTile = 128;
-    var mobileTile = 96;
-    var background = 'url("data:image/webp;base64,' + spriteBase64 + '")';
+
+    var background = 'url(\"data:image/webp;base64,' + spriteBase64 + '\")';
     icons.forEach(function (icon, index) {
       var item = MENU_ITEMS[index + 1];
       icon.style.backgroundImage = background;
       icon.style.backgroundSize = '640px 256px';
-      icon.style.backgroundPosition = (-desktopTile * item.x) + 'px ' + (-desktopTile * item.y) + 'px';
-      icon.style.width = desktopTile + 'px';
-      icon.style.height = desktopTile + 'px';
-      icon.style.flexBasis = desktopTile + 'px';
-      icon.style.setProperty('--rescue-x-mobile', (-mobileTile * item.x) + 'px');
-      icon.style.setProperty('--rescue-y-mobile', (-mobileTile * item.y) + 'px');
+      icon.style.backgroundPosition = (-128 * item.x) + 'px ' + (-128 * item.y) + 'px';
+      icon.style.width = '128px';
+      icon.style.height = '128px';
+      icon.style.flexBasis = '128px';
+      icon.style.setProperty('--rescue-x-mobile', (-96 * item.x) + 'px');
+      icon.style.setProperty('--rescue-y-mobile', (-96 * item.y) + 'px');
     });
     return true;
+  }
+
+  function loadText(url) {
+    return fetch(url, { cache: 'no-store' }).then(function (response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.text();
+    });
   }
 
   function loadAssets() {
     var section = document.getElementById('home-menu10');
     if (!section) return;
     var grid = section.querySelector('.home-menu10-grid');
-    if (!grid) return;
+    if (!grid || isAlreadyRendered(grid)) return;
 
     Promise.all([
-      Promise.all(SPRITE_PARTS.map(function (url) {
-        return fetch(url, { cache: 'no-store' }).then(function (response) {
-          if (!response.ok) throw new Error('HTTP ' + response.status);
-          return response.text();
-        });
-      })),
-      fetch(PELAYANAN_ICON_URL, { cache: 'no-store' }).then(function (response) {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.text();
-      })
+      Promise.all(SPRITE_PARTS.map(loadText)),
+      loadText(PELAYANAN_ICON_URL)
     ]).then(function (results) {
-      var sprite = results[0].join('').replace(/\s+/g, '');
-      var pelayanan = results[1].replace(/\s+/g, '').trim();
-      if (!/^UklGR/.test(sprite)) throw new Error('Invalid HQ sprite');
-      if (!/^UklGR/.test(pelayanan)) pelayanan = '';
+      var sprite = normalizeBase64(results[0].join(''));
+      var pelayanan = normalizeBase64(results[1]);
+
+      if (!isCanonicalSprite(sprite)) throw new Error('Non-canonical quick-access sprite');
+      if (!isWebp(pelayanan)) throw new Error('Invalid Pelayanan icon');
+
+      if (isAlreadyRendered(grid)) return;
       ensureAllCards(grid, sprite, pelayanan);
-      applySprite(sprite);
+      if (!applySprite(sprite)) throw new Error('Quick-access sprite mount failed');
     }).catch(function () {
-      /* Keep the core homepage loader untouched as fallback. */
+      /* Core renderer remains authoritative when the fallback cannot mount. */
     });
   }
 
