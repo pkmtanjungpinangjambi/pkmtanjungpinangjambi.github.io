@@ -81,6 +81,12 @@
     document.head.appendChild(style);
   }
 
+  function removeBerakhlakVisual() {
+    document.querySelectorAll('#hero-culture-values').forEach(function (element) {
+      element.remove();
+    });
+  }
+
   function loadScript(src, onload, onerror) {
     var script = document.createElement('script');
     script.src = src;
@@ -90,6 +96,7 @@
   }
 
   function loadCore() {
+    removeBerakhlakVisual();
     loadScript('./home-menu-icons-core.js?v=20260907-hq', function () {
       installHqSpriteStyles();
       loadScript('./home-relevant.js?v=20260907-5');
