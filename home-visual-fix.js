@@ -241,6 +241,15 @@
     document.head.appendChild(style);
   }
 
+  function upgradeCultureAssetPaths() {
+    document.querySelectorAll('.hero-culture-mark').forEach(function (image) {
+      image.src = './assets/culture/akhlak-hq.webp?v=20260908-hq';
+    });
+    document.querySelectorAll('.leader-5s-image').forEach(function (image) {
+      image.src = './assets/culture/5s-hq.webp?v=20260908-hq';
+    });
+  }
+
   function removeStandaloneCulture() {
     document.querySelectorAll('#home-culture-v4, #home-culture').forEach(function (element) {
       element.remove();
@@ -266,7 +275,7 @@
 
     const image = document.createElement('img');
     image.className = 'leader-5s-image';
-    image.src = './assets/culture/5s.png';
+    image.src = './assets/culture/5s-hq.webp';
     image.alt = 'Motto pelayanan 5S: Senyum, Sapa, Salam, Sopan, Santun';
     image.loading = 'eager';
     image.decoding = 'async';
@@ -296,7 +305,7 @@
 
     const image = document.createElement('img');
     image.className = 'hero-culture-mark';
-    image.src = './assets/culture/akhlak.png';
+    image.src = './assets/culture/akhlak-hq.webp';
     image.alt = 'Nilai budaya pelayanan BerAKHLAK';
     image.loading = 'eager';
     image.decoding = 'async';

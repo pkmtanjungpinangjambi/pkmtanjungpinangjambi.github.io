@@ -41,7 +41,7 @@
 
     var style = document.createElement('style');
     style.id = 'home-hq-sprite-style';
-    style.textContent = '
+    style.textContent = `
       #home-menu10 .home-menu10-icon {
         width:128px!important;
         height:128px!important;
@@ -77,7 +77,7 @@
         #home-menu10 .home-menu10-card:nth-child(9) .home-menu10-icon{background-position:-192px -96px!important}
         #home-menu10 .home-menu10-card:nth-child(10) .home-menu10-icon{background-position:-288px -96px!important}
       }
-    ';
+    `;
     document.head.appendChild(style);
   }
 
