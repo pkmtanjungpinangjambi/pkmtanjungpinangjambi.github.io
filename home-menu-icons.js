@@ -1,8 +1,8 @@
 /*
  * Beranda — lightweight orchestrator for homepage visual/menu modules.
  * Culture visuals are static in index.html. The menu core keeps its existing
- * behavior, but its legacy sprite requests are redirected to the HQ sprite so
- * the homepage performs one sprite fetch instead of core + rescue double fetches.
+ * behavior, while the rescue renderer provides a deterministic fallback for
+ * the nine sprite-based quick-access logos.
  */
 (function () {
   'use strict';
@@ -16,9 +16,9 @@
 
     var originalFetch = window.fetch.bind(window);
     var legacyToHq = {
-      'sprite-56-part-01.txt': './assets/home-menu/sprite-hq-part-01.txt?v=20260907-rescue-5',
-      'sprite-56-part-02.txt': './assets/home-menu/sprite-hq-part-02.txt?v=20260907-rescue-5',
-      'pelayanan-custom.webp.txt': './assets/home-menu/pelayanan-custom.webp.txt?v=20260907-rescue-5'
+      'sprite-56-part-01.txt': './assets/home-menu/sprite-hq-part-01.txt?v=20260908-rescue-1',
+      'sprite-56-part-02.txt': './assets/home-menu/sprite-hq-part-02.txt?v=20260908-rescue-1',
+      'pelayanan-custom.webp.txt': './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-rescue-1'
     };
 
     window.fetch = function (input, init) {
@@ -95,13 +95,21 @@
     document.head.appendChild(script);
   }
 
+  function loadRescue() {
+    loadScript('./home-visual-rescue.js?v=20260908-rescue-1');
+  }
+
+  function loadRelevantThenRescue() {
+    loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
+  }
+
   function loadCore() {
     removeBerakhlakVisual();
-    loadScript('./home-menu-icons-core.js?v=20260907-hq', function () {
+    loadScript('./home-menu-icons-core.js?v=20260908-hq', function () {
       installHqSpriteStyles();
-      loadScript('./home-relevant.js?v=20260907-5');
+      loadRelevantThenRescue();
     }, function () {
-      loadScript('./home-relevant.js?v=20260907-5');
+      loadRelevantThenRescue();
     });
   }
 
