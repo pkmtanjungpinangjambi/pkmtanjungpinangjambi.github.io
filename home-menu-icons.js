@@ -11,7 +11,7 @@
 
   var CORE_SRC = './home-menu-icons-core.js?v=20260908-sprite-stable';
   var RELEVANT_SRC = './home-relevant.js?v=20260907-5';
-  var RESCUE_SRC = './home-visual-rescue.js?v=20260908-rescue-3';
+  var RESCUE_SRC = './home-visual-rescue.js?v=20260908-rescue-4';
 
   function loadScript(src, onload, onerror) {
     var script = document.createElement('script');
@@ -78,7 +78,9 @@
 
     var cards = section.querySelectorAll('.home-menu10-card');
     var icons = section.querySelectorAll('.home-menu10-icon');
-    if (cards.length !== 10 || icons.length !== 9) return false;
+    var pelayanan = section.querySelector('.custom-pelayanan .home-menu10-custom-icon');
+    if (cards.length !== 10 || icons.length !== 9 || !pelayanan) return false;
+    if (!pelayanan.getAttribute('src')) return false;
 
     return Array.from(icons).every(function (icon) {
       var background = getComputedStyle(icon).backgroundImage;

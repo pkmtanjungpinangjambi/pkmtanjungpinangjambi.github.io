@@ -45,18 +45,20 @@
     return String(value || '').replace(/\s+/g, '').replace(/^data:image\/webp;base64,/i, '');
   }
 
-  function getWebpDimensions(value) {
+  function getWebpInfo(value) {
     var base64 = normalizeBase64(value);
     if (!/^UklGR/.test(base64)) return null;
 
     try {
       var binary = atob(base64.slice(0, 40));
       if (binary.slice(0, 4) !== 'RIFF' || binary.slice(8, 12) !== 'WEBP') return null;
-      if (binary.slice(12, 16) !== 'VP8X') return null;
 
-      var width = 1 + binary.charCodeAt(24) + (binary.charCodeAt(25) << 8) + (binary.charCodeAt(26) << 16);
-      var height = 1 + binary.charCodeAt(27) + (binary.charCodeAt(28) << 8) + (binary.charCodeAt(29) << 16);
-      return { width: width, height: height };
+      var info = { width: null, height: null, chunk: binary.slice(12, 16) };
+      if (info.chunk === 'VP8X' && binary.length >= 30) {
+        info.width = 1 + binary.charCodeAt(24) + (binary.charCodeAt(25) << 8) + (binary.charCodeAt(26) << 16);
+        info.height = 1 + binary.charCodeAt(27) + (binary.charCodeAt(28) << 8) + (binary.charCodeAt(29) << 16);
+      }
+      return info;
     } catch (error) {
       return null;
     }
@@ -65,19 +67,20 @@
   function isCanonicalSprite(value) {
     var base64 = normalizeBase64(value);
     if (base64.length < 20000) return false;
-    var dimensions = getWebpDimensions(base64);
-    return !!dimensions && dimensions.width === CANONICAL_SPRITE_WIDTH && dimensions.height === CANONICAL_SPRITE_HEIGHT;
+    var info = getWebpInfo(base64);
+    return !!info && info.chunk === 'VP8X' && info.width === CANONICAL_SPRITE_WIDTH && info.height === CANONICAL_SPRITE_HEIGHT;
   }
 
   function isWebp(value) {
-    var dimensions = getWebpDimensions(value);
-    return !!dimensions;
+    return !!getWebpInfo(value);
   }
 
   function isAlreadyRendered(grid) {
     var cards = grid.querySelectorAll('.home-menu10-card');
     var icons = grid.querySelectorAll('.home-menu10-icon');
-    if (cards.length !== 10 || icons.length !== 9) return false;
+    var pelayanan = grid.querySelector('.custom-pelayanan .home-menu10-custom-icon');
+    if (cards.length !== 10 || icons.length !== 9 || !pelayanan) return false;
+    if (!pelayanan.getAttribute('src')) return false;
 
     return Array.from(icons).every(function (icon) {
       var background = getComputedStyle(icon).backgroundImage;
