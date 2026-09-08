@@ -133,7 +133,7 @@
         align-items:center;
         justify-content:center;
         min-width:0;
-        min-height:216px;
+        min-height:260px;
         padding:10px;
         border:1px solid #dfeae6;
         border-radius:18px;
@@ -154,7 +154,7 @@
         width:auto;
         height:auto;
         max-width:100%;
-        max-height:200px;
+        max-height:240px;
         object-fit:contain;
         object-position:center;
         background:#fff;
@@ -171,7 +171,7 @@
         border:1px solid #dfeae6;
         box-shadow:0 6px 18px rgba(0,59,45,.06);
         width:100%;
-        max-width:220px;
+        max-width:264px;
       }
       .leader-5s-link:hover,.leader-5s-link:focus-visible{
         border-color:#b9ddd1;
@@ -181,7 +181,7 @@
       .leader-5s-image{
         display:block;
         width:100%;
-        max-width:180px;
+        max-width:216px;
         height:auto;
         object-fit:contain;
       }
@@ -233,12 +233,21 @@
       @media(max-width:620px){
         .hero-culture-values{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:15px;max-width:100%}
         .hero-culture-card{min-height:0;border-radius:15px;padding:8px}
-        .hero-culture-mark{max-width:100%;max-height:240px}
-        .leader-5s-link{max-width:195px}
-        .leader-5s-image{max-width:165px}
+        .hero-culture-mark{max-width:100%;max-height:288px}
+        .leader-5s-link{max-width:234px}
+        .leader-5s-image{max-width:198px}
       }
     `;
     document.head.appendChild(style);
+  }
+
+  function upgradeCultureAssetPaths() {
+    document.querySelectorAll('.hero-culture-mark').forEach(function (image) {
+      image.src = './assets/culture/akhlak-hq.webp?v=20260908-hq';
+    });
+    document.querySelectorAll('.leader-5s-image').forEach(function (image) {
+      image.src = './assets/culture/5s-hq.webp?v=20260908-hq';
+    });
   }
 
   function removeStandaloneCulture() {
@@ -266,7 +275,7 @@
 
     const image = document.createElement('img');
     image.className = 'leader-5s-image';
-    image.src = './assets/culture/5s.png';
+    image.src = './assets/culture/5s-hq.webp';
     image.alt = 'Motto pelayanan 5S: Senyum, Sapa, Salam, Sopan, Santun';
     image.loading = 'eager';
     image.decoding = 'async';
@@ -296,7 +305,7 @@
 
     const image = document.createElement('img');
     image.className = 'hero-culture-mark';
-    image.src = './assets/culture/akhlak.png';
+    image.src = './assets/culture/akhlak-hq.webp';
     image.alt = 'Nilai budaya pelayanan BerAKHLAK';
     image.loading = 'eager';
     image.decoding = 'async';
