@@ -457,6 +457,26 @@ body{background:#f7faf8}
 .site-header .nav-wrap .nav{display:none!important;position:absolute!important;left:18px!important;right:18px!important;top:70px!important;background:#fff!important;border:1px solid var(--line)!important;border-radius:15px!important;padding:8px!important;box-shadow:var(--shadow)!important;flex-direction:column!important;align-items:stretch!important;z-index:70!important}
 .site-header .nav-wrap .nav.open{display:flex!important}
 }
+/* ===== HERO CULTURE — BerAKHLAK & 5S ===== */
+.hero-culture-values{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.hero-culture-card{display:inline-flex;border-radius:14px;overflow:hidden;border:1px solid rgba(11,122,75,.12);background:#fff;box-shadow:0 6px 18px rgba(0,59,45,.08);transition:transform .25s,box-shadow .25s;text-decoration:none;flex:0 0 auto}
+.hero-culture-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,59,45,.14)}
+.hero-culture-mark{width:180px;height:auto;display:block;object-fit:contain}
+.leader-5s-link{display:block;margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid rgba(11,122,75,.1);background:#fff;box-shadow:0 6px 14px rgba(0,59,45,.08);transition:transform .25s,box-shadow .25s;text-decoration:none}
+.leader-5s-link:hover{transform:scale(1.02);box-shadow:0 10px 22px rgba(0,59,45,.14)}
+.leader-5s-image{width:100%;max-width:200px;height:auto;display:block;margin:0 auto;object-fit:contain}
+
+@media(max-width:900px){
+.hero-culture-mark{width:150px}
+.leader-5s-image{max-width:170px}
+}
+@media(max-width:600px){
+.hero-culture-values{justify-content:center}
+.hero-culture-mark{width:140px}
+.leader-5s-image{max-width:150px}
+}
+
+/* ===== RESPONSIF ===== */
 @media(max-width:600px){
 .site-header .nav-wrap .brand{width:282px!important;max-width:282px!important;height:67px!important;flex-basis:282px!important}
 .site-header .nav-wrap .brand .brand-mark{width:282px!important;height:67px!important;min-width:282px!important;max-width:282px!important;flex-basis:282px!important}
