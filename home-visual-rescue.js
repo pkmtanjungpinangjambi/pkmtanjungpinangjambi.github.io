@@ -1,13 +1,13 @@
-/* Homepage visual rescue — render native 5x2 HQ sprite deterministically. */
+/* Homepage visual rescue — render the known-valid legacy 5x2 sprite deterministically. */
 (function () {
   'use strict';
 
   var STYLE_ID = 'home-visual-rescue-style';
   var SPRITE_PARTS = [
-    './assets/home-menu/sprite-hq-part-01.txt?v=20260907-rescue-5',
-    './assets/home-menu/sprite-hq-part-02.txt?v=20260907-rescue-5'
+    './assets/home-menu/sprite-56-part-01.txt?v=20260908-valid-sprite',
+    './assets/home-menu/sprite-56-part-02.txt?v=20260908-valid-sprite'
   ];
-  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260907-rescue-5';
+  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-valid-sprite';
   var MENU_ITEMS = [
     { title: 'Pelayanan', href: 'pelayanan.html', x: 0, y: 0, alt: 'Menu Pelayanan', custom: true },
     { title: 'Profil', href: 'profil.html', x: 1, y: 0, alt: 'Menu Profil' },
@@ -59,6 +59,8 @@
       icon.style.backgroundImage = spriteBackground;
       icon.style.setProperty('--bg-x', (-128 * item.x) + 'px');
       icon.style.setProperty('--bg-y', (-128 * item.y) + 'px');
+      icon.style.setProperty('--rescue-x-mobile', (-96 * item.x) + 'px');
+      icon.style.setProperty('--rescue-y-mobile', (-96 * item.y) + 'px');
       link.appendChild(icon);
     }
 
@@ -100,6 +102,30 @@
     return true;
   }
 
+  function loadText(url) {
+    return fetch(url, { cache: 'no-store' }).then(function (response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.text();
+    });
+  }
+
+  function normalizeBase64(value) {
+    return String(value || '').replace(/\s+/g, '').replace(/^data:image\/webp;base64,/i, '');
+  }
+
+  function isCompleteWebpBase64(value) {
+    var base64 = normalizeBase64(value);
+    if (!/^UklGR/.test(base64)) return false;
+    try {
+      var binary = atob(base64.slice(0, 64));
+      if (binary.slice(0, 4) !== 'RIFF' || binary.slice(8, 12) !== 'WEBP') return false;
+      if (base64.length < 20000) return false;
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   function loadAssets() {
     var section = document.getElementById('home-menu10');
     if (!section) return;
@@ -107,25 +133,17 @@
     if (!grid) return;
 
     Promise.all([
-      Promise.all(SPRITE_PARTS.map(function (url) {
-        return fetch(url, { cache: 'no-store' }).then(function (response) {
-          if (!response.ok) throw new Error('HTTP ' + response.status);
-          return response.text();
-        });
-      })),
-      fetch(PELAYANAN_ICON_URL, { cache: 'no-store' }).then(function (response) {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.text();
-      })
+      Promise.all(SPRITE_PARTS.map(loadText)),
+      loadText(PELAYANAN_ICON_URL)
     ]).then(function (results) {
-      var sprite = results[0].join('').replace(/\s+/g, '');
-      var pelayanan = results[1].replace(/\s+/g, '').trim();
-      if (!/^UklGR/.test(sprite)) throw new Error('Invalid HQ sprite');
-      if (!/^UklGR/.test(pelayanan)) pelayanan = '';
+      var sprite = normalizeBase64(results[0].join(''));
+      var pelayanan = normalizeBase64(results[1]);
+      if (!isCompleteWebpBase64(sprite)) throw new Error('Legacy sprite invalid');
+      if (!isCompleteWebpBase64(pelayanan)) pelayanan = '';
       ensureAllCards(grid, sprite, pelayanan);
-      applySprite(sprite);
+      if (!applySprite(sprite)) throw new Error('Nine sprite icons were not mounted');
     }).catch(function () {
-      /* Keep the core homepage loader untouched as fallback. */
+      /* Leave any already-rendered core cards intact. */
     });
   }
 

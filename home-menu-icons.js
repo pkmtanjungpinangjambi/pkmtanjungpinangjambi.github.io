@@ -2,7 +2,7 @@
  * Beranda — lightweight orchestrator for homepage visual/menu modules.
  * Culture visuals are static in index.html. The menu core keeps its existing
  * behavior, while the rescue renderer provides a deterministic fallback for
- * the nine sprite-based quick-access logos.
+ * sprite-based quick-access logos.
  */
 (function () {
   'use strict';
@@ -10,37 +10,11 @@
   var file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   if (file !== 'index.html' && file !== '') return;
 
-  function installHqSpriteRouting() {
-    if (window.__pkmHqSpriteRoutingInstalled) return;
-    window.__pkmHqSpriteRoutingInstalled = true;
-
-    var originalFetch = window.fetch.bind(window);
-    var legacyToHq = {
-      'sprite-56-part-01.txt': './assets/home-menu/sprite-hq-part-01.txt?v=20260908-rescue-1',
-      'sprite-56-part-02.txt': './assets/home-menu/sprite-hq-part-02.txt?v=20260908-rescue-1',
-      'pelayanan-custom.webp.txt': './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-rescue-1'
-    };
-
-    window.fetch = function (input, init) {
-      var url = typeof input === 'string' ? input : (input && input.url) || '';
-      var replacement = null;
-
-      Object.keys(legacyToHq).some(function (legacyName) {
-        if (url.indexOf(legacyName) === -1) return false;
-        replacement = legacyToHq[legacyName];
-        return true;
-      });
-
-      if (!replacement) return originalFetch(input, init);
-      return originalFetch(replacement, init);
-    };
-  }
-
-  function installHqSpriteStyles() {
-    if (document.getElementById('home-hq-sprite-style')) return;
+  function installSpriteStyles() {
+    if (document.getElementById('home-sprite-style')) return;
 
     var style = document.createElement('style');
-    style.id = 'home-hq-sprite-style';
+    style.id = 'home-sprite-style';
     style.textContent = `
       #home-menu10 .home-menu10-icon {
         width:128px!important;
@@ -96,7 +70,7 @@
   }
 
   function loadRescue() {
-    loadScript('./home-visual-rescue.js?v=20260908-rescue-1');
+    loadScript('./home-visual-rescue.js?v=20260908-fallback-2');
   }
 
   function loadRelevantThenRescue() {
@@ -105,15 +79,14 @@
 
   function loadCore() {
     removeBerakhlakVisual();
-    loadScript('./home-menu-icons-core.js?v=20260908-hq', function () {
-      installHqSpriteStyles();
+    loadScript('./home-menu-icons-core.js?v=20260908-valid-sprite', function () {
+      installSpriteStyles();
       loadRelevantThenRescue();
     }, function () {
+      installSpriteStyles();
       loadRelevantThenRescue();
     });
   }
-
-  installHqSpriteRouting();
 
   loadScript(
     './home-visual-fix.js?v=20260907-5',
