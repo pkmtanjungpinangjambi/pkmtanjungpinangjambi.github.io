@@ -1,13 +1,15 @@
-/* Homepage visual rescue — render the known-valid legacy 5x2 sprite deterministically. */
+/* Homepage visual rescue — single-owner fallback for the 10 quick-access cards. */
 (function () {
   'use strict';
 
   var STYLE_ID = 'home-visual-rescue-style';
+  var CANONICAL_SPRITE_WIDTH = 640;
+  var CANONICAL_SPRITE_HEIGHT = 256;
   var SPRITE_PARTS = [
-    './assets/home-menu/sprite-56-part-01.txt?v=20260908-valid-sprite',
-    './assets/home-menu/sprite-56-part-02.txt?v=20260908-valid-sprite'
+    './assets/home-menu/sprite-56-part-01.txt?v=20260908-sprite-stable',
+    './assets/home-menu/sprite-56-part-02.txt?v=20260908-sprite-stable'
   ];
-  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-valid-sprite';
+  var PELAYANAN_ICON_URL = './assets/home-menu/pelayanan-custom.webp.txt?v=20260908-sprite-stable';
   var MENU_ITEMS = [
     { title: 'Pelayanan', href: 'pelayanan.html', x: 0, y: 0, alt: 'Menu Pelayanan', custom: true },
     { title: 'Profil', href: 'profil.html', x: 1, y: 0, alt: 'Menu Profil' },
@@ -39,6 +41,50 @@
     });
   }
 
+  function normalizeBase64(value) {
+    return String(value || '').replace(/\s+/g, '').replace(/^data:image\/webp;base64,/i, '');
+  }
+
+  function getWebpDimensions(value) {
+    var base64 = normalizeBase64(value);
+    if (!/^UklGR/.test(base64)) return null;
+
+    try {
+      var binary = atob(base64.slice(0, 40));
+      if (binary.slice(0, 4) !== 'RIFF' || binary.slice(8, 12) !== 'WEBP') return null;
+      if (binary.slice(12, 16) !== 'VP8X') return null;
+
+      var width = 1 + binary.charCodeAt(24) + (binary.charCodeAt(25) << 8) + (binary.charCodeAt(26) << 16);
+      var height = 1 + binary.charCodeAt(27) + (binary.charCodeAt(28) << 8) + (binary.charCodeAt(29) << 16);
+      return { width: width, height: height };
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function isCanonicalSprite(value) {
+    var base64 = normalizeBase64(value);
+    if (base64.length < 20000) return false;
+    var dimensions = getWebpDimensions(base64);
+    return !!dimensions && dimensions.width === CANONICAL_SPRITE_WIDTH && dimensions.height === CANONICAL_SPRITE_HEIGHT;
+  }
+
+  function isWebp(value) {
+    var dimensions = getWebpDimensions(value);
+    return !!dimensions;
+  }
+
+  function isAlreadyRendered(grid) {
+    var cards = grid.querySelectorAll('.home-menu10-card');
+    var icons = grid.querySelectorAll('.home-menu10-icon');
+    if (cards.length !== 10 || icons.length !== 9) return false;
+
+    return Array.from(icons).every(function (icon) {
+      var background = getComputedStyle(icon).backgroundImage;
+      return background && background !== 'none';
+    });
+  }
+
   function buildMenuCard(item, spriteBackground, pelayananBase64) {
     var link = document.createElement('a');
     link.className = 'home-menu10-card' + (item.custom ? ' custom-pelayanan' : '');
@@ -59,8 +105,6 @@
       icon.style.backgroundImage = spriteBackground;
       icon.style.setProperty('--bg-x', (-128 * item.x) + 'px');
       icon.style.setProperty('--bg-y', (-128 * item.y) + 'px');
-      icon.style.setProperty('--rescue-x-mobile', (-96 * item.x) + 'px');
-      icon.style.setProperty('--rescue-y-mobile', (-96 * item.y) + 'px');
       link.appendChild(icon);
     }
 
@@ -76,28 +120,31 @@
   }
 
   function ensureAllCards(grid, spriteBase64, pelayananBase64) {
-    if (grid.querySelectorAll('.home-menu10-icon').length === 9 && grid.querySelector('.custom-pelayanan')) return;
-    var background = spriteBase64 ? 'url("data:image/webp;base64,' + spriteBase64 + '")' : '';
+    if (isAlreadyRendered(grid)) return false;
+
+    var background = spriteBase64 ? 'url(\"data:image/webp;base64,' + spriteBase64 + '\")' : '';
     grid.textContent = '';
-    MENU_ITEMS.forEach(function (item) { grid.appendChild(buildMenuCard(item, background, pelayananBase64)); });
+    MENU_ITEMS.forEach(function (item) {
+      grid.appendChild(buildMenuCard(item, background, pelayananBase64));
+    });
+    return true;
   }
 
   function applySprite(spriteBase64) {
     var icons = Array.from(document.querySelectorAll('#home-menu10 .home-menu10-icon'));
     if (icons.length !== 9) return false;
-    var desktopTile = 128;
-    var mobileTile = 96;
-    var background = 'url("data:image/webp;base64,' + spriteBase64 + '")';
+
+    var background = 'url(\"data:image/webp;base64,' + spriteBase64 + '\")';
     icons.forEach(function (icon, index) {
       var item = MENU_ITEMS[index + 1];
       icon.style.backgroundImage = background;
       icon.style.backgroundSize = '640px 256px';
-      icon.style.backgroundPosition = (-desktopTile * item.x) + 'px ' + (-desktopTile * item.y) + 'px';
-      icon.style.width = desktopTile + 'px';
-      icon.style.height = desktopTile + 'px';
-      icon.style.flexBasis = desktopTile + 'px';
-      icon.style.setProperty('--rescue-x-mobile', (-mobileTile * item.x) + 'px');
-      icon.style.setProperty('--rescue-y-mobile', (-mobileTile * item.y) + 'px');
+      icon.style.backgroundPosition = (-128 * item.x) + 'px ' + (-128 * item.y) + 'px';
+      icon.style.width = '128px';
+      icon.style.height = '128px';
+      icon.style.flexBasis = '128px';
+      icon.style.setProperty('--rescue-x-mobile', (-96 * item.x) + 'px');
+      icon.style.setProperty('--rescue-y-mobile', (-96 * item.y) + 'px');
     });
     return true;
   }
@@ -109,28 +156,11 @@
     });
   }
 
-  function normalizeBase64(value) {
-    return String(value || '').replace(/\s+/g, '').replace(/^data:image\/webp;base64,/i, '');
-  }
-
-  function isCompleteWebpBase64(value) {
-    var base64 = normalizeBase64(value);
-    if (!/^UklGR/.test(base64)) return false;
-    try {
-      var binary = atob(base64.slice(0, 64));
-      if (binary.slice(0, 4) !== 'RIFF' || binary.slice(8, 12) !== 'WEBP') return false;
-      if (base64.length < 20000) return false;
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-
   function loadAssets() {
     var section = document.getElementById('home-menu10');
     if (!section) return;
     var grid = section.querySelector('.home-menu10-grid');
-    if (!grid) return;
+    if (!grid || isAlreadyRendered(grid)) return;
 
     Promise.all([
       Promise.all(SPRITE_PARTS.map(loadText)),
@@ -138,12 +168,15 @@
     ]).then(function (results) {
       var sprite = normalizeBase64(results[0].join(''));
       var pelayanan = normalizeBase64(results[1]);
-      if (!isCompleteWebpBase64(sprite)) throw new Error('Legacy sprite invalid');
-      if (!isCompleteWebpBase64(pelayanan)) pelayanan = '';
+
+      if (!isCanonicalSprite(sprite)) throw new Error('Non-canonical quick-access sprite');
+      if (!isWebp(pelayanan)) throw new Error('Invalid Pelayanan icon');
+
+      if (isAlreadyRendered(grid)) return;
       ensureAllCards(grid, sprite, pelayanan);
-      if (!applySprite(sprite)) throw new Error('Nine sprite icons were not mounted');
+      if (!applySprite(sprite)) throw new Error('Quick-access sprite mount failed');
     }).catch(function () {
-      /* Leave any already-rendered core cards intact. */
+      /* Core renderer remains authoritative when the fallback cannot mount. */
     });
   }
 

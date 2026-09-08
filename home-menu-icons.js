@@ -1,14 +1,25 @@
 /*
- * Beranda — lightweight orchestrator for homepage visual/menu modules.
- * Culture visuals are static in index.html. The menu core keeps its existing
- * behavior, while the rescue renderer provides a deterministic fallback for
- * sprite-based quick-access logos.
+ * Beranda — homepage visual orchestrator.
+ * The core renderer owns menu creation; rescue only runs when the rendered
+ * 10-card grid is incomplete, so the two paths never fight over the DOM.
  */
 (function () {
   'use strict';
 
   var file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   if (file !== 'index.html' && file !== '') return;
+
+  var CORE_SRC = './home-menu-icons-core.js?v=20260908-sprite-stable';
+  var RELEVANT_SRC = './home-relevant.js?v=20260907-5';
+  var RESCUE_SRC = './home-visual-rescue.js?v=20260908-rescue-3';
+
+  function loadScript(src, onload, onerror) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.onload = onload || function () {};
+    script.onerror = onerror || function () {};
+    document.head.appendChild(script);
+  }
 
   function installSpriteStyles() {
     if (document.getElementById('home-sprite-style')) return;
@@ -61,36 +72,35 @@
     });
   }
 
-  function loadScript(src, onload, onerror) {
-    var script = document.createElement('script');
-    script.src = src;
-    script.onload = onload;
-    script.onerror = onerror || function () {};
-    document.head.appendChild(script);
+  function hasCompleteMenu() {
+    var section = document.getElementById('home-menu10');
+    if (!section) return false;
+
+    var cards = section.querySelectorAll('.home-menu10-card');
+    var icons = section.querySelectorAll('.home-menu10-icon');
+    if (cards.length !== 10 || icons.length !== 9) return false;
+
+    return Array.from(icons).every(function (icon) {
+      var background = getComputedStyle(icon).backgroundImage;
+      return background && background !== 'none';
+    });
   }
 
-  function loadRescue() {
-    loadScript('./home-visual-rescue.js?v=20260908-fallback-2');
+  function loadRescueWhenNeeded() {
+    window.setTimeout(function () {
+      if (!hasCompleteMenu()) loadScript(RESCUE_SRC);
+    }, 1200);
   }
 
   function loadRelevantThenRescue() {
-    loadScript('./home-relevant.js?v=20260907-5', loadRescue, loadRescue);
+    loadScript(RELEVANT_SRC, loadRescueWhenNeeded, loadRescueWhenNeeded);
   }
 
   function loadCore() {
     removeBerakhlakVisual();
-    loadScript('./home-menu-icons-core.js?v=20260908-valid-sprite', function () {
-      installSpriteStyles();
-      loadRelevantThenRescue();
-    }, function () {
-      installSpriteStyles();
-      loadRelevantThenRescue();
-    });
+    installSpriteStyles();
+    loadScript(CORE_SRC, loadRelevantThenRescue, loadRelevantThenRescue);
   }
 
-  loadScript(
-    './home-visual-fix.js?v=20260907-5',
-    loadCore,
-    loadCore
-  );
+  loadScript('./home-visual-fix.js?v=20260907-5', loadCore, loadCore);
 })();
