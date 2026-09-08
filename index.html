@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="Website resmi UPTD Puskesmas Tanjung Pinang Kota Jambi. Cek jadwal pelayanan, pendaftaran, layanan kesehatan, alamat, kontak, CKG, dan informasi kesehatan masyarakat.">
 <meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.webp">
 <link rel="stylesheet" href="styles.css?v=20260824-info1">
-<link rel="stylesheet" href="styles-home.css?v=20260904-homev2">
+<link rel="stylesheet" href="styles-home.css?v=20260908-icongrid">
 <link rel="stylesheet" href="footer-3d-v2.css?v=20260904-v2">
 <style>
 /* Home-specific polish */
@@ -95,8 +95,18 @@
   color: #a3b8b0;
 }
 
-/* Responsif Mobile */
+/* ===== ICON GRID — 10 Menu Utama ===== */
+.icon-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:28px}
+.icon-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px 10px;border-radius:16px;background:#fff;border:1px solid #e4ebe8;transition:transform .25s,box-shadow .25s;text-decoration:none}
+.icon-card:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(0,59,45,.12);border-color:#0b5d49}
+.icon-card-img{width:110px;height:110px;border-radius:14px;overflow:hidden;background:transparent;display:grid;place-items:center;flex:0 0 110px}
+.icon-card-img img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 2px 4px rgba(0,59,45,.08))}
+.icon-card-label{font-size:.85rem;font-weight:800;color:#0b5d49;text-align:center;line-height:1.2}
+/* Responsif icon-grid */
+@media (max-width:900px){.icon-grid{grid-template-columns:repeat(5,1fr);gap:14px}.icon-card-img{width:80px;height:80px}.icon-card{padding:14px 8px}.icon-card-label{font-size:.75rem}}
+@media (max-width:600px){.icon-grid{grid-template-columns:repeat(5,1fr);gap:10px}.icon-card-img{width:58px;height:58px;border-radius:12px}.icon-card{padding:10px 4px}.icon-card-label{font-size:.65rem}}
 
+/* ===== RESPONSIF FOOTER ===== */
 @media (max-width: 900px) {
 }
 @media (max-width: 600px) {
@@ -241,13 +251,17 @@
 <div class="news-item"><img src="diah-poster.webp" alt="Poster kesehatan"><div><strong>Pentingnya skrining dini penyakit tidak menular</strong><div class="announce-meta"><time datetime="2026-08-05">5 Agu 2026</time></div></div></div>
 </div>
 </div></section>
-<section class="band section"><div class="container"><div class="section-head"><div><span class="kicker">PELAYANAN KESEHATAN</span><h2>Beberapa layanan utama</h2><p>Daftar lengkap dan susunan 5 klaster tersedia pada halaman Pelayanan.</p></div><a class="btn btn-green" href="pelayanan.html">Semua Pelayanan</a></div><div class="cards-svc">
-<a class="svc-imgcard" href="pelayanan.html" title="Pelayanan umum"><img src="logo-umum.webp" alt="Pelayanan umum" loading="lazy"></a>
-<a class="svc-imgcard" href="pelayanan.html" title="Ibu &amp; anak"><img src="logo-ibuanak.webp" alt="Ibu dan anak" loading="lazy"></a>
-<a class="svc-imgcard" href="pelayanan.html" title="Gigi &amp; mulut"><img src="logo-gimul.webp" alt="Gigi dan mulut" loading="lazy"></a>
-<a class="svc-imgcard" href="pelayanan.html" title="Laboratorium"><img src="logo-labor.webp" alt="Laboratorium" loading="lazy"></a>
-<a class="svc-imgcard" href="pelayanan.html" title="Gawat darurat"><img src="logo-ugd.webp" alt="Gawat darurat" loading="lazy"></a>
-<a class="svc-imgcard" href="pelayanan.html" title="Kefarmasian"><img src="logo-obat.webp" alt="Kefarmasian" loading="lazy"></a>
+<section class="band section" id="menu-utama"><div class="container"><div class="section-head"><div><span class="kicker">MENU UTAMA</span><h2>Layanan &amp; Informasi</h2><p>Akses cepat ke seluruh informasi dan layanan Puskesmas Tanjung Pinang.</p></div></div><div class="icon-grid">
+<a class="icon-card" href="profil.html" title="Profil Puskesmas"><div class="icon-card-img"><img src="profil.webp" alt="Profil" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Profil</span></a>
+<a class="icon-card" href="pelayanan.html" title="Pelayanan Kesehatan"><div class="icon-card-img"><img src="pelayanan.webp" alt="Pelayanan" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Pelayanan</span></a>
+<a class="icon-card" href="kontak.html" title="Kontak &amp; Lokasi"><div class="icon-card-img"><img src="kontak.webp" alt="Kontak" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Kontak</span></a>
+<a class="icon-card" href="jejaring-puskesmas.html" title="Jejaring Puskesmas"><div class="icon-card-img"><img src="jejaring.webp" alt="Jejaring" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Jejaring</span></a>
+<a class="icon-card" href="pelayanan.html#klaster-1" title="Pengaduan"><div class="icon-card-img"><img src="pengaduan.webp" alt="Pengaduan" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Pengaduan</span></a>
+<a class="icon-card" href="informasi.html" title="Galeri Foto &amp; Video"><div class="icon-card-img"><img src="galeri.webp" alt="Galeri" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Galeri</span></a>
+<a class="icon-card" href="informasi.html" title="Informasi"><div class="icon-card-img"><img src="informasi.webp" alt="Informasi" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Informasi</span></a>
+<a class="icon-card" href="program.html" title="Program &amp; Inovasi"><div class="icon-card-img"><img src="program.webp" alt="Program" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Program</span></a>
+<a class="icon-card" href="jadwal.html" title="Jadwal Pelayanan"><div class="icon-card-img"><img src="jadwal.webp" alt="Jadwal" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Jadwal</span></a>
+<a class="icon-card" href="edukasi.html" title="Edukasi Kesehatan"><div class="icon-card-img"><img src="edukasi.webp" alt="Edukasi" width="120" height="120" loading="lazy" decoding="async"></div><span class="icon-card-label">Edukasi</span></a>
 </div></div></section>
 <!-- ================= GALERI VIDEO (YOUTUBE) ================= -->
 <section class="section" id="video-galeri">
