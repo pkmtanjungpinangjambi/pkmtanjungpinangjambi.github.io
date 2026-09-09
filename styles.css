@@ -14,7 +14,7 @@
 }
 
 /* Hilangkan logo lama + teks header terpisah. Identitas sudah lengkap di banner. */
-.site-header .brand > span:not(.brand-mark){display:none!important}
+.site-header .brand > span:not(.brand-mark):not(.brand-marks){display:none!important}
 
 /* Banner master utuh: skala +20%, tanpa crop. */
 .site-header .brand > .brand-mark{
