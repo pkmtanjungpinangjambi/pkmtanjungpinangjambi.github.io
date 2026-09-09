@@ -34,7 +34,7 @@
   display:block!important;
 }
 .site-header .brand > .brand-mark > img{
-  content:url("./logo-puskesmas-header.png")!important;
+  content:url("./logo-pkm-baru.png")!important;
   display:block!important;
   width:384px!important;
   height:91px!important;
@@ -132,7 +132,7 @@
   overflow:visible!important;
 }
 .site-header .brand .brand-marks .brand-mark:first-child img{
-  content:url("./logo-puskesmas-header.png")!important;
+  content:url("./logo-pkm-baru.png")!important;
   display:block!important;
   width:384px!important;
   height:91px!important;
@@ -233,7 +233,7 @@ body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark{
   display:block!important;
 }
 body:has(.hero-home) .site-header .nav-wrap .brand > .brand-mark > img{
-  content:url("./logo-puskesmas-header.png")!important;
+  content:url("./logo-pkm-baru.png")!important;
   display:block!important;
   width:384px!important;
   height:91px!important;
