@@ -1,0 +1,45 @@
+name: P1 Responsive Header QA
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p1-responsive-header-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BASE_URL: https://pkmtanjungpinangjambi.vercel.app
+
+jobs:
+  responsive-header:
+    name: Responsive header / navigation
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm exec --yes --package=@playwright/test@1.55.0 -- playwright install --with-deps chromium
+
+      - name: Run responsive QA matrix
+        shell: bash
+        env:
+          CI: true
+        run: |
+          set -euo pipefail
+          npm exec --yes --package=@playwright/test@1.55.0 -- playwright test .github/qa/responsive-header.spec.cjs --reporter=line
