@@ -26,11 +26,9 @@ for (const viewport of viewports) {
     for (const path of pages) {
       test(`header fits without horizontal overflow on ${path}`, async ({ page }) => {
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
-        const response = await page.goto(`${BASE_URL}${path}`, { waitUntil: 'domcontentloaded' });
+        const response = await page.goto(`${BASE_URL}${path}`, { waitUntil: 'load' });
         expect(response, `No response for ${BASE_URL}${path}`).not.toBeNull();
         expect(response.status(), `HTTP error on ${path}`).toBeLessThan(400);
-
-        await page.waitForLoadState('networkidle').catch(() => {});
 
         const result = await page.evaluate(() => {
           const header = document.querySelector('.site-header');
@@ -52,17 +50,35 @@ for (const viewport of viewports) {
             return style.display !== 'none' && style.visibility !== 'hidden' && box.width > 0 && box.height > 0;
           };
 
-          const overflowElements = [...document.querySelectorAll('.site-header, .site-header *')]
+          const describeOverflow = (element) => ({
+            tag: element.tagName,
+            id: element.id || '',
+            className: typeof element.className === 'string' ? element.className : '',
+            text: (element.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 120),
+            rect: rect(element),
+          });
+
+          const headerElements = [...document.querySelectorAll('.site-header, .site-header *')]
             .filter((element) => {
               const box = element.getBoundingClientRect();
               return box.width > 0 && box.height > 0 && (box.left < -1 || box.right > window.innerWidth + 1);
             })
             .slice(0, 20)
-            .map((element) => ({
-              tag: element.tagName,
-              className: typeof element.className === 'string' ? element.className : '',
-              rect: rect(element),
-            }));
+            .map(describeOverflow);
+
+          const documentElements = [...document.querySelectorAll('body *')]
+            .filter((element) => {
+              const box = element.getBoundingClientRect();
+              return box.width > 0 && box.height > 0 && (box.left < -1 || box.right > window.innerWidth + 1);
+            })
+            .sort((a, b) => {
+              const ar = a.getBoundingClientRect();
+              const br = b.getBoundingClientRect();
+              return Math.max(Math.abs(br.left), Math.abs(br.right - window.innerWidth)) -
+                Math.max(Math.abs(ar.left), Math.abs(ar.right - window.innerWidth));
+            })
+            .slice(0, 10)
+            .map(describeOverflow);
 
           const interactiveOverflow = [...document.querySelectorAll('.nav a, .nav button')]
             .filter((element) => visible(element))
@@ -80,18 +96,28 @@ for (const viewport of viewports) {
             navVisible: visible(nav),
             toggleVisible: visible(toggle),
             toggleRect: rect(toggle),
-            overflowElements,
+            headerElements,
+            documentElements,
             interactiveOverflow,
           };
         });
 
-        expect(result.scrollWidth, `Document overflows horizontally on ${path}`).toBeLessThanOrEqual(result.clientWidth + 2);
+        expect(
+          result.scrollWidth,
+          `Document overflows horizontally on ${path} (scrollWidth=${result.scrollWidth}, clientWidth=${result.clientWidth}; offenders=${JSON.stringify(result.documentElements)})`,
+        ).toBeLessThanOrEqual(result.clientWidth + 2);
         expect(result.header).not.toBeNull();
         expect(result.brand).not.toBeNull();
         expect(result.brand.left, `Header brand starts off-screen on ${path}`).toBeGreaterThanOrEqual(-1);
         expect(result.brand.right, `Header brand extends beyond viewport on ${path}`).toBeLessThanOrEqual(viewport.width + 1);
-        expect(result.overflowElements, `Header children overflow on ${path}: ${JSON.stringify(result.overflowElements)}`).toHaveLength(0);
-        expect(result.interactiveOverflow, `Navigation controls overflow on ${path}: ${JSON.stringify(result.interactiveOverflow)}`).toHaveLength(0);
+        expect(
+          result.headerElements,
+          `Header children overflow on ${path}: ${JSON.stringify(result.headerElements)}`,
+        ).toHaveLength(0);
+        expect(
+          result.interactiveOverflow,
+          `Navigation controls overflow on ${path}: ${JSON.stringify(result.interactiveOverflow)}`,
+        ).toHaveLength(0);
 
         if (result.toggleVisible) {
           expect(result.toggleRect).not.toBeNull();
@@ -117,9 +143,8 @@ for (const viewport of [
 ]) {
   test(`dropdown caret interaction remains usable at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    const response = await page.goto(`${BASE_URL}/profil.html`, { waitUntil: 'domcontentloaded' });
+    const response = await page.goto(`${BASE_URL}/profil.html`, { waitUntil: 'load' });
     expect(response.status()).toBeLessThan(400);
-    await page.waitForLoadState('networkidle').catch(() => {});
 
     const toggle = page.locator('.nav-toggle').first();
     if (await toggle.isVisible()) {
