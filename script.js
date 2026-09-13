@@ -132,11 +132,24 @@
     navWrap.insertBefore(toggle, nav);
   }
 
+  function loadHomeImmunizationTarget() {
+    const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    if (file !== 'index.html' && file !== '') return;
+    if (document.getElementById('home-immunization-target-script')) return;
+
+    const script = document.createElement('script');
+    script.id = 'home-immunization-target-script';
+    script.src = 'home-imunisasi-target.js?v=20260913-1';
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   function ensureMasterShell() {
     if (!document.body) return;
     installResponsiveHeaderGuard();
     ensureMasterTopbar();
     ensureMobileToggle();
+    loadHomeImmunizationTarget();
   }
 
   function loadLegacyBootstrap() {
