@@ -7,6 +7,88 @@
 (function () {
   'use strict';
 
+  function installResponsiveHeaderGuard() {
+    if (document.getElementById('p1-responsive-header-guard')) return;
+
+    const style = document.createElement('style');
+    style.id = 'p1-responsive-header-guard';
+    style.textContent = `
+      @media (max-width: 1024px) {
+        .site-header .nav-wrap {
+          position: relative !important;
+        }
+
+        .site-header .nav-wrap .nav-toggle {
+          display: grid !important;
+          place-items: center !important;
+          width: 44px !important;
+          height: 44px !important;
+          min-width: 44px !important;
+          min-height: 44px !important;
+          flex: 0 0 44px !important;
+          margin-left: auto !important;
+          position: relative !important;
+          z-index: 80 !important;
+          cursor: pointer !important;
+        }
+
+        .site-header .nav-wrap .nav {
+          display: none !important;
+          position: absolute !important;
+          left: 18px !important;
+          right: 18px !important;
+          top: calc(100% + 8px) !important;
+          z-index: 70 !important;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          gap: 4px !important;
+          padding: 8px !important;
+          background: #fff !important;
+          border: 1px solid var(--line) !important;
+          border-radius: 15px !important;
+          box-shadow: var(--shadow) !important;
+        }
+
+        .site-header .nav-wrap .nav.open {
+          display: flex !important;
+        }
+
+        .site-header .nav-wrap .nav a {
+          width: 100% !important;
+        }
+
+        .site-header .nav-wrap .nav-item-dropdown {
+          width: 100% !important;
+          flex-wrap: wrap !important;
+        }
+
+        .site-header .nav-wrap .dropdown-menu {
+          position: static !important;
+          width: calc(100% - 10px) !important;
+          min-width: 0 !important;
+          margin: 2px 0 0 10px !important;
+          box-shadow: none !important;
+        }
+
+        .site-header .nav-wrap .nav-item-dropdown.open .dropdown-menu {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 2px !important;
+        }
+      }
+
+      @media (max-width: 600px) {
+        html,
+        body {
+          max-width: 100% !important;
+          overflow-x: clip !important;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
   function ensureMasterTopbar() {
     const existing = document.querySelector('.topbar');
     let topbar = existing;
@@ -52,6 +134,7 @@
 
   function ensureMasterShell() {
     if (!document.body) return;
+    installResponsiveHeaderGuard();
     ensureMasterTopbar();
     ensureMobileToggle();
   }

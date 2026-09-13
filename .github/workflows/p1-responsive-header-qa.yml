@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BASE_URL: https://pkmtanjungpinangjambi.vercel.app
+  BASE_URL: http://127.0.0.1:4173
 
 jobs:
   responsive-header:
@@ -29,6 +29,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Start local static server
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/pkm-http-server.log 2>&1 &
+          for _ in {1..30}; do
+            if curl --fail --silent --show-error "${BASE_URL}/" >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent --show-error "${BASE_URL}/" >/dev/null
 
       - name: Prepare isolated Playwright runtime
         shell: bash
