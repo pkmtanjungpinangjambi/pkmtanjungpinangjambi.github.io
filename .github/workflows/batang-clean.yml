@@ -1,0 +1,35 @@
+name: batang-clean
+on:
+  push:
+    branches: [feat/klaster1-batang-20260914]
+permissions:
+  contents: write
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair Ketatausahaan block
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('manajemen-puskesmas.html')
+          s=p.read_text(encoding='utf-8')
+          start=s.find('<details class="admin-item"><summary><span class="admin-index">06</span>Promosi Kesehatan')
+          end=s.find('</div><div class="admin-ref"><strong>Rujukan utama:</strong>', start)
+          if start < 0 or end < 0:
+              raise SystemExit('expected BATANG block not found')
+          block='''<details class="admin-item"><summary><span class="admin-index">06</span>Promosi Kesehatan</summary><div class="admin-body"><strong>Edukasi dan penyampaian informasi kesehatan kepada masyarakat.</strong><br>Materi harus akurat, berbasis data/ilmiah, menggunakan bahasa yang mudah dipahami, dan disampaikan melalui media yang sesuai.</div></details>\n<details class="admin-item"><summary><span class="admin-index">07</span>BATANG — Buku Administrasi Tamu Aktual Nyata Digital</summary><div class="admin-body"><strong>Buku tamu elektronik untuk pencatatan kunjungan tamu Puskesmas.</strong><br>BATANG ditempatkan sebagai bagian dari Ketatausahaan dan digunakan untuk mendukung pencatatan administrasi tamu secara tertib dan digital.</div></details>\n</div><div class="admin-ref"><strong>Rujukan utama:</strong>'''
+          s=s[:start]+block+s[end+len('</div><div class="admin-ref"><strong>Rujukan utama:</strong>'):]
+          if s.count('BATANG — Buku Administrasi Tamu Aktual Nyata Digital') != 1:
+              raise SystemExit('BATANG occurrence is not exactly one')
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Remove temporary workflows and commit
+        run: |
+          rm -f .github/workflows/batang-patch.yml .github/workflows/batang-clean.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manajemen-puskesmas.html .github/workflows/batang-patch.yml .github/workflows/batang-clean.yml
+          git commit -m "fix: normalize BATANG Ketatausahaan item"
+          git push
