@@ -1,0 +1,50 @@
+name: One-time add e-Bulu Kejang item 08
+
+on:
+  push:
+    branches:
+      - feat/ebulu-kejang-item-08-20260914
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Insert item 08 after Batang Pinang
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          
+          path = Path("manajemen-puskesmas.html")
+          text = path.read_text(encoding="utf-8")
+          marker = '<span class="admin-index">08</span>e-Bulu Kejang'
+          if marker in text:
+              print("Item 08 already present; nothing to insert.")
+          else:
+              item08 = '''<details class="admin-item"><summary><span class="admin-index">08</span>e-Bulu Kejang</summary><div class="admin-body"><strong>Modul administrasi internal pegawai Puskesmas.</strong><br>Khusus untuk kebutuhan internal pegawai dan bukan merupakan layanan publik.</div></details>'''
+              pattern = r'(<details class="admin-item"><summary><span class="admin-index">07</span>Batang Pinang</summary>.*?</details>)'
+              new_text, count = re.subn(pattern, r'\1\n' + item08, text, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit("Item 07 Batang Pinang tidak ditemukan; file tidak diubah.")
+              path.write_text(new_text, encoding="utf-8")
+              print("Inserted item 08 after Batang Pinang.")
+
+      - name: Commit HTML change and remove one-time workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/one-time-add-ebulu-kejang.yml
+          git add manajemen-puskesmas.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "feat(manajemen): add e-Bulu Kejang as item 08"
+          git push origin HEAD:${GITHUB_REF_NAME}
