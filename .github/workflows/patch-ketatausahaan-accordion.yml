@@ -1,0 +1,51 @@
+name: Patch Ketatausahaan Accordion
+on:
+  pull_request:
+    types: [opened, synchronize]
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Patch HTML
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('manajemen-puskesmas.html')
+          s = p.read_text(encoding='utf-8')
+          old_start = '<section class="management-section" id="ketatausahaan"><h2>Ketatausahaan &amp; Layanan Administrasi</h2>'
+          new_start = '<details class="management-section management-accordion" id="ketatausahaan"><summary class="management-summary"><span>Ketatausahaan &amp; Layanan Administrasi</span></summary><div class="management-accordion-body">'
+          if new_start not in s:
+              if old_start not in s:
+                  raise SystemExit('target start not found')
+              s = s.replace(old_start, new_start, 1)
+          old_mid = '<p>Kelompok ini menjadi pintu layanan administrasi dan ketatausahaan bagi masyarakat maupun kebutuhan internal Puskesmas.</p><div class="admin-list">'
+          new_mid = '<p>Kelompok ini menjadi pintu layanan administrasi dan ketatausahaan bagi masyarakat maupun kebutuhan internal Puskesmas.</p><div class="admin-list">'
+          if old_mid not in s:
+              raise SystemExit('target middle not found')
+          s = s.replace(old_mid, new_mid, 1)
+          old_end = '</div><div class="admin-ref"><strong>Rujukan utama:</strong> Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik. Standar pelayanan Klaster 1 memuat komponen dasar hukum, persyaratan, prosedur, waktu, biaya/tarif, produk, sarana, kompetensi, pengawasan, pengaduan, jumlah pelaksana, jaminan pelayanan, keselamatan, dan evaluasi.</div></section>\n<section class="management-section" id="sumber-daya">'
+          new_end = '</div><div class="admin-ref"><strong>Rujukan utama:</strong> Keputusan Kepala UPTD Puskesmas Tanjung Pinang Nomor 39 Tahun 2026 tentang Standar Pelayanan Publik. Standar pelayanan Klaster 1 memuat komponen dasar hukum, persyaratan, prosedur, waktu, biaya/tarif, produk, sarana, kompetensi, pengawasan, pengaduan, jumlah pelaksana, jaminan pelayanan, keselamatan, dan evaluasi.</div></div></details>\n<section class="management-section" id="sumber-daya">'
+          if old_end not in s:
+              raise SystemExit('target end not found')
+          s = s.replace(old_end, new_end, 1)
+          css_marker = '.admin-list{display:grid;gap:12px;margin-top:16px}'
+          css = '.management-accordion{border:1px solid #dfe9e5;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 7px 22px rgba(0,59,45,.05);margin-top:34px;scroll-margin-top:100px}.management-summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;padding:16px 18px;font-weight:900;color:#0b5d49}.management-summary::-webkit-details-marker{display:none}.management-summary::after{content:"+";margin-left:auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#0b5d49;color:#fff;font-size:18px}.management-accordion[open] .management-summary::after{content:"−"}.management-summary span{font-size:1.08rem}.management-accordion-body{padding:0 18px 18px;border-top:1px solid #edf2ef}.management-accordion-body>p{color:#60706b;line-height:1.7}.management-accordion-body .admin-list{margin-top:16px}'
+          if css_marker not in s:
+              raise SystemExit('css marker not found')
+          s = s.replace(css_marker, css + css_marker, 1)
+          p.write_text(s, encoding='utf-8')
+      - name: Commit patch and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add manajemen-puskesmas.html
+          git commit -m 'fix: make ketatausahaan section collapsible' || true
+          rm -f .github/workflows/patch-ketatausahaan-accordion.yml
+          git add .github/workflows/patch-ketatausahaan-accordion.yml
+          git commit -m 'chore: remove one-time patch workflow' || true
+          git push
