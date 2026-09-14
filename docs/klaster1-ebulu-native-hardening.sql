@@ -4,7 +4,3 @@
 -- Jalankan sebagai migration di Supabase production setelah review.
 
 drop policy if exists ebulu_update_own on public.klaster1_izin_keluar_petugas;
-
--- Pastikan kolom ownership tetap terikat ke auth.users.
-alter table public.klaster1_izin_keluar_petugas
-  validate constraint klaster1_izin_keluar_petugas_created_by_fkey;
