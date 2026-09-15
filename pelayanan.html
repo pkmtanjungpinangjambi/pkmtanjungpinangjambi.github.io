@@ -1,224 +1,30 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi</title>
-<meta name="description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan lima klaster, termasuk layanan ibu dan anak, dewasa dan lansia, penyakit menular, lintas klaster, jadwal, tarif, dan layanan terkait.">
+<meta name="description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan lima klaster pelayanan.">
 <link rel="canonical" href="https://pkmtanjungpinangjambi.vercel.app/pelayanan.html">
 <link rel="stylesheet" href="styles.css?v=20260824-info1">
 <style>
-.cluster summary{list-style:none;display:block}
-.cluster summary::-webkit-details-marker{display:none}
-.cluster-banner{width:100%;max-width:520px;display:block;border-radius:14px;cursor:pointer;transition:transform .2s}
-.cluster summary:hover .cluster-banner{transform:scale(1.02)}
-.service-intro{max-width:880px;margin:0 auto 26px;text-align:center}
-.service-intro p{color:var(--muted,#666);line-height:1.75}
-.cluster-list{display:grid;gap:18px;margin-top:28px}
-.cluster{border:1px solid var(--line,#dfe7e3);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 8px 24px rgba(0,59,45,.07)}
-.cluster summary{list-style:none;cursor:pointer;padding:18px 20px;display:grid;grid-template-columns:minmax(260px,520px) minmax(0,1fr) 34px;align-items:center;gap:18px;background:linear-gradient(135deg,#fff,#f7fbf9);font-weight:900}
-.cluster summary::-webkit-details-marker{display:none}
-.cluster summary::after{content:'+';margin-left:auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#0b5d49;color:#fff;font-size:22px;line-height:1}
-.cluster[open] summary::after{content:'−'}
-.cluster-title{padding:0 10px;display:block;color:#0b5d49}
-.cluster-title strong{display:block;font-size:1.05rem;text-transform:uppercase;line-height:1.25}
-.cluster-title small{display:block;margin-top:4px;color:#6c7772;font-weight:700;font-size:.82rem}
-.cluster-body{padding:0 24px 24px;border-top:1px solid #edf2ef}
-.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
-.service-link{display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid #e4ebe8;border-radius:12px;background:#fff;text-decoration:none;color:inherit;transition:.2s}
-.service-link:hover{transform:translateY(-2px);border-color:#0b5d49;background:#f5faf8;box-shadow:0 8px 18px rgba(0,59,45,.08)}
-.service-index{flex:0 0 30px;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:#e8f3ef;color:#0b5d49;font-size:.78rem;font-weight:900}
-.service-link strong{display:block;font-size:.94rem;line-height:1.4;color:#183b33}
-.service-link span{display:block;margin-top:3px;color:#737d79;font-size:.76rem;line-height:1.45}
-.cluster-support{margin-top:20px;padding:14px;border:1px solid #dce8e3;border-radius:14px;background:#f7fbf9}
-.cluster-support-title{margin:0 0 10px;color:#0b5d49;font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.03em}
-.support-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.support-item{min-width:0;border:1px solid #d8e8e2;border-radius:10px;background:#fff;overflow:hidden}
-.support-item summary{cursor:pointer;list-style:none;padding:11px 10px;display:flex;align-items:center;justify-content:center;gap:7px;color:#0b5d49;font-size:.76rem;font-weight:900;text-align:center}
-.support-item summary::-webkit-details-marker{display:none}
-.support-item summary::after{content:'+';width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#e8f3ef;color:#0b5d49;font-size:14px;flex:0 0 20px}
-.support-item[open] summary::after{content:'−'}
-.support-body{padding:11px 12px 12px;border-top:1px solid #edf2ef;color:#66736d;font-size:.77rem;line-height:1.55}
-.support-body a{color:#0b5d49;font-weight:800}
-.support-body strong{color:#0b5d49}
-.cluster-1 .support-grid{background:#f3faf6}
-.cluster-note{margin-top:18px;padding:14px 16px;border-left:4px solid #0b5d49;background:#f4f9f7;color:#52605a;font-size:.84rem;line-height:1.65;border-radius:0 10px 10px 0}
-.cluster-1 .cluster-title strong{color:#1c7c54}.cluster-2 .cluster-title strong{color:#d84b86}.cluster-3 .cluster-title strong{color:#2486b8}.cluster-4 .cluster-title strong{color:#df7616}.cluster-5 .cluster-title strong{color:#6541a8}
-.cluster-1 .service-index{background:#e7f5ec;color:#1c7c54}.cluster-2 .service-index{background:#fbeaf1;color:#b6376b}.cluster-3 .service-index{background:#eaf4fa;color:#1f6f99}.cluster-4 .service-index{background:#fff1e7;color:#a6520a}.cluster-5 .service-index{background:#f0ebf8;color:#54358c}
-@media(max-width:900px){.support-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){.service-grid{grid-template-columns:1fr}.cluster-body{padding:0 18px 18px}.cluster summary{grid-template-columns:1fr;gap:10px;padding:16px 56px 16px 16px;position:relative;align-items:start}.cluster-banner{max-width:none;width:100%;height:auto}.cluster-title{padding:0}.cluster summary::after{position:absolute;right:16px;top:16px;margin-left:0}.support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cluster-title strong{font-size:.92rem}.cluster-title small{font-size:.74rem}}
-
-/* PELAYANAN — compact visual + related-links treatment */
-.cluster-banner{max-width:460px}
-.cluster summary{grid-template-columns:minmax(230px,460px) minmax(0,1fr) 32px;padding:15px 18px;gap:15px}
-.cluster-list{gap:15px;margin-top:24px}
-.cluster-body{padding:0 20px 20px}
-.service-grid{gap:10px;margin-top:15px}
-.service-link{gap:10px;padding:13px}
-.service-index{width:28px;height:28px;flex-basis:28px;font-size:.72rem}
-.service-link strong{font-size:.88rem}
-.service-link span{font-size:.72rem}
-.cluster-support{margin-top:16px;padding:12px}
-.cluster-support-title{font-size:.76rem;margin-bottom:8px}
-.support-item summary{padding:9px 8px;font-size:.72rem;gap:5px}
-.support-item summary::after{width:18px;height:18px;font-size:12px;flex-basis:18px}
-.support-body{padding:9px 10px 10px;font-size:.72rem}
-@media(max-width:760px){
-  .cluster summary{padding:14px 52px 14px 14px}
-  .cluster-body{padding:0 15px 15px}
-  .cluster-banner{max-width:none}
-}
+.cluster summary{list-style:none}.cluster summary::-webkit-details-marker{display:none}.cluster{border:1px solid var(--line,#dfe7e3);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 8px 24px rgba(0,59,45,.07);margin-bottom:15px}.cluster summary{cursor:pointer;padding:15px 18px;display:grid;grid-template-columns:minmax(230px,460px) minmax(0,1fr) 32px;align-items:center;gap:15px;background:linear-gradient(135deg,#fff,#f7fbf9);font-weight:900;position:relative}.cluster summary::after{content:'+';margin-left:auto;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#0b5d49;color:#fff;font-size:21px}.cluster[open] summary::after{content:'−'}.cluster-banner{width:100%;max-width:460px;display:block;border-radius:14px}.cluster-title{padding:0 10px;display:block;color:#0b5d49}.cluster-title strong{display:block;font-size:1.02rem;text-transform:uppercase;line-height:1.25}.cluster-title small{display:block;margin-top:4px;color:#6c7772;font-weight:700;font-size:.82rem}.cluster-body{padding:0 20px 20px;border-top:1px solid #edf2ef}.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}.service-link{display:flex;align-items:flex-start;gap:10px;padding:13px;border:1px solid #e4ebe8;border-radius:12px;background:#fff;text-decoration:none;color:inherit}.service-link:hover{transform:translateY(-2px);border-color:#0b5d49;background:#f5faf8}.service-index{flex:0 0 28px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#e8f3ef;color:#0b5d49;font-size:.72rem;font-weight:900}.service-link strong{display:block;font-size:.88rem;line-height:1.4;color:#183b33}.service-link span{display:block;margin-top:3px;color:#737d79;font-size:.72rem;line-height:1.45}.cluster-support{margin-top:16px;padding:12px;border:1px solid #dce8e3;border-radius:14px;background:#f7fbf9}.cluster-support-title{margin:0 0 8px;color:#0b5d49;font-size:.76rem;font-weight:900;text-transform:uppercase}.support-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.support-item{min-width:0;border:1px solid #d8e8e2;border-radius:10px;background:#fff;overflow:hidden}.support-item summary{cursor:pointer;list-style:none;padding:9px 8px;display:flex;align-items:center;justify-content:center;gap:5px;color:#0b5d49;font-size:.72rem;font-weight:900;text-align:center}.support-item summary::-webkit-details-marker{display:none}.support-item summary::after{content:'+';width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:#e8f3ef;color:#0b5d49;font-size:12px;flex:0 0 18px}.support-item[open] summary::after{content:'−'}.support-body{padding:9px 10px 10px;border-top:1px solid #edf2ef;color:#66736d;font-size:.72rem;line-height:1.55}.support-body a{color:#0b5d49;font-weight:800}.cluster-1 .cluster-title strong{color:#1c7c54}.cluster-2 .cluster-title strong{color:#d84b86}.cluster-3 .cluster-title strong{color:#2486b8}.cluster-4 .cluster-title strong{color:#df7616}.cluster-5 .cluster-title strong{color:#6541a8}.cluster-1 .cluster-1-entry{border:1px solid #d8eadf;border-radius:14px;padding:18px;background:#f7fbf9}.cluster-1 .cluster-1-entry p{margin:0 0 12px;color:#56645e;line-height:1.65}.cluster-1 .cluster-1-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:10px;background:#0b5d49;color:#fff;text-decoration:none;font-weight:900}.cluster-1 .cluster-1-btn:hover{background:#084b3b}@media(max-width:900px){.support-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:760px){.cluster summary{grid-template-columns:1fr;padding:14px 52px 14px 14px;align-items:start}.cluster summary::after{position:absolute;right:14px;top:14px}.cluster-banner{max-width:none}.cluster-title{padding:0}.service-grid{grid-template-columns:1fr}.support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="id_ID">
-<meta property="og:site_name" content="UPTD Puskesmas Tanjung Pinang Kota Jambi">
-<meta property="og:title" content="Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi">
-<meta property="og:description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan lima klaster, termasuk layanan ibu dan anak, dewasa dan lansia, penyakit menular, lintas klaster, jadwal, tarif, dan layanan terkait.">
-<meta property="og:url" content="https://pkmtanjungpinangjambi.vercel.app/pelayanan.html">
-<meta property="og:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.webp">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi">
-<meta name="twitter:description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan lima klaster, termasuk layanan ibu dan anak, dewasa dan lansia, penyakit menular, lintas klaster, jadwal, tarif, dan layanan terkait.">
-<meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.webp">
-
-
-<script type="application/ld+json" data-seo-id="breadcrumb">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Beranda",
-      "item": "https://pkmtanjungpinangjambi.vercel.app/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Pelayanan",
-      "item": "https://pkmtanjungpinangjambi.vercel.app/pelayanan.html"
-    }
-  ]
-}
-</script>
+<meta property="og:type" content="website"><meta property="og:locale" content="id_ID"><meta property="og:site_name" content="UPTD Puskesmas Tanjung Pinang Kota Jambi"><meta property="og:title" content="Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi"><meta property="og:description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan lima klaster pelayanan."><meta property="og:url" content="https://pkmtanjungpinangjambi.vercel.app/pelayanan.html"><meta property="og:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.webp"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi"><meta name="twitter:description" content="Informasi pelayanan UPTD Puskesmas Tanjung Pinang Kota Jambi berdasarkan lima klaster pelayanan."><meta name="twitter:image" content="https://pkmtanjungpinangjambi.vercel.app/gedung-puskesmas.webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://pkmtanjungpinangjambi.vercel.app/"},{"@type":"ListItem","position":2,"name":"Pelayanan","item":"https://pkmtanjungpinangjambi.vercel.app/pelayanan.html"}]}</script>
 </head>
 <body>
 <div class="topbar"><div class="container topbar-inner"><span>📍 Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Jambi Timur, Kota Jambi</span><span><a href="tel:07417555394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email resmi</a></span></div></div>
-<header class="site-header"><div class="container nav-wrap">
-<a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang"><span class="brand-mark" ><img src="logo-pkm-baru.png" alt="Logo Puskesmas" style="width:100%;height:100%;object-fit:contain"></span><span><strong>UPTD PUSKESMAS<br>TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a>
-<button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
-<nav class="nav" aria-label="Navigasi utama">
-<a href="index.html">Beranda</a>
-<div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div>
-<div class="nav-item-dropdown"><a class="active" href="pelayanan.html">Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="pelayanan.html#klaster-1">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div>
-<div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div>
-<a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a>
-</nav>
-</div></header>
-<section class="page-hero"><div class="container"><span class="eyebrow">Standar Pelayanan Publik 2026</span><h1>Pelayanan Kesehatan</h1><p>Pelayanan UPTD Puskesmas Tanjung Pinang disusun dalam 5 klaster. Setiap klaster menjadi satu paket layanan yang memuat layanan utama serta informasi pendukung berupa jadwal, tarif, persyaratan, alur, dan layanan online.</p></div></section>
-<main class="page-content"><div class="container">
-<div class="service-intro"><span class="kicker">5 KLASTER PELAYANAN</span><h2>Temukan layanan dengan cepat</h2><p>Pilih klaster sesuai kebutuhan. Detail pelayanan utama dibuka dari kartu layanan, sedangkan informasi pendukung tetap berada di dalam klaster yang sama.</p></div>
-<div class="cluster-list">
-<details class="cluster cluster-1" id="klaster-1">
-<summary><img src="logo-klaster1.webp" alt="Klaster 1 - Manajemen" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 1 — Manajemen</strong><small>Ketatausahaan dan pengelolaan manajemen Puskesmas</small></span></summary>
-<div class="cluster-body">
-<div class="service-grid">
-<a class="service-link" href="manajemen-puskesmas.html#ketatausahaan"><span class="service-index">01</span><div><strong>Ketatausahaan &amp; Layanan Administrasi</strong><span>Front office, pendaftaran, informasi/pengaduan, surat, dan administrasi layanan.</span></div></a>
-<a class="service-link" href="manajemen-puskesmas.html#sumber-daya"><span class="service-index">02</span><div><strong>Manajemen Sumber Daya</strong><span>SDM, sarana, prasarana, obat, dan perbekalan kesehatan.</span></div></a>
-<a class="service-link" href="manajemen-puskesmas.html#manajemen-puskesmas"><span class="service-index">03</span><div><strong>Manajemen Puskesmas</strong><span>Perencanaan, koordinasi, pemantauan, evaluasi, dan keterpaduan antar-klaster.</span></div></a>
-<a class="service-link" href="manajemen-puskesmas.html#mutu-keselamatan"><span class="service-index">04</span><div><strong>Mutu &amp; Keselamatan Pasien</strong><span>Pengelolaan mutu, keselamatan, komitmen, inovasi, dan perbaikan berkelanjutan.</span></div></a>
-<a class="service-link" href="manajemen-puskesmas.html#jejaring"><span class="service-index">05</span><div><strong>Manajemen Jejaring</strong><span>Jejaring fasilitas kesehatan dan pengelolaan pelayanan berbasis wilayah.</span></div></a>
-<a class="service-link" href="manajemen-puskesmas.html#pemberdayaan"><span class="service-index">06</span><div><strong>Pemberdayaan Masyarakat</strong><span>Keterlibatan masyarakat dalam pembangunan kesehatan.</span></div></a>
-<a class="service-link" href="manajemen-puskesmas.html#struktur"><span class="service-index">07</span><div><strong>Struktur Organisasi</strong><span>Struktur dan pembagian fungsi manajemen Puskesmas.</span></div></a>
-</div>
-<div class="cluster-support"><p class="cluster-support-title">Tautan Terkait · Klaster 1</p><div class="support-grid">
-<details class="support-item"><summary>🕒 Jadwal</summary><div class="support-body">Jam pelayanan dan batas pendaftaran tersedia pada <a href="jadwal.html">halaman Jadwal Pelayanan</a>.</div></details>
-<details class="support-item"><summary>💳 Tarif</summary><div class="support-body">Informasi biaya layanan tersedia pada <a href="tarif.html">halaman Tarif Pelayanan</a> dan mengikuti ketentuan resmi yang berlaku.</div></details>
-<details class="support-item"><summary>📋 Persyaratan</summary><div class="support-body">Siapkan identitas dan dokumen jaminan kesehatan bila tersedia. Persyaratan rinci mengikuti jenis layanan pada Klaster 1.</div></details>
-<details class="support-item"><summary>🧭 Alur</summary><div class="support-body">Datang/daftar → verifikasi → diarahkan ke layanan → proses administrasi/pemeriksaan → tindak lanjut sesuai kebutuhan.</div></details>
-<details class="support-item"><summary>💬 Layanan Online</summary><div class="support-body">Hubungi <a href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20informasi%20layanan%20Klaster%201%20Manajemen." target="_blank" rel="noopener noreferrer">WhatsApp resmi</a> untuk informasi awal.</div></details>
-</div></div>
-<div class="cluster-note"><strong>Catatan:</strong> detail lengkap manajemen Klaster 1 tersedia di <a href="manajemen-puskesmas.html">Manajemen Puskesmas</a>.</div>
-</div></details>
-
-<details class="cluster cluster-2" id="klaster-2">
-<summary><img src="logo-klaster2.webp" alt="Klaster 2 - Ibu dan Anak" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 2 — Ibu &amp; Anak</strong><small>Pelayanan kesehatan ibu, bayi, anak, dan remaja</small></span></summary>
-<div class="cluster-body">
-<div class="service-grid">
-<a class="service-link" href="pelayanan-ibu-hamil-bersalin-nifas.html"><span class="service-index">01</span><div><strong>Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas</strong><span>Pelayanan kesehatan ibu sesuai kebutuhan dan kondisi.</span></div></a>
-<a class="service-link" href="pelayanan-anak.html"><span class="service-index">02</span><div><strong>Pelayanan Anak</strong><span>Pemeriksaan dan pelayanan kesehatan anak.</span></div></a>
-<a class="service-link" href="pelayanan-imunisasi.html"><span class="service-index">03</span><div><strong>Pelayanan Imunisasi</strong><span>Pemberian imunisasi sesuai jadwal dan ketentuan.</span></div></a>
-<a class="service-link" href="pelayanan-tumbuh-kembang-anak.html"><span class="service-index">04</span><div><strong>Pelayanan Tumbuh Kembang Anak</strong><span>Pemantauan pertumbuhan dan perkembangan anak.</span></div></a>
-</div>
-<div class="cluster-support"><p class="cluster-support-title">Tautan Terkait · Klaster 2</p><div class="support-grid">
-<details class="support-item"><summary>🕒 Jadwal</summary><div class="support-body">Jadwal pelayanan mengikuti jam operasional Puskesmas. Lihat <a href="jadwal.html">Jadwal Pelayanan</a>.</div></details>
-<details class="support-item"><summary>💳 Tarif</summary><div class="support-body">Tarif layanan mengikuti ketentuan resmi. Lihat <a href="tarif.html">Tarif Pelayanan</a>.</div></details>
-<details class="support-item"><summary>📋 Persyaratan</summary><div class="support-body">Bawa identitas anak/pendamping dan dokumen jaminan kesehatan bila tersedia. Persyaratan dapat berbeda menurut layanan.</div></details>
-<details class="support-item"><summary>🧭 Alur</summary><div class="support-body">Pendaftaran → verifikasi → pemeriksaan sesuai layanan → edukasi/tindak lanjut → rujukan bila diperlukan.</div></details>
-<details class="support-item"><summary>💬 Layanan Online</summary><div class="support-body">Hubungi <a href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20informasi%20layanan%20Klaster%202%20Ibu%20dan%20Anak." target="_blank" rel="noopener noreferrer">WhatsApp resmi</a> untuk informasi awal.</div></details>
-</div></div>
-</div></details>
-
-<details class="cluster cluster-3" id="klaster-3">
-<summary><img src="logo-klaster3.webp" alt="Klaster 3 - Usia Dewasa dan Lansia" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 3 — Dewasa &amp; Lansia</strong><small>Pelayanan kesehatan usia dewasa dan lanjut usia</small></span></summary>
-<div class="cluster-body">
-<div class="service-grid">
-<a class="service-link" href="pelayanan-kesehatan-dewasa.html"><span class="service-index">01</span><div><strong>Pelayanan Kesehatan Usia Dewasa</strong><span>Pemeriksaan dan pelayanan kesehatan bagi usia dewasa.</span></div></a>
-<a class="service-link" href="pelayanan-kesehatan-lansia.html"><span class="service-index">02</span><div><strong>Pelayanan Kesehatan Lansia</strong><span>Pemantauan dan pelayanan kesehatan lanjut usia.</span></div></a>
-<a class="service-link" href="pelayanan-kb.html"><span class="service-index">03</span><div><strong>Pelayanan Keluarga Berencana (KB)</strong><span>Konseling dan pelayanan keluarga berencana.</span></div></a>
-<a class="service-link" href="pelayanan-catin.html"><span class="service-index">04</span><div><strong>Pelayanan Calon Pengantin (Catin)</strong><span>Pelayanan kesehatan bagi calon pengantin.</span></div></a>
-<a class="service-link" href="pelayanan-ubm.html"><span class="service-index">05</span><div><strong>Upaya Berhenti Merokok (UBM)</strong><span>Konseling dan pendampingan untuk mengurangi atau berhenti merokok.</span></div></a>
-</div>
-<div class="cluster-support"><p class="cluster-support-title">Tautan Terkait · Klaster 3</p><div class="support-grid">
-<details class="support-item"><summary>🕒 Jadwal</summary><div class="support-body">Lihat <a href="jadwal.html">Jadwal Pelayanan</a> untuk jam operasional dan batas pendaftaran.</div></details>
-<details class="support-item"><summary>💳 Tarif</summary><div class="support-body">Lihat <a href="tarif.html">Tarif Pelayanan</a> untuk informasi biaya yang berlaku.</div></details>
-<details class="support-item"><summary>📋 Persyaratan</summary><div class="support-body">Siapkan identitas dan dokumen pendukung sesuai jenis layanan. Detail dapat dilihat pada halaman layanan terkait.</div></details>
-<details class="support-item"><summary>🧭 Alur</summary><div class="support-body">Pendaftaran → skrining/pemeriksaan → pelayanan sesuai kebutuhan → edukasi → tindak lanjut.</div></details>
-<details class="support-item"><summary>💬 Layanan Online</summary><div class="support-body">Hubungi <a href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20informasi%20layanan%20Klaster%203%20Dewasa%20dan%20Lansia." target="_blank" rel="noopener noreferrer">WhatsApp resmi</a> untuk informasi awal.</div></details>
-</div></div>
-</div></details>
-
-<details class="cluster cluster-4" id="klaster-4">
-<summary><img src="logo-klaster4.webp" alt="Klaster 4 - Penanggulangan Penyakit Menular" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 4 — Penanggulangan Penyakit Menular</strong><small>Pencegahan, deteksi, pengendalian, dan tindak lanjut penyakit menular</small></span></summary>
-<div class="cluster-body">
-<div class="service-grid">
-<a class="service-link" href="pelayanan-tuberkulosis.html"><span class="service-index">01</span><div><strong>Pelayanan Tuberkulosis</strong><span>Skrining, penemuan, pemeriksaan, pengobatan, dan tindak lanjut TB.</span></div></a>
-<a class="service-link" href="pelayanan-pdp-vct-ims.html"><span class="service-index">02</span><div><strong>Pelayanan PDP / VCT / IMS</strong><span>Pencegahan, konseling, pemeriksaan, dan tindak lanjut HIV/IMS.</span></div></a>
-<a class="service-link" href="pelayanan-ghpr.html"><span class="service-index">03</span><div><strong>Penanganan Gigitan Hewan Pembawa Rabies (GHPR)</strong><span>Penanganan awal pajanan gigitan atau cakaran hewan berisiko rabies.</span></div></a>
-<a class="service-link" href="pelayanan-klinik-sanitasi.html"><span class="service-index">04</span><div><strong>Pelayanan Klinik Sanitasi</strong><span>Konsultasi dan tindak lanjut masalah kesehatan berkaitan dengan lingkungan dan sanitasi.</span></div></a>
-</div>
-<div class="cluster-support"><p class="cluster-support-title">Tautan Terkait · Klaster 4</p><div class="support-grid">
-<details class="support-item"><summary>🕒 Jadwal</summary><div class="support-body">Lihat <a href="jadwal.html">Jadwal Pelayanan</a> untuk jam operasional dan batas pendaftaran.</div></details>
-<details class="support-item"><summary>💳 Tarif</summary><div class="support-body">Lihat <a href="tarif.html">Tarif Pelayanan</a> untuk informasi biaya yang berlaku.</div></details>
-<details class="support-item"><summary>📋 Persyaratan</summary><div class="support-body">Persyaratan mengikuti jenis layanan dan kondisi pasien. Bawa identitas serta dokumen pendukung bila tersedia.</div></details>
-<details class="support-item"><summary>🧭 Alur</summary><div class="support-body">Pendaftaran → skrining/penilaian risiko → pemeriksaan → tata laksana → pemantauan dan tindak lanjut.</div></details>
-<details class="support-item"><summary>💬 Layanan Online</summary><div class="support-body">Hubungi <a href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20informasi%20layanan%20Klaster%204%20Penyakit%20Menular." target="_blank" rel="noopener noreferrer">WhatsApp resmi</a> untuk informasi awal.</div></details>
-</div></div>
-</div></details>
-
-<details class="cluster cluster-5" id="klaster-5">
-<summary><img src="logo-klaster5.webp" alt="Klaster 5 - Lintas Klaster" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 5 — Lintas Klaster</strong><small>Pelayanan penunjang dan layanan lintas kelompok</small></span></summary>
-<div class="cluster-body">
-<div class="service-grid">
-<a class="service-link" href="pelayanan-gawat-darurat.html"><span class="service-index">01</span><div><strong>Pelayanan Gawat Darurat</strong><span>Penanganan kondisi yang membutuhkan pertolongan segera.</span></div></a>
-<a class="service-link" href="pelayanan-kesehatan-gigi-mulut.html"><span class="service-index">02</span><div><strong>Pelayanan Kesehatan Gigi &amp; Mulut</strong><span>Pemeriksaan dan tindakan kesehatan gigi dan mulut.</span></div></a>
-<a class="service-link" href="pelayanan-resep-obat.html"><span class="service-index">03</span><div><strong>Pelayanan Kefarmasian / Resep Obat</strong><span>Penerimaan resep, penyiapan obat, pemberian informasi, dan pemantauan.</span></div></a>
-<a class="service-link" href="pelayanan-laboratorium.html"><span class="service-index">04</span><div><strong>Pelayanan Laboratorium</strong><span>Pemeriksaan laboratorium sesuai indikasi dan ketersediaan pemeriksaan.</span></div></a>
-<a class="service-link" href="pelayanan-krisis-kesehatan.html"><span class="service-index">05</span><div><strong>Penanggulangan Krisis Kesehatan</strong><span>Dukungan pelayanan kesehatan dalam situasi krisis sesuai mekanisme yang berlaku.</span></div></a>
-<a class="service-link" href="pelayanan-ckg.html"><span class="service-index">06</span><div><strong>Cek Kesehatan Gratis (CKG)</strong><span>Skrining dan pemeriksaan kesehatan sesuai petunjuk teknis program CKG.</span></div></a>
-</div>
-<div class="cluster-support"><p class="cluster-support-title">Tautan Terkait · Klaster 5</p><div class="support-grid">
-<details class="support-item"><summary>🕒 Jadwal</summary><div class="support-body">Lihat <a href="jadwal.html">Jadwal Pelayanan</a> untuk jam operasional dan batas pendaftaran.</div></details>
-<details class="support-item"><summary>💳 Tarif</summary><div class="support-body">Lihat <a href="tarif.html">Tarif Pelayanan</a> untuk informasi biaya layanan yang berlaku.</div></details>
-<details class="support-item"><summary>📋 Persyaratan</summary><div class="support-body">Persyaratan mengikuti jenis layanan. Untuk layanan tertentu diperlukan rujukan, resep, atau dokumen pendukung.</div></details>
-<details class="support-item"><summary>🧭 Alur</summary><div class="support-body">Pendaftaran → verifikasi → pemeriksaan/tindakan → layanan penunjang → tindak lanjut atau rujukan.</div></details>
-<details class="support-item"><summary>💬 Layanan Online</summary><div class="support-body">Hubungi <a href="https://wa.me/6282180622274?text=Halo%20Puskesmas%20Tanjung%20Pinang%2C%20saya%20ingin%20informasi%20layanan%20Klaster%205%20Lintas%20Klaster." target="_blank" rel="noopener noreferrer">WhatsApp resmi</a> untuk informasi awal.</div></details>
-</div></div>
-</div></details>
-</div>
-</div></main>
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html" aria-label="Beranda UPTD Puskesmas Tanjung Pinang"><span class="brand-mark"><img src="logo-pkm-baru.png" alt="Logo Puskesmas" style="width:100%;height:100%;object-fit:contain"></span><span><strong>UPTD PUSKESMAS<br>TANJUNG PINANG</strong><small>Dinas Kesehatan Kota Jambi</small></span></a><button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button><nav class="nav" aria-label="Navigasi utama"><a href="index.html">Beranda</a><div class="nav-item-dropdown"><a href="profil.html">Profil</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Profil" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="profil.html#sejarah">Sejarah</a><a href="profil.html#visi-misi">Visi &amp; Misi</a><a href="profil.html#motto-tata-nilai">Motto &amp; Tata Nilai</a><a href="profil.html#karakter">Karakteristik &amp; Kekuatan</a></div></div><div class="nav-item-dropdown"><a class="active" href="pelayanan.html">Pelayanan</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Pelayanan" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="klaster-1-manajemen.html">Klaster 1 — Manajemen</a><a href="pelayanan.html#klaster-2">Klaster 2 — Ibu &amp; Anak</a><a href="pelayanan.html#klaster-3">Klaster 3 — Dewasa &amp; Lansia</a><a href="pelayanan.html#klaster-4">Klaster 4 — Penyakit Menular</a><a href="pelayanan.html#klaster-5">Klaster 5 — Lintas Klaster</a></div></div><div class="nav-item-dropdown"><a href="informasi.html">Informasi</a><button type="button" class="dropdown-caret-btn" aria-label="Buka submenu Informasi" aria-expanded="false">▾</button><div class="dropdown-menu"><a href="index.html#pengumuman">Pengumuman</a><a href="index.html#berita">Berita &amp; Kegiatan</a><a href="informasi.html">Galeri Foto &amp; Video</a><a href="edukasi.html">Edukasi</a><a href="program.html">Program &amp; Inovasi</a><a href="index.html#ilp">Informasi ILP</a><a href="download.html">Download</a><a href="tarif.html">Tarif Pelayanan</a><a href="kontak.html">Kontak &amp; Lokasi</a></div></div><a class="nav-cta" href="https://wa.me/6282180622274" target="_blank" rel="noopener">WhatsApp</a></nav></div></header>
+<section class="page-hero"><div class="container"><span class="eyebrow">Standar Pelayanan Publik 2026</span><h1>Pelayanan Kesehatan</h1><p>Pelayanan UPTD Puskesmas Tanjung Pinang disusun dalam 5 klaster. Halaman ini menjadi pintu masuk layanan; detail Klaster 1 — Manajemen dibuka pada halaman khusus.</p></div></section>
+<main class="page-content"><div class="container"><div class="service-intro"><span class="kicker">5 KLASTER PELAYANAN</span><h2>Temukan layanan dengan cepat</h2><p>Pilih klaster sesuai kebutuhan. Klaster 1 memiliki halaman khusus agar informasi manajemen tidak bercampur dengan daftar layanan pada halaman induk.</p></div><div class="cluster-list">
+<details class="cluster cluster-1" id="klaster-1"><summary><img src="logo-klaster1.webp" alt="Klaster 1 - Manajemen" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 1 — Manajemen</strong><small>Halaman khusus manajemen Puskesmas</small></span></summary><div class="cluster-body"><div class="cluster-1-entry"><p>Informasi Klaster 1 meliputi 10 area tata kelola yang sudah dikunci sebagai master internal Puskesmas, beserta fungsi operasional, inovasi, dan dasar hukum/referensi.</p><a class="cluster-1-btn" href="klaster-1-manajemen.html">Buka Klaster 1 — Manajemen →</a></div></div></details>
+<details class="cluster cluster-2" id="klaster-2"><summary><img src="logo-klaster2.webp" alt="Klaster 2 - Ibu dan Anak" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 2 — Ibu &amp; Anak</strong><small>Pelayanan kesehatan ibu, bayi, anak, dan remaja</small></span></summary><div class="cluster-body"><div class="service-grid"><a class="service-link" href="pelayanan-ibu-hamil-bersalin-nifas.html"><span class="service-index">01</span><div><strong>Pelayanan Kesehatan Ibu Hamil, Bersalin, dan Nifas</strong><span>Pelayanan kesehatan ibu sesuai kebutuhan dan kondisi.</span></div></a><a class="service-link" href="pelayanan-anak.html"><span class="service-index">02</span><div><strong>Pelayanan Anak</strong><span>Pemeriksaan dan pelayanan kesehatan anak.</span></div></a><a class="service-link" href="pelayanan-imunisasi.html"><span class="service-index">03</span><div><strong>Pelayanan Imunisasi</strong><span>Pemberian imunisasi sesuai jadwal dan ketentuan.</span></div></a><a class="service-link" href="pelayanan-tumbuh-kembang-anak.html"><span class="service-index">04</span><div><strong>Pelayanan Tumbuh Kembang Anak</strong><span>Pemantauan pertumbuhan dan perkembangan anak.</span></div></a></div></div></details>
+<details class="cluster cluster-3" id="klaster-3"><summary><img src="logo-klaster3.webp" alt="Klaster 3 - Usia Dewasa dan Lansia" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 3 — Dewasa &amp; Lansia</strong><small>Pelayanan kesehatan usia dewasa dan lanjut usia</small></span></summary><div class="cluster-body"><div class="service-grid"><a class="service-link" href="pelayanan-kesehatan-dewasa.html"><span class="service-index">01</span><div><strong>Pelayanan Kesehatan Usia Dewasa</strong><span>Pemeriksaan dan pelayanan kesehatan bagi usia dewasa.</span></div></a><a class="service-link" href="pelayanan-kesehatan-lansia.html"><span class="service-index">02</span><div><strong>Pelayanan Kesehatan Lansia</strong><span>Pemantauan dan pelayanan kesehatan lanjut usia.</span></div></a><a class="service-link" href="pelayanan-kb.html"><span class="service-index">03</span><div><strong>Pelayanan Keluarga Berencana (KB)</strong><span>Konseling dan pelayanan keluarga berencana.</span></div></a><a class="service-link" href="pelayanan-catin.html"><span class="service-index">04</span><div><strong>Pelayanan Calon Pengantin (Catin)</strong><span>Pelayanan kesehatan bagi calon pengantin.</span></div></a><a class="service-link" href="pelayanan-ubm.html"><span class="service-index">05</span><div><strong>Upaya Berhenti Merokok (UBM)</strong><span>Konseling dan pendampingan untuk mengurangi atau berhenti merokok.</span></div></a></div></div></details>
+<details class="cluster cluster-4" id="klaster-4"><summary><img src="logo-klaster4.webp" alt="Klaster 4 - Penanggulangan Penyakit Menular" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 4 — Penanggulangan Penyakit Menular</strong><small>Pencegahan, deteksi, pengendalian, dan tindak lanjut penyakit menular</small></span></summary><div class="cluster-body"><div class="service-grid"><a class="service-link" href="pelayanan-tuberkulosis.html"><span class="service-index">01</span><div><strong>Pelayanan Tuberkulosis</strong><span>Skrining, penemuan, pemeriksaan, pengobatan, dan tindak lanjut TB.</span></div></a><a class="service-link" href="pelayanan-pdp-vct-ims.html"><span class="service-index">02</span><div><strong>Pelayanan PDP / VCT / IMS</strong><span>Pencegahan, konseling, pemeriksaan, dan tindak lanjut HIV/IMS.</span></div></a><a class="service-link" href="pelayanan-ghpr.html"><span class="service-index">03</span><div><strong>Penanganan Gigitan Hewan Pembawa Rabies (GHPR)</strong><span>Penanganan awal pajanan gigitan atau cakaran hewan berisiko rabies.</span></div></a><a class="service-link" href="pelayanan-klinik-sanitasi.html"><span class="service-index">04</span><div><strong>Pelayanan Klinik Sanitasi</strong><span>Konsultasi dan tindak lanjut masalah kesehatan berkaitan dengan lingkungan dan sanitasi.</span></div></a></div></div></details>
+<details class="cluster cluster-5" id="klaster-5"><summary><img src="logo-klaster5.webp" alt="Klaster 5 - Lintas Klaster" class="cluster-banner" loading="lazy"><span class="cluster-title"><strong>Klaster 5 — Lintas Klaster</strong><small>Pelayanan penunjang dan layanan lintas kelompok</small></span></summary><div class="cluster-body"><div class="service-grid"><a class="service-link" href="pelayanan-gawat-darurat.html"><span class="service-index">01</span><div><strong>Pelayanan Gawat Darurat</strong><span>Penanganan kondisi yang membutuhkan pertolongan segera.</span></div></a><a class="service-link" href="pelayanan-kesehatan-gigi-mulut.html"><span class="service-index">02</span><div><strong>Pelayanan Kesehatan Gigi &amp; Mulut</strong><span>Pemeriksaan dan tindakan kesehatan gigi dan mulut.</span></div></a><a class="service-link" href="pelayanan-resep-obat.html"><span class="service-index">03</span><div><strong>Pelayanan Kefarmasian / Resep Obat</strong><span>Penerimaan resep, penyiapan obat, pemberian informasi, dan pemantauan.</span></div></a><a class="service-link" href="pelayanan-laboratorium.html"><span class="service-index">04</span><div><strong>Pelayanan Laboratorium</strong><span>Pemeriksaan laboratorium sesuai indikasi dan ketersediaan pemeriksaan.</span></div></a><a class="service-link" href="pelayanan-krisis-kesehatan.html"><span class="service-index">05</span><div><strong>Penanggulangan Krisis Kesehatan</strong><span>Dukungan pelayanan kesehatan dalam situasi krisis sesuai mekanisme yang berlaku.</span></div></a><a class="service-link" href="pelayanan-ckg.html"><span class="service-index">06</span><div><strong>Cek Kesehatan Gratis (CKG)</strong><span>Skrining dan pemeriksaan kesehatan sesuai petunjuk teknis program CKG.</span></div></a></div></div></details>
+</div></div></main>
 <footer class="footer"><div class="container footer-bottom">© 2026 UPTD Puskesmas Tanjung Pinang Kota Jambi</div></footer>
 <a class="floating-wa" href="https://wa.me/6282180622274" target="_blank" rel="noopener">💬 WhatsApp</a>
 <script src="script.js" defer></script>
