@@ -3,12 +3,6 @@
 **UPTD Puskesmas Tanjung Pinang, Kota Jambi**  
 **Status:** Master kerja aktif — 15 September 2026
 
-## Acuan utama
-
-- Permenkes Nomor 19 Tahun 2024 tentang Penyelenggaraan Puskesmas.
-- KMK HK.01.07/MENKES/2015/2023 tentang Petunjuk Teknis Integrasi Pelayanan Kesehatan Primer (ILP).
-- Struktur internal mengikuti file/gambar **“klaster1”** sebagai sumber tunggal nama dan jabatan; bukan website lama.
-
 ## Struktur utama Klaster 1 — 10 fungsi/fokus yang tercantum pada bagan internal
 
 **PJ Klaster 1: Nur Saadyah, AM.Keb., SKM**
@@ -24,13 +18,15 @@
 9. **Manajemen Mutu dan Keselamatan** — PJ: Hj. Apt. Susanti, S.Farm
 10. **Manajemen Keuangan dan Aset** — PJ: Nur Saadyah, AM.Keb., SKM
 
-### Catatan penting UKP–UKM
+### Status rombak struktur
 
-UKP dan UKM **tetap ditampilkan** karena tercantum pada struktur Klaster 1 sumber resmi/internal. Secara arsitektur, keduanya diberi label:
+Sepuluh poin di atas **dikunci sebagai struktur/fokus internal Klaster 1** untuk tahap rombak pertama. Nama, gelar, ejaan, dan PJ dipertahankan. Tahap berikutnya hanya merapikan pengelompokan, fungsi, hubungan kerja, dan arsitektur akuntabilitas tanpa menghapus salah satu dari 10 fokus tersebut.
 
-**LAPISAN KOORDINASI UKP–UKM**
+### Lapisan koordinasi UKP–UKM
 
-UKP dan UKM **bukan fungsi manajemen ke-10 dan ke-11** yang menggantikan kerangka fungsi manajemen nasional. Dokumen ini membedakan antara **10 fungsi/fokus yang tercantum pada bagan internal Puskesmas** dan **kerangka fungsi manajemen menurut regulasi**.
+UKP dan UKM **tetap ditampilkan** karena tercantum pada struktur Klaster 1 sumber resmi/internal. Secara arsitektur keduanya diberi label **LAPISAN KOORDINASI UKP–UKM**.
+
+UKP dan UKM **bukan fungsi manajemen ke-10 dan ke-11**.
 
 ## Rincian penanggung jawab — Mutu, Administrasi dan Keselamatan
 
@@ -104,9 +100,9 @@ PEMEGANG SUBSTANSI / PROGRAM
 
 Arsitektur ini memastikan setiap substansi/program mempunyai jalur koordinasi, data, indikator, monitoring, evaluasi, dan tindak lanjut yang jelas.
 
-## Program / kegiatan
+## 24 Program / Kegiatan
 
-Tampilkan sebagai **24 slot** yang terhubung ke sistem Klaster 1. Nama program tidak boleh dikarang sebelum tersedia pada sumber resmi.
+Tampilkan 24 slot yang terhubung ke sistem Klaster 1. Nama program tidak dikarang sebelum tersedia pada sumber resmi.
 
 | Slot | Label |
 |---:|---|
@@ -135,8 +131,6 @@ Tampilkan sebagai **24 slot** yang terhubung ke sistem Klaster 1. Nama program t
 | 23 | PROGRAM / KEGIATAN |
 | 24 | PROGRAM / KEGIATAN |
 
-Tujuannya menunjukkan bahwa substansi program tetap memiliki pemilik dan akuntabilitas meskipun pelayanan diorganisasikan berdasarkan klaster.
-
 ## Hubungan antar Klaster
 
 ```text
@@ -161,14 +155,6 @@ Secara visual, Klaster 1 mempunyai garis koneksi koordinasi horizontal menuju se
 
 **UKP dan UKM menjadi lapisan koordinasi agar dimensi pelayanan perseorangan dan masyarakat tetap memiliki jalur tanggung jawab yang jelas.**
 
-## Prinsip kerja
-
-- ILP tidak menghapus pekerjaan program; ILP mengubah cara pekerjaan diorganisasikan.
-- Struktur visual Klaster 1 harus mencerminkan bagan internal yang berlaku.
-- Nama, gelar, dan ejaan mengikuti sumber “klaster1”; jangan mengarang, menambah, mengurangi, atau mengoreksi berdasarkan asumsi.
-- Jangan menggunakan nomenklatur lama **“Manajemen Program/Klaster”** sebagai fungsi tersendiri.
-- Website tidak boleh menggunakan draft struktur lama sebagai sumber kebenaran.
-
 ## Dasar regulasi
 
 - UU Nomor 17 Tahun 2023 tentang Kesehatan
@@ -176,6 +162,11 @@ Secara visual, Klaster 1 mempunyai garis koneksi koordinasi horizontal menuju se
 - Permenkes Nomor 19 Tahun 2024 tentang Penyelenggaraan Pusat Kesehatan Masyarakat
 - KMK HK.01.07/MENKES/2015/2023 tentang Petunjuk Teknis Integrasi Pelayanan Kesehatan Primer
 
-## Status
+## Prinsip kerja
+
+- Struktur 10 fokus mengikuti bagan internal yang ditetapkan sebagai sumber nama dan jabatan.
+- UKP dan UKM tetap berada sebagai lapisan koordinasi, bukan fungsi manajemen tambahan.
+- Jangan menggunakan nomenklatur lama **Manajemen Program/Klaster** sebagai fungsi tersendiri.
+- Website tidak boleh menggunakan draft struktur lama sebagai sumber kebenaran.
 
 **Klaster 1 — Manajemen ditetapkan sebagai master kerja aktif untuk pengembangan website dan sistem Puskesmas.**
