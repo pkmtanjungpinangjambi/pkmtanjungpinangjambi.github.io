@@ -66,7 +66,7 @@
     inner.innerHTML = `
 <span>📍 Jl. Taruma Negara No. 50, Kel. Tanjung Pinang, Kec. Jambi Timur, Kota Jambi</span>
 <span><a href="tel:0741755394">📞 (0741) 7555394</a> · <a href="mailto:pkmtanjungpinang18jambi@gmail.com">✉️ Email</a></span>
-<span class="topbar-social"><a href="https://www.instagram.com/pkm.tanjungpinang.jambi" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="#fff" stroke="none"/></svg></a><a href="https://web.facebook.com/kiki.ayu.98229" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.4V14h2.7v8h3.4z"/></svg></a><a href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg width="13" height="13" viewBox="0 0 32 32" fill="#fff"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.3c1.9 1 4 1.6 6.2 1.6h.5c6.6 0 12-5.3 12-11.9C30 8.3 22.6 3 16 3zm5.9 15.1c-.3.8-1.7 1.6-2.4 1.7-.6.1-1.4-.1-2.2-.1-.5-.2-1.2-.4-2-.8-3.5-1.5-5.8-5-6-5.3-.2-.2-1.4-1.9-1.4-3.6-.2-1.7.9-2.6 1.2-2.9.3-.3.7-.4 1 .6.3.8 1.1 2.6 1.2 2.8.1.2.1.4 0 .6-.3.6-.7 1.2-1 1.5-.2.2-.4.5-.2.8.2.4.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.9 1.8.4.2.6.1.8-.1l1.2-1.4c.3-.3.5-.2.9-.1l2.5 1.2c.4.2.6.3.7.5.1.2.1.9-.2 1.8z"/></svg></a></span>`;
+<span class="topbar-social"><a href="https://www.instagram.com/pkm.tanjungpinang.jambi" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="#fff" stroke="none"/></svg></a><a href="https://web.facebook.com/kiki.ayu.98229" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.4V14h2.7v8h3.4z"/></svg></a><a href="https://wa.me/6282180622274" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg width="13" height="13" viewBox="0 0 32 32" fill="#fff"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.3c1.9 1 4 1.6 6.2 1.6h.5c6.6 0 12-5.3 12-11.9C30 8.3 22.6 3 16 3zm5.9 15.1c-.3.8-1.7 1.6-2.4 1.7-.6.1-1.4.1-2.2-.1-.5-.2-1.2-.4-2-.8-3.5-1.5-5.8-5-6-5.3-.2-.2-1.4-1.9-1.4-3.6-.2-1.7.9-2.6 1.2-2.9.3-.3.7-.4 1 .6.3.8 1.1 2.6 1.2 2.8.1.2.1.4 0 .6-.3.6-.7 1.2-1 1.5-.2.2-.4.5-.2.8.2.4.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.9 1.8.4.2.6.1.8-.1l1.2-1.4c.3-.3.5-.2.9-.1l2.5 1.2c.4.2.6.3.7.5.1.2.1.9-.2 1.8z"/></svg></a></span>`;
   }
 
   function ensureMobileToggle() {
@@ -106,26 +106,23 @@
         return strong && strong.textContent.trim() === oldText;
       });
       if (!item) return;
-      const strong = item.querySelector('strong');
-      strong.textContent = newText;
+      item.querySelector('strong').textContent = newText;
       if (href) item.href = href;
     };
 
-    // Rename only where the existing menu already carries the same function.
     rename('Manajemen Puskesmas', 'MANAJEMEN INTI / PERENCANAAN', 'manajemen-puskesmas.html#manajemen-puskesmas');
     rename('Manajemen Sumber Daya', 'MANAJEMEN SDM DAN SISTEM INFORMASI', 'manajemen-puskesmas.html#sumber-daya');
     rename('Mutu & Keselamatan Pasien', 'MANAJEMEN MUTU DAN KESELAMATAN', 'manajemen-puskesmas.html#mutu-keselamatan');
     rename('Manajemen Jejaring', 'MANAJEMEN JEJARING DAN JARINGAN PUSKESMAS', 'manajemen-puskesmas.html#jejaring');
     rename('Pemberdayaan Masyarakat', 'UPAYA KESEHATAN MASYARAKAT (UKM)', 'manajemen-puskesmas.html#pemberdayaan');
 
-    // Existing Ketatausahaan and Struktur Organisasi remain as supporting operational menus.
     const existing = new Set(Array.from(grid.querySelectorAll('.service-link strong')).map(el => el.textContent.trim().toLowerCase()));
     const additions = [
       ['MANAJEMEN ARSIP', 'manajemen-puskesmas.html#ketatausahaan', 'Pengelolaan arsip, dokumentasi, dan tertib administrasi.'],
       ['UPAYA KESEHATAN PERORANGAN (UKP)', 'manajemen-puskesmas.html#manajemen-puskesmas', 'Lapisan koordinasi pelayanan kesehatan perseorangan.'],
       ['MANAJEMEN SARANA, PRASARANA & PERBEKALAN KESEHATAN', 'manajemen-puskesmas.html#sumber-daya', 'Pengelolaan sarana, prasarana, obat, dan perbekalan kesehatan.'],
       ['UMUM DAN RUMAH TANGGA', 'manajemen-puskesmas.html#ketatausahaan', 'Administrasi umum dan kebutuhan rumah tangga Puskesmas.'],
-      ['MANAJEMEN KEUANGAN DAN ASET', 'manajemen-puskesmas.html#keuangan-aset', 'Pengelolaan pembiayaan dan aset Puskesmas.']
+      ['MANAJEMEN KEUANGAN DAN ASET', 'manajemen-puskesmas.html#manajemen-puskesmas', 'Pengelolaan pembiayaan dan aset Puskesmas.']
     ];
 
     let index = grid.querySelectorAll('.service-link').length + 1;
