@@ -165,3 +165,13 @@
   ensureMasterShell();
   loadLegacyBootstrap();
 })();
+
+/* Klaster 1 — arahkan menu langsung ke halaman 10 item master. */
+(function () {
+  'use strict';
+  const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  if (path !== 'pelayanan.html') return;
+  const hash = (window.location.hash || '').toLowerCase();
+  if (hash !== '#klaster-1') return;
+  window.location.replace('klaster-1-manajemen.html');
+})();
