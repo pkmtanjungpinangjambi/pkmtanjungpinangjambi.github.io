@@ -136,6 +136,33 @@
       index += 1;
     });
 
+    const masterOrder = [
+      'MANAJEMEN INTI / PERENCANAAN',
+      'UPAYA KESEHATAN PERORANGAN (UKP)',
+      'MANAJEMEN ARSIP',
+      'UPAYA KESEHATAN MASYARAKAT (UKM)',
+      'MANAJEMEN SDM DAN SISTEM INFORMASI',
+      'MANAJEMEN JEJARING DAN JARINGAN PUSKESMAS',
+      'MANAJEMEN SARANA, PRASARANA & PERBEKALAN KESEHATAN',
+      'UMUM DAN RUMAH TANGGA',
+      'MANAJEMEN MUTU DAN KESELAMATAN',
+      'MANAJEMEN KEUANGAN DAN ASET'
+    ];
+
+    grid.querySelectorAll('.service-link').forEach(item => {
+      const title = item.querySelector('strong')?.textContent.trim();
+      if (title === 'Ketatausahaan & Layanan Administrasi' || title === 'Struktur Organisasi') item.remove();
+    });
+
+    const items = new Map(Array.from(grid.querySelectorAll('.service-link')).map(item => [item.querySelector('strong')?.textContent.trim(), item]));
+    masterOrder.forEach((title, position) => {
+      const item = items.get(title);
+      if (!item) return;
+      const number = item.querySelector('.service-index');
+      if (number) number.textContent = String(position + 1).padStart(2, '0');
+      grid.appendChild(item);
+    });
+
     grid.dataset.master10Applied = '1';
   }
 
