@@ -25,13 +25,6 @@ body{background:#f7faf8}
 .site-header .nav-wrap .dropdown-caret-btn{background:transparent!important;color:#3d514b!important;border:0!important}
 .site-header .nav-wrap .dropdown-caret-btn:hover{background:var(--green-100)!important;color:var(--green-900)!important}
 
-/* ===== NAV DAFTAR ===== */
-.nav-daftar{gap:9px;padding:7px 14px;border-radius:12px}
-.nav-daftar .cal{font-size:1.05rem}
-.nav-daftar .tx{display:flex;flex-direction:column;line-height:1.18;text-align:left}
-.nav-daftar strong{font-size:.85rem}
-.nav-daftar small{font-size:.64rem;font-weight:700;opacity:.92}
-
 /* ===== HERO HOME ===== */
 .hero-home{position:relative;overflow:hidden;isolation:isolate;background:#ffffff;padding:68px 0 104px}
 .hero-home::before{content:"";position:absolute;z-index:-1;right:-110px;top:-140px;width:430px;height:430px;border:1px solid rgba(11,122,75,.12);border-radius:50%;box-shadow:0 0 0 34px rgba(11,122,75,.025),0 0 0 72px rgba(11,122,75,.018)}
@@ -180,9 +173,7 @@ a.announce-item:hover strong{color:var(--green-700)}
 .floating-maps{position:fixed;right:18px;bottom:96px;z-index:60;width:62px;background:#1a73e8;color:#fff;border-radius:16px;padding:9px 6px;text-align:center;text-decoration:none;font-weight:900;font-size:.6rem;line-height:1.25;box-shadow:0 14px 32px rgba(26,115,232,.28)}
 .floating-maps .fm-ic{font-size:1.15rem;display:block;margin-bottom:3px}
 
-/* ===== FOOTER 3D ===== */
-.footer-3d{position:relative;padding-top:20px}
-.footer-3d::before{content:"";display:block;width:min(100%,1200px);height:3px;margin:0 auto 18px;background:linear-gradient(90deg,var(--home-red),#fff,var(--green-700));border-radius:999px;opacity:.8}
+/* ===== FOOTER 3D (Sub-element styles retained for fallback) ===== */
 .footer-grid3{display:grid;grid-template-columns:1fr 1.1fr 1.2fr;gap:24px;align-items:start}
 .footer-grid3 .footer-col{background:transparent;box-shadow:none;padding:0}
 .footer-grid3 h4{font-size:.84rem;margin-bottom:10px;color:#fff}
@@ -309,7 +300,6 @@ a.announce-item:hover strong{color:var(--green-700)}
   .portal-bar{grid-template-columns:1fr}
   .portal-ribbon{max-width:200px;font-size:.72rem}
   .floating-maps{right:12px;bottom:82px}
-  .footer-3d::before{margin-bottom:14px}
 }
 
 /* ----- MOBILE SMALL (≤600px) ----- */
