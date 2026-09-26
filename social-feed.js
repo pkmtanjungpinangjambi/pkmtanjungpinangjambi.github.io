@@ -55,12 +55,9 @@
     normalizeLeaderCulture();
   }
 
-  const tasks=[];
-  if(file==='index.html'){
-    tasks.push(load('home-culture.js').catch(function(error){console.warn('Homepage culture:',error);}));
-  }
-
   if(document.getElementById('social-feed-grid')){
-    tasks.push(Promise.all(tasks).then(function(){return load('social-feed-core.js');}));
+    load('social-feed-core.js').catch(function(error){
+      console.warn('Social feed:', error);
+    });
   }
 })();
